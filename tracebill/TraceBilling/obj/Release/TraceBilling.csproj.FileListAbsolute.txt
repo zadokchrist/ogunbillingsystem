@@ -14,6 +14,8 @@ D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\VBCSComp
 D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll.config
 D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll
 D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.pdb
-D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\obj\Release\TraceBilling.csprojResolveAssemblyReference.cache
+D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\obj\Release\TraceBilling.csprojAssemblyReference.cache
+D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\obj\Release\TraceBilling.csproj.CoreCompileInputs.cache
+D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\obj\Release\TraceBilling.csproj.CopyComplete
 D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\obj\Release\TraceBilling.dll
 D:\tracebill\tracebilldashboardlatest\tracebill\TraceBilling\obj\Release\TraceBilling.pdb
