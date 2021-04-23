@@ -858,5 +858,174 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal void SaveExpenditureDetails(int costID, int applicationID, int itemID, double quantity, double amount, string size, string length, int createdBy)
+        {
+            try
+            {
+
+                ExecuteCommand("Sp_SaveExpenditureDetails", costID, applicationID, itemID, size, length, quantity, amount, createdBy);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        internal DataTable GetExpenseItems(int applicationID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetExpenseItems", applicationID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable SaveFieldExpenseLogs(string estimateid, string appid, string diameterid, string pipetypeid, string pipelength, string excavationlength, string createdby, string comment)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveFieldExpenseLogs", int.Parse(estimateid), int.Parse(appid), int.Parse(diameterid), int.Parse(pipetypeid), pipelength, excavationlength, int.Parse(createdby),comment);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetBlockMaps(string areaid, string branchid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetBlockMaps", int.Parse(areaid),int.Parse(branchid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetBlockConnectionNumber(string areaid, string branchid,string blockno)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetBlockConnectionNumber", int.Parse(areaid), int.Parse(branchid),blockno);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable SaveFieldDocket(string recordCode, string applicationid, string pipediameter, string metertype, string meterref, string meternumber, string createdby, string remark,
+            string longitude, string latitude, string reading, string dials, string meterlife, DateTime manufacturedate, DateTime installdate, string blocknumber, string connectionno,string installedby)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveFieldDocket", int.Parse(recordCode), int.Parse(applicationid), int.Parse(pipediameter), int.Parse(metertype), meterref, meternumber, int.Parse(createdby), remark,
+                    longitude,latitude,reading,dials,meterlife,manufacturedate,installdate,blocknumber,connectionno,installedby);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetFieldDocketByApplication(int appid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetFieldCustomerDetails", appid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetNewConnectionCustomerDetails(string appnumber)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetNewConnectionCustomerDetails", appnumber);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetTariff(string classid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetTariff", int.Parse(classid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetCustomerCategory()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustomerCategory");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable SaveCustomerDetails(CustomerObj cust)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+//               
+                dt = ExecuteDataSet("Sp_SaveCustomerDetails", cust.CustRef,cust.PropertyRef,cust.MeterRef,cust.ApplicationId,cust.CustName,cust.Title,
+                    cust.Occupation,cust.Contact1,cust.Contact2,cust.Email,cust.Address,cust.Territory,int.Parse(cust.MeterMake),cust.MeterNumber,int.Parse(cust.MeterSize),
+                    cust.Longitude,cust.Latitude,int.Parse(cust.Area),int.Parse(cust.Branch),int.Parse(cust.ConnectionNumber),int.Parse(cust.Classification),int.Parse(cust.Tariff), int.Parse(cust.Category),
+                    int.Parse(cust.CustomerType), int.Parse(cust.SupplyStatus),cust.IsActive,cust.HasSewer,int.Parse(cust.CreatedBy),cust.Block,int.Parse(cust.Status));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetApplicationTrackLogs(string appnumber)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetApplicationTrackLogs",appnumber);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

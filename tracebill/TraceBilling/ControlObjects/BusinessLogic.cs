@@ -314,7 +314,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-
+       
 
         public string EncryptString(string ClearText)
         {
@@ -382,12 +382,16 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        
+
         public string GetCodeIdentity(string value, int flag)
         {
             string output = "0";
             output = dh.GetCodeIdentity(value, flag);
             return output;
         }
+
+      
 
         public string GetApplicationNumber(string Code, string countrycode, string AreaCode, string BranchCode, string UserCode)
         {
@@ -764,7 +768,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-
+        
 
         internal ResponseMessage SaveFieldConnection(string conid, string appid, string jobno, string customertype, string category, string authorizedby, DateTime connectiondate, DateTime instructiondate, string createdby, string areaid)
         {
@@ -876,6 +880,9 @@ namespace TraceBilling.ControlObjects
             }
             return output;
         }
+
+        
+
         internal DataTable GetFieldCustomerDetails(string appid)
         {
             dt = new DataTable();
@@ -1421,6 +1428,288 @@ namespace TraceBilling.ControlObjects
                 Log("SaveCountryDetails", "101 " + ex.Message);
             }
         }
+        internal string SaveExpenditureDetails(string costCode, string applicationCode, string expenseItemCode, string size, string length, string quantity, string unitCost)
+        {
+            string output = "";
+            try
+            {
+                int CostID = Convert.ToInt32(costCode);
+                int ApplicationID = Convert.ToInt32(applicationCode);
+                int ItemID = Convert.ToInt16(expenseItemCode);
+                int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["userID"].ToString());
+                double Quantity = 1.0;
+                if (quantity != "")
+                {
+                    Quantity = Convert.ToDouble(quantity);
+                }
+                double Amount = Convert.ToDouble(unitCost.Replace(",", ""));
+                dh.SaveExpenditureDetails(CostID, ApplicationID, ItemID, Quantity, Amount, size, length, CreatedBy);
+                if (costCode == "0")
+                {
+                    output = "Field expense Details have been Captured Successfully";
+                }
+                else
+                {
+                    output = "Field expense Details have been updated Successfully";
+                }
+            }
+            catch (Exception ex)
+            {
+                Log("SaveExpenditureDetails", "101 " + ex.Message);
+            }
+            return output;
+        }
+        internal DataTable GetExpenseItems(int applicationID)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetExpenseItems(applicationID);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetExpenseItems", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal ResponseMessage SaveFieldExpenseLogs(string estimateid, string applicationid, string pipediameter, string pipetype, string pipelength, string excavationlength, string createdby,string comment)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveFieldExpenseLogs(estimateid, applicationid, pipediameter, pipetype, pipelength, excavationlength, createdby,comment);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveFieldExpenseLogs", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
+        public bool IsValidReadingDate(string ReadDate)
+        {
+            DateTime RdgDate = Convert.ToDateTime(ReadDate);
+            DateTime now = DateTime.Now;
+            if (RdgDate > now)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        internal DataTable GetBlockMaps(string areaid,string branchid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetBlockMaps(areaid,branchid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetBlockMaps", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetBlockConnectionNumber(string areaid, string branchid,string blockno)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetBlockConnectionNumber(areaid, branchid,blockno);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetBlockConnectionNumber", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal ResponseMessage SaveFieldDocket(string recordCode, string applicationid, string pipediameter, string metertype, string meterref, string meternumber, string createdby, string remark, 
+            string longitude, string latitude, string reading, string dials, string meterlife, DateTime manufacturedate, string installedby, DateTime installdate, string blocknumber, string connectionno)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveFieldDocket(recordCode, applicationid, pipediameter, metertype, meterref, meternumber, createdby, remark,longitude,latitude,reading,dials,meterlife,manufacturedate,installdate,
+                    blocknumber,connectionno,installedby);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveFieldExpenseLogs", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
+        public string GetMeterReference(string areaCode, string block, string connectionNumber)
+        {
+            string meterRef = "";
+          
+            int connLen = connectionNumber.Length;
+            int zeros = 0;
+          
+            if (connLen == 1)
+            {
+                connectionNumber = "000" + connectionNumber;
+            }
+            else if (connLen == 2)
+            {
+                connectionNumber = "00" + connectionNumber;
+            }
+            else if (connLen == 3)
+            {
+                connectionNumber = "0" + connectionNumber;
+            }
+            meterRef = areaCode + block + connectionNumber;
+            return meterRef;
+        }
+        internal DataTable GetFieldDocketByApplication(int appid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetFieldDocketByApplication(appid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetFieldDocketByApplication", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetNewConnectionCustomerDetails(string appnumber)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetNewConnectionCustomerDetails(appnumber);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetNewConnectionCustomerDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetTariff(string classid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTariff(classid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTariff", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal ResponseMessage ValidateCustomer(string custName, string meterRef, string propertyRef, string tariff, string category)
+        {
+            ResponseMessage message = new ResponseMessage();
+            try
+            {
+
+                if (String.IsNullOrEmpty(custName))
+                {
+                    message.Response_Code = "103";
+                    message.Response_Message = "THE CUSTNAME CANNOT BE EMPTY!";
+                }
+                else if (String.IsNullOrEmpty(meterRef))
+                {
+                    message.Response_Code = "103";
+                    message.Response_Message = "THE METERREF CANNOT BE EMPTY!";
+                }
+                else if (String.IsNullOrEmpty(propertyRef))
+                {
+                    message.Response_Code = "103";
+                    message.Response_Message = "THE PHONE NUMBER CANNOT BE EMPTY!";
+                }
+                
+                else
+                {
+                    message.Response_Code = "0";
+                    message.Response_Message = "SUCCESS";
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                message.Response_Code = "101";
+                message.Response_Message = ex.Message;
+                Log("ValidateCustomer", message.Response_Code + " " + message.Response_Message);
+
+            }
+            return message;
+        }
+        internal ResponseMessage SaveCustomerDetails(CustomerObj cust)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveCustomerDetails(cust);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveCustomerDetails", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
+        internal DataTable GetCustomerCategory()
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCustomerCategory();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetCustomerClass", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetApplicationTrackLogs(string appnumber)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetApplicationTrackLogs(appnumber);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetApplicationTrackLogs", "101 " + ex.Message);
+            }
+            return dt;
+        }
+
         /* public bool IsCompulsaryPaid(string appnumber)
          {
              bool value = false;

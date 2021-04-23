@@ -223,6 +223,7 @@
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.css" />
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.min.css" />
     <Content Include="bin\itextsharp.dll" />
+    <Content Include="CustomerCreation.aspx" />
     <Content Include="dist\css\refs.css" />
     <Content Include="assets\dist\css\skins\skin-black-light.css" />
     <Content Include="assets\dist\css\skins\skin-black-light.min.css" />
@@ -7568,6 +7569,7 @@
     <Content Include="SurveyJobs.aspx" />
     <Content Include="SystemSettings.aspx" />
     <Content Include="ViewApplications.aspx" />
+    <Content Include="ViewApplicationTrack.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="ViewTransactions.aspx" />
     <Content Include="ViewUsers.aspx" />
@@ -7634,6 +7636,13 @@
     <Compile Include="ControlObjects\BusinessLogic.cs" />
     <Compile Include="ControlObjects\DatabaseHandler.cs" />
     <Compile Include="ControlObjects\DataFile.cs" />
+    <Compile Include="CustomerCreation.aspx.cs">
+      <DependentUpon>CustomerCreation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CustomerCreation.aspx.designer.cs">
+      <DependentUpon>CustomerCreation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7643,6 +7652,7 @@
     </Compile>
     <Compile Include="EntityObjects\AdviseSlipObj.cs" />
     <Compile Include="EntityObjects\ApplicationObj.cs" />
+    <Compile Include="EntityObjects\CustomerObj.cs" />
     <Compile Include="EntityObjects\ResponseMessage.cs" />
     <Compile Include="EntityObjects\TransactionObj.cs" />
     <Compile Include="EntityObjects\UserObj.cs" />
@@ -7749,6 +7759,13 @@
     </Compile>
     <Compile Include="ViewApplications.aspx.designer.cs">
       <DependentUpon>ViewApplications.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewApplicationTrack.aspx.cs">
+      <DependentUpon>ViewApplicationTrack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewApplicationTrack.aspx.designer.cs">
+      <DependentUpon>ViewApplicationTrack.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

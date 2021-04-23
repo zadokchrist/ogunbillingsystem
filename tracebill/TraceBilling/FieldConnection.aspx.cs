@@ -72,12 +72,31 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
+        private void LoadBlockMaps(string areaid, string branchid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetBlockMaps(areaid,branchid);
+                cboBlock.DataSource = dt;
+
+                cboBlock.DataTextField = "blockNumber";
+                cboBlock.DataValueField = "blockID";
+                cboBlock.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadBlockMaps", error);
+                DisplayMessage(error, true);
+            }
+        }
 
 
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -165,6 +184,7 @@ namespace TraceBilling
                 connectioninvoice.Visible = false;
                 docketdisplay.Visible = false;
                 lblapplicant.Visible = false;
+                btnlinks.Visible = false;
                 LoadConnectionDetails();
             }
             catch (Exception ex)
@@ -229,13 +249,14 @@ namespace TraceBilling
                     lblarea.Text = dt.Rows[0]["areaId"].ToString();
                     string customertype = dt.Rows[0]["typeName"].ToString();
                     string category = dt.Rows[0]["className"].ToString();
-
+                    string areacode = dt.Rows[0]["areaCode"].ToString();
                     //load controls
                     btnlinks.Visible = true;
                     string applicant = appnumber + "-->" + appname.Trim();
                     lblapplicant.Text = applicant;
+                    lblareacode.Text = areacode;
                     //see customer details
-                    // showmaterialdetails(lblApplicationCode.Text);
+                     showmaterialdetails(lblApplicationCode.Text);
 
                 }
                 else
@@ -249,11 +270,16 @@ namespace TraceBilling
                 throw ex;
             }
         }
-            
-//private void showmaterialdetails(string text)
-//        {
-//            throw new NotImplementedException();
-//        }
+
+        private void showmaterialdetails(string text)
+        {
+            string appid = lblApplicationCode.Text.Trim();
+            LoadMaterialCategories();
+            LoadCostingMaterials(int.Parse(appid));
+            LoadExpenseItems(int.Parse(appid));
+            LoadPipeDiameterList();
+            LoadPipeTypeList();
+        }
 
 
         //protected void rtnTariff_SelectedIndexChanged(object sender, EventArgs e)
@@ -280,9 +306,10 @@ namespace TraceBilling
             LoadMaterialCategories();
             string appid = lblApplicationCode.Text.Trim();
             LoadCostingMaterials(int.Parse(appid));
-            LoadCostingItems(int.Parse(appid));
+            LoadExpenseItems(int.Parse(appid));
             LoadPipeDiameterList();
             LoadPipeTypeList();
+            DisplayMessage(".", false);
         }
 
 
@@ -299,6 +326,7 @@ namespace TraceBilling
                 string excavationlength = txtexcavation.Text.Trim();
                 string createdby = Session["UserID"].ToString();
                 string applicant = lblapplicant.Text.Trim();
+                string comment = txtcomment.Text.Trim();
                 if (pipediameter == "0")
                 {
                     DisplayMessage("Please select pipe diameter", true);
@@ -315,25 +343,29 @@ namespace TraceBilling
                 {
                     DisplayMessage("Please enter distance to be excavated", true);
                 }
+                else if (comment == "")
+                {
+                    DisplayMessage("Please enter a valid general field comment", true);
+                }
                 else
                 {
                     //save details
-                    resp = bll.SaveFieldEstimates(estimateid, applicationid, pipediameter, pipetype, pipelength, excavationlength, createdby);
+                    resp = bll.SaveFieldExpenseLogs(estimateid, applicationid, pipediameter, pipetype, pipelength, excavationlength, createdby,comment);
                     if (resp.Response_Code == "0")//save
                     {
-                        string str = " with field estimate details against application(" + applicant + ") sucessfully saved.";
+                        string str = " with field expense details against application(" + applicant + ") sucessfully saved.";
                         string res = resp.Response_Message + str;
                         DisplayMessage(res, false);
                     }
                     else if (resp.Response_Code == "1")//edit and update
                     {
 
-                        string str = " with connection details against application(" + applicant + ") updated";
+                        string str = " with field expense details against application(" + applicant + ") updated";
                         string res = resp.Response_Message + str;
                         DisplayMessage(res, false);
                     }
                     //log to next level
-                    bll.LogApplicationTransactions(int.Parse(applicationid), 5, int.Parse(createdby));
+                   // bll.LogApplicationTransactions(int.Parse(applicationid), 5, int.Parse(createdby));
                     //clear conrols
                     ClearEstimatesControls();
                 }
@@ -371,11 +403,11 @@ namespace TraceBilling
                 }
                 else
                 {
-                    string returned = bll.SaveCostingDetails(CostCode, ApplicationCode, ExpenseItemCode, Size, Length, Quantity, UnitCost);
+                    string returned = bll.SaveExpenditureDetails(CostCode, ApplicationCode, ExpenseItemCode, Size, Length, Quantity, UnitCost);
                     DisplayMessage(returned, false);
                     ClearCostingControls();
                     //LoadCostingControls();
-                    LoadCostingItems(int.Parse(ApplicationCode));
+                    LoadExpenseItems(int.Parse(ApplicationCode));
 
                 }
             }
@@ -386,7 +418,7 @@ namespace TraceBilling
         }
         private void LoadMaterialCategories()
         {
-            string type = "COSTING";
+            string type = "EXPENSE";
             DataTable dt_classes = bll.GetMaterialOptions(type);
             materialoptions.DataSource = dt_classes;
             materialoptions.DataValueField = "categoryID";
@@ -401,6 +433,10 @@ namespace TraceBilling
         public void LoadCostingMaterials(int applicationID)
         {
             string category_code = materialoptions.SelectedValue.ToString();
+            if(category_code.Equals(""))
+            {
+                category_code = "1";
+            }
             int categoryId = int.Parse(category_code);
             DataTable dataTable = bll.GetCostMaterials(applicationID, categoryId);
             material_list.DataSource = dataTable;
@@ -427,9 +463,9 @@ namespace TraceBilling
         {
             material_list.Items.Insert(0, new ListItem("- - select material - -", "0"));
         }
-        private void LoadCostingItems(int ApplicationID)
+        private void LoadExpenseItems(int ApplicationID)
         {
-            DataTable dataTable = bll.GetCostingItems(ApplicationID);
+            DataTable dataTable = bll.GetExpenseItems(ApplicationID);
             DataGrid1.DataSource = dataTable;
             DataGrid1.CurrentPageIndex = 0;
             DataGrid1.DataBind();
@@ -535,6 +571,26 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
+
+        private void LoadPipeSizeList()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetPipeDiameterList();
+                cboMeterSize.DataSource = dt;
+
+                cboMeterSize.DataTextField = "diameter";
+                cboMeterSize.DataValueField = "diameterId";
+                cboMeterSize.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadPipeSizeList", error);
+                DisplayMessage(error, true);
+            }
+        }
         private void LoadPipeTypeList()
         {
             DataTable dt = new DataTable();
@@ -562,6 +618,29 @@ namespace TraceBilling
         {
             pipematerial_list.Items.Insert(0, new ListItem("- - select pipe material - -", "0"));
         }
+        private void ClearDocketControls()
+        {
+            txtpipelength.Text = "";
+            txtexcavation.Text = "";
+            cboMeterSize.SelectedValue = "0";
+            cboType.SelectedValue = "0";
+            lblestimateid.Text = "0";
+            txtcomment.Text = "";
+            txtMeterRef.Text = "";
+            cboBlock.SelectedValue = "0";
+            txtConnectionNo.Text = "";
+            txtNumber.Text = "";
+            txtcomment.Text = "";
+            txtDials.Text = "";
+            txtInstallationDate.Text = "";
+            txtInstalledby.Text = "";
+            txtlattitude.Text = "";
+            txtlongitude.Text = "";
+            txtMeterLife.Text = "";
+            txtManufacturedDate.Text = "";
+            txtReading.Text = "";
+
+        }
         private void ClearEstimatesControls()
         {
             txtpipelength.Text = "";
@@ -579,9 +658,54 @@ namespace TraceBilling
             connectioninvoice.Visible = false;
             LoadMaterialCategories();
             string appid = lblApplicationCode.Text.Trim();
-            
-            LoadPipeDiameterList();
+            LoadPipeSizeList();
             LoadMeterTypes();
+            LoadBlockSession();
+            LoadDocketByApplication(int.Parse(appid));
+            DisplayMessage(".", false);
+        }
+
+        private void LoadDocketByApplication(int appid)
+        {
+            try
+            {
+                DataTable dtapp = bll.GetFieldDocketByApplication(appid);
+                if(dtapp.Rows.Count > 0)
+                {
+                    lblConnectionCode.Text = dtapp.Rows[0]["connectionId"].ToString();
+                    txtMeterRef.Text = dtapp.Rows[0]["meterRef"].ToString();
+                    txtDials.Text = dtapp.Rows[0]["dials"].ToString();
+                    txtMeterLife.Text = dtapp.Rows[0]["meterLife"].ToString();
+                    txtNumber.Text = dtapp.Rows[0]["meterNumber"].ToString();
+                    txtReading.Text = dtapp.Rows[0]["initialReading"].ToString();
+                    txtConnectionNo.Text = dtapp.Rows[0]["plotNumber"].ToString();
+                    txtRemark.Text = dtapp.Rows[0]["remark"].ToString();
+                    txtlongitude.Text = dtapp.Rows[0]["longitude"].ToString();
+                    txtlattitude.Text = dtapp.Rows[0]["latitude"].ToString();
+                    txtInstalledby.Text = dtapp.Rows[0]["installedBy"].ToString();
+                    txtInstallationDate.Text = dtapp.Rows[0]["installedDate"].ToString();
+                    //DateTime installdt = Convert.ToDateTime(dt.Rows[0]["installedDate"].ToString());
+                    //txtInstallationDate.Text = installdt.ToString("dd-M-yy");//
+                    txtManufacturedDate.Text = dtapp.Rows[0]["manufactureDate"].ToString();
+                    string blockno = dtapp.Rows[0]["blockNumber"].ToString();
+                    string metertype = dtapp.Rows[0]["meterTypeId"].ToString();
+                    string metersize = dtapp.Rows[0]["meterSizeId"].ToString();
+                    cboMeterSize.SelectedIndex = cboMeterSize.Items.IndexOf(cboMeterSize.Items.FindByValue(metersize));
+                    cboType.SelectedIndex = cboType.Items.IndexOf(cboType.Items.FindByValue(metertype));
+                    cboBlock.SelectedIndex = cboBlock.Items.IndexOf(cboBlock.Items.FindByText(blockno));
+                }
+            }
+            catch(Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+        }
+
+        private void LoadBlockSession()
+        {
+            string areaid = Session["areaId"].ToString();
+            string branchid = Session["branchId"].ToString();
+            LoadBlockMaps(areaid, branchid);
         }
 
         private void LoadMeterTypes()
@@ -633,7 +757,161 @@ namespace TraceBilling
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string RecordCode = lblMeterCode.Text.Trim();
+                string ConnectionCode = lblConnectionCode.Text.Trim();
+                string meterref = txtMeterRef.Text.Trim();
+                string applicationid = lblApplicationCode.Text.Trim();
+                string pipediameter = cboMeterSize.SelectedValue.ToString();
+                string metertype = cboType.SelectedValue.ToString();
+                string meternumber = txtNumber.Text.Trim();
+                string remark = txtRemark.Text.Trim();
+                string createdby = Session["UserID"].ToString();
+                string applicant = lblapplicant.Text.Trim();
+                string longitude = txtlongitude.Text.Trim();
+                string latitude = txtlattitude.Text.Trim();
+                string reading = txtReading.Text.Trim();
+                string dials = txtDials.Text.Trim();
+                string meterlife = txtMeterLife.Text.Trim();
+                string manufacturedate = txtManufacturedDate.Text.Trim();
+                string installedby = txtInstalledby.Text.Trim();
+                string installdate = txtInstallationDate.Text.Trim();
+                string blocknumber = cboBlock.SelectedItem.ToString();
+                string connectionno = txtConnectionNo.Text.Trim();
+                DateTime installdt = Convert.ToDateTime(installdate);
+                DateTime manufacturedt = Convert.ToDateTime(manufacturedate);
+                //if (!ConnectionCode.Equals("0"))//record being updated
+                //{
+                //    installdt = DateTime.Parse(installdate);
+                //    manufacturedt = DateTime.Parse(manufacturedate);
+                //}
+                if (pipediameter == "0")
+                {
+                    DisplayMessage("Please select pipe diameter/size", true);
+                }
+                else if (metertype == "0")
+                {
+                    DisplayMessage("Please select meter type", true);
+                }
+                else if (meternumber == "")
+                {
+                    DisplayMessage("Please enter meter number/serial", true);
+                }
+                else if (reading == "")
+                {
+                    DisplayMessage("Please enter initial reading on meter", true);
+                }
+                else if (remark == "")
+                {
+                    DisplayMessage("Please enter a valid general field comment", true);
+                }
+                else if (dials == "")
+                {
+                    DisplayMessage("Please enter valid dials on meter", true);
+                }
+                else if (!bll.IsValidReadingDate(installdate))
+                {
+                    string Todate = DateTime.Now.ToString("dd/MM/yyyy");
+                    DisplayMessage("Invalid Meter Installation Date, It cannot be greater than Today ( " + Todate + " )", true);
+                }
+                else
+                {
+                    //save details
+                    resp = bll.SaveFieldDocket(RecordCode, applicationid, pipediameter, metertype, meterref, meternumber, createdby, remark,longitude,latitude,
+                        reading,dials,meterlife,manufacturedt,installedby,installdt,blocknumber,connectionno);
+                    if (resp.Response_Code == "0")//save
+                    {
+                        string str = " with field docket details against application(" + applicant + ") sucessfully saved.";
+                        string res = resp.Response_Message + str;
+                        DisplayMessage(res, false);
+                    }
+                    else if (resp.Response_Code == "1")//edit and update
+                    {
 
+                        string str = " with field docket details against application(" + applicant + ") updated";
+                        string res = resp.Response_Message + str;
+                        DisplayMessage(res, false);
+                    }
+                    //log to next level
+                    int status = 12;//forward to billing
+                    bll.LogApplicationTransactions(int.Parse(applicationid), status, int.Parse(createdby));
+                    //clear conrols
+                    ClearDocketControls();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void cboBlock_DataBound(object sender, EventArgs e)
+        {
+            cboBlock.Items.Insert(0, new ListItem("- - Select - -", "0"));
+        }
+        protected void btnGetNumber_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string BlockNumber = cboBlock.SelectedItem.ToString();
+
+                if (cboBlock.SelectedValue.ToString() == "0")
+                {
+                    DisplayMessage("Please Select Block Map Number", true);
+                }
+                else
+                {
+                    string areaid = Session["areaId"].ToString();
+                    string branchid = Session["branchId"].ToString();
+                    DataTable dataTable = bll.GetBlockConnectionNumber(areaid,branchid,BlockNumber);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        int OldNumber = Convert.ToInt16(dataTable.Rows[0]["connectionNumber"].ToString());
+                        int NewNumber = OldNumber + 1;
+                        txtConnectionNo.Text = NewNumber.ToString();
+                       
+                    }
+                    else
+                    {
+                        DisplayMessage("No Results founds for Block Number " + BlockNumber, true);
+                        //txtMapNo.Focus();
+                        txtConnectionNo.Text = "";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+        }
+
+        protected void btnGetMeterRef_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string BlockNumber = cboBlock.SelectedItem.ToString();
+                string connectionno = txtConnectionNo.Text.Trim();
+                string areacode = lblareacode.Text;
+                if (cboBlock.SelectedValue.ToString() == "0")
+                {
+                    DisplayMessage("Please Select Block Map Number", true);
+                }
+                else if (connectionno == "")
+                {
+                    DisplayMessage("Please generate Number", true);
+                }
+                else
+                {
+                    string meterref = bll.GetMeterReference(areacode, BlockNumber, connectionno);
+                    txtMeterRef.Text = meterref;
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
         }
     }
 }

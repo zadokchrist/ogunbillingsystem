@@ -295,7 +295,7 @@
                <%} %>
                 <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9")
                                                   {%>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Customer Creation</a></li>
+              <li><a href="CustomerCreation.aspx"><i class="fa fa-circle-o"></i> Customer Creation</a></li>
                <%} %>
               <li><a href="ViewApplications.aspx"><i class="fa fa-circle-o"></i> View Application Details</a></li>
            
