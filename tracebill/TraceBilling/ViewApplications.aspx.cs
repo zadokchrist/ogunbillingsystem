@@ -237,10 +237,16 @@ namespace TraceBilling
 
             if (e.CommandName == "RowPrint")
             {
+                string str = "";
                 //string UserID = e.Item.Cells[0].Text;
-                string appid = Convert.ToString(e.CommandArgument.ToString());
-                string str = "Sorry, Application Foam print out not available yet!!!";
-                DisplayMessage(str, true);
+                //string appid = Convert.ToString(e.CommandArgument.ToString());
+                //string str = "Sorry, Application Foam print out not available yet!!!";
+                string[] arg = new string[2];
+                arg = e.CommandArgument.ToString().Split(';');
+                string appnumber = arg[0];
+                string areaid = arg[1];
+                PrintFoam(appnumber, areaid);
+                //DisplayMessage(str, true);
             }
             else if (e.CommandName == "RowView")
             {
@@ -248,6 +254,36 @@ namespace TraceBilling
                 //string str = "Sorry, Application Foam print out not available yet!!!";
                 // DisplayMessage(returned, true);
                 LoadApplicationStatusLogs(appid);
+            }
+        }
+        public void PrintFoam(string appnumber, string areaid)
+        {
+            try
+            {
+                PDFPrints pp = new PDFPrints();
+                //string referenceno = "26012021/234/210/0/1";//1:application no, 2:paymentref, 3:referenceno
+                string flag = "1";
+                string res = "";
+                //string companyid = "2";
+                string user = Session["FullName"].ToString();
+                DataTable dt = bll.GetCustomerReportData(appnumber, flag);
+                DataTable dtprofile = bll.GetCompanyProfile(areaid);
+                if (dt.Rows.Count > 0)
+                {
+                     res = pp.GetPDFForm(dt, dtprofile, user);
+                    //Console.WriteLine(res);
+                    DisplayMessage(res, true);
+                }
+                else
+                {
+                    res = "Sorry, Application Foam print out not available yet!!!";
+                    DisplayMessage(res, true);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
         protected void gv_applicationview_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)

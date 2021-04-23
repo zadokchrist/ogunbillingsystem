@@ -1027,5 +1027,32 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetCustomerReportData(string reference, string flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustomerReportData", reference, flag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetCompanyProfile(string companyid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCompanyProfile", int.Parse(companyid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

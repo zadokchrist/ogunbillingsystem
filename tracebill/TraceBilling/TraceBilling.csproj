@@ -6870,6 +6870,7 @@
     <Content Include="General.Master" />
     <Content Include="GenerateConnectionInvoice.aspx" />
     <!--<Content Include="images\tracebilllogo.jpeg" />-->
+    <Content Include="icons\tracebilllogo.png" />
     <Content Include="images\tracelogo.png" />
     <Content Include="Logout.aspx" />
     <Content Include="MainPage.Master" />
@@ -7636,6 +7637,7 @@
     <Compile Include="ControlObjects\BusinessLogic.cs" />
     <Compile Include="ControlObjects\DatabaseHandler.cs" />
     <Compile Include="ControlObjects\DataFile.cs" />
+    <Compile Include="ControlObjects\PDFPrints.cs" />
     <Compile Include="CustomerCreation.aspx.cs">
       <DependentUpon>CustomerCreation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

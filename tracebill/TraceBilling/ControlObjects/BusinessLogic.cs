@@ -1709,6 +1709,36 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetCustomerReportData(string appnumber,string flag)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCustomerReportData(appnumber,flag);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetCustomerReportData", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetCompanyProfile(string compainyid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCompanyProfile(compainyid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetCompanyProfile", "101 " + ex.Message);
+            }
+            return dt;
+        }
 
         /* public bool IsCompulsaryPaid(string appnumber)
          {

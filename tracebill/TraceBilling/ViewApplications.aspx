@@ -98,8 +98,9 @@
                  <%-- <asp:BoundField DataField="serviceName" HeaderText="serviceName" NullDisplayText="-" /> --%>
                <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-" /> 
                   <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> 
+                  <asp:BoundField DataField="areaId" HeaderText="AreaID" NullDisplayText="-" Visible="false" />
               <%--   <asp:BoundField DataField="countryId" HeaderText="CountryID" NullDisplayText="-"  Visible="false"/> 
-                  <asp:BoundField DataField="areaId" HeaderText="AreaID" NullDisplayText="-" Visible="false" /> --%>
+                  --%>
                  <asp:BoundField DataField="assignedTo" HeaderText="AssignedTo" NullDisplayText="-" /> 
              <%--    <asp:ButtonField ButtonType="Button" CommandName="btnPrint" HeaderText="Foam"
             Text="Print" ItemStyle-ForeColor="Green" />
@@ -112,7 +113,7 @@
                 <asp:LinkButton ID="PrintButton"
                                 runat="server"
                                 CommandName="RowPrint" 
-                    CommandArgument='<%#Eval("applicationNumber") %>'
+                     CommandArgument='<%#Eval("applicationNumber") + ";" +Eval("areaId") %>'
                                
                                 Text="Print" />
                  
