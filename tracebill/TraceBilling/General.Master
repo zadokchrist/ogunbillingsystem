@@ -330,8 +330,8 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Inventory</a></li>
             <li><a href="ReadingCycle.aspx"><i class="fa fa-circle-o"></i> Reading Cycle</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Route Definition</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Exceptions and Variance</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Meter repairs and Replacement</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Exceptions & Variance</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Meter repairs & Replacement</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Meter History Log</a></li>
           </ul>
                 <%} %>
@@ -366,12 +366,12 @@
             </span>
           </a>
           <ul class="treeview-menu">
-      
+      <li><a href="BillingCycle.aspx"><i class="fa fa-circle-o"></i> Billing Cycles Management</a></li>
            <li><a href="#"><i class="fa fa-circle-o"></i> Service Definition</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Consumption & Non-Consumption charges </a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Auto and Manual Bill production</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Billing Cycles Management</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Billing Simulations and forecasts</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Consumption & Non-Consumption charges </a></li>--%>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Auto & Manual Bill production</a></li>
+            
+              <li><a href="#"><i class="fa fa-circle-o"></i> Billing Simulations & forecasts</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Invoice Customization</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Onspot Billing</a></li>
           </ul>

@@ -292,6 +292,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtAvgConsumption;
         
         /// <summary>
+        /// txtdials control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtdials;
+        
+        /// <summary>
         /// txtType control.
         /// </summary>
         /// <remarks>
@@ -328,6 +337,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtReadDate;
         
         /// <summary>
+        /// reader_list control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList reader_list;
+        
+        /// <summary>
         /// txtotherReader control.
         /// </summary>
         /// <remarks>
@@ -335,6 +353,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtotherReader;
+        
+        /// <summary>
+        /// comment_list control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList comment_list;
         
         /// <summary>
         /// chkEstimate control.

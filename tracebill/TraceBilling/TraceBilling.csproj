@@ -7655,6 +7655,7 @@
     <Compile Include="EntityObjects\AdviseSlipObj.cs" />
     <Compile Include="EntityObjects\ApplicationObj.cs" />
     <Compile Include="EntityObjects\CustomerObj.cs" />
+    <Compile Include="EntityObjects\ReadingObj.cs" />
     <Compile Include="EntityObjects\ResponseMessage.cs" />
     <Compile Include="EntityObjects\TransactionObj.cs" />
     <Compile Include="EntityObjects\UserObj.cs" />

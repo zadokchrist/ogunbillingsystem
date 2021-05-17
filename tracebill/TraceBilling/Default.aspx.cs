@@ -17,7 +17,10 @@ namespace TraceBilling
         ResponseMessage resp = new ResponseMessage();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            //if (Session["roleId"] == null)
+            //{
+            //    Response.Redirect("Default.aspx");
+            //}
         }
 
         protected void Button1_Click(object sender, EventArgs e)

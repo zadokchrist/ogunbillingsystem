@@ -27,7 +27,10 @@ namespace TraceBilling
             {
                 if (IsPostBack == false)
                 {
-
+                    if (Session["roleId"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
                     LoadCountryList();
                     int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     LoadAreaList(countryid);
@@ -44,9 +47,10 @@ namespace TraceBilling
             DataTable dt = new DataTable();
             try
             {
+                string countryid = Session["countryId"].ToString();
                 dt = bll.GetCountryList();
                 country_list.DataSource = dt;
-
+                country_list.SelectedValue = countryid;
                 country_list.DataTextField = "countryName";
                 country_list.DataValueField = "countryId";
                 country_list.DataBind();
@@ -170,11 +174,47 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
+        private void LoadFieldComments()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetFieldComments();
+                comment_list.DataSource = dt;//Code,comment
+                comment_list.DataTextField = "comment";
+                comment_list.DataValueField = "Code";
+                comment_list.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayCommentList", error);
+                DisplayMessage(error, true);
+            }
+        }
+        private void LoadMeterReaders(string areaid,string roleid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetSystemUserByRole(areaid,roleid);
+                reader_list.DataSource = dt;
+                reader_list.DataTextField = "fullName";
+                reader_list.DataValueField = "userID";
+                reader_list.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayReaderList", error);
+                DisplayMessage(error, true);
+            }
+        }
 
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -212,6 +252,14 @@ namespace TraceBilling
         {
             branch_list1.Items.Insert(0, new ListItem("- - None - -", "0"));
         }
+        protected void reader_list_DataBound(object sender, EventArgs e)
+        {
+            reader_list.Items.Insert(0, new ListItem("- - None - -", "0"));
+        }
+        protected void comment_list_DataBound(object sender, EventArgs e)
+        {
+            comment_list.Items.Insert(0, new ListItem("- - None - -", "0"));
+        }
 
         protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -220,6 +268,7 @@ namespace TraceBilling
                 //int deptid = int.Parse(department_list.SelectedValue.ToString());
                 int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                 LoadAreaList(countryid);
+                LoadAreaList3(countryid);
                 //load session data
             }
             catch (Exception ex)
@@ -246,6 +295,14 @@ namespace TraceBilling
         private void LoadDisplay()
         {
             generateschedule.Visible = false;
+            string areaid = Session["areaId"].ToString();
+            string user = Session["FullName"].ToString();
+            txtcurrentperiod.Text = bll.GetBillingPeriod(areaid);
+            txtuser.Text = user;
+            int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+            LoadAreaList3(countryid);
+            LoadBranchList1(0);
+            capturereading.Visible = true;
             //confirminvoice.Visible = false;
             //lblapplicant.Visible = false;
             //btnlinks.Visible = false;
@@ -271,6 +328,7 @@ namespace TraceBilling
             downloadroute.Visible = false;
             uploadroutes.Visible = false;
             handleexeptions.Visible = false;
+            LoadDisplay();
         }
 
         protected void btnroutedownload_Click(object sender, EventArgs e)
@@ -437,12 +495,12 @@ namespace TraceBilling
         {
             try
             {
-                string countryid = Session["countryId"].ToString();
-                string areaid = Session["areaId"].ToString();
+                string countryid = country_list.SelectedValue.ToString();//Session["countryId"].ToString();
+                string areaid = area_list3.SelectedValue.ToString();//Session["areaId"].ToString();
                 if (rdgoptions.SelectedValue.ToString() == "1")
                 {
                  
-                    LoadAreaList3(int.Parse(countryid));
+                    //LoadAreaList3(int.Parse(countryid));
                     LoadBranchList1(int.Parse(areaid));
                     onebyonedisplay.Visible = true;
                     bulkdisplay.Visible = false;
@@ -468,11 +526,186 @@ namespace TraceBilling
 
         protected void btnInquire_Click(object sender, EventArgs e)
         {
-
+            if (country_list.SelectedValue.ToString() == "0")
+            {
+                DisplayMessage("Please Select a Country", true);
+            }
+            else if (area_list3.SelectedValue.ToString() == "0")
+            {
+                DisplayMessage("Please Select an Area", true);
+            }
+            else
+            {
+                string custref = txtInquireCustRef.Text.Trim();
+                string propertyref = txtInquirePropRef.Text;
+                string period = txtcurrentperiod.Text;
+                string areaid = area_list3.SelectedValue.ToString();
+                string branchid = branch_list1.SelectedValue.ToString();
+                resp = bll.ValidateReadingInquiry(custref, propertyref,areaid);
+                if (resp.Response_Code.ToString().Equals("0"))
+                {
+                    DataTable dTable = bll.GetLatestBilledReading(custref, areaid, branchid);
+                    if (dTable.Rows.Count > 0)
+                    {
+                        txtPreReading.Text = dTable.Rows[0]["CurReading"].ToString();
+                        DateTime CurReadingDate = Convert.ToDateTime(dTable.Rows[0]["CurReadingDate"].ToString());
+                        txtPreReadDate.Text = CurReadingDate.ToString("dd/MM/yyyy");
+                        txtConsumption.Text = dTable.Rows[0]["Consumption"].ToString();
+                        txtAvgConsumption.Text = dTable.Rows[0]["AvgConsumption"].ToString();
+                        txtIsBilled.Text = dTable.Rows[0]["Billed"].ToString();
+                        txtType.Text = dTable.Rows[0]["readingType"].ToString();
+                        txtCustName.Text = dTable.Rows[0]["customerName"].ToString();
+                        txtMeterRef.Text = dTable.Rows[0]["meterRef"].ToString();
+                        txtPropRef.Text = dTable.Rows[0]["propertyRef"].ToString();
+                        txtdials.Text = dTable.Rows[0]["dials"].ToString();
+                        LoadFieldComments();
+                        //lblDials.Text = dTable.Rows[0]["Dials"].ToString();
+                        // lblDials.Text = data.GetMeterDials(CustRes.MeterRef, Cust.AreaID);//sas
+                    }
+                    else
+                    {
+                        txtPreReading.Text = "0";
+                        DateTime CurReadingDate = DateTime.Now;
+                        txtPreReadDate.Text = CurReadingDate.ToString("MMMM dd, yyyy");
+                        txtConsumption.Text = "0";
+                        txtAvgConsumption.Text = "0";
+                        txtIsBilled.Text = "YES";
+                        txtType.Text = "NEW CONN";
+                        if (String.IsNullOrEmpty(txtAvgConsumption.Text.Trim()))
+                            txtAvgConsumption.Text = "0";
+                       // lblDials.Text = "7";
+                    }
+                    DisplayMessage(".",true);
+                    btnSave.Visible = true;
+                }
+                else
+                {
+                    DisplayMessage(resp.Response_Message, true);
+                }
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
+            try
+            {
+                ReadingObj read = new ReadingObj();
+
+                string meterref = txtMeterRef.Text.Trim();
+                string custref = txtInquireCustRef.Text.Trim();
+                string reading = txtReading.Text.Trim();
+                string readingdate = txtReadDate.Text.Trim();
+                string reader = reader_list.SelectedItem.ToString();
+                string otherreader = txtotherReader.Text.Trim();
+                string comment = comment_list.SelectedValue.ToString();
+                string prereading = txtPreReading.Text.Trim();
+                string prereadingdate = txtPreReadDate.Text.Trim();
+                string createdby = Session["UserID"].ToString();
+                DateTime readingdt = Convert.ToDateTime(readingdate);
+                DateTime prereadingdt = bll.GetDate(prereadingdate);
+                if (reading == "")
+                {
+                    DisplayMessage("Please enter current reading", true);
+                }
+                else if (readingdate == "")
+                {
+                    DisplayMessage("Please enter current reading date", true);
+                }
+
+                else if (!bll.IsValidReadingDate(readingdate))
+                {
+                    string Todate = DateTime.Now.ToString("dd/MM/yyyy");
+                    DisplayMessage("Invalid Reading Date, It cannot be greater than Today ( " + Todate + " )", true);
+                }
+                else if (!bll.IsValidDateComparison(prereadingdt, readingdt))
+                {
+                    string Todate = prereadingdt.ToString("dd/MM/yyyy");
+                    DisplayMessage("Current Reading Date cannot be less than Previous Date ( " + Todate + " )", true);
+                }
+                else
+                {
+                    //save details
+                    read = new ReadingObj();
+                    read.CustRef = custref;
+                    read.MeterRef = meterref;
+                    read.Type = "PERIODIC";
+                    read.Method = "M";
+                    read.LevelID = 0;
+                    read.CurReading = int.Parse(reading);
+                    read.CurReadingDate = readingdt;
+                    read.Estimated = chkEstimate.Checked;
+                    read.PreReading = int.Parse(prereading);
+                    read.PreReadingDate = prereadingdt;
+                    read.Consumption = read.CurReading - read.PreReading;
+                    read.Reader = reader;
+                    read.Comment = comment;
+                    read.Billed = false;
+                    read.Period = txtcurrentperiod.Text;
+                    read.Area = area_list3.SelectedValue.ToString();
+                    read.Branch = branch_list1.SelectedValue.ToString();
+                    read.CreatedBy = int.Parse(createdby);
+                    read.Latitude = "0";
+                    read.Longitude = "0";
+
+                    resp = bll.SaveReading(read);
+                    if (resp.Response_Code == "0")//save
+                    {
+                        string str = " with reading details against Customer(" + read.CustRef + ") sucessfully saved.";
+                        string res = resp.Response_Message + str;
+                        DisplayMessage(res, false);
+                    }
+                    else if (resp.Response_Code == "1")//edit and update
+                    {
+
+                        string str = " with reading details against Customer(" + read.CustRef + ") updated";
+                        string res = resp.Response_Message + str;
+                        DisplayMessage(res, false);
+                    }
+
+                    //clear conrols
+                    ClearReadingControls();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void ClearReadingControls()
+        {
+            txtPreReading.Text = "";
+            txtPreReadDate.Text = "";
+            txtConsumption.Text = "";
+            txtAvgConsumption.Text = "";
+            txtIsBilled.Text = "";
+            txtType.Text ="";
+            txtCustName.Text = "";
+            txtMeterRef.Text = "";
+            txtPropRef.Text = "";
+            txtInquireCustRef.Text = "";
+           txtReading.Text = "";
+             txtReadDate.Text= "";
+            reader_list.SelectedValue="0";
+           txtotherReader.Text = "";
+           comment_list.SelectedValue="0";
+           
+        }
+
+        protected void area_list3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+            
+                string areaid = area_list3.SelectedValue.ToString();
+                txtcurrentperiod.Text = bll.GetBillingPeriod(areaid);
+                LoadMeterReaders(areaid, "11");
+                //load session data
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
         }
     }

@@ -499,7 +499,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-
+       
 
         internal ResponseMessage SaveSystemUser(UserObj user)
         {
@@ -768,7 +768,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-        
+       
 
         internal ResponseMessage SaveFieldConnection(string conid, string appid, string jobno, string customertype, string category, string authorizedby, DateTime connectiondate, DateTime instructiondate, string createdby, string areaid)
         {
@@ -1505,6 +1505,18 @@ namespace TraceBilling.ControlObjects
                 return true;
             }
         }
+        public bool IsValidDateComparison(DateTime previousdate, DateTime currentdate)
+        {
+            
+            if (currentdate < previousdate)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         internal DataTable GetBlockMaps(string areaid,string branchid)
         {
             dt = new DataTable();
@@ -1739,7 +1751,278 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetLatestBilledReading(string custref,string areaid,string branchid)
+        {
+            dt = new DataTable();
+            try
+            {
 
+                dt = dh.GetLatestBilledReading(custref,areaid,branchid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetLatestBilledReading", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal ResponseMessage ValidateReadingInquiry(string custref, string propertyref, string areaid)
+        {
+            ResponseMessage message = new ResponseMessage();
+            try
+            {
+
+                if (String.IsNullOrEmpty(custref) && String.IsNullOrEmpty(propertyref))
+                {
+                    message.Response_Code = "103";
+                    message.Response_Message = "BOTH CUSTREF AND PROPERTY CANNOT BE EMPTY!";
+                }
+                else if (!IsValidCustRefRefInArea(custref,areaid))
+                {
+                    message.Response_Code = "103";
+                    message.Response_Message = "WRONG AREA SELECTED FOR CUSTREF!";
+                }
+                //else if (String.IsNullOrEmpty(propertyref) && !IsValidPropRef(propertyref))
+                //{
+                //    message.Response_Code = "103";
+                //    message.Response_Message = "INVALID PROPERTY FORMAT!";
+                //}                
+                else
+                {
+                    message.Response_Code = "0";
+                    message.Response_Message = "SUCCESS";
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                message.Response_Code = "101";
+                message.Response_Message = ex.Message;
+                Log("ValidateLogin", message.Response_Code + " " + message.Response_Message);
+
+            }
+            return message;
+        }
+        public bool IsValidPropRef(string PropRef)
+        {
+            if (PropRef.Contains("/"))
+            {
+                string[] array = PropRef.Split('/');
+                if (array.Length == 3)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public bool IsValidCustRefRefInArea(string custref,string area)
+        {
+            bool value = false;
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.CheckCustRefRefInArea(custref,area);
+                if(dt.Rows.Count > 0)
+                {
+                    value = true;
+                }
+                else
+                {
+                    value = false;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log("ValidCustRef", "101 " + ex.Message);
+            }
+            return value;
+        }
+        public string GetBillingPeriod(string areaid)
+        {
+            string output = "0";
+            output = dh.GetBillingPeriod(areaid);
+            return output;
+        }
+        internal DataTable GetFieldComments()
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetFieldComments();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetFieldComments", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetSystemUserByRole(string areaid,string roleid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetSystemUserByRole(areaid,roleid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetSystemUserByRole", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal ResponseMessage SaveReading(ReadingObj read)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveReadingDetails(read);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveReadingDetails", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
+        public DateTime GetDate(string date)
+        {
+            try
+            {
+                DateTime dt; int str = 20; int str2 = 20; int newYear = 0;//int newNumber = int.Parse(a.ToString() + b.ToString())
+                if (!date.Trim().Equals(""))
+                {
+                    if (date.Contains("/"))
+                    {
+                        string[] sDate = date.Split('/');
+                        //new imp efris apk date conversion mm/dd/yyyy 4/2/2021
+                        //new date format dd/mm/yyyy e.g 09/02/2021
+                        int day = int.Parse(sDate[0].Trim());//reverted 02/03/2021 with format dd/mm/yyyy
+                        int month = int.Parse(sDate[1].Trim());
+                       // DateTime now = DateTime.Now;                        //
+                        //// Write the month integer and then the three-letter month.                        //
+                        //string currentmonth = now.Month.ToString();
+                        //if (month < int.Parse(currentmonth))//switch positions...added 2nd/3/2021
+                        //{
+                        //    day = int.Parse(sDate[1].Trim());
+                        //    month = int.Parse(sDate[0].Trim());
+                        //}
+                        //if (month > 12)//switch positions
+                        //{
+                        //     day = int.Parse(sDate[0].Trim());
+                        //     month = int.Parse(sDate[1].Trim());
+                        //}
+                        int year = int.Parse(sDate[2].Trim());
+                        if (sDate[2].Length < 3)
+                        {
+                            newYear = int.Parse(str.ToString() + sDate[2].Trim().ToString());
+                        }
+                        else
+                        {
+                            newYear = year;
+                        }
+                        if (month < 13)
+                        {
+                            dt = new DateTime(newYear, month, day);
+                        }
+                        else
+                        {
+                            dt = new DateTime(newYear, day, month);
+                        }
+
+                    }
+                    else
+                    {
+                        string[] sDate = date.Split('-');
+                        string a = sDate[0].Trim();//modified 8/12/2020
+                        string x = "";//default value
+                        int day = 0;
+                        int month = 0;
+                        int year = 0;
+                        if (a.Length == 4)//date starting with year
+                        {
+                            day = int.Parse(sDate[2].Trim());
+                            month = int.Parse(sDate[1].Trim());
+                            year = int.Parse(sDate[0].Trim());
+                            x = year.ToString();
+                        }
+                        else
+                        {
+                            day = int.Parse(sDate[0].Trim());
+                            month = int.Parse(sDate[1].Trim());
+                            year = int.Parse(sDate[2].Trim());
+                            x = year.ToString();
+                        }
+
+                        if (x.Length < 3)
+                        {
+                            newYear = int.Parse(str.ToString() + sDate[2].Trim().ToString());
+                        }
+                        else
+                        {
+                            newYear = year;
+                        }
+                        dt = new DateTime(newYear, month, day);
+                    }
+                    //dt = new DateTime(year, month, day);
+                }
+                else
+                {
+                    dt = new DateTime(1900, 1, 1);
+                }
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        internal DataTable GetLatestReadingStatus(string custref, string areaid, string branchid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetLatestReadingStatus(custref, areaid, branchid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetLatestReadingStatus", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetBillDetails(string area, string branch, string block, string custRef)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetBillDetails(area, branch, block, custRef);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetBillDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
         /* public bool IsCompulsaryPaid(string appnumber)
          {
              bool value = false;

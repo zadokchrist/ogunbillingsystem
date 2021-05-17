@@ -1054,5 +1054,120 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetLatestBilledReading(string custref,string areaid,string branchid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetLatestBilledReading", custref,int.Parse(areaid),int.Parse(branchid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal string GetBillingPeriod(string areaid)
+        {
+            string output = "0";
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_GetBillingPeriod", int.Parse(areaid));
+                if (dt.Rows.Count > 0)
+                {
+                    output = dt.Rows[0]["period"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+        internal DataTable GetFieldComments()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetFieldComments");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetSystemUserByRole(string areaid, string role)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetSystemUserByRole", int.Parse(areaid),int.Parse(role));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable CheckCustRefRefInArea(string custref, string areaid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_CheckCustRefRefInArea", custref,int.Parse(areaid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable SaveReadingDetails(ReadingObj read)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveReading", read.Type, read.Method, read.LevelID, read.CustRef,
+                read.MeterRef,read.CurReading,read.CurReadingDate, read.Estimated,read.PreReading,
+                read.PreReadingDate, read.Consumption,read.Reader,read.Comment,read.Billed,
+                 read.Area,read.Branch,read.Period,read.CreatedBy,read.Latitude,read.Longitude);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetLatestReadingStatus(string custref, string areaid, string branchid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetLatestReadingStatus", custref, int.Parse(areaid), int.Parse(branchid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetBillDetails(string area, string branch, string block, string custRef)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetBillDetails", custRef, int.Parse(area), int.Parse(branch),block);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }
