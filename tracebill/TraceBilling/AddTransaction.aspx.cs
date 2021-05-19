@@ -15,7 +15,7 @@ namespace TraceBilling
     {
         public DataTable dt;
         BusinessLogic bll = new BusinessLogic();
-        TransactionObj trans = new TransactionObj();
+        PaymentObj trans = new PaymentObj();
         ResponseMessage resp = new ResponseMessage();
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -138,7 +138,7 @@ namespace TraceBilling
             try
             {
                 string str = "", res = "";
-                trans = new TransactionObj();
+                trans = new PaymentObj();
                 trans.CustRef = txtcustrefNo.Text.Trim();
                 trans.VendorTransRef = txttransref.Text.Trim();
                 trans.PaymentDate = txtpaymentDate.Text.Trim();

@@ -7657,6 +7657,7 @@
     <Compile Include="EntityObjects\CustomerObj.cs" />
     <Compile Include="EntityObjects\ReadingObj.cs" />
     <Compile Include="EntityObjects\ResponseMessage.cs" />
+    <Compile Include="EntityObjects\PaymentObj.cs" />
     <Compile Include="EntityObjects\TransactionObj.cs" />
     <Compile Include="EntityObjects\UserObj.cs" />
     <Compile Include="FieldConnection.aspx.cs">

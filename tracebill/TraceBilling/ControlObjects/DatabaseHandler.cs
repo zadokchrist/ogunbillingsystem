@@ -750,7 +750,7 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable SavePaymentTransaction(TransactionObj trans)
+        internal DataTable SavePaymentTransaction(PaymentObj trans)
         {
             DataTable dt = new DataTable();
             try
@@ -778,7 +778,7 @@ namespace TraceBilling.ControlObjects
             }
         }
 
-        internal DataTable VerifyVendorTransRef(TransactionObj trans)
+        internal DataTable VerifyVendorTransRef(PaymentObj trans)
         {
             DataTable dt = new DataTable();
             try
@@ -1162,6 +1162,65 @@ namespace TraceBilling.ControlObjects
             try
             {
                 dt = ExecuteDataSet("Sp_GetBillDetails", custRef, int.Parse(area), int.Parse(branch),block);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetAccountReading(string custRef, string period, string area, string branch)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetUnbilledReading", custRef, int.Parse(area), int.Parse(branch), period);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetBillBasis(string custRef,  string area, string branch)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetBillBasis", custRef, int.Parse(area), int.Parse(branch));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal string SaveBillTransaction(TransactionObj trans)
+        {
+            string output = "";
+            try
+            {
+                 ExecuteCommand("Sp_ProcessBill", trans.CustRef, trans.RdgType, trans.Period, trans.OpenBal, trans.Reason, trans.AreaID, trans.BranchID, trans.CreatedBy, trans.SuppressedCharges, trans.BasisConsumption,
+                    trans.ClassID, trans.RdgRecordId, trans.UnitCost,  trans.TariffCode, trans.Sewer, trans.IsVatable,  trans.DocumentNo, 
+                     trans.MeterSize, trans.TransCode,  trans.MeterRef, trans.PostDate, trans.InvoiceNumber, trans.ReadingMethod);
+                output = "SUCCESS";
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                output = ex.Message;
+            }
+            return output;
+        }
+
+        internal DataTable GetTarrifAmount(string tarriffCode)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetTarrifAmount", tarriffCode);
             }
             catch (Exception ex)
             {

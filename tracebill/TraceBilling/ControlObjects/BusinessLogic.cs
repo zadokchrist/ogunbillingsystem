@@ -105,7 +105,7 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-    
+
 
         internal DataTable GetSurveyQnList()
         {
@@ -252,7 +252,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-        
+
 
         internal ResponseMessage SaveApplication(ApplicationObj app)
         {
@@ -314,7 +314,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-       
+
 
         public string EncryptString(string ClearText)
         {
@@ -332,7 +332,7 @@ namespace TraceBilling.ControlObjects
             return Convert.ToBase64String(ms.ToArray());
         }
 
-       
+
 
         private bool IsMatch(string uswername, string encrypted_password)
         {
@@ -382,7 +382,7 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-        
+
 
         public string GetCodeIdentity(string value, int flag)
         {
@@ -391,7 +391,7 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
-      
+
 
         public string GetApplicationNumber(string Code, string countrycode, string AreaCode, string BranchCode, string UserCode)
         {
@@ -499,7 +499,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-       
+
 
         internal ResponseMessage SaveSystemUser(UserObj user)
         {
@@ -598,6 +598,7 @@ namespace TraceBilling.ControlObjects
 
 
 
+
         //added 24/11/2020
         public string GenerateJobCards(string StringArray, string AppType)
         {
@@ -650,7 +651,7 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
-        
+
 
         private void Assignjob(int appID, int createdBy, int countryid)
         {
@@ -768,7 +769,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-       
+
 
         internal ResponseMessage SaveFieldConnection(string conid, string appid, string jobno, string customertype, string category, string authorizedby, DateTime connectiondate, DateTime instructiondate, string createdby, string areaid)
         {
@@ -881,7 +882,7 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
-        
+
 
         internal DataTable GetFieldCustomerDetails(string appid)
         {
@@ -1189,7 +1190,7 @@ namespace TraceBilling.ControlObjects
             DataTable dt = new DataTable();
             try
             {
-                dt = dh.GetRouteFile(country, area,branch,book,walk);
+                dt = dh.GetRouteFile(country, area, branch, book, walk);
                 if (dt.Rows.Count > 0)
                 {
                     return dt;
@@ -1240,7 +1241,7 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal ResponseMessage ValidateTransaction(TransactionObj trans)
+        internal ResponseMessage ValidateTransaction(PaymentObj trans)
         {
             ResponseMessage message = new ResponseMessage();
             try
@@ -1280,7 +1281,7 @@ namespace TraceBilling.ControlObjects
                 {
                     message.Response_Code = "104";
                     message.Response_Message = "Duplicate Vendor Transaction Reference.[" + trans.VendorTransRef + "]";
-                   
+
                 }
                 else
                 {
@@ -1289,7 +1290,7 @@ namespace TraceBilling.ControlObjects
 
                 }
                 //log error
-                if(!message.Response_Code.Equals("0"))
+                if (!message.Response_Code.Equals("0"))
                 {
                     strerror = message.Response_Code + ":" + message.Response_Message;
                     dh.LogTransactionError(trans.VendorCode, strerror, trans.CustRef, trans.Area, trans.VendorTransRef, trans.Amount);
@@ -1306,9 +1307,9 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-       
 
-        private bool IsDuplicateTrans(TransactionObj trans)
+
+        private bool IsDuplicateTrans(PaymentObj trans)
         {
             bool value = false;
             try
@@ -1332,7 +1333,7 @@ namespace TraceBilling.ControlObjects
             return value;
         }
 
-        internal ResponseMessage SavePaymentTransaction(TransactionObj trans)
+        internal ResponseMessage SavePaymentTransaction(PaymentObj trans)
         {
             try
             {
@@ -1417,11 +1418,11 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal void SaveCountryDetails(string code,string countryname, string countrycode, string vat, string currency, string createdby,bool isactive)
+        internal void SaveCountryDetails(string code, string countryname, string countrycode, string vat, string currency, string createdby, bool isactive)
         {
             try
             {
-                dh.SaveCountryDetails(code,countryname, countrycode, vat,currency,createdby,isactive);
+                dh.SaveCountryDetails(code, countryname, countrycode, vat, currency, createdby, isactive);
             }
             catch (Exception ex)
             {
@@ -1474,12 +1475,12 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal ResponseMessage SaveFieldExpenseLogs(string estimateid, string applicationid, string pipediameter, string pipetype, string pipelength, string excavationlength, string createdby,string comment)
+        internal ResponseMessage SaveFieldExpenseLogs(string estimateid, string applicationid, string pipediameter, string pipetype, string pipelength, string excavationlength, string createdby, string comment)
         {
             try
             {
                 DataTable dt = new DataTable();
-                dt = dh.SaveFieldExpenseLogs(estimateid, applicationid, pipediameter, pipetype, pipelength, excavationlength, createdby,comment);
+                dt = dh.SaveFieldExpenseLogs(estimateid, applicationid, pipediameter, pipetype, pipelength, excavationlength, createdby, comment);
                 resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
                 resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
 
@@ -1507,7 +1508,7 @@ namespace TraceBilling.ControlObjects
         }
         public bool IsValidDateComparison(DateTime previousdate, DateTime currentdate)
         {
-            
+
             if (currentdate < previousdate)
             {
                 return false;
@@ -1517,13 +1518,13 @@ namespace TraceBilling.ControlObjects
                 return true;
             }
         }
-        internal DataTable GetBlockMaps(string areaid,string branchid)
+        internal DataTable GetBlockMaps(string areaid, string branchid)
         {
             dt = new DataTable();
             try
             {
 
-                dt = dh.GetBlockMaps(areaid,branchid);
+                dt = dh.GetBlockMaps(areaid, branchid);
 
             }
             catch (Exception ex)
@@ -1532,13 +1533,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable GetBlockConnectionNumber(string areaid, string branchid,string blockno)
+        internal DataTable GetBlockConnectionNumber(string areaid, string branchid, string blockno)
         {
             dt = new DataTable();
             try
             {
 
-                dt = dh.GetBlockConnectionNumber(areaid, branchid,blockno);
+                dt = dh.GetBlockConnectionNumber(areaid, branchid, blockno);
 
             }
             catch (Exception ex)
@@ -1547,14 +1548,14 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal ResponseMessage SaveFieldDocket(string recordCode, string applicationid, string pipediameter, string metertype, string meterref, string meternumber, string createdby, string remark, 
+        internal ResponseMessage SaveFieldDocket(string recordCode, string applicationid, string pipediameter, string metertype, string meterref, string meternumber, string createdby, string remark,
             string longitude, string latitude, string reading, string dials, string meterlife, DateTime manufacturedate, string installedby, DateTime installdate, string blocknumber, string connectionno)
         {
             try
             {
                 DataTable dt = new DataTable();
-                dt = dh.SaveFieldDocket(recordCode, applicationid, pipediameter, metertype, meterref, meternumber, createdby, remark,longitude,latitude,reading,dials,meterlife,manufacturedate,installdate,
-                    blocknumber,connectionno,installedby);
+                dt = dh.SaveFieldDocket(recordCode, applicationid, pipediameter, metertype, meterref, meternumber, createdby, remark, longitude, latitude, reading, dials, meterlife, manufacturedate, installdate,
+                    blocknumber, connectionno, installedby);
                 resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
                 resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
 
@@ -1570,10 +1571,10 @@ namespace TraceBilling.ControlObjects
         public string GetMeterReference(string areaCode, string block, string connectionNumber)
         {
             string meterRef = "";
-          
+
             int connLen = connectionNumber.Length;
             int zeros = 0;
-          
+
             if (connLen == 1)
             {
                 connectionNumber = "000" + connectionNumber;
@@ -1655,7 +1656,7 @@ namespace TraceBilling.ControlObjects
                     message.Response_Code = "103";
                     message.Response_Message = "THE PHONE NUMBER CANNOT BE EMPTY!";
                 }
-                
+
                 else
                 {
                     message.Response_Code = "0";
@@ -1721,13 +1722,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable GetCustomerReportData(string appnumber,string flag)
+        internal DataTable GetCustomerReportData(string appnumber, string flag)
         {
             dt = new DataTable();
             try
             {
 
-                dt = dh.GetCustomerReportData(appnumber,flag);
+                dt = dh.GetCustomerReportData(appnumber, flag);
 
             }
             catch (Exception ex)
@@ -1751,13 +1752,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable GetLatestBilledReading(string custref,string areaid,string branchid)
+        internal DataTable GetLatestBilledReading(string custref, string areaid, string branchid)
         {
             dt = new DataTable();
             try
             {
 
-                dt = dh.GetLatestBilledReading(custref,areaid,branchid);
+                dt = dh.GetLatestBilledReading(custref, areaid, branchid);
 
             }
             catch (Exception ex)
@@ -1777,7 +1778,7 @@ namespace TraceBilling.ControlObjects
                     message.Response_Code = "103";
                     message.Response_Message = "BOTH CUSTREF AND PROPERTY CANNOT BE EMPTY!";
                 }
-                else if (!IsValidCustRefRefInArea(custref,areaid))
+                else if (!IsValidCustRefRefInArea(custref, areaid))
                 {
                     message.Response_Code = "103";
                     message.Response_Message = "WRONG AREA SELECTED FOR CUSTREF!";
@@ -1823,15 +1824,15 @@ namespace TraceBilling.ControlObjects
                 return false;
             }
         }
-        public bool IsValidCustRefRefInArea(string custref,string area)
+        public bool IsValidCustRefRefInArea(string custref, string area)
         {
             bool value = false;
             dt = new DataTable();
             try
             {
 
-                dt = dh.CheckCustRefRefInArea(custref,area);
-                if(dt.Rows.Count > 0)
+                dt = dh.CheckCustRefRefInArea(custref, area);
+                if (dt.Rows.Count > 0)
                 {
                     value = true;
                 }
@@ -1868,13 +1869,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable GetSystemUserByRole(string areaid,string roleid)
+        internal DataTable GetSystemUserByRole(string areaid, string roleid)
         {
             dt = new DataTable();
             try
             {
 
-                dt = dh.GetSystemUserByRole(areaid,roleid);
+                dt = dh.GetSystemUserByRole(areaid, roleid);
 
             }
             catch (Exception ex)
@@ -1915,7 +1916,7 @@ namespace TraceBilling.ControlObjects
                         //new date format dd/mm/yyyy e.g 09/02/2021
                         int day = int.Parse(sDate[0].Trim());//reverted 02/03/2021 with format dd/mm/yyyy
                         int month = int.Parse(sDate[1].Trim());
-                       // DateTime now = DateTime.Now;                        //
+                        // DateTime now = DateTime.Now;                        //
                         //// Write the month integer and then the three-letter month.                        //
                         //string currentmonth = now.Month.ToString();
                         //if (month < int.Parse(currentmonth))//switch positions...added 2nd/3/2021
@@ -2023,6 +2024,208 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal string ProcessBill(CustomerObj cust)
+        {
+            string output = "";
+            try
+            {
+                string res = "";
+                res = BillAccount(cust.CustRef, cust.MeterRef, cust.MeterSize, cust.PropertyRef, cust.Tariff,
+               cust.Classification, cust.Area, cust.Branch, cust.CreatedBy, cust.Period, cust.BillDate);
+                output = res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+
+        private string BillAccount(string custRef, string meterRef, string meterSize, string propertyRef, string tariff, string classification, string area, string branch, string createdBy, string period, DateTime billDate)
+        {
+            string output = "";
+            try
+            {
+                string res = "";
+                string Period = period;
+                if (Period.Equals(""))
+                {
+                    output = "NO Active Period in the System";
+                }
+                else
+                {
+                    DataTable dtReadings = dh.GetAccountReading(custRef, Period, area, branch);
+                    int found = Convert.ToInt32(dtReadings.Rows.Count);
+                    if (found > 0)
+                    {
+                        /// Now Bill Account
+                        for (int i = 0; i < found; i++)
+                        {
+                            try
+                            {
+                                double recordId = double.Parse(dtReadings.Rows[i]["RecordID"].ToString());
+                                string Rdg_Type = dtReadings.Rows[i]["type"].ToString();
+                                //Get Consumption
+                                int Consumption = int.Parse(dtReadings.Rows[i]["Consumption"].ToString());
+                                DataTable dataTable = dh.GetBillBasis(custRef, area, branch);
+                                if (dataTable.Rows.Count > 0)
+                                {
+
+                                    string TarriffCode = dataTable.Rows[0]["tariffId"].ToString();
+                                    DateTime billingDate = DateTime.Now;
+                                    double OpenBal = Convert.ToDouble(dataTable.Rows[0]["OpenBal"].ToString());
+                                    double Bal = Convert.ToDouble(dataTable.Rows[0]["outstandingBalance"].ToString());
+                                    bool Sewer = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
+                                    bool isvatable = Convert.ToBoolean(dataTable.Rows[0]["isVatable"].ToString());
+                                    int CustClassID = Convert.ToInt16(dataTable.Rows[0]["classId"].ToString());
+                                    string suppressionstatus = dataTable.Rows[0]["disconnectionId"].ToString();
+
+
+                                    //if (!Billable)
+                                    //{
+                                    //    output = "Customer Account is set to not billable";
+                                    //}
+
+                                    if (suppressionstatus.Equals("0"))//account inactive
+                                    {
+                                        //output = "Customer Account is suppressed";
+                                        //output = "Customer Account is suppressed but recording";
+                                        if (Consumption == 0)
+                                        {
+                                            output = "SUCCESS";
+                                        }
+                                        else
+                                        {
+                                            output = "Customer Account is suppressed but recording with Consumption of: " + Consumption + " for period ( " + Period + " )";
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        output = SaveBillTransaction(TarriffCode, custRef, Sewer, Period, CustClassID, isvatable, createdBy, area, branch, dtReadings, suppressionstatus, recordId, Rdg_Type, meterSize, OpenBal, billDate, meterRef);
+
+                                    }
+                                }
+                                else
+                                {
+                                    output = "Failed to get Bill Basis";
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                output = ex.Message;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+
+
+
+        private string SaveBillTransaction(string tarriffCode, string custRef, bool sewer, string period, int custClassID, bool isvatable, string createdBy, string area, string branch, DataTable dtReadings, string suppressionstatus, double recordId, string rdgType, string meterSize, double openBal, DateTime billDate, string meterref)
+        {
+            string output = "";
+            try
+            {
+
+                TransactionObj trans = new TransactionObj();
+
+                string watercode = "211";
+                string servicecode = "231";
+                string sewercode = "221";
+
+                //trans.TransCode = WaterTransCode;
+                double amt;
+                string TariffAmount = GetTransValue(tarriffCode, area);
+                if (Double.TryParse(TariffAmount, out amt))
+                {
+                    foreach (DataRow dr in dtReadings.Rows)
+                    {
+                        int Basis = Convert.ToInt32(dr["Consumption"].ToString());
+                        double rdgRecordId = double.Parse(dr["RecordID"].ToString());
+                        string rdgmethod = dr["Method"].ToString();
+                        double UnitCost = Convert.ToDouble(TariffAmount);
+                        //trans.WVatCode = WVatCode;
+                        //trans.SVatCode = SVatCode;
+                        //trans.WVatAccount = WVatAccount;
+                        //trans.SVatAccount = SVatAccount;
+                        //trans.WVatValue = GetVatValue(IsVatable, trans.TransValue, VatAccount);
+                        trans.UnitCost = UnitCost;
+                        trans.BasisConsumption = Basis;
+                        trans.TariffCode = tarriffCode;
+
+                        trans.Period = period;
+                        trans.CustRef = custRef;
+                        //trans.ChargeType = ChargeType;
+
+                        trans.AreaID = int.Parse(area);
+                        trans.BranchID = int.Parse(branch);
+                        trans.CreatedBy = int.Parse(createdBy);
+                        //trans.Billno = BillNoReturned;
+                        trans.ClassID = custClassID;
+                        trans.Sewer = sewer;
+                        trans.SuppressedCharges = suppressionstatus;
+                        trans.RdgRecordId = recordId;
+                        trans.IsVatable = isvatable;
+                        trans.MeterSize = meterSize;
+                        trans.MeterRef = meterref;
+                        trans.OpenBal = openBal;//just added
+                        trans.Reason = rdgType;
+                        trans.RdgType = rdgType;
+                        //trans.PayDate = DateTime.Now;
+                        trans.PostDate = billDate;
+                        trans.InvoiceNumber = "";
+                        trans.ReadingMethod = rdgmethod;
+                        if (recordId == rdgRecordId)
+                        {
+                            output = dh.SaveBillTransaction(trans);
+                        }
+                    }
+                }
+                else
+                {
+                    output = "Invalid Tariff Amount";
+                }
+
+
+            
+            }
+            catch ( Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+
+        private string GetTransValue(string tarriffCode, string area)
+        {
+            string output = "";
+            string currentperiod = GetBillingPeriod(area);
+            DataTable dtTariff = dh.GetTarrifAmount(tarriffCode);
+            if (dtTariff.Rows.Count > 0)
+            {
+                string Amount = dtTariff.Rows[0]["amount"].ToString();
+                bool IsActive = Convert.ToBoolean(dtTariff.Rows[0]["active"].ToString());
+                if (IsActive)
+                {
+                    double transAmount = Convert.ToDouble(Amount);
+                    output = transAmount.ToString();
+                }
+                else
+                {
+                    output = "Tarrif is not active";
+                }
+            }
+            return output;
+        }
+
         /* public bool IsCompulsaryPaid(string appnumber)
          {
              bool value = false;

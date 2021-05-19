@@ -7,78 +7,349 @@ namespace TraceBilling.EntityObjects
 {
     public class TransactionObj
     {
-        private string custref, vendortransref, vendorcode, fullname, paymentdate, amount, createdby, paymentmethod, narration, contact, country, area, chequeno, paymentcode;
 
-        public String CustRef
+        private string documentno, transCode, tariffCode, period, chargeType, vatCode, custRef,
+         reason, meterRef, meterSize, rdgType, suppressedCharges, invoicenumber, rdgmethod,transStatus;
+        private double transvalue, vatvalue, unitCost, openbal, rdgRecordId;
+        private int area, branch, createdBy, billnumber, classid,zone;
+        private int basisconsumption;
+        private DateTime postdate;
+        private bool sewer,  isVatable;
+
+        public string DocumentNo
         {
-            get { return custref; }
-            set { custref = value; }
+            get
+            {
+                return documentno;
+            }
+            set
+            {
+                documentno = value;
+            }
+        }
+        public string SuppressedCharges
+        {
+            get
+            {
+                return suppressedCharges;
+            }
+            set
+            {
+                suppressedCharges = value;
+            }
+        }
+        public string RdgType
+        {
+            get
+            {
+                return rdgType;
+            }
+            set
+            {
+                rdgType = value;
+            }
+        }
+        public string MeterSize
+        {
+            get
+            {
+                return meterSize;
+            }
+            set
+            {
+                meterSize = value;
+            }
+        }
+        public string MeterRef
+        {
+            get
+            {
+                return meterRef;
+            }
+            set
+            {
+                meterRef = value;
+            }
+        }
+       
+        public string TransCode
+        {
+            get
+            {
+                return transCode;
+            }
+            set
+            {
+                transCode = value;
+            }
+        }
+        public string TariffCode
+        {
+            get
+            {
+                return tariffCode;
+            }
+            set
+            {
+                tariffCode = value;
+            }
+        }
+       
+        public string VatCode
+        {
+            get
+            {
+                return vatCode;
+            }
+            set
+            {
+                vatCode = value;
+            }
+        }
+        public string Period
+        {
+            get
+            {
+                return period;
+            }
+            set
+            {
+                period = value;
+            }
+        }
+        public string ChargeType
+        {
+            get
+            {
+                return chargeType;
+            }
+            set
+            {
+                chargeType = value;
+            }
+        }
+       
+        public string CustRef
+        {
+            get
+            {
+                return custRef;
+            }
+            set
+            {
+                custRef = value;
+            }
+        }
+      
+        public string Reason
+        {
+            get
+            {
+                return reason;
+            }
+            set
+            {
+                reason = value;
+            }
+        }
+        /// <summary>
+        /// ////////////////////
+        /// </summary>
+        public double TransValue
+        {
+            get
+            {
+                return transvalue;
+            }
+            set
+            {
+                transvalue = value;
+            }
+        }
+     
+        public double VatValue
+        {
+            get
+            {
+                return vatvalue;
+            }
+            set
+            {
+                vatvalue = value;
+            }
+        }
+        public double RdgRecordId
+        {
+            get
+            {
+                return rdgRecordId;
+            }
+            set
+            {
+                rdgRecordId = value;
+            }
+        }
+       
+        public double UnitCost
+        {
+            get
+            {
+                return unitCost;
+            }
+            set
+            {
+                unitCost = value;
+            }
+        }
+        public double OpenBal
+        {
+            get
+            {
+                return openbal;
+            }
+            set
+            {
+                openbal = value;
+            }
+        }
+        ////////////////////////////////
+
+        public int AreaID
+        {
+            get
+            {
+                return area;
+            }
+            set
+            {
+                area = value;
+            }
+        }
+        
+        public int BranchID
+        {
+            get
+            {
+                return branch;
+            }
+            set
+            {
+                branch = value;
+            }
+        }
+        public int CreatedBy
+        {
+            get
+            {
+                return createdBy;
+            }
+            set
+            {
+                createdBy = value;
+            }
+        }
+        public int BillNumber
+        {
+            get
+            {
+                return billnumber;
+            }
+            set
+            {
+                billnumber = value;
+            }
+        }
+        public int BasisConsumption
+        {
+            get
+            {
+                return basisconsumption;
+            }
+            set
+            {
+                basisconsumption = value;
+            }
+        }
+        public int ClassID
+        {
+            get
+            {
+                return classid;
+            }
+            set
+            {
+                classid = value;
+            }
+        }
+        /////////////////////////////////
+        public DateTime PostDate
+        {
+            get
+            {
+                return postdate;
+            }
+            set
+            {
+                postdate = value;
+            }
         }
 
-        public String VendorTransRef
+
+       
+        public string InvoiceNumber
         {
-            get { return vendortransref; }
-            set { vendortransref = value; }
+            get
+            {
+                return invoicenumber;
+            }
+            set
+            {
+                invoicenumber = value;
+            }
         }
-        public String VendorCode
+        public string ReadingMethod
         {
-            get { return vendorcode; }
-            set { vendorcode = value; }
+            get
+            {
+                return rdgmethod;
+            }
+            set
+            {
+                rdgmethod = value;
+            }
         }
-        public String FullName
+        public string TransStatus
         {
-            get { return fullname; }
-            set { fullname = value; }
+            get
+            {
+                return transStatus;
+            }
+            set
+            {
+                transStatus = value;
+            }
         }
-        public String PaymentMethod
+        public bool IsVatable
         {
-            get { return paymentmethod; }
-            set { paymentmethod = value; }
+            get
+            {
+                return isVatable;
+            }
+            set
+            {
+                isVatable = value;
+            }
         }
-        public String ChequeNumber
+        public bool Sewer
         {
-            get { return chequeno; }
-            set { chequeno = value; }
-        }
-        public String Amount
-        {
-            get { return amount; }
-            set { amount = value; }
-        }
-        public String CreatedBy
-        {
-            get { return createdby; }
-            set { createdby = value; }
-        }
-        public String PaymentDate
-        {
-            get { return paymentdate; }
-            set { paymentdate = value; }
-        }
-        public String Narration
-        {
-            get { return narration; }
-            set { narration = value; }
-        }
-        public String Contact
-        {
-            get { return contact; }
-            set { contact = value; }
-        }
-        public String Country
-        {
-            get { return country; }
-            set { country = value; }
-        }
-        public String Area
-        {
-            get { return area; }
-            set { area = value; }
-        }
-        public String PaymentCode
-        {
-            get { return paymentcode; }
-            set { paymentcode = value; }
+            get
+            {
+                return sewer;
+            }
+            set
+            {
+                sewer = value;
+            }
         }
 
     }

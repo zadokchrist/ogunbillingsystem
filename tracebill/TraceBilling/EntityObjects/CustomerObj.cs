@@ -8,8 +8,8 @@ namespace TraceBilling.EntityObjects
     public class CustomerObj
     {
         private string applicationno, applicationid, custname, meterref,custref, propertyref, address, email, occupation, contact1, contact2, country, area, title, metermake, meternumber, metersize, latitude, longitude, branch;
-        private string block, connectionno, category, tariff, supplystatus,status, createdby, customertype,territory,classification;
-        private DateTime effectiveDate;
+        private string block, connectionno, category, tariff, supplystatus,status, createdby, customertype,territory,classification,period;
+        private DateTime effectiveDate,billdate;
         private bool isactive,hassewer;
 
         public String ApplicationNo
@@ -176,6 +176,16 @@ namespace TraceBilling.EntityObjects
         {
             get { return territory; }
             set { territory = value; }
+        }
+        public DateTime BillDate
+        {
+            get { return billdate; }
+            set { billdate = value; }
+        }
+        public String Period
+        {
+            get { return period; }
+            set { period = value; }
         }
 
     }

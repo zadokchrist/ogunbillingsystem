@@ -200,7 +200,7 @@
                    <div id="summarydisplay" runat="server" visible="true">
                        <div id="qndisplay" runat="server" visible="true">
                            <center>
-                           <asp:Label ID="lblqn" runat="server" Text="." Visible="false"></asp:Label>
+                           <asp:Label ID="lblqn" runat="server" Text="." Visible="true" Font-Bold="true" ForeColor="Blue"></asp:Label>
                            <br />
                            <asp:Button ID="btnYes" runat="server" Text="YES" cssclass ="btn-primary" OnClick="btnYes_Click" Width="70px" />&nbsp;&nbsp;&nbsp;
                            <asp:Button ID="btnNo" runat="server" Text="NO" cssclass ="btn-primary" OnClick="btnNo_Click" Width="70px" />

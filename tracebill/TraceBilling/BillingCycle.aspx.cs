@@ -191,7 +191,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -330,6 +330,7 @@ namespace TraceBilling
             txtbranch.Text = lblbranch.Text;
             txtcustomerref.Text = lblcustref.Text;
             txtblock.Text = lblblock.Text;
+            lblqn.Text = "Are you ready to bill this request?";
         }
 
         protected void btnYes_Click(object sender, EventArgs e)
@@ -355,12 +356,21 @@ namespace TraceBilling
                
                 string result = BillRequest(Area, Branch,  block, CustRef, BillNow, ScheduleDate,period);
                 //DisplayBillResult(result);
+                ClearControls();
                 DisplayMessage(result, true);
             }
             catch(Exception ex)
             {
                 throw ex;
             }
+        }
+
+        private void ClearControls()
+        {
+            txtcustomerref.Text = "";
+            block_list.SelectedValue = "0";
+            requestsummary.Visible = false;
+            billschedule.Visible = true;
         }
 
         private string BillRequest(string area, string branch, string block, string custRef, bool billNow, DateTime scheduleDate, string period)
@@ -379,16 +389,16 @@ namespace TraceBilling
                    
                     foreach (DataRow dr in datatable.Rows)
                     {
-                        string CustRef = dr["CustRef"].ToString();
-                        string MeterRef = dr["MeterRef"].ToString();
-                        string MeterSize = dr["MeterSize"].ToString();
-                        string PropRef = dr["PropertyRef"].ToString();
-                        string CustTarrif = dr["CustTarrif"].ToString();
-                        int CustClass = Convert.ToInt16(dr["CustClass"].ToString());
-                        int AreaID = Convert.ToInt16(dr["AreaID"].ToString());
-                        int BranchID = Convert.ToInt16(dr["BranchID"].ToString());
-                        string CreatedBy = "";
-                        string returned = BillAccount(CustRef, MeterRef, MeterSize, PropRef, CustTarrif, CustClass, AreaID, BranchID, CreatedBy);
+                        string CustRef = dr["customerRef"].ToString();
+                        string MeterRef = dr["meterRef"].ToString();
+                        string MeterSize = dr["meterSizeId"].ToString();
+                        string PropRef = dr["propertyRef"].ToString();
+                        string CustTarrif = dr["tarrifCode"].ToString();
+                        int CustClass = Convert.ToInt16(dr["classId"].ToString());
+                        int AreaID = Convert.ToInt16(dr["areaId"].ToString());
+                        int BranchID = Convert.ToInt16(dr["branchId"].ToString());
+                        string createdby = Session["UserID"].ToString();
+                        string returned = BillAccount(CustRef, MeterRef, MeterSize, PropRef, CustTarrif, CustClass, AreaID, BranchID, createdby,period);
 
                         if (returned == "SUCCESS")
                         {
@@ -397,10 +407,7 @@ namespace TraceBilling
                         else
                         {
                             failed++;
-                            //bill.CustRef = CustRef;
-                            //bill.Period = bllReading.GetBillingPeriod(AreaID.ToString());
-                            //bill.Reason = returned;
-                            //failedBillings.Add(bill);
+                           
                         }
                     }
                     total = Success + failed;
@@ -416,12 +423,7 @@ namespace TraceBilling
                     {
                         Msg = "Your Bill Request of " + total + " accounts has failed";
                     }
-                    //res.FailedBills = failedBillings;
-                    //res.Failed = failed;
-                    //res.Succeed = Success;
-                    //res.Total = total;
-                    //res.Status = "BILLED";
-                    //res.Message = Msg;
+                   
                     return Msg;
 
                 }
@@ -438,22 +440,24 @@ namespace TraceBilling
             return output;
         }
 
-        private string BillAccount(string custRef, string meterRef, string meterSize, string propRef, string custTarrif, int custClass, int areaID, int branchID, string createdBy)
+        private string BillAccount(string custRef, string meterRef, string meterSize, string propRef, string custTarrif, int custClass, int areaID, int branchID, string createdBy,string period)
         {
             string output = "";
+            CustomerObj cust = new CustomerObj();
             //BillInterfaceApi inter = new BillInterfaceApi();
             //BillCustomer Cust = new BillCustomer();
-            //Cust.CustRef = CustRef;
-            //Cust.MeterRef = MeterRef;
-            //Cust.MeterSize = MeterSize;
-            //Cust.PropRef = PropRef;
-            //Cust.Tarrif = CustTarrif;
-            //Cust.CustClassID = CustClass;
-            //Cust.AreaID = AreaID;
-            //Cust.BranchID = BranchID;
-            //Cust.CreatedBy = CreatedBy;
-
-            //output = inter.Bill(Cust);
+            cust.CustRef = custRef;
+            cust.MeterRef = meterRef;
+            cust.MeterSize = meterSize;
+            cust.PropertyRef = propRef;
+            cust.Tariff = custTarrif;
+            cust.Classification = custClass.ToString();
+            cust.Area = areaID.ToString();
+            cust.Branch = branchID.ToString();
+            cust.CreatedBy = createdBy;
+            cust.Period = period;
+            cust.BillDate = DateTime.Now;
+            output = bll.ProcessBill(cust);
             //pass bill info
             return output;
         }
