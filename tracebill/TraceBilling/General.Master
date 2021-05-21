@@ -312,6 +312,7 @@
           <ul class="treeview-menu">
             <li><a href="#"><i class="fa fa-circle-o"></i> General Inquiry</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>
+               <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> View Customers</a></li>
             
           </ul>
         </li>

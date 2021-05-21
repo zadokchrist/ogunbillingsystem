@@ -431,6 +431,7 @@ namespace TraceBilling
                 {
                     DisplayMessage("No billing data found", true);
                 }
+                RefreshControls();
             }
             catch(Exception ex)
             {
@@ -438,6 +439,15 @@ namespace TraceBilling
             }
 
             return output;
+        }
+
+        private void RefreshControls()
+        {
+            area_list3.SelectedValue = "0";
+            txtcustref.Text = "";
+            block_list.SelectedValue = "0";
+            chkBillRequestNow.Checked = false;
+            txtscheduledate.Text = "";
         }
 
         private string BillAccount(string custRef, string meterRef, string meterSize, string propRef, string custTarrif, int custClass, int areaID, int branchID, string createdBy,string period)

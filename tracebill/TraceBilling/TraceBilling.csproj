@@ -7571,6 +7571,7 @@
     <Content Include="SystemSettings.aspx" />
     <Content Include="ViewApplications.aspx" />
     <Content Include="ViewApplicationTrack.aspx" />
+    <Content Include="ViewCustomers.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="ViewTransactions.aspx" />
     <Content Include="ViewUsers.aspx" />
@@ -7770,6 +7771,13 @@
     </Compile>
     <Compile Include="ViewApplicationTrack.aspx.designer.cs">
       <DependentUpon>ViewApplicationTrack.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewCustomers.aspx.cs">
+      <DependentUpon>ViewCustomers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewCustomers.aspx.designer.cs">
+      <DependentUpon>ViewCustomers.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>

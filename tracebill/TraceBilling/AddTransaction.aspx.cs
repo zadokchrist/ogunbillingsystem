@@ -211,6 +211,11 @@ namespace TraceBilling
             txtpaymentDate.Text = "";
             txtcontact.Text = "";
             txtcounry.Text = "";
+            vendor_list.SelectedValue = "0";
+            txttransref.Text = "";
+            txtamount.Text = "";
+            txtcheque.Text = "";
+            txtnaration.Text = "";
         }
     }
 }

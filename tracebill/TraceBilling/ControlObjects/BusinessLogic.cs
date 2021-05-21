@@ -73,6 +73,8 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+       
+
         internal DataTable GetSystemUserByCode(string userCode)
         {
             DataTable dt = new DataTable();
@@ -2225,7 +2227,21 @@ namespace TraceBilling.ControlObjects
             }
             return output;
         }
+        internal DataTable LoadCustomerDisplay(int countryid, int areaid, string custref, int flag)
+        {
+            dt = new DataTable();
+            try
+            {
 
+                dt = dh.GetCustomerDisplay(countryid, areaid, custref,flag);
+
+            }
+            catch (Exception ex)
+            {
+                Log("LoadCustomerDisplay", "101 " + ex.Message);
+            }
+            return dt;
+        }
         /* public bool IsCompulsaryPaid(string appnumber)
          {
              bool value = false;

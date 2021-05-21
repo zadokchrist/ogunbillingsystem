@@ -1228,5 +1228,19 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal DataTable GetCustomerDisplay(int countryid, int areaid, string custref,int flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustomerDetailsByID", countryid,areaid,custref,flag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }
