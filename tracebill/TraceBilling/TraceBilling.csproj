@@ -223,6 +223,7 @@
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.css" />
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.min.css" />
     <Content Include="bin\itextsharp.dll" />
+    <Content Include="CloseAccount.aspx" />
     <Content Include="CustomerCreation.aspx" />
     <Content Include="dist\css\refs.css" />
     <Content Include="assets\dist\css\skins\skin-black-light.css" />
@@ -7634,6 +7635,13 @@
     </Compile>
     <Compile Include="BillingCycle.aspx.designer.cs">
       <DependentUpon>BillingCycle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CloseAccount.aspx.cs">
+      <DependentUpon>CloseAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CloseAccount.aspx.designer.cs">
+      <DependentUpon>CloseAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="ControlObjects\BusinessLogic.cs" />
     <Compile Include="ControlObjects\DatabaseHandler.cs" />

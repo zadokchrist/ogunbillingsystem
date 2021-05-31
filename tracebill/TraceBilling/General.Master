@@ -313,6 +313,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> General Inquiry</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Change of Name</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>
+              <li><a href="CloseAccount.aspx"><i class="fa fa-circle-o"></i> Close Account</a></li>
                <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> View Customers</a></li>
             
           </ul>
@@ -376,6 +377,7 @@
               <li><a href="#"><i class="fa fa-circle-o"></i> Billing Simulations & forecasts</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Invoice Customization</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Onspot Billing</a></li>
+
           </ul>
                 <%} %>
         </li>
