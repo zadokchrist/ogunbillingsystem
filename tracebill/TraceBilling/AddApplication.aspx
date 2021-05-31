@@ -252,5 +252,35 @@
     <br /><br />
 	</div>
 </div>
+    <script type="text/javascript">
+   function addFileUploadBox()
+   {
+   if (!document.getElementById || !document.createElement)
+   return false;
+   
+   var uploadArea = document.getElementById("upload-area");
+   if (!uploadArea)
+   return;
+   
+   var newline = document.createElement("br");
+   uploadArea.appendChild(newline);
+   
+   var newUploadBox = document.createElement("input");
+   newUploadBox.type= "file";
+   newUploadBox.size = "60";
+   if (!addFileUploadBox.lastAssignedId)
+   addFileUploadBox.lastAssignedId = 100;
+   
+   newUploadBox.setAttribute("id", "FileField" + addFileUploadBox.lastAssignedId);
+   newUploadBox.setAttribute("name", "FileField" + addFileUploadBox.lastAssignedId);
+   uploadArea.appendChild(newUploadBox);
+   addFileUploadBox.lastAssignedId++;
+   }
+    function changeButtonText(button) {
 
+        button.value = "Processing";
+
+    }
+
+</script>
 </asp:Content>

@@ -6860,6 +6860,7 @@
     <Content Include="dist\js\demo.js" />
     <Content Include="dist\js\pages\dashboard.js" />
     <Content Include="dist\js\pages\dashboard2.js" />
+    <Content Include="FieldBilling.aspx" />
     <Content Include="FieldConnection.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -7355,6 +7356,7 @@
     <Content Include="bower_components\select2\src\scss\_single.scss" />
     <Content Include="dist\css\adminlte.css.map" />
     <Content Include="dist\css\adminlte.min.css.map" />
+    <Content Include="MeterManagement.aspx" />
     <Content Include="PaymentInvoice.aspx" />
     <Content Include="plugins\input-mask\phone-codes\phone-be.json" />
     <Content Include="plugins\input-mask\phone-codes\phone-codes.json" />
@@ -7669,6 +7671,13 @@
     <Compile Include="EntityObjects\PaymentObj.cs" />
     <Compile Include="EntityObjects\TransactionObj.cs" />
     <Compile Include="EntityObjects\UserObj.cs" />
+    <Compile Include="FieldBilling.aspx.cs">
+      <DependentUpon>FieldBilling.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="FieldBilling.aspx.designer.cs">
+      <DependentUpon>FieldBilling.aspx</DependentUpon>
+    </Compile>
     <Compile Include="FieldConnection.aspx.cs">
       <DependentUpon>FieldConnection.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7706,6 +7715,13 @@
     </Compile>
     <Compile Include="MainPage.Master.designer.cs">
       <DependentUpon>MainPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MeterManagement.aspx.cs">
+      <DependentUpon>MeterManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MeterManagement.aspx.designer.cs">
+      <DependentUpon>MeterManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="PaymentInvoice.aspx.cs">
