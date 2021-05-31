@@ -8,6 +8,7 @@ using TraceBilling.EntityObjects;
 using System.Security.Cryptography;
 using System.IO;
 using System.Text;
+using System.Collections;
 
 namespace TraceBilling.ControlObjects
 {
@@ -2242,6 +2243,104 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        //reading validation added 31/5/2021
+        public string GetReadingFilePath(string fileName, string Reader, string fileType)
+        {
+            //string Direct = "D:\\Billing\\ReadingFiles\\";
+            string Area = HttpContext.Current.Session["AreaName"].ToString();
+            string Branch = HttpContext.Current.Session["BranchName"].ToString();
+            string AreaName = Area;
+            if (Branch.ToUpper() != "NONE")
+            {
+                AreaName = Area + "-" + Branch;
+            }
+            string paramCode = "2";
+            string dbStatus = "TEST";//dh.GetSystemParameter(paramCode);
+            string ParameterCode = "6";
+            string Direct = "";//dal.GetSystemParameter(ParameterCode);
+            if (Direct == "")
+            {
+                Direct = "D:\\Billing\\ReadingFiles\\";
+
+            }
+            if (dbStatus.ToUpper().Contains("TEST") && fileType.Equals("MN"))
+            {
+                Direct = Direct + "ManualReadings\\TestReadings\\";
+            }           
+            else if (dbStatus.ToUpper().Contains("LIVE") && fileType.Equals("MN"))
+            {
+                Direct = Direct + "ManualReadings\\LiveReadings\\";
+            }
+            else if (dbStatus.ToUpper().Contains("TEST") && fileType.Equals("MS"))
+            {
+                Direct = Direct + "MobileOnSpotReadings\\TestReadings\\";
+            }
+            else if (dbStatus.ToUpper().Contains("LIVE") && fileType.Equals("MS"))
+            {
+                Direct = Direct + "MobileOnSpotReadings\\LiveReadings\\";
+            }
+
+            
+            string DtTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string filePath = Direct + "UnProcessed\\" + AreaName + "\\" + Reader.Replace(" ", "_") + "\\";
+            string filepath = filePath + "" + DtTime + "-" + fileName;
+            CheckPath(filePath);
+            return filepath;
+        }
+        public void RemoveFile(string Filepath)
+        {
+            File.Delete(Filepath);
+        }
+        //public void CheckPath(string Path)
+        //{
+        //    if (!Directory.Exists(Path))
+        //    {
+        //        Directory.CreateDirectory(Path);
+        //    }
+        //}
+
+        public bool IsExtensionAllowed(string fileExtension)
+        {
+            if (fileExtension.ToUpper() == ".TXT")
+            {
+                return true;
+            }
+            else if (fileExtension.ToUpper() == ".CSV")
+            {
+                return true;
+            }           
+            else
+            {
+                return false;
+            }
+        }
+        public bool CheckFileFormat(string file)
+        {
+            bool output = true;
+            DataFile df = new DataFile();
+            ArrayList rdgFile = df.readFile(file);
+            int failed = 0;
+            foreach (string s in rdgFile)
+            {
+                string[] parameters = s.Split(',');
+                int TotalCols = parameters.Length;
+                if (TotalCols == 9)
+                {
+                    output = true;
+                }
+                else
+                {
+                    output = false;
+                    failed++;
+                }
+            }
+            if (failed > 0)
+            {
+                output = false;
+            }
+            return output;
+        }
+
         /* public bool IsCompulsaryPaid(string appnumber)
          {
              bool value = false;

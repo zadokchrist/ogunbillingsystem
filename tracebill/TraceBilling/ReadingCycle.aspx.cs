@@ -256,6 +256,10 @@ namespace TraceBilling
         {
             reader_list.Items.Insert(0, new ListItem("- - None - -", "0"));
         }
+        protected void cboReader1_DataBound(object sender, EventArgs e)
+        {
+            cboReader1.Items.Insert(0, new ListItem("- - None - -", "0"));
+        }
         protected void comment_list_DataBound(object sender, EventArgs e)
         {
             comment_list.Items.Insert(0, new ListItem("- - None - -", "0"));
@@ -497,7 +501,7 @@ namespace TraceBilling
             {
                 string countryid = country_list.SelectedValue.ToString();//Session["countryId"].ToString();
                 string areaid = area_list3.SelectedValue.ToString();//Session["areaId"].ToString();
-                if (rdgoptions.SelectedValue.ToString() == "1")
+                if (rdgoptions.SelectedValue.ToString() == "1")//one by one
                 {
                  
                     //LoadAreaList3(int.Parse(countryid));
@@ -505,9 +509,9 @@ namespace TraceBilling
                     onebyonedisplay.Visible = true;
                     bulkdisplay.Visible = false;
                 }
-                else if (rdgoptions.SelectedValue.ToString() == "2")
+                else if (rdgoptions.SelectedValue.ToString() == "2")//bulk
                 {
-                  
+                    LoadMeterReaders_bulk(areaid, "11");
                     onebyonedisplay.Visible = false;
                     bulkdisplay.Visible = true;
                 }
@@ -706,6 +710,236 @@ namespace TraceBilling
             {
                 throw ex;
             }
+
+        }
+
+        protected void btnOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ValidateFile();
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message,true);
+            }
+        }
+        private void LoadMeterReaders_bulk(string areaid, string roleid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetSystemUserByRole(areaid, roleid);
+                cboReader1.DataSource = dt;
+                cboReader1.DataTextField = "fullName";
+                cboReader1.DataValueField = "userID";
+                cboReader1.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayReaderList", error);
+                DisplayMessage(error, true);
+            }
+        }
+        private void ValidateFile()
+        {
+            string Reader = cboReader1.SelectedValue.ToString();
+            string ReadingDate = txtReadingDate1.Text.Trim();
+            string Area = area_list3.SelectedValue.ToString();
+            string BllPeriod = bll.GetBillingPeriod(Area);
+            bool HasHeader = chkHeader.Checked;
+
+            if (FileUpload1.FileName.Trim().Equals(""))
+            {
+                DisplayMessage("Please select a file to upload.",true);
+            }
+            else if (Area.Equals("0"))
+            {
+                DisplayMessage("Please select an Area",true);
+            }
+            else if (Reader == "0")
+            {
+                DisplayMessage("Please Select Reader for the file to Upload",true);
+            }
+            else if (ReadingDate == "")
+            {
+                DisplayMessage("Please Enter Reading Date for the file to upload",true);
+            }
+            else if (!bll.IsValidReadingDate(ReadingDate))
+            {
+                string Todate = DateTime.Now.ToString("dd/MM/yyyy");
+                DisplayMessage("Invalid Reading Date, It cannot be greater than Today(" + Todate + ")",true);
+            }
+         
+            else
+            {
+                string ReaderI = cboReader1.SelectedValue.ToString();
+                string ReadingDateI = txtReadingDate1.Text.Trim();
+                string AreaI = area_list3.SelectedValue.ToString();
+                string BranchI = branch_list1.SelectedValue.ToString();
+                string CapturingI = Session["UserID"].ToString();
+                int ReaderII = int.Parse(ReaderI);
+                DateTime ReadingDateII = DateTime.Parse(ReadingDateI);
+                int AreaII = int.Parse(AreaI);
+                int BranchII = int.Parse(BranchI);
+                int CapturingII = int.Parse(CapturingI);
+                string CurPeriod = txtcurrentperiod.Text.Trim();
+               // bool Force = chkWarnings.Checked;
+                bool Processing = false;
+                bool Processed = false;
+                int Failed = 0;
+                int Success = 0;
+                string fileType = "MN";
+                string Filepath = ReturnPath(Reader, fileType);
+                string FileNames = Path.GetFileName(Filepath);
+
+                int ProcNumber = GetMaxProcess();
+                ArrayList aList = df.readFile(Filepath);
+                int NoOfRecords = (aList.Count) - 1;
+                string fileExtention = Path.GetExtension(Filepath);
+                if (bll.IsExtensionAllowed(fileExtention))
+                {
+                    if (bll.CheckFileFormat(Filepath) == false)
+                    {
+                        DisplayMessage("File Format is not OK, Columns must be 9..",true);
+                    }
+                    else
+                    {
+                        if (NoOfRecords > ProcNumber)
+                        {
+                            string FileType = "MN";
+                           // data.SaveFileDetails(ReaderII, ReadingDateII, AreaII, BranchII, Filepath, CurPeriod, CapturingII, Processing, Processed, Failed, Success, Force, HasHeader, FileType);
+                            string Msg = "Manual Reading File Has been Uploaded.Your File of (" + " " + NoOfRecords + " " + " )Records will be processed internally";
+                            DisplayMessage(Msg,true);
+                        }
+                        else
+                        {
+                            //CallFileConfirmation(Filepath);
+                            string Msg = "Manual Readings File Contains " + NoOfRecords + " Records. File Not Uploaded.";
+                            bll.RemoveFile(Filepath);
+                            DisplayMessage(Msg,true);
+                        }
+                    }
+                }
+
+                else
+                {
+                    string Msg = "File format(" + fileExtention + ") is not Supported - Upload Csv format";
+                    bll.RemoveFile(Filepath);
+                    DisplayMessage(Msg,true);
+                }
+
+            }
+       
+        }
+
+        private string ReturnPath(string Reader, string FileType)
+        {
+            string filename = Path.GetFileName(FileUpload1.FileName);
+            string filepath = bll.GetReadingFilePath(filename, Reader, FileType);
+            FileUpload1.SaveAs(filepath);
+            return filepath;
+        }
+        private int GetMaxProcess()
+        {
+            int output = 1;
+            string ParameterCode = "3";
+            string MaxNo = "10";//dal.GetSystemParameter(ParameterCode);
+            int Num;
+            bool res = Int32.TryParse(MaxNo, out Num);
+            if (res)
+            {
+                output = Convert.ToInt16(MaxNo);
+            }
+            return output;
+        }
+
+        private string HeaderChecker(bool HasHeader)
+        {
+
+            string Return = "";
+            StreamReader srd = new StreamReader(FileUpload1.PostedFile.FileName.Trim());
+            string[] FirstRecord = srd.ReadToEnd().Replace("\r", "").Split('\n');
+            if (HasHeader)
+            {
+                int i = 1;
+                int count = 0;
+                count += 1;
+                string line = FirstRecord[i].ToString();
+                line = line.Trim();
+                if (!line.Equals(""))
+                {
+                    string[] StrArray = line.Split(',');
+
+                    if (StrArray.Length == 9)
+                    {
+                        int number;
+                        string PropRef = StrArray[2].ToString().Trim();
+                        string Comment = StrArray[7].ToString().ToUpper().Trim();
+                        string Reading = StrArray[8].ToString().Trim();
+
+                        if (Reading == "" && Comment == "")
+                        {
+                            throw new Exception("File not OK, Line (" + count + "). All Null Readings must have a comment");
+
+                        }
+                        else if (!bll.IsValidPropRef(PropRef))
+                        {
+                            throw new Exception("File not OK, Line (" + count + "). Invalid Property Ref");
+                        }
+
+                        bool result = Int32.TryParse(Reading, out number);
+                        if (!result && !Reading.Equals(""))
+                        {
+                            throw new Exception("File not OK, Line (" + count + "). All Readings must be Numeric");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("File Format is not OK, Columns must be 9..");
+
+                    }
+                }
+
+            }
+            else
+            {
+                int i = 0;
+                string line = FirstRecord[i].ToString();
+                line = line.Trim();
+                if (!line.Equals(""))
+                {
+                    string[] StrArray = line.Split(',');
+                    if (StrArray.Length == 9)
+                    {
+                        int number;
+                        string PropRef = StrArray[2].ToString().Trim();
+                        string Comment = StrArray[7].ToString().ToUpper().Trim();
+                        string Reading = StrArray[8].ToString().Trim();
+
+                        if (Reading == "" && Comment == "")
+                        {
+                            throw new Exception("File not OK, Line (" + i + "). All Null Readings must have a comment");
+                        }
+                        else if (bll.IsValidPropRef(PropRef))
+                        {
+                            throw new Exception("File not OK, Line (" + i + "). Invalid Property Ref");
+                        }
+                        bool result = Int32.TryParse(Reading, out number);
+                        if (!result == !Reading.Equals(""))
+                        {
+                            throw new Exception("File not OK, Line (" + i + "). All Readings must be Numeric");
+                        }
+
+                    }
+                    else
+                    {
+                        throw new Exception("File Format is not OK, Columns must be 9..");
+                    }
+                }
+            }
+            return Return;
 
         }
     }

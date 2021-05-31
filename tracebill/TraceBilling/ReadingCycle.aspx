@@ -406,7 +406,124 @@
                        
                    </div>
            <div id="bulkdisplay" runat="server" visible="false">
-               <p>bulk uploading</p>
+               <%--<p>bulk uploading</p>--%>
+                                                  <table style="width: 100%">
+                 <tr>
+                    <td style="vertical-align: middle; height: 20px; text-align: center">
+                        <table align="center" cellpadding="0" cellspacing="0" style="width: 50%">
+                            <tr>
+                                <td class="row">
+                                    <b>BULK UPLOAD READINGS CAPTURE</b></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+              
+                <tr>
+                    <td colspan="3" style="vertical-align: top; width: 100%; height: 5px; text-align: center">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="width: 48%; text-align: right; vertical-align: top;">
+                                                <table align="right" cellpadding="0" cellspacing="0" style="width: 72%">
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                                            Header</td>
+                                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                                        </td>
+                                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                                            <asp:CheckBox ID="chkHeader" runat="server" Font-Bold="True" ForeColor="Maroon" Text="Yes File has header" />&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3" style="height: 1px">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Read Date</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:TextBox ID="txtReadingDate1" runat="server" BackColor="LightGreen" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 2px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Browse File</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="InterfaceDropdownList"
+                                                Width="80%" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 12px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 2%; height: 2px">
+                            </td>
+                            <td style="width: 48%; text-align: left; vertical-align: top;">
+                                <table align="left" cellpadding="0" cellspacing="0" style="width: 60%">
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            <%--Warnings--%>
+
+                                        </td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                           <%-- <asp:CheckBox ID="chkWarnings" runat="server" Font-Bold="True" ForeColor="Maroon"
+                                                Text="Yes Skip Warnings"/>
+                                            &nbsp;--%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 1px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Reader</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px"><asp:DropDownList ID="cboReader1" runat="server" OnDataBound="cboReader1_DataBound"
+                                                                Width="90%">
+                                        </asp:DropDownList>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 2px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Click Here</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:Button ID="btnOK" runat="server" Font-Size="9pt" Height="23px" OnClick="btnOK_Click"
+                                                Text="UPLOAD" Width="145px" Font-Bold="True" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 12px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 824px">
+                    </td>
+                </tr>
+            </table>
+
                      </div>
                        </div>
                    </fieldset>                                                      
@@ -513,6 +630,7 @@
                    <br< />
                    <div id="uploaddisplay" runat="server" visible="true">
                  <p>This is reading upload</p>
+
                    </div>
            
                    </fieldset>                                                      
