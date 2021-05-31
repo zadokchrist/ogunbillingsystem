@@ -1242,5 +1242,50 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal string GetSystemParameter(string paramCode)
+        {
+            string output = "0";
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_GetSystemParameter", int.Parse(paramCode));
+                if (dt.Rows.Count > 0)
+                {
+                    output = dt.Rows[0]["parameterValue"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+
+        internal void SaveFileDetails(int reader, DateTime readingDate, int area, int branch, string filepath, string curPeriod, int capturing, bool processing,bool processed, int failed, int success, bool hasHeader, string fileType)
+        {
+            try
+            {
+                ExecuteCommand("Sp_SaveReadingsQueueLogs", reader, readingDate, area,branch,filepath,curPeriod,capturing,processing,processed,failed,success,hasHeader,fileType);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        internal DataTable GetIDList()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetIDList");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

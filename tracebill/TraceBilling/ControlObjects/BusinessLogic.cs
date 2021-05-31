@@ -1010,6 +1010,9 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+     
+
         internal void SaveApplicationComment(string appid, string action, string comment, string createdby)
         {
             try
@@ -2244,23 +2247,23 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
         //reading validation added 31/5/2021
-        public string GetReadingFilePath(string fileName, string Reader, string fileType)
+        public string GetReadingFilePath(string fileName, string Reader, string fileType, string Area, string Branch)
         {
             //string Direct = "D:\\Billing\\ReadingFiles\\";
-            string Area = HttpContext.Current.Session["AreaName"].ToString();
-            string Branch = HttpContext.Current.Session["BranchName"].ToString();
+            //string Area = HttpContext.Current.Session["area"].ToString();
+            //string Branch = HttpContext.Current.Session["BranchName"].ToString();
             string AreaName = Area;
             if (Branch.ToUpper() != "NONE")
             {
                 AreaName = Area + "-" + Branch;
             }
             string paramCode = "2";
-            string dbStatus = "TEST";//dh.GetSystemParameter(paramCode);
+            string dbStatus = dh.GetSystemParameter(paramCode);
             string ParameterCode = "6";
             string Direct = "";//dal.GetSystemParameter(ParameterCode);
             if (Direct == "")
             {
-                Direct = "D:\\Billing\\ReadingFiles\\";
+                Direct = "C:\\Billing\\ReadingFiles\\";
 
             }
             if (dbStatus.ToUpper().Contains("TEST") && fileType.Equals("MN"))
@@ -2340,7 +2343,32 @@ namespace TraceBilling.ControlObjects
             }
             return output;
         }
+        internal void SaveFileDetails(int reader, DateTime readingDate, int area, int branch, string filepath, string curPeriod, int capturing, bool processing, bool processed, int failed, int success, bool hasHeader, string fileType)
+        {
+            try
+            {
+                dh.SaveFileDetails(reader, readingDate, area,branch,filepath,curPeriod,capturing,processing,processed,failed,success,hasHeader,fileType);
+            }
+            catch (Exception ex)
+            {
+                Log("SaveFileDetails", "101 " + ex.Message);
+            }
+        }
+        internal DataTable GetIDList()
+        {
+            dt = new DataTable();
+            try
+            {
 
+                dt = dh.GetIDList();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetIDList", "101 " + ex.Message);
+            }
+            return dt;
+        }
         /* public bool IsCompulsaryPaid(string appnumber)
          {
              bool value = false;

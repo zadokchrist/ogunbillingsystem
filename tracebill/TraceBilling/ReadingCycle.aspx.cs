@@ -778,6 +778,12 @@ namespace TraceBilling
                 string ReadingDateI = txtReadingDate1.Text.Trim();
                 string AreaI = area_list3.SelectedValue.ToString();
                 string BranchI = branch_list1.SelectedValue.ToString();
+                string area = area_list3.SelectedItem.ToString();
+                string branch = branch_list1.SelectedItem.ToString();
+                if(branch.Contains("None"))
+                {
+                    branch = "";
+                }
                 string CapturingI = Session["UserID"].ToString();
                 int ReaderII = int.Parse(ReaderI);
                 DateTime ReadingDateII = DateTime.Parse(ReadingDateI);
@@ -791,7 +797,7 @@ namespace TraceBilling
                 int Failed = 0;
                 int Success = 0;
                 string fileType = "MN";
-                string Filepath = ReturnPath(Reader, fileType);
+                string Filepath = ReturnPath(Reader, fileType,area,branch);
                 string FileNames = Path.GetFileName(Filepath);
 
                 int ProcNumber = GetMaxProcess();
@@ -809,7 +815,7 @@ namespace TraceBilling
                         if (NoOfRecords > ProcNumber)
                         {
                             string FileType = "MN";
-                           // data.SaveFileDetails(ReaderII, ReadingDateII, AreaII, BranchII, Filepath, CurPeriod, CapturingII, Processing, Processed, Failed, Success, Force, HasHeader, FileType);
+                           bll.SaveFileDetails(ReaderII, ReadingDateII, AreaII, BranchII, Filepath, CurPeriod, CapturingII, Processing, Processed, Failed, Success,  HasHeader, FileType);
                             string Msg = "Manual Reading File Has been Uploaded.Your File of (" + " " + NoOfRecords + " " + " )Records will be processed internally";
                             DisplayMessage(Msg,true);
                         }
@@ -834,10 +840,10 @@ namespace TraceBilling
        
         }
 
-        private string ReturnPath(string Reader, string FileType)
+        private string ReturnPath(string Reader, string FileType, string area, string branch)
         {
             string filename = Path.GetFileName(FileUpload1.FileName);
-            string filepath = bll.GetReadingFilePath(filename, Reader, FileType);
+            string filepath = bll.GetReadingFilePath(filename, Reader, FileType, area,branch);
             FileUpload1.SaveAs(filepath);
             return filepath;
         }
@@ -845,7 +851,7 @@ namespace TraceBilling
         {
             int output = 1;
             string ParameterCode = "3";
-            string MaxNo = "10";//dal.GetSystemParameter(ParameterCode);
+            string MaxNo = "1";//dal.GetSystemParameter(ParameterCode);
             int Num;
             bool res = Int32.TryParse(MaxNo, out Num);
             if (res)

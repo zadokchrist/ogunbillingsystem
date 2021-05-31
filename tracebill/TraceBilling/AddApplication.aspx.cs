@@ -27,6 +27,7 @@ namespace TraceBilling
                     LoadCountryList();
                     int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     LoadAreaList(countryid);
+                    LoadIDList();
                 }
             }
             catch (Exception ex)
@@ -111,6 +112,26 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
+
+        private void LoadIDList()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetIDList();
+                cboID.DataSource = dt;
+
+                cboID.DataTextField = "IdName";
+                cboID.DataValueField = "IdType";
+                cboID.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadIDList", error);
+                DisplayMessage(error, true);
+            }
+        }
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -137,6 +158,10 @@ namespace TraceBilling
         protected void area_list_DataBound(object sender, EventArgs e)
         {
             area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        }
+        protected void cboID_DataBound(object sender, EventArgs e)
+        {
+            cboID.Items.Insert(0, new ListItem("- - select ID  Type- -", "0"));
         }
 
         protected void btnSave_Click(object sender, EventArgs e)

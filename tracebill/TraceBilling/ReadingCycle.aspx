@@ -443,7 +443,7 @@
                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                         </td>
                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                            <asp:TextBox ID="txtReadingDate1" runat="server" BackColor="LightGreen" CssClass="InterfaceTextboxLongReadOnly"
+                                            <asp:TextBox ID="txtReadingDate1" runat="server" BackColor="LightGreen" CssClass="uploaddate"
                                                 Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
                                     </tr>
                                     <tr>
@@ -666,6 +666,11 @@
     <script type="text/javascript">
         $(function () {
             $(".readdate").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+        });
+        $(function () {
+            $(".uploaddate").datepicker({
                 dateFormat: "dd/mm/yy"
             });
         });
