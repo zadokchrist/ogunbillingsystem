@@ -7572,6 +7572,7 @@
     <Content Include="Styles\sky-blue-glow-29613-1920x1080.jpg" />
     <Content Include="SurveyJobs.aspx" />
     <Content Include="SystemSettings.aspx" />
+    <Content Include="TariffManagement.aspx" />
     <Content Include="ViewApplications.aspx" />
     <Content Include="ViewApplicationTrack.aspx" />
     <Content Include="ViewCustomers.aspx" />
@@ -7781,6 +7782,13 @@
     </Compile>
     <Compile Include="SystemSettings.aspx.designer.cs">
       <DependentUpon>SystemSettings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="TariffManagement.aspx.cs">
+      <DependentUpon>TariffManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TariffManagement.aspx.designer.cs">
+      <DependentUpon>TariffManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewApplications.aspx.cs">
       <DependentUpon>ViewApplications.aspx</DependentUpon>

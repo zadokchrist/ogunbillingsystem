@@ -310,7 +310,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> General Inquiry</a></li>
+            <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> General Inquiry</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Change of Name</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>
               <li><a href="CloseAccount.aspx"><i class="fa fa-circle-o"></i>Account Closure</a></li>
@@ -352,10 +352,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Structural Definition</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
+            <li><a href="TariffManagement"><i class="fa fa-circle-o"></i> Structural Definition</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Taxation Setting</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>--%>
 <%--              <li><a href="#"><i class="fa fa-circle-o"></i> Fines and Non-Consumption fees</a></li>--%>
           </ul>
                <%} %>
@@ -396,14 +396,15 @@
        
 
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Flexible receipting</a></li>            
-            <li><a href="#"><i class="fa fa-circle-o"></i> Controls & Fraud detection</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Discon & recon controls</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Group Owner Management</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Arrears and Aging Analysis</a></li>
-               <li><a href="#"><i class="fa fa-circle-o"></i> Debt re-scheduling</a></li>
-               <li><a href="#"><i class="fa fa-circle-o"></i> Arrears payment Agreements</a></li>
+              <li><a href="#"><i class="fa fa-circle-o"></i> Arrears payment Agreements</a></li>
                <li><a href="#"><i class="fa fa-circle-o"></i> Adjustment options</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Flexible receipting</a></li>            
+            <li><a href="#"><i class="fa fa-circle-o"></i> Controls & Fraud detection</a></li>--%>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Discon & recon controls</a></li>
+          <%--  <li><a href="#"><i class="fa fa-circle-o"></i> Group Owner Management</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Arrears and Aging Analysis</a></li>
+               <li><a href="#"><i class="fa fa-circle-o"></i> Debt re-scheduling</a></li>--%>
+               
           </ul>
                 <%} %>
         </li>
@@ -502,7 +503,7 @@
              
             <li><a href="SystemSettings.aspx"><i class="fa fa-circle-o"></i> Country Customization</a></li>
               
-              <li><a href="#"><i class="fa fa-circle-o"></i> Tariff Setting</a></li>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Tariff Setting</a></li>--%>
              
             
             

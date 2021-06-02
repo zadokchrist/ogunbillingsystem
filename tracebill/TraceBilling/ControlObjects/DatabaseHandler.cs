@@ -1314,5 +1314,31 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetTariffSettings(string areaid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetTariffSettings", int.Parse(areaid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetGeneralTariffs()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetGeneralTariffs");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

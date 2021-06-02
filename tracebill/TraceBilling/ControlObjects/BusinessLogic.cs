@@ -2407,5 +2407,36 @@ namespace TraceBilling.ControlObjects
             }
             return resp;
         }
+        internal DataTable GetTariffSettings(string areaid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTariffSettings(areaid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTariffSettings", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetGeneralTariffs()
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetGeneralTariffs();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetGeneralTariffs", "101 " + ex.Message);
+            }
+            return dt;
+        }
+
     }
 }
