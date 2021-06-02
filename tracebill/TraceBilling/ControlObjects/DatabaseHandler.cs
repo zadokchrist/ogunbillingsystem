@@ -1287,5 +1287,32 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal DataTable CheckExistingSerial(string meterno)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_CheckMeterSerial",meterno);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable SaveMeterInventory(string metertype,string meterserial, string dials,string reading,string life,DateTime manufacturedate, string createdby, bool isactve,string condition)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_SaveMeterInventory", int.Parse(metertype),meterserial,int.Parse(dials),int.Parse(reading),int.Parse(life),manufacturedate,int.Parse(createdby),isactve,condition);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

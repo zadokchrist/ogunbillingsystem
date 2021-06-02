@@ -64,13 +64,7 @@
                    <asp:Button ID="btnreadingcapture" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnreadingcapture_Click" Text="CAPTURE READINGS" cssclass ="btn-primary"
                                         Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;
-                  <asp:Button ID="btnroutedownload" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                                        Font-Underline="False" OnClick="btnroutedownload_Click" Text="DOWNLOAD ROUTE" cssclass ="btn-primary"
-                                        Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;                 
-                                  
-                                    <asp:Button ID="btnreadingupload" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                                        Font-Underline="False" OnClick="btnreadingupload_Click" Text="UPLOAD READINGS" cssclass ="btn-primary"
-                                        Width="160px" />&nbsp;&nbsp;&nbsp;&nbsp; 
+                  
                   <asp:Button ID="btnrexceptions" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnrexceptions_Click" Text="HANDLE EXCEPTIONS" cssclass ="btn-primary"
                                         Width="149px" />&nbsp;
@@ -531,113 +525,7 @@
             </div>
                  
        </div>
-               <div id="downloadroute" runat="server" visible="false">
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Download Routes</legend>
-                 
-                   <br< />
-                   <div id="downloaddisplay" runat="server" visible="true">
-                <%-- <p>This is routes download</p>--%>
-                        <table width="100%">
-    <tr>
-    <%--<th>New</th>--%>
-        <th class="modal-sm" style="width: 207px">Country</th>
-         <th class="modal-sm" style="width: 226px">Operation Area</th>
-        <th class="modal-sm" style="width: 226px">Branch/Zone</th>
-        <th class="modal-sm" style="width: 226px">Book</th>
-        <th class="modal-sm" style="width: 226px">Walk</th>
-        <th></th>
-        </tr>
-        <tr>
-  
-          
-                          <td class="modal-sm" style="width: 207px" >
-                      
-            <asp:DropDownList ID="country_list2" CssClass="form-control" runat="server"  OnDataBound="country_list2_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="country_list2_SelectedIndexChanged" Width="235px">
-                </asp:DropDownList>
-                    </td>
-             
-                           
-             <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:DropDownList ID="area_list2" CssClass="form-control" runat="server"  OnDataBound="area_list2_DataBound" Visible="true" >
-                
-                </asp:DropDownList>
-                    </td>
-                <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true" >
-                
-                </asp:DropDownList>
-                    </td>
-              <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtbook" placeholder="Enter Book Number" BackColor="LightGreen"  Font-Bold="True" ForeColor="Maroon"/>
-                    </td>
-                  <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtwalk" placeholder="Enter Walk Number" BackColor="LightGreen"  Font-Bold="True" ForeColor="Maroon"/>
-                    </td>
-                 
-                          <td>
-                         
-           
-                          </td>
-                                                 
-                          </tr>
-                          </table>
-                       <center>
-                            <asp:Button ID="Button1" Width="150" Height="40" CssClass="btn-primary"
-                                    runat="server" Text="Search" onclick="Button4_Click" />
-                      
-                       </center>
-                       <hr />
-                        <div id="downloadgrid" runat="server" visible="false">
- <asp:DataGrid ID="DataGriddownloads" runat="server" AutoGenerateColumns="False"
-                CellPadding="4" Font-Bold="False" Font-Italic="False" Font-Names="Courier New"
-                Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="#333333"
-                GridLines="Horizontal" HorizontalAlign="Justify"
-                OnItemCommand="download_command"
-                PageSize="50" Style="font: menu;text-align: justify" Width="100%">
-                <FooterStyle BackColor="InactiveCaption" Font-Bold="False" ForeColor="White" />
-                <EditItemStyle BackColor="#999999" />
-                <SelectedItemStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" Mode="NumericPages" />
-                <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
-                <ItemStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                <Columns>
-                    <asp:BoundColumn DataField="Route" HeaderText="Route"></asp:BoundColumn>
-                    <asp:ButtonColumn CommandName="download" HeaderText="Download" Text="Download"></asp:ButtonColumn>
-                    
-                    </Columns>
-            </asp:DataGrid>
-          </div>
-                   </div>
-           
-                   </fieldset>                                                      
-              
-            </div>
-                 
-       </div>
-               <div id="uploadroutes" runat="server" visible="false">
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Upload Readings</legend>
-                 
-                   <br< />
-                   <div id="uploaddisplay" runat="server" visible="true">
-                 <p>This is reading upload</p>
-
-                   </div>
-           
-                   </fieldset>                                                      
-              
-            </div>
-                 
-       </div>
+               
                <div id="handleexeptions" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
                <fieldset class="panel panel-primary" runat="server">

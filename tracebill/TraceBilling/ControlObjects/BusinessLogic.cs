@@ -255,7 +255,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-
+      
 
         internal ResponseMessage SaveApplication(ApplicationObj app)
         {
@@ -2327,7 +2327,7 @@ namespace TraceBilling.ControlObjects
             {
                 string[] parameters = s.Split(',');
                 int TotalCols = parameters.Length;
-                if (TotalCols == 9)
+                if (TotalCols >= 28)
                 {
                     output = true;
                 }
@@ -2369,44 +2369,43 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        /* public bool IsCompulsaryPaid(string appnumber)
-         {
-             bool value = false;
-             try
-             {
-                 dt = dh.GetInvoiceDetailsByAppNumber(appnumber);
-                 if (dt.Rows.Count > 0)
-                 {
-                     //value = true;
-                     double number; double Deposit = 0;
-                     double ConCharge = Convert.ToDouble(dt.Rows[0]["ConnectionCharge"].ToString());
-                     double ExtrCharge = Convert.ToDouble(dt.Rows[0]["Extra"].ToString());
-                     string Depo = DTable.Rows[0]["Deposit"].ToString();
-                     if (Double.TryParse(Depo, out number))
-                         Deposit = Convert.ToDouble(Depo);
-                     double TotalCharge = ConCharge + ExtrCharge + Deposit;
-                     double TotalInvoiced = Convert.ToDouble(DTable.Rows[0]["TotalInvoice"].ToString());
-                     if (TotalCharge == TotalInvoiced)
-                     {
-                         return true;
-                     }
-                     else
-                     {
-                         return false;
-                     }
-                 }
-                 else
-                 {
-                     value = false;
-                 }
+        internal bool CheckExistingSerial(string meterno)
+        {
+            bool value = false;
+            dt = new DataTable();
+            try
+            {
 
-             }
-             catch (Exception ex)
-             {
-                 Log("IsCompulsaryPaid", "101 " + ex.Message);
-                 value = false;
-             }
-             return value;
-         }*/
+                dt = dh.CheckExistingSerial(meterno);
+                if(dt.Rows.Count > 0)
+                {
+                    value = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log("CheckExistingSerial", "101 " + ex.Message);
+            }
+            return value;
+        }
+        internal ResponseMessage SaveMeterInventory(string metertype, string meterserial, string dials, string reading, string life, DateTime manufacturedate, string createdby,bool isactive,string condition)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveMeterInventory(metertype,meterserial,dials,reading,life,manufacturedate,createdby,isactive,condition);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveMeterInventory", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
     }
 }
