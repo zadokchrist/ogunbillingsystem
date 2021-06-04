@@ -310,7 +310,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> General Inquiry</a></li>
+            <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> General Inquiry</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Change of Name</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>
               <li><a href="CloseAccount.aspx"><i class="fa fa-circle-o"></i>Account Closure</a></li>
@@ -319,7 +319,7 @@
           </ul>
         </li>
            <li class="treeview">
-                <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9" || Session["roleId"].ToString() == "1")
+                <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9")
                                                   {%>
           <a href="#">
             <i class="fa fa-edit"></i>
@@ -330,11 +330,13 @@
           </a>
           <ul class="treeview-menu">
   
-            <li><a href="#"><i class="fa fa-circle-o"></i> Inventory</a></li>
+<%--            <li><a href="#"><i class="fa fa-circle-o"></i> Inventory</a></li>--%>
             <li><a href="ReadingCycle.aspx"><i class="fa fa-circle-o"></i> Reading Cycle</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Route Definition</a></li>
+                <li><a href="FieldBilling.aspx"><i class="fa fa-circle-o"></i> Onspot Billing</a></li>
+               <li><a href="MeterManagement.aspx"><i class="fa fa-circle-o"></i> Meter Handling</a></li>
+<%--            <li><a href="#"><i class="fa fa-circle-o"></i> Route Definition</a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Exceptions & Variance</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Meter repairs & Replacement</a></li>
+<%--            <li><a href="#"><i class="fa fa-circle-o"></i> Meter repairs & Replacement</a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Meter History Log</a></li>
           </ul>
                 <%} %>
@@ -350,10 +352,10 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Structural Definition</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
+            <li><a href="TariffManagement"><i class="fa fa-circle-o"></i> Structural Definition</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Taxation Setting</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>--%>
 <%--              <li><a href="#"><i class="fa fa-circle-o"></i> Fines and Non-Consumption fees</a></li>--%>
           </ul>
                <%} %>
@@ -370,13 +372,13 @@
           </a>
           <ul class="treeview-menu">
       <li><a href="BillingCycle.aspx"><i class="fa fa-circle-o"></i> Billing Cycles Management</a></li>
-           <li><a href="#"><i class="fa fa-circle-o"></i> Service Definition</a></li>
+<%--           <li><a href="#"><i class="fa fa-circle-o"></i> Service Definition</a></li>--%>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Consumption & Non-Consumption charges </a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Auto & Manual Bill production</a></li>
             
               <li><a href="#"><i class="fa fa-circle-o"></i> Billing Simulations & forecasts</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Invoice Customization</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Onspot Billing</a></li>
+            
 
           </ul>
                 <%} %>
@@ -394,14 +396,15 @@
        
 
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Flexible receipting</a></li>            
-            <li><a href="#"><i class="fa fa-circle-o"></i> Controls & Fraud detection</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Discon & recon controls</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Group Owner Management</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Arrears and Aging Analysis</a></li>
-               <li><a href="#"><i class="fa fa-circle-o"></i> Debt re-scheduling</a></li>
-               <li><a href="#"><i class="fa fa-circle-o"></i> Arrears payment Agreements</a></li>
+              <li><a href="#"><i class="fa fa-circle-o"></i> Arrears payment Agreements</a></li>
                <li><a href="#"><i class="fa fa-circle-o"></i> Adjustment options</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Flexible receipting</a></li>            
+            <li><a href="#"><i class="fa fa-circle-o"></i> Controls & Fraud detection</a></li>--%>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Discon & recon controls</a></li>
+          <%--  <li><a href="#"><i class="fa fa-circle-o"></i> Group Owner Management</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Arrears and Aging Analysis</a></li>
+               <li><a href="#"><i class="fa fa-circle-o"></i> Debt re-scheduling</a></li>--%>
+               
           </ul>
                 <%} %>
         </li>
@@ -500,7 +503,7 @@
              
             <li><a href="SystemSettings.aspx"><i class="fa fa-circle-o"></i> Country Customization</a></li>
               
-              <li><a href="#"><i class="fa fa-circle-o"></i> Tariff Setting</a></li>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Tariff Setting</a></li>--%>
              
             
             
