@@ -97,6 +97,7 @@ C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll.config
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.pdb
+C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojResolveAssemblyReference.cache
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
 D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojAssemblyReference.cache

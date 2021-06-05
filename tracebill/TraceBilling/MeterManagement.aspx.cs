@@ -45,8 +45,30 @@ namespace TraceBilling
 
         private void LoadDisplay()
         {
-            meterinventory.Visible = true;
-            LoadMeterTypes();
+            //meterinventory.Visible = true;
+            searchdisplay.Visible = true;
+           
+            int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+            int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+            string custref = txtcustref.Text.Trim();
+
+            DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 1);
+            if (dataTable.Rows.Count > 0)
+            {
+                gv_customerview.DataSource = dataTable;
+                gv_customerview.DataBind();
+                DisplayMessage(".", true);
+                //customerdisplay.Visible = true;
+            }
+            else
+            {
+                gv_customerview.DataSource = dataTable;
+                gv_customerview.DataBind();
+                string error = "100: " + "No records found";
+                bll.Log("LoadDisplayCustomer", error);
+                DisplayMessage(error, true);
+                //customerdisplay.Visible = false;
+            }
         }
 
         private void LoadCountryList()
@@ -131,7 +153,8 @@ namespace TraceBilling
             meterreplacement.Visible = false;
             metertransfer.Visible = false;
             DisplayMessage(".", true);
-            LoadDisplay();
+            searchdisplay.Visible = false;
+            LoadMeterTypes();
         }
 
         protected void btnservicing_Click(object sender, EventArgs e)
@@ -163,7 +186,7 @@ namespace TraceBilling
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-
+            LoadDisplay();
         }
 
         protected void btninventorysave_Click(object sender, EventArgs e)
@@ -308,6 +331,336 @@ namespace TraceBilling
                 DisplayMessage(str, true);
             }
         }
+        protected void gv_customerview_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //
+                // dispatchdisplay.Visible = true;
+                TableCell link = (TableCell)e.Row.Cells[2];
+                string type = e.Row.Cells[6].Text;
+                // e.Row.BackColor = Color.Blue;
+                //e.Row.ForeColor = Color.Green;
+
+            }
+        }
+        protected void gv_customerview_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void gv_customerview_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            int index = e.NewSelectedIndex;
+            if (index >= 0)
+            {
+                //string refnumber = GridViewIssue.Rows[index].Cells[0].Text;
+                string usercode = gv_customerview.Rows[index].Cells[1].Text;
+
+
+            }
+        }
+        protected void gv_customerview_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            string custref = "";
+            string flag = "";
+
+            if (e.CommandName == "RowReplace")
+            {
+                custref = Convert.ToString(e.CommandArgument.ToString());
+                flag = "1";
+
+            }
+            else if (e.CommandName == "RowService")
+            {
+                custref = Convert.ToString(e.CommandArgument.ToString());
+                flag = "2";
+
+            }
+            else if (e.CommandName == "RowTransfer")
+            {
+                custref = Convert.ToString(e.CommandArgument.ToString());
+                flag = "3";
+
+            }
+            LoadCustomerDisplay(custref, flag);
+
+        }
+
+        private void LoadCustomerDisplay(string custref, string flag)
+        {
+            try
+            {
+                if(flag.Equals("1"))//replacement
+                {
+                    meterinventory.Visible = false;
+                    meterservice.Visible = false;
+                    meterreplacement.Visible = true;
+                    metertransfer.Visible = false;
+                    DisplayMessage(".", true);
+                    LoadReplacementReasons();
+                    LoadReplacementDetails(custref);
+                }
+                else if (flag.Equals("2"))//service
+                {
+                    meterinventory.Visible = false;
+                    meterservice.Visible = true;
+                    meterreplacement.Visible = false;
+                    metertransfer.Visible = false;
+                    DisplayMessage(".", true);
+                    LoadServiceReasons();
+                    LoadServiceDetails(custref);
+                }
+                else if (flag.Equals("3"))//transfer
+                {
+                    meterinventory.Visible = false;
+                    meterservice.Visible = false;
+                    meterreplacement.Visible = false;
+                    metertransfer.Visible = true;
+                    DisplayMessage(".", true);
+                }
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void LoadReplacementDetails(string custref)
+        {
+            try
+            {
+                string areaid = area_list.SelectedValue.ToString();
+                string branchid = "0";
+                DataTable dTable = bll.GetLatestReadingDetails(custref, areaid, branchid);
+                if (dTable.Rows.Count > 0)
+                {
+                    txtprerdgrep.Text = dTable.Rows[0]["CurReading"].ToString();
+                    DateTime CurReadingDate = Convert.ToDateTime(dTable.Rows[0]["CurReadingDate"].ToString());
+                    txtprerdgdtrep.Text = CurReadingDate.ToString("dd/MM/yyyy");
+                    txtconsumptionrep.Text = dTable.Rows[0]["Consumption"].ToString();
+                    txtsizerep.Text = dTable.Rows[0]["size"].ToString();
+                    txtmakerep.Text = dTable.Rows[0]["meterName"].ToString();
+                    txtserialrep.Text = dTable.Rows[0]["serial"].ToString();
+                    txtnamereplace.Text = dTable.Rows[0]["customerName"].ToString();
+                    txtmeterefrep.Text = dTable.Rows[0]["meterRef"].ToString();
+                    txtproprefrep.Text = dTable.Rows[0]["propertyRef"].ToString();
+                    txtdialsrep.Text = dTable.Rows[0]["dials"].ToString();
+                    LoadReplacementReasons();
+                    LoadMeterTypes_rep();
+                    LoadPipeSizeList();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void LoadServiceDetails(string custref)
+        {
+            try
+            {
+                string areaid = area_list.SelectedValue.ToString();
+                string branchid = "0";
+                DataTable dTable = bll.GetLatestReadingDetails(custref, areaid, branchid);
+                if (dTable.Rows.Count > 0)
+                {
+                    txtViewPreRdg.Text = dTable.Rows[0]["CurReading"].ToString();
+                    DateTime CurReadingDate = Convert.ToDateTime(dTable.Rows[0]["CurReadingDate"].ToString());
+                    txtPreRdgDate.Text = CurReadingDate.ToString("dd/MM/yyyy");
+                    txtConsumption.Text = dTable.Rows[0]["Consumption"].ToString();
+                    txtViewSize.Text = dTable.Rows[0]["size"].ToString();
+                    txtViewType.Text = dTable.Rows[0]["meterName"].ToString();
+                    txtViewSerial.Text = dTable.Rows[0]["serial"].ToString();
+                    txtCustName.Text = dTable.Rows[0]["customerName"].ToString();
+                    txtViewMeterRef.Text = dTable.Rows[0]["meterRef"].ToString();
+                    txtViewPropRef.Text = dTable.Rows[0]["propertyRef"].ToString();
+                    txtViewDial.Text = dTable.Rows[0]["dials"].ToString();
+                   
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        protected void txtReading_TextChanged(object sender, EventArgs e)
+        {
+            //TODO: To include reseting of the meter 
+            if (!String.IsNullOrEmpty(txtrdg.Text.Trim()))
+            {
+                if (String.IsNullOrEmpty(txtViewPreRdg.Text.Trim()))
+                {
+                    DisplayMessage("Previous reading cannot be empty", true);
+                }
+                else
+                {
+                    double PreReading = Convert.ToDouble(txtViewPreRdg.Text.Trim());
+                    double Reading = Convert.ToDouble(txtrdg.Text.Trim());
+                    double Consumption = Reading - PreReading;
+                    txtConsumption.Text = Consumption.ToString();
+                }
+                
+            }
+        }
+        protected void txtrdgreplace_TextChanged(object sender, EventArgs e)
+        {
+            //TODO: To include reseting of the meter 
+            if (!String.IsNullOrEmpty(txtrdgreplace.Text.Trim()))
+            {
+                if (String.IsNullOrEmpty(txtprerdgrep.Text.Trim()))
+                {
+                    DisplayMessage("Previous reading cannot be empty", true);
+                }
+                else
+                {
+                    double PreReading = Convert.ToDouble(txtprerdgrep.Text.Trim());
+                    double Reading = Convert.ToDouble(txtrdgreplace.Text.Trim());
+                    double Consumption = Reading - PreReading;
+                    txtconsumptionrep.Text = Consumption.ToString();
+                }
+                    
+            }
+        }
+
+        protected void btnservice_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        protected void btnreturn2_Click(object sender, EventArgs e)
+        {
+            meterinventory.Visible = false;
+            meterservice.Visible = false;
+            meterreplacement.Visible = false;
+            metertransfer.Visible = false;
+        }
+        private void LoadServiceReasons()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetMeterActivityReasons("1");
+                cboReason.DataSource = dt;//meterTypeId,meterName
+
+                cboReason.DataTextField = "reason";
+                cboReason.DataValueField = "reasonId";
+                cboReason.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadServiceReasons", error);
+                DisplayMessage(error, true);
+            }
+        }
+        private void LoadReplacementReasons()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetMeterActivityReasons("2");
+                cboReasonrep.DataSource = dt;//meterTypeId,meterName
+
+                cboReasonrep.DataTextField = "reason";
+                cboReasonrep.DataValueField = "reasonId";
+                cboReasonrep.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadReplacementReasons", error);
+                DisplayMessage(error, true);
+            }
+        }
+        protected void cboReason_DataBound(object sender, EventArgs e)
+        {
+            cboReason.Items.Insert(0, new ListItem("- - select reason - -", "0"));
+        }
+        protected void cboReasonrep_DataBound(object sender, EventArgs e)
+        {
+            cboReasonrep.Items.Insert(0, new ListItem("- - select reason - -", "0"));
+        }
+
+        protected void btnreplace_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnapprove_Click(object sender, EventArgs e)
+        {
+            meterinventory.Visible = false;
+            meterservice.Visible = false;
+            meterreplacement.Visible = false;
+            metertransfer.Visible = false;
+            meterapproval.Visible = true;
+            searchdisplay.Visible = false;
+            DisplayMessage(".", true);
+        }
+
+        protected void btnreturnreplace_Click(object sender, EventArgs e)
+        {
+            meterinventory.Visible = false;
+            meterservice.Visible = false;
+            meterreplacement.Visible = false;
+            metertransfer.Visible = false;
+        }
+        private void LoadPipeSizeList()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetPipeDiameterList();
+                cboMeterSize.DataSource = dt;
+
+                cboMeterSize.DataTextField = "diameter";
+                cboMeterSize.DataValueField = "diameterId";
+                cboMeterSize.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadPipeSizeList", error);
+                DisplayMessage(error, true);
+            }
+        }
+        protected void cboMeterSize_DataBound(object sender, EventArgs e)
+        {
+            cboMeterSize.Items.Insert(0, new ListItem("- - select Diameter - -", "0"));
+        }
+        protected void cboType2_DataBound(object sender, EventArgs e)
+        {
+            cboType2.Items.Insert(0, new ListItem("- - select meter type - -", "0"));
+        }
+        private void LoadMeterTypes_rep()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetMeterTypeList();
+                cboType2.DataSource = dt;//meterTypeId,meterName
+
+                cboType2.DataTextField = "meterName";
+                cboType2.DataValueField = "meterTypeId";
+                cboType2.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadMeterTypes_rep", error);
+                DisplayMessage(error, true);
+            }
+        }
+
 
     }
 }

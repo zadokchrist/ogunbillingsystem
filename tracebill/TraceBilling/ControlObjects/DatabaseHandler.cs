@@ -1340,5 +1340,44 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetMeterActivityReasons(string activityid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetMeterActivityReasons", int.Parse(activityid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetLatestReadingDetails(string custref, string areaid, string branchid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetLatestReadingDetails", custref, int.Parse(areaid), int.Parse(branchid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetTransactionCodes(string flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetTransactionCodes",int.Parse(flag));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

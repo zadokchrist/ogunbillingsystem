@@ -372,6 +372,8 @@
           </a>
           <ul class="treeview-menu">
       <li><a href="BillingCycle.aspx"><i class="fa fa-circle-o"></i> Billing Cycles Management</a></li>
+       <li><a href="Adjustments.aspx"><i class="fa fa-circle-o"></i> Adjustment options</a></li>
+
 <%--           <li><a href="#"><i class="fa fa-circle-o"></i> Service Definition</a></li>--%>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Consumption & Non-Consumption charges </a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Auto & Manual Bill production</a></li>
@@ -397,7 +399,6 @@
 
           <ul class="treeview-menu">
               <li><a href="#"><i class="fa fa-circle-o"></i> Arrears payment Agreements</a></li>
-               <li><a href="#"><i class="fa fa-circle-o"></i> Adjustment options</a></li>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Flexible receipting</a></li>            
             <li><a href="#"><i class="fa fa-circle-o"></i> Controls & Fraud detection</a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Discon & recon controls</a></li>

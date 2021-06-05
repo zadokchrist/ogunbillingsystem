@@ -2437,6 +2437,51 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetMeterActivityReasons(string activityid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetMeterActivityReasons(activityid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetMeterActivityReasons", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetLatestReadingDetails(string custref, string areaid, string branchid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetLatestReadingDetails(custref, areaid, branchid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetLatestReadingDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetTransactionCodes(string flag)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTransactionCodes(flag);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTransactionCodes", "101 " + ex.Message);
+            }
+            return dt;
+        }
 
     }
 }
