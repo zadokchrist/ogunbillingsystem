@@ -203,6 +203,8 @@
     <Content Include="AddApplication.aspx" />
     <Content Include="AddTransaction.aspx" />
     <Content Include="AddUser.aspx" />
+    <Content Include="Adjustments.aspx" />
+    <Content Include="ApproveRequests.aspx" />
     <Content Include="ApproveSurvey.aspx" />
     <Content Include="assets\bootstrap\css\bootstrap-theme.css" />
     <Content Include="assets\bootstrap\css\bootstrap-theme.min.css" />
@@ -7613,6 +7615,20 @@
     </Compile>
     <Compile Include="AddUser.aspx.designer.cs">
       <DependentUpon>AddUser.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Adjustments.aspx.cs">
+      <DependentUpon>Adjustments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adjustments.aspx.designer.cs">
+      <DependentUpon>Adjustments.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ApproveRequests.aspx.cs">
+      <DependentUpon>ApproveRequests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ApproveRequests.aspx.designer.cs">
+      <DependentUpon>ApproveRequests.aspx</DependentUpon>
     </Compile>
     <Compile Include="ApproveSurvey.aspx.cs">
       <DependentUpon>ApproveSurvey.aspx</DependentUpon>
