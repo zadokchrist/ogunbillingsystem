@@ -246,6 +246,8 @@ namespace TraceBilling
 
         }
 
+       
+
         protected void btnreturn_Click(object sender, EventArgs e)
         {
             ClearAdjustmentControls();
@@ -304,7 +306,8 @@ namespace TraceBilling
         {
             try
             {
-                SaveAdjustments();
+                //SaveAdjustments();
+                DisplayMessage("Submit option not ready yet", true);
             }
             catch(Exception ex)
             {
