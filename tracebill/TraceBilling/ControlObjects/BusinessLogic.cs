@@ -549,7 +549,7 @@ namespace TraceBilling.ControlObjects
 
         }
 
-
+       
 
         internal DataTable GetAllUsers(int countryid)
         {
@@ -2481,6 +2481,51 @@ namespace TraceBilling.ControlObjects
                 Log("GetTransactionCodes", "101 " + ex.Message);
             }
             return dt;
+        }
+        internal string GetVATAmount(string countryid, string amount)
+        {
+            string value = "0";
+            //dt = new DataTable();
+            try
+            {
+
+               
+                double vatrate = dh.GetVatRateByCountry(countryid);
+                double res = (vatrate * double.Parse(amount))/100;
+                value = res.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetVATAmount", "101 " + ex.Message);
+            }
+            return value;
+        }
+        internal DataTable GetTranscodeDetails(string transcode)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTranscodeDetails(transcode);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTranscodeDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal void SaveAdjustmentInceptionLogs(TransactionObj trans, string comment)
+        {
+            try
+            {
+                dh.SaveAdjustmentInceptionLogs(trans, comment);
+            }
+            catch (Exception ex)
+            {
+                Log("SaveAdjustmentInceptionLogs", "101 " + ex.Message);
+            }
         }
 
     }

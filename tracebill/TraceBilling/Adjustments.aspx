@@ -186,8 +186,9 @@
                                         </tr>
                                     </table>
                    </div>
+                  
             <center>
-                                 
+                               
                 <asp:Button ID="btnadd" runat="server" Text="Add Adjustment" cssclass ="btn-primary" OnClick="btnadd_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp; 
                         <asp:Button ID="btnreturn" runat="server" Text="Return" cssclass ="btn-primary" OnClick="btnreturn_Click" />
@@ -207,7 +208,7 @@
                    <br< />
                    <div id="myadjustment" runat="server" visible="true">
                 <%-- <p>This is adjustment log</p>--%>
-                                    <div id="searchdisplay" runat="server" visible="false">
+                                    <div id="searchdisplay" runat="server" visible="true">
                  <h5 class="inline">View customer Logs</h5>
              
               
@@ -225,12 +226,11 @@
              <asp:BoundField DataField="custref" HeaderText="CustRef" NullDisplayText="-"/> 
 
             <%-- <asp:BoundField DataField="name" HeaderText="CustName" NullDisplayText="-" />--%> 
-                  <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" /> 
-            
+                  <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" />            
        
                  <asp:BoundField DataField="branch" HeaderText="Branch" NullDisplayText="-" /> 
              <asp:BoundField DataField="transcode" HeaderText="Trans Code" NullDisplayText="-"/>              
-                 <asp:BoundField DataField="docno" HeaderText="Doc No." NullDisplayText="-" /> 
+                 <asp:BoundField DataField="DocumentNo" HeaderText="Doc No." NullDisplayText="-" /> 
                   <asp:BoundField DataField="effectivedate" HeaderText="Effective Date" NullDisplayText="-" /> 
                   <asp:BoundField DataField="amount" HeaderText="Amount" NullDisplayText="-" /> 
                   <asp:BoundField DataField="vat" HeaderText="Vat" NullDisplayText="-" /> 
@@ -271,7 +271,8 @@
 
                    </div>
               <center>
-                                 
+                       <asp:Label ID="lblAdjustmentTotal" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
+                                        Text="0" Visible="False" ForeColor="Green"></asp:Label>    <br />        
                 <asp:Button ID="btnsubmit" runat="server" Text="Submit for Approval" cssclass ="btn-primary" OnClick="btnsubmit_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp; 
                         <asp:Button ID="btncancel" runat="server" Text="Cancel" cssclass ="btn-primary" OnClick="btncancel_Click" />

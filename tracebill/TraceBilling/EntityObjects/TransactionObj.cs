@@ -9,9 +9,9 @@ namespace TraceBilling.EntityObjects
     {
 
         private string documentno, transCode, tariffCode, period, chargeType, vatCode, custRef,
-         reason, meterRef, meterSize, rdgType, suppressedCharges, invoicenumber, rdgmethod,transStatus;
+         reason, meterRef, meterSize, rdgType, suppressedCharges, invoicenumber, rdgmethod,transStatus,baltype;
         private double transvalue, vatvalue, unitCost, openbal, rdgRecordId;
-        private int area, branch, createdBy, billnumber, classid,zone;
+        private int area, branch, createdBy, billnumber, classid,zone,country;
         private int basisconsumption;
         private DateTime postdate;
         private bool sewer,  isVatable;
@@ -351,6 +351,27 @@ namespace TraceBilling.EntityObjects
                 sewer = value;
             }
         }
-
+        public string BalType
+        {
+            get
+            {
+                return baltype;
+            }
+            set
+            {
+                baltype = value;
+            }
+        }
+        public int CountryID
+        {
+            get
+            {
+                return country;
+            }
+            set
+            {
+                country = value;
+            }
+        }
     }
 }
