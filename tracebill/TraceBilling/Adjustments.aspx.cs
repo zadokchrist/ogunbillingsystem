@@ -224,6 +224,10 @@ namespace TraceBilling
             dr["VAT"] = vat;
             dr["Total"] = total;
             dr["Comment"] = comment;
+            dr["AreaId"] = areaid;
+            dr["BranchId"] = "0";
+            dr["Period"] = period;
+            dr["CountryId"] = countryid;
             dtUpdate.Rows.Add(dr);
             dtUpdate.AcceptChanges();
             double NewTotal = 0; int NoOfEntries = 0;
@@ -246,7 +250,19 @@ namespace TraceBilling
 
         }
 
-       
+        private void GetTotalAmount(DataTable dtUpdate)
+        {
+            double NewTotal = 0; int NoOfEntries = 0;
+            foreach (DataRow dr1 in dtUpdate.Rows)
+            {
+
+                NoOfEntries++;
+
+                NewTotal += Convert.ToDouble(dr1["Total"].ToString());
+            }
+            lblAdjustmentTotal.Visible = true;
+            lblAdjustmentTotal.Text = "TOTAL NO. OF ENTRIES IS " + NoOfEntries + " WITH TOTAL AMOUNT OF " + NewTotal.ToString("#,##0");
+        }
 
         protected void btnreturn_Click(object sender, EventArgs e)
         {
@@ -296,18 +312,77 @@ namespace TraceBilling
         }
         protected void gv_customerview_RowCommand(object sender, GridViewCommandEventArgs e)
         {
+            DataTable dt = (DataTable)Session["dtAdjustments"];
             string custref = "";
             string flag = "";
+            int row = 0;
+            //if (e.CommandName == "RowRemove")
+            //{
+            //    custref = Convert.ToString(e.CommandArgument.ToString());
+                
+            //}
 
 
         }
+        protected void LinkButton1_Click(object sender, EventArgs e)
+        {
+            DataTable dt = (DataTable)Session["dtAdjustments"];
+
+
+            LinkButton lb = (LinkButton)sender;
+            GridViewRow gvRow = (GridViewRow)lb.NamingContainer;
+            int rowID = gvRow.RowIndex;
+            if (dt.Rows.Count > 0)
+            {
+
+                if (gvRow.RowIndex <= dt.Rows.Count - 1)
+                {
+                    //Remove the Selected Row data and reset row number  
+                    dt.Rows.Remove(dt.Rows[rowID]);
+                    ResetRowID(dt);
+                }
+                //Store the current data in session for future reference  
+                Session["dtAdjustments"] = dt;
+
+                //Re bind the GridView for the updated data  
+                gv_customerview.DataSource = dt;
+                gv_customerview.DataBind();
+                GetTotalAmount(dt);
+
+            }
+            else
+            {
+                //do not display grid
+                gv_customerview.Visible = false;
+                adjustmentlog.Visible = false;               
+                lblAdjustmentTotal.Visible = false;
+                string str = "No adjustment records to display";
+                DisplayMessage(str, true);
+            }
+
+
+
+        }
+        private void ResetRowID(DataTable dt)
+        {
+            int rowNumber = 1;
+            if (dt.Rows.Count > 0)
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    row[0] = rowNumber;
+                    rowNumber++;
+                }
+            }
+        }
+       
 
         protected void btnsubmit_Click(object sender, EventArgs e)
         {
             try
             {
-                //SaveAdjustments();
-                DisplayMessage("Submit option not ready yet", true);
+                SaveAdjustments();
+               // DisplayMessage("Submit option not ready yet", true);
             }
             catch(Exception ex)
             {
@@ -316,61 +391,68 @@ namespace TraceBilling
         }
         private void SaveAdjustments()
         {
-            DisplayMessage(".",true);
-            if (dtUpdate.Rows.Count == 0)
+            try
             {
-                DisplayMessage("Please Add Adjustments",true);
-            }
-            else
-            {
-               // Session["dtAdjustments"] = dtUpdate;
+                DisplayMessage(".", true);
                 DataTable dtAdjustments = (DataTable)Session["dtAdjustments"];
-
-                string Returned = "";
-                string CreatedBy = Session["UserID"].ToString();
-                TransactionObj trans = new TransactionObj();
-                string comment = "";
-                foreach (DataRow dr in dtAdjustments.Rows)
+                if (dtAdjustments.Rows.Count == 0)
                 {
-                    trans = new TransactionObj();
-
-                    //TO use incase to be captured as payment
-                    
-                    trans.AreaID = Convert.ToInt32(dr["AreaID"].ToString());
-                    //trans.BranchID = Convert.ToInt32(dr["BranchID"].ToString());
-                    trans.DocumentNo = dr["DocumentNo"].ToString();
-                    trans.CustRef = dr["CustRef"].ToString();
-                    string branch = "0";
-                    trans.BranchID = int.Parse(branch);
-                    trans.Period = dr["Period"].ToString();
-                    trans.TransCode = dr["TransCode"].ToString();
-                    trans.TransValue = Convert.ToDouble(dr["Amount"].ToString().Replace("-", "").Replace(",", ""));
-                    trans.BasisConsumption = 0;
-                    trans.VatValue = Convert.ToDouble(dr["VATAmount"].ToString().Replace("-", "").Replace(",", ""));
-                    trans.CreatedBy = Convert.ToInt32(CreatedBy);
-                    trans.InvoiceNumber = dr["InvoiceNo"].ToString();
-                    trans.PostDate = Convert.ToDateTime(dr["EffectiveDate"].ToString());
-                    comment = dr["Comment"].ToString();
-                    //Returned = inter.Adjust(trans);//revised 14/04/2021 to submit for approval
-                    Returned = LogAdjustment(trans, comment);
-                }
-                if (Returned.Contains("successfully"))
-                {
-                    DisplayMessage("Adjustments have been successfully submitted for Area/Branch head approval",false);
-                    dtUpdate.Clear();
-                    btnsubmit.Visible = false;
-                    gv_customerview.Visible = false;
-                    lblAdjustmentTotal.Visible = false;
-
+                    DisplayMessage("Please Add Adjustments", true);
                 }
                 else
                 {
-                    DisplayMessage(Returned,true);
-                    dtUpdate.Clear();
-                    btnsubmit.Visible = false;
-                    gv_customerview.Visible = false;
-                    lblAdjustmentTotal.Visible = false;
+
+
+                    string Returned = "";
+                    string CreatedBy = Session["UserID"].ToString();
+                    TransactionObj trans = new TransactionObj();
+                    string comment = "";
+                    foreach (DataRow dr in dtAdjustments.Rows)
+                    {
+                        trans = new TransactionObj();
+
+                        //TO use incase to be captured as payment
+
+                        trans.AreaID = Convert.ToInt32(dr["AreaId"].ToString());
+                        trans.BranchID = Convert.ToInt32(dr["BranchId"].ToString());
+                        trans.CountryID = Convert.ToInt32(dr["CountryId"].ToString());
+                        trans.DocumentNo = dr["DocumentNo"].ToString();
+                        trans.CustRef = dr["CustRef"].ToString();
+                        // string branch = "0";
+                        // trans.BranchID = int.Parse(branch);
+                        trans.Period = dr["Period"].ToString();
+                        trans.TransCode = dr["TransCode"].ToString();
+                        trans.TransValue = Convert.ToDouble(dr["Amount"].ToString().Replace(",", "").Replace("-", ""));
+                        trans.BasisConsumption = 0;
+                        trans.VatValue = Convert.ToDouble(dr["VAT"].ToString().Replace(",", "").Replace("-", ""));
+                        trans.CreatedBy = Convert.ToInt32(CreatedBy);
+                        trans.InvoiceNumber = "N/A";
+                        trans.PostDate = Convert.ToDateTime(dr["EffectiveDate"].ToString());
+                        comment = dr["Comment"].ToString();
+                        Returned = LogAdjustment(trans, comment);
+                    }
+                    if (Returned.Contains("successfully"))
+                    {
+                        DisplayMessage("Adjustments have been successfully submitted for Area/Branch head approval", false);
+                        dtAdjustments.Clear();
+                        btnsubmit.Visible = false;
+                        gv_customerview.Visible = false;
+                        lblAdjustmentTotal.Visible = false;
+
+                    }
+                    else
+                    {
+                        DisplayMessage(Returned, true);
+                        dtAdjustments.Clear();
+                        btnsubmit.Visible = false;
+                        gv_customerview.Visible = false;
+                        lblAdjustmentTotal.Visible = false;
+                    }
                 }
+            }
+            catch(Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
             }
         }
 
@@ -397,12 +479,12 @@ namespace TraceBilling
                 dtrans = bll.GetTranscodeDetails(trans.TransCode);
                 if (dtrans.Rows.Count > 0)
                 {
-                    trans.VatCode = dtrans.Rows[0]["VatCode"].ToString();
-                    trans.ChargeType = dtrans.Rows[0]["ChargeType"].ToString();
-                    trans.BalType = dtrans.Rows[0]["BalanceType"].ToString();
-                    double VatAccount = Convert.ToDouble(dtrans.Rows[0]["VatAccount"].ToString());
-                    bool IsVatable = Convert.ToBoolean(dtrans.Rows[0]["VatIndicator"].ToString());
-                    bool IsActive = Convert.ToBoolean(dtrans.Rows[0]["Active"].ToString());
+                    //trans.VatCode = dtrans.Rows[0]["VatCode"].ToString();
+                    trans.ChargeType = dtrans.Rows[0]["chargeType"].ToString();
+                    trans.BalType = dtrans.Rows[0]["balanceType"].ToString();
+                   // double VatAccount = Convert.ToDouble(dtrans.Rows[0]["VatAccount"].ToString());
+                    bool IsVatable = Convert.ToBoolean(dtrans.Rows[0]["vatIndicator"].ToString());
+                    bool IsActive = Convert.ToBoolean(dtrans.Rows[0]["active"].ToString());
                     if (IsActive)
                     {
                         if (trans.BalType == "CR")
@@ -414,16 +496,19 @@ namespace TraceBilling
                       
                         double TotalAdjustmentAmount = trans.TransValue + trans.VatValue;
                         bll.SaveAdjustmentInceptionLogs(trans, comment);
-                        output = string.Format("{0} has been successfully adjusted by {1}", trans.CustRef, trans.TransValue + trans.VatValue);
+                        //output = string.Format("{0} has been successfully adjusted by {1}", trans.CustRef, trans.TransValue + trans.VatValue);
+                        output = "Customer-" + trans.CustRef + " successfully adjusted by " + TotalAdjustmentAmount.ToString();
                     }
                     else
                     {
-                        output = String.Format("Transaction Code {0} is not active", trans.TransCode);
+                        // output = String.Format("Transaction Code {0} is not active", trans.TransCode);
+                        output = "Transaction code-" + trans.TransCode + " is not active";
                     }
                 }
                 else
                 {
-                    output = String.Format("Transaction Code {0} Not Found", trans.TransCode);
+                    //output = String.Format("Transaction Code {0} Not Found", trans.TransCode);
+                    output = "Transaction code-" + trans.TransCode + " is not found.";
                 }
             }
             catch (Exception ex)
@@ -435,7 +520,11 @@ namespace TraceBilling
 
         protected void btncancel_Click(object sender, EventArgs e)
         {
-
+            gv_customerview.Visible = false;
+            adjustmentlog.Visible = false;
+            lblAdjustmentTotal.Visible = false;
+            string str = ".";
+            DisplayMessage(str, true);
         }
 
         protected void btnprint_Click(object sender, EventArgs e)
@@ -470,7 +559,7 @@ namespace TraceBilling
         private void AdjExcelReport(DataTable dataTable)
         {
 
-            int[] iColumns = {0,1, 2, 3, 4, 5, 7, 8, 9 };
+            int[] iColumns = {0,1, 2, 3, 4, 5,6, 7, 8, 9 };
 
             //Export the details of specified columns to Excel
             RKLib.ExportData.Export objExport = new RKLib.ExportData.Export();
@@ -540,16 +629,308 @@ namespace TraceBilling
             dtAdjustments.Columns.Add(new DataColumn("Branch", typeof(string)));
             dtAdjustments.Columns.Add(new DataColumn("TransCode", typeof(string)));
             dtAdjustments.Columns.Add(new DataColumn("DocumentNo", typeof(string)));
-            //dtAdjustments.Columns.Add(new DataColumn("Period", typeof(string)));
             dtAdjustments.Columns.Add(new DataColumn("EffectiveDate", typeof(string)));
             dtAdjustments.Columns.Add(new DataColumn("Amount", typeof(string)));
             dtAdjustments.Columns.Add(new DataColumn("VAT", typeof(string)));            
             dtAdjustments.Columns.Add(new DataColumn("Total", typeof(string)));
             dtAdjustments.Columns.Add(new DataColumn("Comment", typeof(string)));
+            dtAdjustments.Columns.Add(new DataColumn("AreaId", typeof(string)));
+            dtAdjustments.Columns.Add(new DataColumn("BranchId", typeof(string)));
+            dtAdjustments.Columns.Add(new DataColumn("Period", typeof(string)));
+            dtAdjustments.Columns.Add(new DataColumn("CountryId", typeof(string)));
             dtAdjustments.Rows.Clear();
 
             Session["dtAdjustments"] = dtAdjustments;
         }
+
+       /* protected void btnsaveapproval_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string status = "0";
+
+
+                string action = rbAction.SelectedValue.ToString();
+                if (action.Equals("1"))
+                {
+                    status = "A";
+                }
+                else if (action.Equals("2"))
+                {
+                    status = "R";
+                }
+                string comment = txtapprovalcomment.Text.Trim();
+                if (action.Equals(""))
+                {
+                    DisplayMessage("No Action Selected",true);
+                }
+                else if (comment.Equals(""))
+                {
+                    DisplayMessage("Please enter valid reason",true);
+                }
+                else if (comment.Length < 5)
+                {
+                    DisplayMessage("Reason entered must be more than 5 characters",true);
+                }
+                else
+                {
+
+                   
+                    ProcessRecords(status, comment);
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+        }
+
+        protected void btncancelapproval_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnprintapproval_Click(object sender, EventArgs e)
+        {
+
+        }
+        protected void gv_approvalview_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //
+                // dispatchdisplay.Visible = true;
+                TableCell link = (TableCell)e.Row.Cells[2];
+                string type = e.Row.Cells[6].Text;
+                // e.Row.BackColor = Color.Blue;
+                //e.Row.ForeColor = Color.Green;
+
+            }
+        }
+        protected void gv_approvalview_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void gv_approvalview_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            int index = e.NewSelectedIndex;
+            if (index >= 0)
+            {
+                //string refnumber = GridViewIssue.Rows[index].Cells[0].Text;
+                string usercode = gv_approvalview.Rows[index].Cells[1].Text;
+
+
+            }
+        }
+        protected void gv_approvalview_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            DataTable dt = (DataTable)Session["dtAdjustmentsApp"];
+            string custref = "";
+            string flag = "";
+            int row = 0;
+            //if (e.CommandName == "RowRemove")
+            //{
+            //    custref = Convert.ToString(e.CommandArgument.ToString());
+
+            //}
+
+
+        }
+        private void ProcessRecords(string status, string comment)
+        {
+
+            // string arr = GetRecordsToProcess();
+            string arr = GetRecordsToDump();
+            arr = arr.TrimEnd(',');
+
+            if (arr.Equals(""))
+            {
+                DisplayMessage("SELECT TRANSACTION(S) TO PROCESS",true);
+            }
+            else
+            {
+                PostAdjustmentTransactions(arr, status, comment);
+            }
+
+
+        }
+
+      
+        private string GetRecordsToDump()
+        {
+            int Count = 0;
+            string ItemArr = "";
+            //up = new ArrayList();
+
+            foreach (GridViewRow Items in gv_approvalview.Rows)
+            {
+                CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
+                if (chk.Checked)
+                {
+                    
+                    Count++;
+                    string ItemFound = Items.Cells[1].Text;
+                    string ItemFound1 = Items.Cells[8].Text;
+                    ItemArr = ItemArr += ItemFound + "+" + ItemFound1 + ",";
+                    //add to uploaded arraylist
+                    //up.Add(Count);
+                }
+            }
+            return ItemArr;
+        }
+        protected void chkSelect_CheckedChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                SelectAllItems();
+                if (chkSelect.Checked == true)
+                {
+                    chkSelect.Checked = true;
+                }
+                else
+                {
+                    chkSelect.Checked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message,true);
+            }
+        }
+        private void SelectAllItems()
+        {
+            foreach (GridViewRow Items in gv_approvalview.Rows)
+            {
+                CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
+                if (chk.Checked)
+                {
+                    chk.Checked = false;
+                }
+                else
+                {
+                    chk.Checked = true;
+                }
+            }
+        }
+
+
+        private void PostAdjustmentTransactions(string str, string status, string comment)
+        {
+            try
+            {
+                ////ThirdPartyTransactions tran;
+
+                ////dh = new DatabaseHandler();
+                //string user = Session["UserID"].ToString();
+                string confirmedBy = Session["UserID"].ToString();
+                string[] arr = str.Split(',');
+                int RecordId = 0;
+                TransactionObj trans = new TransactionObj();
+                foreach (string s in arr)
+                {
+                    string[] separators = { "+" };
+                    string[] param = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                    RecordId = Convert.ToInt32(param[0].ToString());
+                    string custref = param[1].ToString();
+                    if (RecordId != 0)
+                    {
+                        trans = new TransactionObj();
+                        // tran = new ThirdPartyTransactions();
+                        trans = bll.GetInternalTranObj(RecordId, custref);
+                        if (status.Equals("A"))
+                        {
+                            ApproveTransaction(trans, status, confirmedBy, comment, RecordId);
+                        }
+                        else
+                        {
+                            RejectTransaction(trans, status, confirmedBy, comment, RecordId);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void RejectTransaction(TransactionObj trans, string status, string confirmedby, string comment, int recordid)
+        {
+            try
+            {
+                string str = "Adustment transaction rejected with reason " + comment;
+                DisplayMessage(str,true);
+                //log manager reason
+                bool isapproved = false;
+                status = "rejected";
+                DateTime confirmdate = DateTime.Now;
+                bll.LogAdjustmentStatus(recordid, trans.CustRef, status, comment, confirmedby, isapproved, confirmdate);
+                ClearControls();
+                LoadAdjustments();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void ApproveTransaction(TransactionObj trans, string status, string confirmedby, string comment, int recordid)
+        {
+            try
+            {
+                string returned = "";
+                returned = bll.SaveAdjustment(trans);
+                if (returned.Contains("successfully"))
+                {
+                    DisplayMessage(returned,true);
+                    //log manager reason
+                    //log manager reason
+                    bool isapproved = true;
+                    status = "accepted";
+                    DateTime confirmdate = DateTime.Now;
+                    //dal.LogAdjustmentStatus(recordid, trans.CustRef, status, comment, confirmedby, isapproved, confirmdate);
+                    ClearControls();
+                    LoadAdjustments();
+
+                }
+                else
+                {
+                    DisplayMessage(returned,true);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void LoadAdjustments()
+        {
+            string AreaID = area_list.SelectedValue.ToString();
+            string BranchID = "0";
+            string period = bll.GetBillingPeriod(AreaID);
+            DataTable dataTable = bll.GetInceptionAdjustments(AreaID, BranchID, "", period);
+            Session["AdjustmentsApp"] = dataTable;
+            if (dataTable.Rows.Count > 0)
+            {
+                DisplayMessage(".",true);
+                gv_approvalview.DataSource = dataTable;
+                gv_approvalview.DataBind();
+                approvaldisplay.Visible = true;
+            }
+            else
+            {
+                DisplayMessage("No record(s) found.",true);
+                approvaldisplay.Visible = false;
+            }
+        }
+
+        private void ClearControls()
+        {
+            txtcomment.Text = "";
+            rbAction.ClearSelection();
+           // chkselect.Checked = false;
+        }*/
 
     }
 }
