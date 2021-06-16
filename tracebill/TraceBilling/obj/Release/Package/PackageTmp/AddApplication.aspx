@@ -85,12 +85,15 @@
                         <table style="width: 96%">
                             <tr>
                                 
-                                <td style="width: 251px"><asp:dropdownlist ID="cboID" runat="server"  Width="87%" >
+                                <td style="width: 251px">
+                                 <%--   <asp:dropdownlist ID="cboID" runat="server"  Width="87%" >
                         <asp:ListItem Value="0">--select ID Type--</asp:ListItem>
                         <asp:ListItem Value="1">National ID</asp:ListItem>
                         <asp:ListItem Value="2">Passport Number</asp:ListItem>
                         <asp:ListItem Value="3">Business Registration</asp:ListItem>
-                   </asp:dropdownlist></td>
+                   </asp:dropdownlist>--%>
+                                    <asp:DropDownList ID="cboID" CssClass="form-control" runat="server"  OnDataBound="cboID_DataBound">
+                </asp:DropDownList></td>
                                 <td style="width: 251px"><asp:TextBox runat="server" CssClass="form-control" ID="txtidnumber" placeholder="Enter ID number" Width="91%" /></td>
                             </tr>
                             </table>
@@ -252,5 +255,35 @@
     <br /><br />
 	</div>
 </div>
+    <script type="text/javascript">
+   function addFileUploadBox()
+   {
+   if (!document.getElementById || !document.createElement)
+   return false;
+   
+   var uploadArea = document.getElementById("upload-area");
+   if (!uploadArea)
+   return;
+   
+   var newline = document.createElement("br");
+   uploadArea.appendChild(newline);
+   
+   var newUploadBox = document.createElement("input");
+   newUploadBox.type= "file";
+   newUploadBox.size = "60";
+   if (!addFileUploadBox.lastAssignedId)
+   addFileUploadBox.lastAssignedId = 100;
+   
+   newUploadBox.setAttribute("id", "FileField" + addFileUploadBox.lastAssignedId);
+   newUploadBox.setAttribute("name", "FileField" + addFileUploadBox.lastAssignedId);
+   uploadArea.appendChild(newUploadBox);
+   addFileUploadBox.lastAssignedId++;
+   }
+    function changeButtonText(button) {
 
+        button.value = "Processing";
+
+    }
+
+</script>
 </asp:Content>
