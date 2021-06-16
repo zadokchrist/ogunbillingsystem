@@ -431,9 +431,12 @@ namespace TraceBilling
                         comment = dr["Comment"].ToString();
                         Returned = LogAdjustment(trans, comment);
                     }
+                    string str = "";
                     if (Returned.Contains("successfully"))
                     {
-                        DisplayMessage("Adjustments have been successfully submitted for Area/Branch head approval", false);
+                        //Adjustments have been successfully submitted for Area/Branch head approval
+                        str = "Adjustments have been successfully submitted.";
+                        DisplayMessage(str, false);
                         dtAdjustments.Clear();
                         btnsubmit.Visible = false;
                         gv_customerview.Visible = false;

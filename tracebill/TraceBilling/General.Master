@@ -247,7 +247,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="Dashboard.aspx"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Dashboard</a></li>
           
           </ul>
         </li>
@@ -337,7 +337,7 @@
 <%--            <li><a href="#"><i class="fa fa-circle-o"></i> Route Definition</a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Exceptions & Variance</a></li>
 <%--            <li><a href="#"><i class="fa fa-circle-o"></i> Meter repairs & Replacement</a></li>--%>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Meter History Log</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Meter History Log</a></li>--%>
           </ul>
                 <%} %>
         </li>
@@ -378,8 +378,8 @@
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Consumption & Non-Consumption charges </a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Auto & Manual Bill production</a></li>
             
-              <li><a href="#"><i class="fa fa-circle-o"></i> Billing Simulations & forecasts</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Invoice Customization</a></li>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Billing Simulations & forecasts</a></li>--%>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Invoice Customization</a></li>--%>
             
 
           </ul>
