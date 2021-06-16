@@ -798,6 +798,9 @@ namespace TraceBilling.ControlObjects
             }
             return resp;
         }
+
+       
+
         //16/12/2020
         internal DataTable GetMaterialOptions(string type)
         {
@@ -1115,6 +1118,9 @@ namespace TraceBilling.ControlObjects
             }
             return value;
         }
+
+       
+
         internal DataTable GetInvoiceDetailsByAppNumber(string appnumber)
         {
             DataTable dt = new DataTable();
@@ -2542,22 +2548,77 @@ namespace TraceBilling.ControlObjects
                 Log("SaveAdjustmentInceptionLogs", "101 " + ex.Message);
             }
         }
-       /* internal void LogAdjustmentStatus(int recordid, string custRef, string status, string comment, string confirmedby, bool isapproved, DateTime confirmdate)
+        internal string LogMeterRequest(string custref, string meterref, string oldtype, string oldsize, string olddials,string prevrdg, string serial, string prerdgdt,
+            string appfnlrdg, string appfnlrdgdt, bool isestimated, string consumption, string reason, 
+            string newserial, string newsize, string newmake, string newdials, string manufacturedt, string newlife, string comment, string appinitialrdg,
+            string appinitedgdt, string createdby, string requesttype,string areaid, string branchid, string period,string servedby)
         {
-            throw new NotImplementedException();
+            string output = "";
+            try
+            {
+                
+                output = dh.SaveMeterRequestLogs(custref, meterref, oldtype, oldsize,olddials, prevrdg, serial, prerdgdt, appfnlrdg, appfnlrdgdt, isestimated,
+                    consumption, reason, newserial, newsize, newmake, newdials, manufacturedt, newlife, comment, appinitialrdg, appinitedgdt,
+                    createdby, requesttype, areaid, branchid, period,servedby);
+            }
+            catch (Exception ex)
+            {
+                Log("LogMeterRequest", "101 " + ex.Message);
+            }
+            return output;
         }
-        internal string SaveAdjustment(TransactionObj trans)
+        internal DataTable GetRequestsToApprove(int countryid, int areaid, string custref)
         {
-            throw new NotImplementedException();
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetRequestsToApprove(countryid, areaid, custref);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetRequestsToApprove", "101 " + ex.Message);
+            }
+            return dt;
         }
-        internal DataTable GetInceptionAdjustments(string areaID, string branchID, string v, string period)
+        internal DataTable GetApproverRequestByID(string custref,string recordid)
         {
-            throw new NotImplementedException();
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetApproverRequestByID(custref,recordid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetApproverRequestByID", "101 " + ex.Message);
+            }
+            return dt;
         }
-        internal TransactionObj GetInternalTranObj(int recordId, string custref)
+        internal string ModifyMeter(string action, string requesttype, string meterRef, string custRef, string serial, string oldReading, string oldRdgDate, string curReading, string curRdgDate1, bool isestimated, string newReading, string dials, string installedBy, string curRdgDate2, string type, string size, string life, string manufacturedDate, string reason, string area, string branch)
         {
-            throw new NotImplementedException();
-        }*/
+            string output = "";
+            output = "success";
+            return output;
+        }
+        /* internal void LogAdjustmentStatus(int recordid, string custRef, string status, string comment, string confirmedby, bool isapproved, DateTime confirmdate)
+         {
+             throw new NotImplementedException();
+         }
+         internal string SaveAdjustment(TransactionObj trans)
+         {
+             throw new NotImplementedException();
+         }
+         internal DataTable GetInceptionAdjustments(string areaID, string branchID, string v, string period)
+         {
+             throw new NotImplementedException();
+         }
+         internal TransactionObj GetInternalTranObj(int recordId, string custref)
+         {
+             throw new NotImplementedException();
+         }*/
 
     }
 }

@@ -64,13 +64,7 @@
                    <asp:Button ID="btnreadingcapture" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnreadingcapture_Click" Text="CAPTURE READINGS" cssclass ="btn-primary"
                                         Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;
-                  <asp:Button ID="btnroutedownload" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                                        Font-Underline="False" OnClick="btnroutedownload_Click" Text="DOWNLOAD ROUTE" cssclass ="btn-primary"
-                                        Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;                 
-                                  
-                                    <asp:Button ID="btnreadingupload" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                                        Font-Underline="False" OnClick="btnreadingupload_Click" Text="UPLOAD READINGS" cssclass ="btn-primary"
-                                        Width="160px" />&nbsp;&nbsp;&nbsp;&nbsp; 
+                  
                   <asp:Button ID="btnrexceptions" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnrexceptions_Click" Text="HANDLE EXCEPTIONS" cssclass ="btn-primary"
                                         Width="149px" />&nbsp;
@@ -104,7 +98,7 @@
                    <br< />
                    <div id="capturedisplay" runat="server" visible="true">
                   
-                       <p>this is reading capture</p>
+                      <%-- <p>this is reading capture</p>--%>
                         <label for="rdgoptions">Reading Options</label>
            <asp:RadioButtonList ID="rdgoptions" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="true" OnSelectedIndexChanged="rdgoptions_SelectedIndexChanged">
                         <asp:ListItem Value="1">One By One</asp:ListItem>
@@ -118,7 +112,8 @@
                    <tr>
                     <td style="width: 400px">
                         <label>Area</label>
-            <asp:DropDownList ID="area_list3" CssClass="form-control" runat="server"  OnDataBound="area_list3_DataBound" Visible="true" >
+            <asp:DropDownList ID="area_list3" CssClass="form-control" runat="server"  OnDataBound="area_list3_DataBound" Visible="true"
+                OnSelectedIndexChanged="area_list3_SelectedIndexChanged" AutoPostBack="true" >
                 
                 </asp:DropDownList>
                     </td>
@@ -190,7 +185,7 @@
                                                     <tr>
                                                        
                                                         <td colspan="2" style="vertical-align: middle; width: 30%; height: 23px; text-align: center">
-                                                            to<asp:TextBox ID="txtInquirePropRef" runat="server" BackColor="LightBlue" CssClass="InterfaceTextboxLongReadOnly"
+                                                            <asp:TextBox ID="txtInquirePropRef" runat="server" BackColor="LightBlue" CssClass="InterfaceTextboxLongReadOnly"
                                                                 Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
                                                         <td colspan="1" style="vertical-align: middle; width: 20%; height: 23px; text-align: center">
                                                             <asp:TextBox ID="txtInquireCustRef" runat="server" BackColor="LightBlue" CssClass="InterfaceTextboxLongReadOnly"
@@ -222,7 +217,7 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px; width: 85px;">
                                                             <asp:TextBox ID="txtMeterRef" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="122%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="166%"></asp:TextBox></td>
                                                     </tr>
                                                    
                                                     <tr>
@@ -232,7 +227,7 @@
                                                             &nbsp;</td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
                                                             <asp:TextBox ID="txtPropRef" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="122%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="153%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
@@ -241,7 +236,7 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
                                                             <asp:TextBox ID="txtPreReading" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="122%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="156%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
@@ -250,7 +245,7 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
                                                             <asp:TextBox ID="txtPreReadDate" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="122%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="151%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
@@ -259,7 +254,7 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
                                                             <asp:TextBox ID="txtConsumption" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="122%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="154%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
@@ -268,7 +263,16 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
                                                             <asp:TextBox ID="txtAvgConsumption" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="122%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="152%"></asp:TextBox></td>
+                                                    </tr>
+             <tr>
+                                                        <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
+                                                            Meter Dials</td>
+                                                        <td class="InterFaceTableMiddleRow" style="height: 10px; width: 6px;">
+                                                        </td>
+                                                        <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
+                                                            <asp:TextBox ID="txtdials" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="152%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="3" style="height: 12px">
@@ -287,7 +291,7 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
                                                             <asp:TextBox ID="txtType" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="50%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="80%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRowUp" style="height: 10px; width: 156px;">
@@ -296,7 +300,7 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
                                                             <asp:TextBox ID="txtIsBilled" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="50%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="80%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRowUp" style="height: 10px; width: 156px;">
@@ -305,7 +309,9 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
                                                             <asp:TextBox ID="txtReading" runat="server" BackColor="lightBlue" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="Maroon" Width="80%"  onkeypress="return NumberOnly()"></asp:TextBox>
+                                                            <%--<asp:RangeValidator ID="RangeValidator1" Type="Integer"  ControlToValidate="txtReading" runat="server" ErrorMessage="enter only numbers" ForeColor="Red"></asp:RangeValidator>--%>
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRowUp" style="height: 10px; width: 156px;">
@@ -313,8 +319,8 @@
                                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                            <asp:TextBox ID="txtReadDate" runat="server" BackColor="lightBlue" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox></td>
+                                                            <asp:TextBox ID="txtReadDate" runat="server" BackColor="lightBlue" CssClass="readdate"
+                                                                Font-Bold="True" ForeColor="Maroon" Width="80%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 156px;">
@@ -322,10 +328,10 @@
                                                         <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                             &nbsp;</td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px">
-                                                          <%--  <asp:DropDownList ID="cboReader" runat="server" OnDataBound="cboReader_DataBound"
-                                                                Width="50%">
-                                                        </asp:DropDownList>--%>
-
+                                                            <asp:DropDownList ID="reader_list" runat="server" OnDataBound="reader_list_DataBound"
+                                                                Width="80%">
+                                                        </asp:DropDownList>
+                                                            
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -335,7 +341,7 @@
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
                                                             <asp:TextBox ID="txtotherReader" runat="server" BackColor="lightBlue" CssClass="InterfaceTextboxLongReadOnly"
-                                                                Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox></td>
+                                                                Font-Bold="True" ForeColor="Maroon" Width="80%"></asp:TextBox></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 156px;">
@@ -343,9 +349,9 @@
                                                         <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                         </td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px">
-                                                          <%--  <asp:DropDownList ID="cboComment" runat="server" OnDataBound="cboComment_DataBound"
-                                                                Width="50%">
-                                                            </asp:DropDownList>--%>
+                                                            <asp:DropDownList ID="comment_list" runat="server" OnDataBound="comment_list_DataBound"
+                                                                Width="80%">
+                                                            </asp:DropDownList>
 
                                                         </td>
                                                     </tr>
@@ -394,7 +400,124 @@
                        
                    </div>
            <div id="bulkdisplay" runat="server" visible="false">
-               <p>bulk uploading</p>
+               <%--<p>bulk uploading</p>--%>
+                                                  <table style="width: 100%">
+                 <tr>
+                    <td style="vertical-align: middle; height: 20px; text-align: center">
+                        <table align="center" cellpadding="0" cellspacing="0" style="width: 50%">
+                            <tr>
+                                <td class="row">
+                                    <b>BULK UPLOAD READINGS CAPTURE</b></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+              
+                <tr>
+                    <td colspan="3" style="vertical-align: top; width: 100%; height: 5px; text-align: center">
+                                    <table style="width: 100%">
+                                        <tr>
+                                            <td style="width: 48%; text-align: right; vertical-align: top;">
+                                                <table align="right" cellpadding="0" cellspacing="0" style="width: 72%">
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                                            Header</td>
+                                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                                        </td>
+                                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                                            <asp:CheckBox ID="chkHeader" runat="server" Font-Bold="True" ForeColor="Maroon" Text="Yes File has header" />&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3" style="height: 1px">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Read Date</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:TextBox ID="txtReadingDate1" runat="server" BackColor="LightGreen" CssClass="uploaddate"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 2px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Browse File</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:FileUpload ID="FileUpload1" runat="server" CssClass="InterfaceDropdownList"
+                                                Width="80%" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 12px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 2%; height: 2px">
+                            </td>
+                            <td style="width: 48%; text-align: left; vertical-align: top;">
+                                <table align="left" cellpadding="0" cellspacing="0" style="width: 60%">
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            <%--Warnings--%>
+
+                                        </td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                           <%-- <asp:CheckBox ID="chkWarnings" runat="server" Font-Bold="True" ForeColor="Maroon"
+                                                Text="Yes Skip Warnings"/>
+                                            &nbsp;--%>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 1px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Reader</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px"><asp:DropDownList ID="cboReader1" runat="server" OnDataBound="cboReader1_DataBound"
+                                                                Width="90%">
+                                        </asp:DropDownList>&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 2px">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                            Click Here</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:Button ID="btnOK" runat="server" Font-Size="9pt" Height="23px" OnClick="btnOK_Click"
+                                                Text="UPLOAD" Width="145px" Font-Bold="True" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 12px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 824px">
+                    </td>
+                </tr>
+            </table>
+
                      </div>
                        </div>
                    </fieldset>                                                      
@@ -402,112 +525,7 @@
             </div>
                  
        </div>
-               <div id="downloadroute" runat="server" visible="false">
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Download Routes</legend>
-                 
-                   <br< />
-                   <div id="downloaddisplay" runat="server" visible="true">
-                <%-- <p>This is routes download</p>--%>
-                        <table width="100%">
-    <tr>
-    <%--<th>New</th>--%>
-        <th class="modal-sm" style="width: 207px">Country</th>
-         <th class="modal-sm" style="width: 226px">Operation Area</th>
-        <th class="modal-sm" style="width: 226px">Branch/Zone</th>
-        <th class="modal-sm" style="width: 226px">Book</th>
-        <th class="modal-sm" style="width: 226px">Walk</th>
-        <th></th>
-        </tr>
-        <tr>
-  
-          
-                          <td class="modal-sm" style="width: 207px" >
-                      
-            <asp:DropDownList ID="country_list2" CssClass="form-control" runat="server"  OnDataBound="country_list2_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="country_list2_SelectedIndexChanged" Width="235px">
-                </asp:DropDownList>
-                    </td>
-             
-                           
-             <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:DropDownList ID="area_list2" CssClass="form-control" runat="server"  OnDataBound="area_list2_DataBound" Visible="true" >
-                
-                </asp:DropDownList>
-                    </td>
-                <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true" >
-                
-                </asp:DropDownList>
-                    </td>
-              <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtbook" placeholder="Enter Book Number" BackColor="LightGreen"  Font-Bold="True" ForeColor="Maroon"/>
-                    </td>
-                  <td class="modal-sm" style="width: 226px" >
-                      
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtwalk" placeholder="Enter Walk Number" BackColor="LightGreen"  Font-Bold="True" ForeColor="Maroon"/>
-                    </td>
-                 
-                          <td>
-                         
-           
-                          </td>
-                                                 
-                          </tr>
-                          </table>
-                       <center>
-                            <asp:Button ID="Button1" Width="150" Height="40" CssClass="btn-primary"
-                                    runat="server" Text="Search" onclick="Button4_Click" />
-                      
-                       </center>
-                       <hr />
-                        <div id="downloadgrid" runat="server" visible="false">
- <asp:DataGrid ID="DataGriddownloads" runat="server" AutoGenerateColumns="False"
-                CellPadding="4" Font-Bold="False" Font-Italic="False" Font-Names="Courier New"
-                Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="#333333"
-                GridLines="Horizontal" HorizontalAlign="Justify"
-                OnItemCommand="download_command"
-                PageSize="50" Style="font: menu;text-align: justify" Width="100%">
-                <FooterStyle BackColor="InactiveCaption" Font-Bold="False" ForeColor="White" />
-                <EditItemStyle BackColor="#999999" />
-                <SelectedItemStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-                <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" Mode="NumericPages" />
-                <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
-                <ItemStyle BackColor="#F7F6F3" ForeColor="#333333" />
-                <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-                <Columns>
-                    <asp:BoundColumn DataField="Route" HeaderText="Route"></asp:BoundColumn>
-                    <asp:ButtonColumn CommandName="download" HeaderText="Download" Text="Download"></asp:ButtonColumn>
-                    
-                    </Columns>
-            </asp:DataGrid>
-          </div>
-                   </div>
-           
-                   </fieldset>                                                      
-              
-            </div>
-                 
-       </div>
-               <div id="uploadroutes" runat="server" visible="false">
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Upload Readings</legend>
-                 
-                   <br< />
-                   <div id="uploaddisplay" runat="server" visible="true">
-                 <p>This is reading upload</p>
-                   </div>
-           
-                   </fieldset>                                                      
-              
-            </div>
-                 
-       </div>
+               
                <div id="handleexeptions" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
                <fieldset class="panel panel-primary" runat="server">
@@ -533,4 +551,24 @@
 	</div>
  
 </div>
+    <script type="text/javascript">
+        $(function () {
+            $(".readdate").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+        });
+        $(function () {
+            $(".uploaddate").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+        });
+        
+        function NumberOnly() {
+            var AsciiValue = event.keyCode
+            if ((AsciiValue >= 48 && AsciiValue <= 57) || (AsciiValue == 8 || AsciiValue == 127))
+                event.returnValue = true;
+            else
+                event.returnValue = false;
+        }
+    </script>
 </asp:Content>
