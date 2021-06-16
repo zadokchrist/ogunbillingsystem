@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="CloseAccount.aspx.cs" Inherits="TraceBilling.CloseAccount" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="AccountReactivation.aspx.cs" Inherits="TraceBilling.AccountReactivation" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
           <br />
-          <div><h3>CUSTOMER ACCOUNT CLOSURE </h3></div>
+          <div><h3>CUSTOMER ACCOUNT REOPENING </h3></div>
     
           <center>
                 <asp:Label runat="server" ID="lblmsg" Visible="false" ></asp:Label>
@@ -70,10 +70,6 @@
                                         Width="160px" />&nbsp;&nbsp;&nbsp;&nbsp; 
                   <asp:Button ID="btnpaymentdetails" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnpaymentdetails_Click" Text="PAYMENTS" cssclass ="btn-primary"
-                                        Width="149px" />&nbsp;
-                  &nbsp;&nbsp;&nbsp;&nbsp; 
-                  <asp:Button ID="Button1" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                                        Font-Underline="False" OnClick="btncloseaccount_Click" Text="CLOSE ACCOUNT" cssclass ="btn-primary"
                                         Width="149px" />&nbsp;
                   <br /><br />
                 <asp:Label ID="lblapplicant" runat="server" Text="." ForeColor="Maroon" Font-Bold="true"></asp:Label>
@@ -775,183 +771,159 @@
               </div>
 
           </div>
-                         <div id="billdisplay" runat="server" visible="false">
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Bill Details</legend>
-                 
-                   <br />
-                                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               
-               <asp:GridView ID="gvbilldisplay" runat="server" 
-                       CssClass="grid-text" CellPadding="5" 
+          <div id="billdisplay" runat="server" visible="false">
+              <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                  <fieldset class="panel panel-primary" runat="server">
+                      <legend class="w-auto">&nbsp;Bill Details</legend>
+
+                      <br />
+                      <div class="form-group col-sm-12 col-md-12 col-lg-12">
+
+                          <asp:GridView ID="gvbilldisplay" runat="server"
+                              CssClass="grid-text" CellPadding="5"
                               ForeColor="#333333" GridLines="None" Width="92%"
-                                  AutoGenerateColumns="False" PageSize="50"
-                              
-                   >
-               
-             <Columns>                
-           <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-"/> 
-                <asp:BoundField DataField="custRef" HeaderText="CustRef" NullDisplayText="-" />   
-             <asp:BoundField DataField="billNumber" HeaderText="billNumber"  NullDisplayText="-"/>                
-             <asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-"/> 
-             <asp:BoundField DataField="billType" HeaderText="billType" NullDisplayText="-" />                         
-<asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-"/> 
-                 <asp:BoundField DataField="billdate" HeaderText="billdate" NullDisplayText="-"/> 
-                 <asp:BoundField DataField="openbalance" HeaderText="Bal B/F" NullDisplayText="-" DataFormatString="{0:n}"/> 
-                  <asp:BoundField DataField="subtotal" HeaderText="BillAmount" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                 <asp:BoundField DataField="closingBalance" HeaderText="Bal C/F" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                 <asp:BoundField DataField="invoiceNumber" HeaderText="invoiceNumber" NullDisplayText="-"/> 
-                 <asp:BoundField DataField="capturedby" HeaderText="capturedby" NullDisplayText="-"/> 
-        
-              
-             </Columns>
-             
-             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-             <EditRowStyle BackColor="#2461BF" />
-             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
-             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-             <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
-             <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
-             <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-             </asp:GridView>
-                        
-                  </div>
+                              AutoGenerateColumns="False" PageSize="50">
 
-                   
-           
-                   </fieldset>                                                      
-              
-            </div>
-                 
-       </div>
-               <div id="transactiondisplay" runat="server" visible="false">
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Transaction Details</legend>
-                 
-                   <br/>
-                                         <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               
-               <asp:GridView ID="gvtransdisplay" runat="server" 
-                       CssClass="grid-text" CellPadding="5" 
-                              ForeColor="#333333" GridLines="None" Width="92%"
-                                  AutoGenerateColumns="False"   PageSize="50"                        
-                   >
-                
-             <Columns>                
-           <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-"/> 
-                <asp:BoundField DataField="custRef" HeaderText="custRef" NullDisplayText="-" />   
-             <asp:BoundField DataField="transName" HeaderText="transName"  NullDisplayText="-"/>                
-             <asp:BoundField DataField="chargeType" HeaderText="chargeType" NullDisplayText="-"/> 
-             <asp:BoundField DataField="billNumber" HeaderText="billNumber" NullDisplayText="-" />                         
- <asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-"/> 
-                   <asp:BoundField DataField="basisConsumption" HeaderText="Quantity" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                  <asp:BoundField DataField="transValue" HeaderText="transValue" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                  <asp:BoundField DataField="vatValue" HeaderText="vatValue" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                  <asp:BoundField DataField="unitCost" HeaderText="unitCost" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                 <asp:BoundField DataField="total" HeaderText="Total" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                  <asp:BoundField DataField="vatCode" HeaderText="vatrate" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                  <asp:BoundField DataField="postDate" HeaderText="Post Date" NullDisplayText="-"/>
-                  <asp:BoundField DataField="invoiceNumber" HeaderText="Invoice#" NullDisplayText="-" />  
-         <asp:BoundField DataField="capturedby" HeaderText="Posted By" NullDisplayText="-"/> 
-              
-             </Columns>
-             
-             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-             <EditRowStyle BackColor="#2461BF" />
-             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
-             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-             <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
-             <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
-             <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-             </asp:GridView>
-                        
-                  </div>
+                              <Columns>
+                                  <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-" />
+                                  <asp:BoundField DataField="custRef" HeaderText="CustRef" NullDisplayText="-" />
+                                  <asp:BoundField DataField="billNumber" HeaderText="billNumber" NullDisplayText="-" />
+                                  <asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-" />
+                                  <asp:BoundField DataField="billType" HeaderText="billType" NullDisplayText="-" />
+                                  <asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-" />
+                                  <asp:BoundField DataField="billdate" HeaderText="billdate" NullDisplayText="-" />
+                                  <asp:BoundField DataField="openbalance" HeaderText="Bal B/F" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="subtotal" HeaderText="BillAmount" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="closingBalance" HeaderText="Bal C/F" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="invoiceNumber" HeaderText="invoiceNumber" NullDisplayText="-" />
+                                  <asp:BoundField DataField="capturedby" HeaderText="capturedby" NullDisplayText="-" />
 
-                   
-           
-                   </fieldset>                                                      
-              
-            </div>
-                 
-       </div>
-               <div id="paymentdisplay" runat="server" visible="false">
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Payment Details</legend>
-                 
-                   <br />
-                                        <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               
-               <asp:GridView ID="gvpaymentdisplay" runat="server" 
-                       CssClass="grid-text" CellPadding="5" 
-                              ForeColor="#333333" GridLines="None" Width="92%"
-                                  AutoGenerateColumns="False" PageSize="50"
-                              
-                   >
-             
-             <Columns>                
-           <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-"/> 
-                <asp:BoundField DataField="custRef" HeaderText="CustRef" NullDisplayText="-" />   
-             <asp:BoundField DataField="transName" HeaderText="Vendor"  NullDisplayText="-"/>                
-             <asp:BoundField DataField="documentNumber" HeaderText="DocumentNumber" NullDisplayText="-"/> 
-             <asp:BoundField DataField="chargeType" HeaderText="ChargeType" NullDisplayText="-" /> 
-                 <asp:BoundField DataField="amount" HeaderText="Amount" NullDisplayText="-"  DataFormatString="{0:n}"/> 
-                 <asp:BoundField DataField="postDate" HeaderText="Post Date" NullDisplayText="-"/> 
-                 <asp:BoundField DataField="capturedby" HeaderText="Posted By" NullDisplayText="-"/>                         
 
-        
-              
-             </Columns>
-             
-             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-             <EditRowStyle BackColor="#2461BF" />
-             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
-             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-             <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
-             <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
-             <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
-                <SortedAscendingCellStyle BackColor="#F5F7FB" />
-                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
-                <SortedDescendingCellStyle BackColor="#E9EBEF" />
-                <SortedDescendingHeaderStyle BackColor="#4870BE" />
-             </asp:GridView>
-                        
-                  </div>
+                              </Columns>
 
-                   
-           
-                   </fieldset>                                                      
-              
-            </div>
-            
-       </div>
-          <div id="closeaccountdisplay" runat="server" visible="false">
-              <div class="row">
-                  <div class="form-group col-sm-3 col-md-3 col-lg-3">
-                      <label>Reason for Closure</label>
-                      <asp:TextBox ID="reason" runat="server" BackColor="LightBlue" CssClass="InterfaceTextboxLongReadOnly"
-                          Font-Bold="True" ForeColor="Maroon"></asp:TextBox>
-                  </div>
+                              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                              <EditRowStyle BackColor="#2461BF" />
+                              <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
+                              <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                              <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
+                              <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
+                              <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
+                              <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                              <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                              <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                              <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                          </asp:GridView>
+
+                      </div>
+
+
+
+                  </fieldset>
+
               </div>
-              <div class="row">
-                  <div class=" form-group col-sm-3 col-md-3 col-lg-3">
-                      <asp:Button ID="Button2" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                          Font-Underline="False" OnClick="btndeactivateaccount_Click" Text="DEACTIVATE ACCOUNT" CssClass="btn-primary"
-                       />
-                  </div>
+
+          </div>
+          <div id="transactiondisplay" runat="server" visible="false">
+              <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                  <fieldset class="panel panel-primary" runat="server">
+                      <legend class="w-auto">&nbsp;Transaction Details</legend>
+
+                      <br />
+                      <div class="form-group col-sm-12 col-md-12 col-lg-12">
+
+                          <asp:GridView ID="gvtransdisplay" runat="server"
+                              CssClass="grid-text" CellPadding="5"
+                              ForeColor="#333333" GridLines="None" Width="92%"
+                              AutoGenerateColumns="False" PageSize="50">
+
+                              <Columns>
+                                  <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-" />
+                                  <asp:BoundField DataField="custRef" HeaderText="custRef" NullDisplayText="-" />
+                                  <asp:BoundField DataField="transName" HeaderText="transName" NullDisplayText="-" />
+                                  <asp:BoundField DataField="chargeType" HeaderText="chargeType" NullDisplayText="-" />
+                                  <asp:BoundField DataField="billNumber" HeaderText="billNumber" NullDisplayText="-" />
+                                  <asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-" />
+                                  <asp:BoundField DataField="basisConsumption" HeaderText="Quantity" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="transValue" HeaderText="transValue" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="vatValue" HeaderText="vatValue" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="unitCost" HeaderText="unitCost" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="total" HeaderText="Total" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="vatCode" HeaderText="vatrate" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="postDate" HeaderText="Post Date" NullDisplayText="-" />
+                                  <asp:BoundField DataField="invoiceNumber" HeaderText="Invoice#" NullDisplayText="-" />
+                                  <asp:BoundField DataField="capturedby" HeaderText="Posted By" NullDisplayText="-" />
+
+                              </Columns>
+
+                              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                              <EditRowStyle BackColor="#2461BF" />
+                              <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
+                              <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                              <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
+                              <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
+                              <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
+                              <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                              <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                              <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                              <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                          </asp:GridView>
+
+                      </div>
+
+
+
+                  </fieldset>
+
               </div>
-              
-              
+
+          </div>
+          <div id="paymentdisplay" runat="server" visible="false">
+              <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                  <fieldset class="panel panel-primary" runat="server">
+                      <legend class="w-auto">&nbsp;Payment Details</legend>
+
+                      <br />
+                      <div class="form-group col-sm-12 col-md-12 col-lg-12">
+
+                          <asp:GridView ID="gvpaymentdisplay" runat="server"
+                              CssClass="grid-text" CellPadding="5"
+                              ForeColor="#333333" GridLines="None" Width="92%"
+                              AutoGenerateColumns="False" PageSize="50">
+
+                              <Columns>
+                                  <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-" />
+                                  <asp:BoundField DataField="custRef" HeaderText="CustRef" NullDisplayText="-" />
+                                  <asp:BoundField DataField="transName" HeaderText="Vendor" NullDisplayText="-" />
+                                  <asp:BoundField DataField="documentNumber" HeaderText="DocumentNumber" NullDisplayText="-" />
+                                  <asp:BoundField DataField="chargeType" HeaderText="ChargeType" NullDisplayText="-" />
+                                  <asp:BoundField DataField="amount" HeaderText="Amount" NullDisplayText="-" DataFormatString="{0:n}" />
+                                  <asp:BoundField DataField="postDate" HeaderText="Post Date" NullDisplayText="-" />
+                                  <asp:BoundField DataField="capturedby" HeaderText="Posted By" NullDisplayText="-" />
+
+
+
+                              </Columns>
+
+                              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                              <EditRowStyle BackColor="#2461BF" />
+                              <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
+                              <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                              <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
+                              <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
+                              <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
+                              <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                              <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                              <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                              <SortedDescendingHeaderStyle BackColor="#4870BE" />
+                          </asp:GridView>
+
+                      </div>
+
+
+
+                  </fieldset>
+
+              </div>
 
           </div>
         <asp:Label ID="lblcustref" runat="server" Text="0" Visible="False"></asp:Label>

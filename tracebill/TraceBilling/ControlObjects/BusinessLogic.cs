@@ -409,6 +409,12 @@ namespace TraceBilling.ControlObjects
             }
             return output;
         }
+
+        internal void DeactivateAccount(string custref, string reason, string recordedby)
+        {
+            dh.DeactivateAccount( custref, reason, recordedby);
+        }
+
         internal DataTable GetApplicationByStatus(string applicationame, string country, string area, string status)
         {
             DataTable dt = new DataTable();

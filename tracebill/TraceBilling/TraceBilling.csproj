@@ -203,6 +203,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AccountReactivation.aspx" />
     <Content Include="AddApplication.aspx" />
     <Content Include="AddTransaction.aspx" />
     <Content Include="AddUser.aspx" />
@@ -7598,6 +7599,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountReactivation.aspx.cs">
+      <DependentUpon>AccountReactivation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AccountReactivation.aspx.designer.cs">
+      <DependentUpon>AccountReactivation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AddApplication.aspx.cs">
       <DependentUpon>AddApplication.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

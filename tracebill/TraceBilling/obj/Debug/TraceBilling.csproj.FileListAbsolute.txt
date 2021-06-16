@@ -100,8 +100,5 @@ C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojResolveAssemblyReference.cache
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
-<<<<<<< HEAD
-D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojAssemblyReference.cache
-=======
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\RKLib.ExportData.dll
->>>>>>> 92788af52be1de75dd391a3c57437af84a8a840c
+D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojAssemblyReference.cache
