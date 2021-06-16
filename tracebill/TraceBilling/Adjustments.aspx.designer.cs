@@ -211,6 +211,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.GridView gv_customerview;
         
         /// <summary>
+        /// lblAdjustmentTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAdjustmentTotal;
+        
+        /// <summary>
         /// btnsubmit control.
         /// </summary>
         /// <remarks>

@@ -549,7 +549,7 @@ namespace TraceBilling.ControlObjects
 
         }
 
-
+       
 
         internal DataTable GetAllUsers(int countryid)
         {
@@ -950,6 +950,9 @@ namespace TraceBilling.ControlObjects
             }
             return resp;
         }
+
+       
+
         internal DataTable GetInvoiceDetails(string appnumber, int countryid, int areaid, int status)
         {
             DataTable dt = new DataTable();
@@ -969,6 +972,9 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+      
+
         public string GetPaySlipsStringArray(bool fee, bool deposit)
         {
             string output = "";
@@ -991,6 +997,9 @@ namespace TraceBilling.ControlObjects
 
             return output;
         }
+
+       
+
         internal DataTable GetConnectionDetails(string appnumber)
         {
             DataTable dt = new DataTable();
@@ -1011,7 +1020,7 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-     
+       
 
         internal void SaveApplicationComment(string appid, string action, string comment, string createdby)
         {
@@ -2482,6 +2491,67 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal string GetVATAmount(string countryid, string amount)
+        {
+            string value = "0";
+            //dt = new DataTable();
+            try
+            {
+
+               
+                double vatrate = dh.GetVatRateByCountry(countryid);
+                double res = (vatrate * double.Parse(amount))/100;
+                value = res.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetVATAmount", "101 " + ex.Message);
+            }
+            return value;
+        }
+        internal DataTable GetTranscodeDetails(string transcode)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTranscodeDetails(transcode);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTranscodeDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal void SaveAdjustmentInceptionLogs(TransactionObj trans, string comment)
+        {
+            try
+            {
+                dh.SaveAdjustmentInceptionLogs(trans, comment);
+            }
+            catch (Exception ex)
+            {
+                Log("SaveAdjustmentInceptionLogs", "101 " + ex.Message);
+            }
+        }
+       /* internal void LogAdjustmentStatus(int recordid, string custRef, string status, string comment, string confirmedby, bool isapproved, DateTime confirmdate)
+        {
+            throw new NotImplementedException();
+        }
+        internal string SaveAdjustment(TransactionObj trans)
+        {
+            throw new NotImplementedException();
+        }
+        internal DataTable GetInceptionAdjustments(string areaID, string branchID, string v, string period)
+        {
+            throw new NotImplementedException();
+        }
+        internal TransactionObj GetInternalTranObj(int recordId, string custref)
+        {
+            throw new NotImplementedException();
+        }*/
 
     }
 }

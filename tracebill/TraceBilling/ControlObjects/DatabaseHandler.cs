@@ -1379,5 +1379,52 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal double GetVatRateByCountry(string countryid)
+        {
+            double output = 0;
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_GetCountrySettingsByID", int.Parse(countryid));
+                if (dt.Rows.Count > 0)
+                {
+                    output = double.Parse(dt.Rows[0]["vatrate"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+
+        internal DataTable GetTranscodeDetails(string transcode)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetTranscodeDetails", transcode);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal void SaveAdjustmentInceptionLogs(TransactionObj trans, string comment)
+        {
+            try
+            {
+                ExecuteCommand("Sp_SaveAdjustmentInceptionLogs", trans.CustRef, trans.InvoiceNumber, trans.DocumentNo, trans.Period,
+                trans.ChargeType, trans.TransValue, trans.VatValue, trans.CreatedBy, trans.TransCode, trans.AreaID, trans.BranchID, comment, trans.PostDate);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

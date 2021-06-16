@@ -186,8 +186,9 @@
                                         </tr>
                                     </table>
                    </div>
+                  
             <center>
-                                 
+                               
                 <asp:Button ID="btnadd" runat="server" Text="Add Adjustment" cssclass ="btn-primary" OnClick="btnadd_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp; 
                         <asp:Button ID="btnreturn" runat="server" Text="Return" cssclass ="btn-primary" OnClick="btnreturn_Click" />
@@ -207,52 +208,57 @@
                    <br< />
                    <div id="myadjustment" runat="server" visible="true">
                 <%-- <p>This is adjustment log</p>--%>
-                                    <div id="searchdisplay" runat="server" visible="false">
+                                    <div id="searchdisplay" runat="server" visible="true">
                  <h5 class="inline">View customer Logs</h5>
              
               
                              <asp:GridView ID="gv_customerview" runat="server" 
                        CssClass="grid-text" CellPadding="10" 
-                              ForeColor="#333333" GridLines="None" Width="100%"
+                              ForeColor="#333333" GridLines="None" Width="90%"
                                   AutoGenerateColumns="False" 
                                  OnRowCommand="gv_customerview_RowCommand"
                                   OnRowDataBound="gv_customerview_RowDataBound"   
                                  onselectedindexchanging="gv_customerview_SelectedIndexChanging"
-                                  onselectedindexchanged="gv_customerview_SelectedIndexChanged"                                                             
+                                  onselectedindexchanged="gv_customerview_SelectedIndexChanged"                                                                                          
                                  >
              <Columns>
                
              <asp:BoundField DataField="custref" HeaderText="CustRef" NullDisplayText="-"/> 
 
             <%-- <asp:BoundField DataField="name" HeaderText="CustName" NullDisplayText="-" />--%> 
-                  <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" /> 
-            
+                  <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" />            
        
                  <asp:BoundField DataField="branch" HeaderText="Branch" NullDisplayText="-" /> 
              <asp:BoundField DataField="transcode" HeaderText="Trans Code" NullDisplayText="-"/>              
-                 <asp:BoundField DataField="docno" HeaderText="Doc No." NullDisplayText="-" /> 
+                 <asp:BoundField DataField="DocumentNo" HeaderText="Doc No." NullDisplayText="-" /> 
                   <asp:BoundField DataField="effectivedate" HeaderText="Effective Date" NullDisplayText="-" /> 
                   <asp:BoundField DataField="amount" HeaderText="Amount" NullDisplayText="-" /> 
                   <asp:BoundField DataField="vat" HeaderText="Vat" NullDisplayText="-" /> 
                   <asp:BoundField DataField="total" HeaderText="Total" NullDisplayText="-" /> 
                   <asp:BoundField DataField="comment" HeaderText="Reason" NullDisplayText="-" /> 
           
-                       <asp:TemplateField ShowHeader="True">
+                      <%-- <asp:TemplateField ShowHeader="True">
                       <HeaderTemplate>
                         Remove
                     </HeaderTemplate>
             <ItemTemplate>
                 <asp:LinkButton ID="replaceButton"
                                 runat="server"
-                                CommandName="RowReplace" 
+                                CommandName="RowRemove" 
                     CommandArgument='<%#Eval("custref") %>'
                                
                                 Text="select" />
                  
             </ItemTemplate>
                      <ItemStyle Width="5%" />
-                 </asp:TemplateField>   
-                    
+                 </asp:TemplateField>   --%>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:LinkButton ID="LinkButton1" runat="server"
+                                OnClick="LinkButton1_Click">Remove</asp:LinkButton>
+                        </ItemTemplate>
+                         <ItemStyle Width="5%" />
+                    </asp:TemplateField>
              </Columns>
              
              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -271,7 +277,8 @@
 
                    </div>
               <center>
-                                 
+                       <asp:Label ID="lblAdjustmentTotal" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
+                                        Text="0" Visible="False" ForeColor="Green"></asp:Label>    <br />        
                 <asp:Button ID="btnsubmit" runat="server" Text="Submit for Approval" cssclass ="btn-primary" OnClick="btnsubmit_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp; 
                         <asp:Button ID="btncancel" runat="server" Text="Cancel" cssclass ="btn-primary" OnClick="btncancel_Click" />
@@ -284,6 +291,95 @@
             </div>
                  
        </div>
+                    <%--    <div id="approvaldisplay" runat="server" visible="false">
+        <div class="form-group col-sm-12 col-md-12 col-lg-12">
+               <fieldset class="panel panel-primary" runat="server">
+    <legend class="w-auto">&nbsp;View Adjustment Approval</legend>
+                 
+                   <br< />
+                   <div id="Div3" runat="server" visible="true">
+                                    <div id="Div4" runat="server" visible="true">
+                 <h5 class="inline">View Approval Logs</h5>
+             
+              
+                             <asp:GridView ID="gv_approvalview" runat="server" 
+                       CssClass="grid-text" CellPadding="10" 
+                              ForeColor="#333333" GridLines="None" Width="90%"
+                                  AutoGenerateColumns="False" 
+                                 OnRowCommand="gv_approvalview_RowCommand"
+                                  OnRowDataBound="gv_approvalview_RowDataBound"   
+                                 onselectedindexchanging="gv_approvalview_SelectedIndexChanging"
+                                  onselectedindexchanged="gv_approvalview_SelectedIndexChanged"                                                                                          
+                                 >
+             <Columns>
+               
+             <asp:BoundField DataField="custref" HeaderText="CustRef" NullDisplayText="-"/> 
+
+                  <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" />            
+       
+                 <asp:BoundField DataField="branch" HeaderText="Branch" NullDisplayText="-" /> 
+             <asp:BoundField DataField="transcode" HeaderText="Trans Code" NullDisplayText="-"/>              
+                 <asp:BoundField DataField="DocumentNo" HeaderText="Doc No." NullDisplayText="-" /> 
+                  <asp:BoundField DataField="effectivedate" HeaderText="Effective Date" NullDisplayText="-" /> 
+                  <asp:BoundField DataField="amount" HeaderText="Amount" NullDisplayText="-" /> 
+                  <asp:BoundField DataField="vat" HeaderText="Vat" NullDisplayText="-" /> 
+                  <asp:BoundField DataField="total" HeaderText="Total" NullDisplayText="-" /> 
+                  <asp:BoundField DataField="comment" HeaderText="Reason" NullDisplayText="-" /> 
+           <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Select
+                    </HeaderTemplate>
+            <ItemTemplate>
+        
+                 <asp:CheckBox ID="CheckBox1" runat="server"   Width="40px"  AutoPostBack="false"/>
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>
+             </Columns>
+             
+             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+             <EditRowStyle BackColor="#2461BF" />
+             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
+             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+             <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
+             <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
+             <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                <SortedDescendingHeaderStyle BackColor="#4870BE" />
+             </asp:GridView>
+                                         <div>
+                           <asp:CheckBox ID="chkSelect" runat="server" AutoPostBack="True" Font-Bold="True"
+                            OnCheckedChanged="chkSelect_CheckedChanged" Text="Select All" />&nbsp;
+                      </div>
+                 </div>
+
+                   </div>
+              <center>
+                       <asp:Label ID="Label1" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
+                                        Text="0" Visible="False" ForeColor="Green"></asp:Label>    <br /> 
+                  <asp:RadioButtonList ID="rbAction" runat="server" RepeatDirection="Horizontal" Width="100%" Font-Italic="True" AutoPostBack="true" OnSelectedIndexChanged="rbAction_SelectedIndexChanged">
+                                                    <asp:ListItem Value="1">APPROVE</asp:ListItem>
+                                                    <asp:ListItem Value="2">REJECT</asp:ListItem>
+                                                   
+                                                </asp:RadioButtonList><br />   
+                  <asp:Label runat="server" Text="Reason" id="lblreason" Font-Bold="true"> </asp:Label>&nbsp;&nbsp;&nbsp;
+               <asp:TextBox runat="server"  ID="txtapprovalcomment" placeholder="Enter comment" Rows="3" TextMode="MultiLine" Width="322px"/><br />  <br />  
+                <asp:Button ID="btnsaveapproval" runat="server" Text="Save" cssclass ="btn-primary" OnClick="btnsaveapproval_Click" style="height: 26px" />
+              &nbsp;&nbsp;&nbsp;&nbsp; 
+                        <asp:Button ID="btncancelapproval" runat="server" Text="Cancel" cssclass ="btn-primary" OnClick="btncancelapproval_Click" />
+              &nbsp;&nbsp;&nbsp;&nbsp; 
+                                      <asp:Button ID="btnprintapproval" runat="server" Text="Print Adjustments" cssclass ="btn-primary" OnClick="btnprintapproval_Click" />
+              &nbsp;&nbsp;&nbsp;&nbsp; 
+                   </center>
+                   </fieldset>                                                      
+              
+            </div>--%>
+                 
+       </div>
+
 
       <asp:Label ID="lblcustref" runat="server" Text="." Visible="False"></asp:Label>   
         
