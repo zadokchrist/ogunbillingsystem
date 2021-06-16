@@ -1417,7 +1417,8 @@ namespace TraceBilling.ControlObjects
         {
             try
             {
-                ExecuteCommand("Sp_SaveAdjustmentInceptionLogs", trans.CustRef, trans.InvoiceNumber, trans.DocumentNo, trans.Period,
+                //Sp_SaveAdjustmentInceptionLogs
+                ExecuteCommand("Sp_SaveAdjustmentTransaction", trans.CustRef, trans.InvoiceNumber, trans.DocumentNo, trans.Period,
                 trans.ChargeType, trans.TransValue, trans.VatValue, trans.CreatedBy, trans.TransCode, trans.AreaID, trans.BranchID, comment, trans.PostDate);
 
             }
@@ -1425,6 +1426,55 @@ namespace TraceBilling.ControlObjects
             {
                 throw ex;
             }
+        }
+
+        internal string SaveMeterRequestLogs(string custref, string meterref, string oldtype, string oldsize,string olddials, string prevrdg,
+            string serial, string prerdgdt, string appfnlrdg, string appfnlrdgdt, bool isestimated, string consumption, string reason, 
+            string newserial, string newsize, string newmake, string newdials, string manufacturedt, string newlife, string comment,
+            string appinitialrdg, string appinitedgdt, string createdby, string requesttype,string areaid,string branchid,string period,string servedby)
+        {
+            string output = "";
+            try
+            {
+                ExecuteCommand("Sp_SaveMeterRequestLogs", custref, meterref, oldtype, oldsize,int.Parse(olddials), int.Parse(prevrdg), serial, Convert.ToDateTime(prerdgdt), int.Parse(appfnlrdg), Convert.ToDateTime(appfnlrdgdt), isestimated,
+                    int.Parse(consumption), reason, newserial, newsize, newmake, int.Parse(newdials), Convert.ToDateTime(manufacturedt), int.Parse(newlife), comment, int.Parse(appinitialrdg), Convert.ToDateTime(appinitedgdt),
+                    int.Parse(createdby), requesttype,int.Parse(areaid),int.Parse(branchid),period,servedby);
+                output = "success";
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                Log("LogMeterRequest", "101 " + ex.Message);
+                output = ex.Message;
+            }
+            return output;
+        }
+        internal DataTable GetRequestsToApprove(int countryid, int areaid, string custref)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetRequestsToApprove", countryid, areaid, custref);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetApproverRequestByID(string custref,string recordid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetApproverRequestByID", custref,int.Parse(recordid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
         }
     }
 }

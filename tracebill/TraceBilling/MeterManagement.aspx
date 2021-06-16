@@ -371,7 +371,7 @@
                                             </td>
                                             <td class="InterFaceTableRightRow" style="height: 10px">
                                                 <asp:TextBox ID="txtRdgDate" runat="server" BackColor="LightGreen" CssClass="rdgDateservice"
-                                                    Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
+                                                    Font-Bold="True" ForeColor="Maroon" Width="90%" Height="22px"></asp:TextBox></td>
                                         </tr>
                                         <tr>
                                             <td class="InterFaceTableLeftRow" style="height: 10px">
@@ -428,12 +428,21 @@
                                 <table align="right" cellpadding="0" cellspacing="0" style="width: 70%">
                                     <tr>
                                         <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                            Reason</td>
+                                            Comment</td>
                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                         </td>
                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
                                             <asp:TextBox ID="txtInitialReason" runat="server" BackColor="LightGreen" CssClass="InterfaceTextboxLongReadOnly"
                                                 Font-Bold="True" ForeColor="Maroon" Height="39px" TextMode="MultiLine" Width="90%"></asp:TextBox></td>
+                                    </tr>
+                                     <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 9px">
+                                            Serviced By</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 9px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 9px">
+                                            <asp:TextBox ID="txtservedby" runat="server" BackColor="lightgreen" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" style="height: 12px">
@@ -736,7 +745,7 @@
                                         <td class="InterFaceTableMiddleRow" style="height: 10px">
                                             &nbsp;</td>
                                         <td class="InterFaceTableRightRow" style="height: 10px">
-                                            <asp:TextBox ID="TextBox14" runat="server" BackColor="lightgreen" CssClass="InterfaceTextboxLongReadOnly"
+                                            <asp:TextBox ID="txtnewliferep" runat="server" BackColor="lightgreen" CssClass="InterfaceTextboxLongReadOnly"
                                                 Font-Bold="True" ForeColor="Maroon" Width="90%" MaxLength="2" onkeypress="return NumberOnly()"></asp:TextBox></td>
                                     </tr>
                                     <tr>
@@ -765,6 +774,15 @@
                                         <td class="InterFaceTableRightRow" style="height: 9px">
                                             <asp:TextBox ID="txtInstalledBy" runat="server" BackColor="lightgreen" CssClass="InterfaceTextboxLongReadOnly"
                                                 Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
+                                    </tr>
+                                     <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                             Comment</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:TextBox ID="txtcommentrep" runat="server" BackColor="LightGreen" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Height="39px" TextMode="MultiLine" Width="90%"></asp:TextBox></td>
                                     </tr>
                                     <tr>
                                         <td colspan="3" style="height: 12px">
@@ -811,8 +829,372 @@
                  
                    <br< />
                    <div id="Div2" runat="server" visible="true">
-                 <p>This is approval requests</p>
+                 <%--<p>This is approval requests</p>--%>
+                                                    <asp:GridView ID="gv_approvalview" runat="server" 
+                       CssClass="grid-text" CellPadding="10" 
+                              ForeColor="#333333" GridLines="None" Width="90%"
+                                  AutoGenerateColumns="False" 
+                                 OnRowCommand="gv_approvalview_RowCommand"
+                                  OnRowDataBound="gv_approvalview_RowDataBound"   
+                                 onselectedindexchanging="gv_approvalview_SelectedIndexChanging"
+                                  onselectedindexchanged="gv_approvalview_SelectedIndexChanged"                                                             
+                                 >
+             <Columns>
+               
+             <asp:BoundField DataField="custref" HeaderText="CustRef" NullDisplayText="-"/> 
+
+             <asp:BoundField DataField="name" HeaderText="CustName" NullDisplayText="-" /> 
+                  <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" /> 
+            
+       
+                 <asp:BoundField DataField="branch" HeaderText="Branch" NullDisplayText="-" /> 
+             <asp:BoundField DataField="propertyRef" HeaderText="PropertyRef" NullDisplayText="-"/>              
+                 <asp:BoundField DataField="requestType" HeaderText="Request Type" NullDisplayText="-"/> 
+                  <asp:BoundField DataField="period" HeaderText="Period" NullDisplayText="-"/> 
+                  <asp:BoundField DataField="recordId" HeaderText="Id#" Visible="true" NullDisplayText="-"/> 
+          
+                       <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        APPROVE
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="approbalButton"
+                                runat="server"
+                                CommandName="RowApprove" 
+                      CommandArgument='<%#Eval("custref") + ";" +Eval("recordId")%>'              
+                                Text="select" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>   
+                              
+             </Columns>
+             
+             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+             <EditRowStyle BackColor="#2461BF" />
+             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
+             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+             <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
+             <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
+             <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                <SortedDescendingHeaderStyle BackColor="#4870BE" />
+             </asp:GridView>
+
+
                    </div>
+                   <div id="confirmdisplay" runat="server" visible="false">
+                       <hr />
+                       <table style="width: 100%">
+                          
+                            <tr>
+                                <td style="vertical-align: top; width: 48%; text-align: right">
+                                    <table align="right" cellpadding="0" cellspacing="0" style="width: 70%">
+                                         <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Request Type</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                                &nbsp;</td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmreqtype" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox>&nbsp;</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                                Customer Ref</td>
+                                            <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                                <asp:TextBox ID="txtconfirmcustref" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                                Meter Ref</td>
+                                            <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmMeterRef" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                       
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Serial</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmSerial" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Dials</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmOldDials" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Type/Make</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmType" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Size</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmSize" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="height: 12px">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                                <td style="width: 2%; height: 2px">
+                                </td>
+                                <td style="vertical-align: top; width: 48%; text-align: left">
+                                    <table align="left" cellpadding="0" cellspacing="0" style="width: 70%">
+                                        <tr>
+                                            <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                                Pre Reading</td>
+                                            <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmPreReading" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Pre Read Date</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                                &nbsp;</td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmPreRdgDate" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Reading</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmCurReading" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Reading Date</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmCurRdgDate" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:CheckBox ID="chkConfirmEstimated" runat="server" Font-Bold="True" Font-Size="X-Small"
+                                                    Text="Tick If Reading Is Estimated" Enabled="False" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Consumption</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtConfirmConsumption" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox></td>
+                                        </tr>
+                                         <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Reason</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                                &nbsp;</td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                               
+                                                <asp:TextBox ID="txtConfirmreason" runat="server" BackColor="Lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Height="39px" TextMode="MultiLine" Width="90%" ReadOnly="true"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="height: 12px">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table style="width: 100%">
+                        <tr>
+                            <td colspan="3" style="vertical-align: top; width: 100%; height: 2px; text-align: center">
+                                <table align="center" cellpadding="0" cellspacing="0" style="width: 50%">
+                                    <tr>
+                                        <td class="InterfaceHeaderLabel">
+                                            <b>NEW METER DETAILS</b></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="vertical-align: top; width: 100%; height: 1px; text-align: center">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="vertical-align: top; width: 48%; text-align: right">
+                                <table align="right" cellpadding="0" cellspacing="0" style="width: 70%">
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Serial</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                            <asp:TextBox ID="txtconfirmnewserial" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" ReadOnly="true"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Size</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                            <asp:TextBox ID="txtconfirmnewsize" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" ReadOnly="true"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Type/Make</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                             <asp:TextBox ID="txtconfirmnewmake" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" ReadOnly="true"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Dails</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                            <asp:TextBox ID="txtconfirmnewdials" runat="server" BackColor="lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" readonly="true"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Manufactured Date</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                            <asp:TextBox ID="txtconfirmmanufacturedate" runat="server" BackColor="lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%"></asp:TextBox></td>
+                                    </tr>
+                                     <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Required Action</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                              <asp:dropdownlist ID="cboaction" runat="server"  Width="87%" >
+                        <asp:ListItem Value="0">--select action--</asp:ListItem>
+                        <asp:ListItem Value="1">Approve</asp:ListItem>
+                        <asp:ListItem Value="2">Reject</asp:ListItem>                       
+                   </asp:dropdownlist></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 12px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 2%; height: 2px">
+                            </td>
+                            <td style="vertical-align: top; width: 48%; text-align: left">
+                                <table align="left" cellpadding="0" cellspacing="0" style="width: 70%">
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Life(Years)</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                            &nbsp;</td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                            <asp:TextBox ID="txtconfirmnewlife" runat="server" BackColor="lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" readonly="true"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 10px">
+                                            Reading</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 10px">
+                                            <asp:TextBox ID="txtconfirmnewreading" runat="server" BackColor="lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" readonly="true"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 9px">
+                                            Reading Date</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 9px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 9px">
+                                            <asp:TextBox ID="txtconfirminstalldate" runat="server" BackColor="lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" ReadOnly="true"></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="InterFaceTableLeftRow" style="height: 9px">
+                                            Installed By</td>
+                                        <td class="InterFaceTableMiddleRow" style="height: 9px">
+                                        </td>
+                                        <td class="InterFaceTableRightRow" style="height: 9px">
+                                            <asp:TextBox ID="txtconfirminstalledby" runat="server" BackColor="lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Width="90%" ReadOnly="true"></asp:TextBox></td>
+                                    </tr>
+                                     <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                             Comment</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:TextBox ID="txtconfirmcomment" runat="server" BackColor="Lightgray" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Height="39px" TextMode="MultiLine" Width="90%" ReadOnly="true"></asp:TextBox></td>
+                                    </tr>
+                                     <tr>
+                                        <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                             Approver Comment</td>
+                                        <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                        </td>
+                                        <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                            <asp:TextBox ID="txtapprovercomment" runat="server" BackColor="LightGreen" CssClass="InterfaceTextboxLongReadOnly"
+                                                Font-Bold="True" ForeColor="Maroon" Height="39px" TextMode="MultiLine" Width="90%" ></asp:TextBox></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" style="height: 12px">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                   </div>
+                     <center>
+                                 
+                <asp:Button ID="btnsave" runat="server" Text="Save" cssclass ="btn-primary" OnClick="btnsave_Click" style="height: 26px" />
+              &nbsp;&nbsp;&nbsp;&nbsp; 
+                        <asp:Button ID="btncancel" runat="server" Text="Cancel" cssclass ="btn-primary" OnClick="btncancel_Click" />
+              &nbsp;&nbsp;&nbsp;&nbsp; 
+              
+                   </center>
            
                    </fieldset>                                                      
               
@@ -820,7 +1202,10 @@
                  
        </div>
 
-      <asp:Label ID="lblcustref" runat="server" Text="." Visible="False"></asp:Label>   
+      <asp:Label ID="lblcustref" runat="server" Text="0" Visible="False"></asp:Label> 
+            <asp:Label ID="lblarea" runat="server" Text="0" Visible="False"></asp:Label> 
+          <asp:Label ID="lblbranch" runat="server" Text="0" Visible="False"></asp:Label> 
+          <asp:Label ID="lblperiod" runat="server" Text="0" Visible="False"></asp:Label> 
         
     </form>
 
@@ -878,5 +1263,6 @@
                 event.returnValue = false;
         }
     </script>
+                   </div>
 </asp:Content>
 

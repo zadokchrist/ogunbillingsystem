@@ -9,7 +9,7 @@ namespace TraceBilling.EntityObjects
     {
         private string recordCode, meterRef, propRef, type, comment, method, curreadingtime, custName, address, serialno,
         prereadingtime, reader, period, reason, reasonType, area, branch, reading, readingDate, custRef, classId, estimate, billable, longitude, latitude;
-        private int billnumber, curreading, newreading, initialReading, prereading, custclassId, levelid, areaId, branchId, createdby, billedBy, custima_seq, sequenceNo;
+        private int billnumber, curreading, newreading, initialReading, prereading, custclassId, levelid, areaId, branchId, createdby, billedBy, sequenceNo;
         private double recordid, consumption;
         private DateTime curreadingdate, prereadingdate, billedDate;
         private bool estimated, billed, force;
@@ -250,17 +250,7 @@ namespace TraceBilling.EntityObjects
                 billnumber = value;
             }
         }
-        public int CustimaSequence
-        {
-            get
-            {
-                return custima_seq;
-            }
-            set
-            {
-                custima_seq = value;
-            }
-        }
+       
         public string Readings
         {
             get
