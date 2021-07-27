@@ -37,7 +37,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
         private void LoadCountryList()
@@ -131,7 +131,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
 
         }
@@ -145,7 +145,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 
@@ -176,7 +176,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 
@@ -191,40 +191,48 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
         protected void gv_surveyjobs_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
-            //Get the Command Name.
-            string commandName = e.CommandName;
-            if (commandName == "btnSelect")//details
+            try
             {
-                //execute
-                //int index = e.CommandArgument;
-                int index = Int32.Parse((string)e.CommandArgument);
-                if (index >= 0)
+                //Get the Command Name.
+                string commandName = e.CommandName;
+                if (commandName == "btnSelect")//details
                 {
-                    // dispatchdisplay.Visible = true;
-                    string jobnumber = gv_surveyjobs.Rows[index].Cells[2].Text;
+                    //execute
+                    //int index = e.CommandArgument;
+                    int index = Int32.Parse((string)e.CommandArgument);
+                    if (index >= 0)
+                    {
+                        // dispatchdisplay.Visible = true;
+                        string jobnumber = gv_surveyjobs.Rows[index].Cells[2].Text;
 
-                    maindisplay.Visible = false;
-                    btnreturn.Visible = true;
-                    approvesurvey.Visible = true;
-                    //txtcategory.Text = GridViewIssue.Rows[index].Cells[1].Text;
-                    ShowSurveyReportDetails(jobnumber);
+                        maindisplay.Visible = false;
+                        btnreturn.Visible = true;
+                        approvesurvey.Visible = true;
+                        //txtcategory.Text = GridViewIssue.Rows[index].Cells[1].Text;
+                        ShowSurveyReportDetails(jobnumber);
+                    }
                 }
-            }
-            //else if (commandName == "btnJobCard")//routecard
-            //{
-            //    string str = "Sorry, Job card details not available yet!!!";
-            //    DisplayMessage(str, true);
-            //}
-            //Get the Row Index.
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
+                //else if (commandName == "btnJobCard")//routecard
+                //{
+                //    string str = "Sorry, Job card details not available yet!!!";
+                //    DisplayMessage(str, true);
+                //}
+                //Get the Row Index.
+                //int rowIndex = Convert.ToInt32(e.CommandArgument);
 
-            //Get the Row reference in which Button was clicked.
-            //GridViewRow row = GridView1.Rows[rowIndex];
+                //Get the Row reference in which Button was clicked.
+                //GridViewRow row = GridView1.Rows[rowIndex];
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+            
         }
 
         private void ShowSurveyReportDetails(string jobnumber)
@@ -251,17 +259,25 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
         
 
         private void LoadSurveyDisplay()
         {
-            DataTable dt = bll.GetSurveyQnList();
-            DataGrid1.DataSource = dt;
-            DataGrid1.CurrentPageIndex = 0;
-            DataGrid1.DataBind();
+            try
+            {
+                DataTable dt = bll.GetSurveyQnList();
+                DataGrid1.DataSource = dt;
+                DataGrid1.CurrentPageIndex = 0;
+                DataGrid1.DataBind();
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+            
         }
 
         protected void gv_surveyjobs_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -308,7 +324,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
 
         }
@@ -397,27 +413,35 @@ namespace TraceBilling
 
         private string GetRecordsToDump()
         {
-            int Count = 0;
             string ItemArr = "";
-            al = new ArrayList();
-
-            foreach (DataGridItem Items in DataGrid1.Items)
+            try
             {
-                CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
-                if (chk.Checked)
+                int Count = 0;
+                al = new ArrayList();
+
+                foreach (DataGridItem Items in DataGrid1.Items)
                 {
-                    Count++;
-                    string Item1 = Items.Cells[0].Text;//id
-                    string Item2 = Items.Cells[1].Text;//qn
-                    string Item3 = Items.Cells[2].Text;//ans
-                    //string Item4 = txtanswer;//Custname
-                    TextBox ans = ((TextBox)Items.FindControl("txtanswer"));
-                    string Item4 = ans.Text.Trim();
-                    ItemArr += Item1 + "+" + Item2 + "+" + Item3 + "+" + Item4  + ",";
-                    //add to uploaded arraylist
-                    al.Add(Count);
+                    CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
+                    if (chk.Checked)
+                    {
+                        Count++;
+                        string Item1 = Items.Cells[0].Text;//id
+                        string Item2 = Items.Cells[1].Text;//qn
+                        string Item3 = Items.Cells[2].Text;//ans
+                                                           //string Item4 = txtanswer;//Custname
+                        TextBox ans = ((TextBox)Items.FindControl("txtanswer"));
+                        string Item4 = ans.Text.Trim();
+                        ItemArr += Item1 + "+" + Item2 + "+" + Item3 + "+" + Item4 + ",";
+                        //add to uploaded arraylist
+                        al.Add(Count);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+            
             return ItemArr;
         }
 
@@ -444,27 +468,36 @@ namespace TraceBilling
 
         protected void btnjobcard_Click(object sender, EventArgs e)
         {
-            DataTable dt = bll.GetSurveyQnList();
-            DataGrid1.DataSource = dt;
-            DataGrid1.CurrentPageIndex = 0;
-            //DataGrid1.DataBind();
-            Response.ContentType = "application / pdf";
-            Response.AddHeader("content - disposition",  "attachment; filename = JobCard.pdf");
-            Response.Cache.SetCacheability(HttpCacheability.NoCache);
-            StringWriter sw = new StringWriter();
-            HtmlTextWriter hw = new HtmlTextWriter(sw);
-            DataGrid1.AllowPaging = false;
-            DataGrid1.DataBind();
-            DataGrid1.RenderControl(hw);
-            StringReader sr = new StringReader(sw.ToString());
-            Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-            HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-            PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-            pdfDoc.Open();
-            htmlparser.Parse(sr);
-            pdfDoc.Close();
-            Response.Write(pdfDoc);
-            Response.End();
+            try
+            {
+                DataTable dt = bll.GetSurveyQnList();
+                DataGrid1.DataSource = dt;
+                DataGrid1.CurrentPageIndex = 0;
+                //DataGrid1.DataBind();
+                Response.ContentType = "application / pdf";
+                Response.AddHeader("content - disposition", "attachment; filename = JobCard.pdf");
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                DataGrid1.AllowPaging = false;
+                DataGrid1.DataBind();
+                DataGrid1.RenderControl(hw);
+               
+                StringReader sr = new StringReader(sw.ToString());
+                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+                HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+                PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+                pdfDoc.Open();
+                htmlparser.Parse(sr);
+                pdfDoc.Close();
+                Response.Write(pdfDoc);
+                Response.End();
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+            
         }
         //private void button1_Click_1(object sender, EventArgs e)
         //{

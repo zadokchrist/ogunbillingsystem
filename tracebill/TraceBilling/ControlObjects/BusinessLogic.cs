@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Text;
 using System.Collections;
+using System.Net.Mail;
 
 namespace TraceBilling.ControlObjects
 {
@@ -17,6 +18,9 @@ namespace TraceBilling.ControlObjects
         DatabaseHandler dh = new DatabaseHandler();
         ResponseMessage resp = new ResponseMessage();
         private DataTable dt;
+        private const string smtpServer = "smtp.gmail.com";
+        private const string smtpUsername = "ogunwatercorp@gmail.com";
+        private const string smtpPassword = "OgunWater@2020";
         internal DataTable GetRequirementList()
         {
             dt = new DataTable();
@@ -527,6 +531,47 @@ namespace TraceBilling.ControlObjects
                 Log("SaveUser", resp.Response_Code + " " + resp.Response_Message);
             }
             return resp;
+        }
+
+        internal ResponseMessage SendEmail(string emailAddress,string Subject,string Message) 
+        {
+            ResponseMessage response = new ResponseMessage();
+            try
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(smtpUsername);
+                mail.Sender = new MailAddress(smtpUsername);
+                mail.To.Add(emailAddress);
+                mail.IsBodyHtml = true;
+                mail.Subject = Subject.Replace('\r', ' ').Replace('\n', ' ');
+                mail.Body = Message;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential(smtpUsername, smtpPassword);
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.EnableSsl = true;
+
+                smtp.Timeout = 30000;
+                try
+                {
+
+                    smtp.Send(mail);
+                    response.Response_Code = "1";
+                    response.Response_Message = "SUCCESS";
+                }
+                catch (SmtpException e)
+                {
+                    response.Response_Code = "1000";
+                    response.Response_Message = e.Message;
+                }
+            }
+            catch (Exception e)
+            {
+                response.Response_Code = "1000";
+                response.Response_Message = e.Message;
+            }
+            return response;
         }
 
 

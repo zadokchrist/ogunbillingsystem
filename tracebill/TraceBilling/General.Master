@@ -435,7 +435,7 @@
           </ul>
                 <%} %>
         </li>
-           <li class="treeview">
+           <%--<li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i>
             <span>Mobility and Self-Service</span>
@@ -450,7 +450,7 @@
             <li><a href="#l"><i class="fa fa-circle-o"></i> Tracking</a></li>
           
           </ul>
-        </li>
+        </li>--%>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Reporting and Analytics</span>
