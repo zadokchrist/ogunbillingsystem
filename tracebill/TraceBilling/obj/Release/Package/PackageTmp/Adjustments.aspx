@@ -279,7 +279,7 @@
               <center>
                        <asp:Label ID="lblAdjustmentTotal" runat="server" Font-Bold="True" Font-Names="Arial Narrow"
                                         Text="0" Visible="False" ForeColor="Green"></asp:Label>    <br />        
-                <asp:Button ID="btnsubmit" runat="server" Text="Submit for Approval" cssclass ="btn-primary" OnClick="btnsubmit_Click" style="height: 26px" />
+                <asp:Button ID="btnsubmit" runat="server" Text="Submit" cssclass ="btn-primary" OnClick="btnsubmit_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp; 
                         <asp:Button ID="btncancel" runat="server" Text="Cancel" cssclass ="btn-primary" OnClick="btncancel_Click" />
               &nbsp;&nbsp;&nbsp;&nbsp; 

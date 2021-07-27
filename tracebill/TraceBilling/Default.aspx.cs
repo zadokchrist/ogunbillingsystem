@@ -27,7 +27,7 @@ namespace TraceBilling
         {
             try
             {
-
+                new Exception("Unable to connect the database");
                 this.GetuserAccess();
             }
             catch (Exception ex)
