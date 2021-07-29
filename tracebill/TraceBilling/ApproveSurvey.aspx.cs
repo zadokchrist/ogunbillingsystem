@@ -38,7 +38,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
+                throw ex;
             }
         }
         private void LoadCountryList()
@@ -98,7 +98,7 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
-    
+
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -120,7 +120,7 @@ namespace TraceBilling
         {
             area_list.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- - select area - -", "0"));
         }
-     
+
         protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -132,7 +132,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
+                throw ex;
             }
 
         }
@@ -146,7 +146,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
+                throw ex;
             }
         }
 
@@ -178,7 +178,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
+                throw ex;
             }
         }
 
@@ -193,48 +193,40 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
+                throw ex;
             }
         }
         protected void gv_surveyjobs_OnRowCommand(object sender, GridViewCommandEventArgs e)
         {
-            try
+            //Get the Command Name.
+            string commandName = e.CommandName;
+            if (commandName == "btnSelect")//details
             {
-                //Get the Command Name.
-                string commandName = e.CommandName;
-                if (commandName == "btnSelect")//details
+                //execute
+                //int index = e.CommandArgument;
+                int index = Int32.Parse((string)e.CommandArgument);
+                if (index >= 0)
                 {
-                    //execute
-                    //int index = e.CommandArgument;
-                    int index = Int32.Parse((string)e.CommandArgument);
-                    if (index >= 0)
-                    {
-                        // dispatchdisplay.Visible = true;
-                        string jobnumber = gv_surveyjobs.Rows[index].Cells[2].Text;
+                    // dispatchdisplay.Visible = true;
+                    string jobnumber = gv_surveyjobs.Rows[index].Cells[2].Text;
 
-                        maindisplay.Visible = false;
-                        btnreturn.Visible = true;
-                        approvesurvey.Visible = true;
-                        //txtcategory.Text = GridViewIssue.Rows[index].Cells[1].Text;
-                        ShowSurveyReportDetails(jobnumber);
-                    }
+                    maindisplay.Visible = false;
+                    btnreturn.Visible = true;
+                    approvesurvey.Visible = true;
+                    //txtcategory.Text = GridViewIssue.Rows[index].Cells[1].Text;
+                    ShowSurveyReportDetails(jobnumber);
                 }
-                //else if (commandName == "btnJobCard")//routecard
-                //{
-                //    string str = "Sorry, Job card details not available yet!!!";
-                //    DisplayMessage(str, true);
-                //}
-                //Get the Row Index.
-                //int rowIndex = Convert.ToInt32(e.CommandArgument);
+            }
+            //else if (commandName == "btnJobCard")//routecard
+            //{
+            //    string str = "Sorry, Job card details not available yet!!!";
+            //    DisplayMessage(str, true);
+            //}
+            //Get the Row Index.
+            //int rowIndex = Convert.ToInt32(e.CommandArgument);
 
-                //Get the Row reference in which Button was clicked.
-                //GridViewRow row = GridView1.Rows[rowIndex];
-            }
-            catch (Exception ex)
-            {
-                DisplayMessage(ex.Message, true);
-            }
-            
+            //Get the Row reference in which Button was clicked.
+            //GridViewRow row = GridView1.Rows[rowIndex];
         }
 
         private void ShowSurveyReportDetails(string jobnumber)
@@ -242,7 +234,7 @@ namespace TraceBilling
             try
             {
                 string status = lblstatus.Text;
-                DataTable dt = bll.GetSurveyReportDetails(jobnumber,0,0,int.Parse(status));
+                DataTable dt = bll.GetSurveyReportDetails(jobnumber, 0, 0, int.Parse(status));
                 if (dt.Rows.Count > 0)
                 {
                     // A.applicationNumber,(A.firstName + '' + A.lastName) as 'fullName'
@@ -263,25 +255,17 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
+                throw ex;
             }
         }
-        
+
 
         private void LoadSurveyDisplay()
         {
-            try
-            {
-                DataTable dt = bll.GetSurveyQnList();
-                DataGrid1.DataSource = dt;
-                DataGrid1.CurrentPageIndex = 0;
-                DataGrid1.DataBind();
-            }
-            catch (Exception ex)
-            {
-                DisplayMessage(ex.Message, true);
-            }
-            
+            DataTable dt = bll.GetSurveyQnList();
+            DataGrid1.DataSource = dt;
+            DataGrid1.CurrentPageIndex = 0;
+            DataGrid1.DataBind();
         }
 
         protected void gv_surveyjobs_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -328,7 +312,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
+                throw ex;
             }
 
         }
@@ -339,7 +323,7 @@ namespace TraceBilling
             {
                 //save checklist item by id
                 //ArrayList a = new ArrayList();
-                 string str = "";
+                string str = "";
                 /* for (int i = 0; i < chkBoxRequired.Items.Count; i++)
                 {
                     if (chkBoxRequired.Items[i].Selected == true)// getting selected value from CheckBox List  
@@ -369,15 +353,14 @@ namespace TraceBilling
                 }
                 else
                 {
-                    LoadConfirmations(str_todump,surveydate);
+                    LoadConfirmations(str_todump, surveydate);
                     if (al.Count > 0)
                     {
-                        
+
                         DisplayMessage(al.Count.ToString() + " survey questions selected and successfully approved.", true);
                     }
                 }
                 ClearApproveControls();
-               
             }
             catch (Exception ex)
             {
@@ -385,12 +368,11 @@ namespace TraceBilling
 
             }
         }
-
         private void ClearApproveControls()
         {
             txtsurveyDate.Text = "";
             chkBoxRequired.ClearSelection();
-            
+
         }
 
         private void LoadConfirmations(string str_todump, string surveydate)
@@ -409,10 +391,10 @@ namespace TraceBilling
                     string qnid = param[0].Trim();
                     string qn = param[1].Trim();
                     string ans = param[3].Trim();
-                    
+
                     //save to Db
-                    bll.SaveSurveyDetails(qnid, ans, appid,createdby,Surveydt);
-                   
+                    bll.SaveSurveyDetails(qnid, ans, appid, createdby, Surveydt);
+
                 }
                 //take log of surveying
                 bll.LogApplicationTransactions(int.Parse(appid), 2, int.Parse(createdby));
@@ -456,7 +438,7 @@ namespace TraceBilling
             {
                 DisplayMessage(ex.Message, true);
             }
-            
+
             return ItemArr;
         }
 
@@ -473,30 +455,29 @@ namespace TraceBilling
 
             }
         }
-        private void FrmExport_Load(object sender, EventArgs e)
-        {
-            LoadSurveyDisplay();
-        }
-       
+        //private void FrmExport_Load(object sender, EventArgs e)
+        //{
+        //    LoadSurveyDisplay();
+        //}
 
-      
+
+
 
         protected void btnjobcard_Click(object sender, EventArgs e)
         {
-
             DataTable dt = bll.GetSurveyQnList();
             DataGrid1.DataSource = dt;
+            DataGrid1.CurrentPageIndex = 0;
             ExcelReport(dt);
-           /* DataGrid1.CurrentPageIndex = 0;
             //DataGrid1.DataBind();
-            Response.ContentType = "application / pdf";
-            Response.AddHeader("content - disposition",  "attachment; filename = JobCard.pdf");
+            /*Response.ContentType = "application / pdf";
+            Response.AddHeader("content - disposition", "attachment; filename = JobCard.pdf");
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
             StringWriter sw = new StringWriter();
             HtmlTextWriter hw = new HtmlTextWriter(sw);
             DataGrid1.AllowPaging = false;
             DataGrid1.DataBind();
-           // DataGrid1.RenderControl(hw);
+            DataGrid1.RenderControl(hw);
             StringReader sr = new StringReader(sw.ToString());
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
@@ -507,8 +488,6 @@ namespace TraceBilling
             Response.Write(pdfDoc);
             Response.End();*/
         }
-
-
         private void ExcelReport(DataTable dataTable)
         {
             try
@@ -523,74 +502,42 @@ namespace TraceBilling
             catch (Exception ex)
             {
                 throw ex;
-                //=======
-                //            try
-                //            {
-                //                DataTable dt = bll.GetSurveyQnList();
-                //                DataGrid1.DataSource = dt;
-                //                DataGrid1.CurrentPageIndex = 0;
-                //                //DataGrid1.DataBind();
-                //                Response.ContentType = "application / pdf";
-                //                Response.AddHeader("content - disposition", "attachment; filename = JobCard.pdf");
-                //                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                //                StringWriter sw = new StringWriter();
-                //                HtmlTextWriter hw = new HtmlTextWriter(sw);
-                //                DataGrid1.AllowPaging = false;
-                //                DataGrid1.DataBind();
-                //                DataGrid1.RenderControl(hw);
-
-                //                StringReader sr = new StringReader(sw.ToString());
-                //                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-                //                HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-                //                PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-                //                pdfDoc.Open();
-                //                htmlparser.Parse(sr);
-                //                pdfDoc.Close();
-                //                Response.Write(pdfDoc);
-                //                Response.End();
-                //            }
-                //            catch (Exception ex)
-                //            {
-                //                DisplayMessage(ex.Message, true);
-                
-                //            }
-
             }
         }
-        //private void button1_Click_1(object sender, EventArgs e)
-        //{
-        //    DataTable dt = bll.GetSurveyQnList();
-        //    // creating Excel Application  
-        //    Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-        //    // creating new WorkBook within Excel application  
-        //    Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-        //    // creating new Excelsheet in workbook  
-        //    Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-        //    // see the excel sheet behind the program  
-        //    app.Visible = true;
-        //    // get the reference of first sheet. By default its name is Sheet1.  
-        //    // store its reference to worksheet  
-        //    worksheet = workbook.Sheets["Sheet1"];
-        //    worksheet = workbook.ActiveSheet;
-        //    // changing the name of active sheet  
-        //    worksheet.Name = "Exported from gridview";
-        //    // storing header part in Excel  
-        //    for (int i = 1; i < dt.Columns.Count + 1; i++)
-        //    {
-        //        worksheet.Cells[1, i] = dt.Columns[i - 1].HeaderText;
-        //    }
-        //    // storing Each row and column value to excel sheet  
-        //    for (int i = 0; i < dt.Rows.Count - 1; i++)
-        //    {
-        //        for (int j = 0; j < dt.Columns.Count; j++)
-        //        {
-        //            worksheet.Cells[i + 2, j + 1] = dt.Rows[i].Cells[j].Value.ToString();
-        //        }
-        //    }
-        //    // save the application  
-        //    workbook.SaveAs("c:\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-        //    // Exit from the application  
-        //    app.Quit();
-        //}
-    }
+                //private void button1_Click_1(object sender, EventArgs e)
+                //{
+                //    DataTable dt = bll.GetSurveyQnList();
+                //    // creating Excel Application  
+                //    Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+                //    // creating new WorkBook within Excel application  
+                //    Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
+                //    // creating new Excelsheet in workbook  
+                //    Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+                //    // see the excel sheet behind the program  
+                //    app.Visible = true;
+                //    // get the reference of first sheet. By default its name is Sheet1.  
+                //    // store its reference to worksheet  
+                //    worksheet = workbook.Sheets["Sheet1"];
+                //    worksheet = workbook.ActiveSheet;
+                //    // changing the name of active sheet  
+                //    worksheet.Name = "Exported from gridview";
+                //    // storing header part in Excel  
+                //    for (int i = 1; i < dt.Columns.Count + 1; i++)
+                //    {
+                //        worksheet.Cells[1, i] = dt.Columns[i - 1].HeaderText;
+                //    }
+                //    // storing Each row and column value to excel sheet  
+                //    for (int i = 0; i < dt.Rows.Count - 1; i++)
+                //    {
+                //        for (int j = 0; j < dt.Columns.Count; j++)
+                //        {
+                //            worksheet.Cells[i + 2, j + 1] = dt.Rows[i].Cells[j].Value.ToString();
+                //        }
+                //    }
+                //    // save the application  
+                //    workbook.SaveAs("c:\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                //    // Exit from the application  
+                //    app.Quit();
+                //}
+            }
 }

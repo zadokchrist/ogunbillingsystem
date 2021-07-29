@@ -100,7 +100,6 @@
               
                  </asp:BoundField> 
    <asp:BoundField DataField="className" HeaderText="className" NullDisplayText="-" /> 
-                 <%-- <asp:BoundField DataField="serviceName" HeaderText="serviceName" NullDisplayText="-" /> --%>
                <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-" /> 
                   <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> 
             <asp:BoundField DataField="isgenerated" HeaderText="Job Generated" NullDisplayText="-" /> 
@@ -108,10 +107,7 @@
                  <asp:BoundField DataField="assignedTo" HeaderText="AssignedTo" NullDisplayText="-" /> 
             <asp:BoundField DataField="ApplicationID" HeaderText="ApplicationID" NullDisplayText="-" Visible="false"/> 
 
-               <%--  <asp:ButtonField ButtonType="link" CommandName="btnJobCard" HeaderText="Job Card"
-            Text="Print" ItemStyle-ForeColor="Green" />
-                 <asp:ButtonField ButtonType="link" CommandName="btnDetails" HeaderText="Assign"
-            Text="View" ItemStyle-ForeColor="Blue"/>--%>
+             
                   <asp:TemplateField ShowHeader="True">
                       <HeaderTemplate>
                         Job Card
