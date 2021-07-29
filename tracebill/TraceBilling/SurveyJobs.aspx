@@ -78,13 +78,15 @@
                              <asp:GridView ID="gv_surveyjobs" runat="server" 
                        CssClass="grid-text" CellPadding="10" 
                               ForeColor="#333333" GridLines="None" Width="100%"
-                                  AutoGenerateColumns="False" OnRowCommand="gv_surveyjobs_OnRowCommand"
-                                  OnRowDataBound="gv_surveyjobs_RowDataBound"                                 
+                                  AutoGenerateColumns="False"
+                                  OnRowCommand="gv_surveyjobs_OnRowCommand"
+                                  OnRowDataBound="gv_surveyjobs_RowDataBound"                                         
+                                 onselectedindexchanging="gv_surveyjobs_SelectedIndexChanging"
+                                  onselectedindexchanged="gv_surveyjobs_SelectedIndexChanged"                             
                                  >
              <Columns>
                
            <asp:BoundField DataField="No" HeaderText="No" NullDisplayText="-"/> 
-             <%--    <asp:BoundField DataField="ApplicationID" HeaderText="ApplicationID" NullDisplayText="-" Visible="false"/> --%>
              <asp:BoundField DataField="applicationNumber" HeaderText="Application#" NullDisplayText="-"/> 
              
              <asp:BoundField DataField="fullName" HeaderText="Name" NullDisplayText="-" /> 
@@ -101,14 +103,45 @@
                  <%-- <asp:BoundField DataField="serviceName" HeaderText="serviceName" NullDisplayText="-" /> --%>
                <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-" /> 
                   <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> 
-              <%--   <asp:BoundField DataField="countryId" HeaderText="CountryID" NullDisplayText="-"  Visible="false"/> 
-                  <asp:BoundField DataField="areaId" HeaderText="AreaID" NullDisplayText="-" Visible="false" /> --%>
+            <asp:BoundField DataField="isgenerated" HeaderText="Job Generated" NullDisplayText="-" /> 
+<%--                  <asp:BoundField DataField="areaId" HeaderText="AreaID" NullDisplayText="-" Visible="false" /> --%>
                  <asp:BoundField DataField="assignedTo" HeaderText="AssignedTo" NullDisplayText="-" /> 
-                 <asp:ButtonField ButtonType="Button" CommandName="btnJobCard" HeaderText="Job Card"
+            <asp:BoundField DataField="ApplicationID" HeaderText="ApplicationID" NullDisplayText="-" Visible="false"/> 
+
+               <%--  <asp:ButtonField ButtonType="link" CommandName="btnJobCard" HeaderText="Job Card"
             Text="Print" ItemStyle-ForeColor="Green" />
-                 <asp:ButtonField ButtonType="Button" CommandName="btnDetails" HeaderText="Assign"
-            Text="View" ItemStyle-ForeColor="Blue"/>
-                
+                 <asp:ButtonField ButtonType="link" CommandName="btnDetails" HeaderText="Assign"
+            Text="View" ItemStyle-ForeColor="Blue"/>--%>
+                  <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Job Card
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="jobcardButton"
+                                runat="server"
+                                CommandName="btnJobCard" 
+                     CommandArgument='<%#Eval("applicationNumber") + ";" +Eval("ApplicationID") %>'
+                               
+                                Text="Print" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>
+                 <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Assign
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="assignButton"
+                                runat="server"
+                                CommandName="btnDetails" 
+                     CommandArgument='<%#Eval("applicationNumber") + ";" +Eval("ApplicationID") %>'
+                               
+                                Text="Assign" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>
              <asp:TemplateField HeaderText="Select" ItemStyle-Width="150">           
                 <ItemTemplate>
                     <asp:CheckBox ID="chkCtrl" runat="server" />
@@ -187,6 +220,12 @@
                  <asp:Label ID="lblApplicationCode" runat="server" Text="." Visible="False"></asp:Label>
             
             </div>
+                 
+           <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                  <center>
+               <asp:Button ID="btnSubmit" runat="server" Text="Submit to Surveyor" cssclass ="btn-primary" OnClick="btnSubmit_Click" />
+          </center>
+                  </div>
        </div>
         
     </form>

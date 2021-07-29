@@ -16,6 +16,7 @@ namespace TraceBilling.ControlObjects
     {
         DatabaseHandler dh = new DatabaseHandler();
         ResponseMessage resp = new ResponseMessage();
+       
         private DataTable dt;
         internal DataTable GetRequirementList()
         {
@@ -453,10 +454,21 @@ namespace TraceBilling.ControlObjects
 
         internal string AssignSurveyJob(string applicationCode, string surveyor)
         {
+            string output = "";
             int ApplicationID = Convert.ToInt32(applicationCode);
             int SurveyorID = Convert.ToInt32(surveyor);
-            dh.AssignSurveyor(ApplicationID, SurveyorID);
-            return "Assignment has been done Successfully";
+            //check if jobcard is ready
+            DataTable dt = dh.GetSurveyData(ApplicationID);
+            if(dt.Rows.Count > 0)
+            {
+                dh.AssignSurveyor(ApplicationID, SurveyorID);
+                output="Jobcard Assignment has been done Successfully";
+            }
+            else
+            {
+                output = "Jobcard not ready to be assigned. Please generate it!!";
+            }
+            return output;
         }
         internal ResponseMessage ValidateUser(string firstname, string lastname, string username, string reason)
         {
@@ -502,7 +514,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-
+       
 
         internal ResponseMessage SaveSystemUser(UserObj user)
         {
@@ -619,7 +631,7 @@ namespace TraceBilling.ControlObjects
                 //int areacode = Convert.ToInt16(HttpContext.Current.Session["areaCode"].ToString());
                 //int branchcode = Convert.ToInt16(HttpContext.Current.Session["branchCode"].ToString());
                 int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["userID"].ToString());
-                int status = 2;//surveying
+                int status = 3;//surveying
                 for (i = 0; i < arr.Length; i++)
                 {
                     // ApplicationCode = Convert.ToInt32(arr[i].ToString());
@@ -637,13 +649,13 @@ namespace TraceBilling.ControlObjects
                             int countryid = Convert.ToInt16(dt.Rows[0]["countryId"].ToString());
                             int areaid = Convert.ToInt16(dt.Rows[0]["areaId"].ToString());
                             int branchid = Convert.ToInt16(dt.Rows[0]["branchid"].ToString());
-                            string JobNumber = GetJobNumber(countrycode, areacode, branchcode, CreatedBy);
+                            string JobNumber = GetJobNumber(countryid, areaid, branchid, CreatedBy);
 
                             dh.SaveSurveyJobNumber(appID, JobNumber, countryid, areaid, branchid, CreatedBy);
                             //auto Assigning
-                            Assignjob(appID, CreatedBy, countryid);
+                           // Assignjob(appID, CreatedBy, countryid);
                             //log status
-                            LogApplicationTransactions(appID, status, CreatedBy);
+                           // LogApplicationTransactions(appID, status, CreatedBy);
                         }
 
 
@@ -654,7 +666,7 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
-
+       
 
         private void Assignjob(int appID, int createdBy, int countryid)
         {
@@ -662,13 +674,13 @@ namespace TraceBilling.ControlObjects
             int number = dataTable.Rows.Count;
             if (number > 0)
             {
-                if (number.Equals(1))
-                {
+                //if (number.Equals(1))
+                //{
                     /// assign
                     /// 
                     string surv_code = dataTable.Rows[0]["userId"].ToString();
                     AssignSurveyJob(appID.ToString(), surv_code);
-                }
+                //}
             }
         }
 
@@ -794,6 +806,7 @@ namespace TraceBilling.ControlObjects
         }
 
        
+
 
         //16/12/2020
         internal DataTable GetMaterialOptions(string type)
@@ -2591,11 +2604,89 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal string ModifyMeter(string action, string requesttype, string meterRef, string custRef, string serial, string oldReading, string oldRdgDate, string curReading, string curRdgDate1, bool isestimated, string newReading, string dials, string installedBy, string curRdgDate2, string type, string size, string life, string manufacturedDate, string reason, string area, string branch)
+        internal string ModifyMeter(string action, string requesttype, string meterRef, string custRef, string serial, 
+            string oldReading, string oldRdgDate, string curReading, string curRdgDate1, bool isestimated, string newReading,
+            string dials, string installedBy, string curRdgDate2, string type, string size, string life, string manufacturedDate,
+            string reason, string area, string branch)
         {
             string output = "";
             output = "success";
             return output;
+        }
+        internal DataTable getCredentialsFile(string area, string branch)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.getCredentialsFile(area, branch);
+
+            }
+            catch (Exception ex)
+            {
+                Log("getCredentialsFile", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetTariffFileData(string country)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTariffsFile(country);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTariffFileData", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public string GetSystemParameter(string param)
+        {
+            string output = "";
+            output = dh.GetSystemParameter(param);
+            return output;
+        }
+        internal bool CheckJobAssigned(string appid)
+        {
+            bool value = false;
+            DataTable dt = dh.GetSurveyData(int.Parse(appid));
+            if(dt.Rows.Count > 0)
+            {
+                foreach(DataRow dr in dt.Rows)
+                {
+                    string assign = dr["assignedTo"].ToString();
+                    if(!assign.Equals(""))
+                    {
+                        value = true;
+                        break;
+                    }
+                }
+            }
+            return value;
+        }
+        public void RemoveCostingItem(string application_code, string CostingCode)
+        {
+            int appId = int.Parse(application_code);
+            int costId = int.Parse(CostingCode);
+            dh.RemoveCostingItem(appId, costId);
+        }
+        internal DataTable GetCostingItemsByCostID(int applicationID,int costid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCostingItemsByCostID(applicationID,costid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetCostingItemsByCostID", "101 " + ex.Message);
+            }
+            return dt;
         }
         /* internal void LogAdjustmentStatus(int recordid, string custRef, string status, string comment, string confirmedby, bool isapproved, DateTime confirmdate)
          {

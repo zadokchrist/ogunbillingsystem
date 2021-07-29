@@ -134,7 +134,22 @@
                  
             </ItemTemplate>
                      <ItemStyle Width="5%" />
-                 </asp:TemplateField>          
+                 </asp:TemplateField>    
+                 <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Panel
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="viewButtonPanel"
+                                runat="server"
+                                CommandName="RowPanel" 
+                    CommandArgument='<%#Eval("applicationNumber") + ";" +Eval("fullName") + ";" +Eval("ApplicationID") %>'
+                               
+                                Text="View" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>              
              </Columns>
              
              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -199,7 +214,167 @@
                
           </center>
                   </div>
-        
+          <div class="form-group col-sm-12 col-md-12 col-lg-12">
+                             <div id="paneldisplay" style="width:800px; margin:0 auto;  text-align: center;"  runat="server" visible="false">
+
+                                                  <table align="center" cellpadding="0" cellspacing="0" class="style12" width="85%">
+                                        <tr>
+                                            <td colspan="3" style="vertical-align: top; width: 100%; height: 5px; text-align: center">
+                                                <table align="center" cellpadding="0" cellspacing="0" style="width: 98%">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="InterfaceHeaderLabel3" style="height: 18px">
+                                                               <b> View options for printing</b></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                      
+                                        <tr>
+                                            <td class="InterFaceTableLeftRowUp" colspan="3" style="vertical-align: top; width: 100%;
+                                                height: 10px; text-align: center">
+                                               <%-- <asp:TextBox ID="txtCustName" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Style="text-align: center"
+                                                    Width="60%"></asp:TextBox>--%>
+                                                 <asp:Label ID="lblname" runat="server" Text="." Visible="true" ForeColor="Maroon" Font-Bold="true"></asp:Label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="vertical-align: top; height: 10px; text-align: left">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top; width: 48%; height: 10px; text-align: left">
+                                                <table align="center" cellpadding="0" cellspacing="0" style="width: 98%">
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%">
+                                                            Applicant Details</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 2%">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 30px">
+                                                            <asp:Button ID="btnAppDetails" runat="server" Font-Bold="False" OnClick="btnAppDetails_Click"
+                                                                Text="View Details" Width="75%" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 29px">
+                                                            Documents</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 2%; height: 29px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 29px">
+                                                            <asp:Button ID="btnDocuments" runat="server" Font-Bold="False" OnClick="btnDocuments_Click"
+                                                                Text="View Document(s)" Width="75%" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 29px">
+                                                            Job Card</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 2%; height: 29px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 29px">
+                                                            <asp:Button ID="btnJobCard" runat="server" Font-Bold="False" OnClick="btnJobCard_Click"
+                                                                Text="View Job Card" Width="75%" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 29px">
+                                                            Invoice</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 2%; height: 29px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 29px">
+                                                            <asp:Button ID="Button1" runat="server" Font-Bold="False" OnClick="Button1_Click"
+                                                                Text="View Invoice" Width="75%" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 29px">
+                                                            Audit Trail</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 2%; height: 29px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 29px">
+                                                            <asp:Button ID="btnAudit" runat="server" Font-Bold="False" OnClick="btnAudit_Click"
+                                                                Text="View Audit Trail" Width="75%" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3" style="height: 2px">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                            <td style="vertical-align: top; width: 2%; height: 10px; text-align: center">
+                                            </td>
+                                            <td style="vertical-align: top; width: 48%; height: 10px; text-align: left">
+                                                <table align="center" cellpadding="0" cellspacing="0" style="width: 98%">
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 30px">
+                                                            Payment Slip(s)</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="height: 30px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 30px">
+                                                            <asp:Button ID="btnSlips" runat="server" Font-Bold="False" OnClick="btnSlips_Click"
+                                                                Text="View Slips" Width="75%" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 30px">
+                                                            Expense</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="height: 30px">
+                                                            &nbsp;</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 30px">
+                                                            <asp:Button ID="btnExpense" runat="server" Font-Bold="False" OnClick="btnExpense_Click"
+                                                                Text="View Expenses" Width="75%" />&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 28px">
+                                                            Trench Details</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="height: 28px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 28px">
+                                                            <asp:Button ID="btnTrench" runat="server" Font-Bold="False" OnClick="btnTrench_Click"
+                                                                Text="View Trench Details" Width="75%" />&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 31px">
+                                                            Docket</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="height: 31px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: blue; height: 31px">
+                                                            <asp:Button ID="btnDocket" runat="server" Font-Bold="False" OnClick="btnDocket_Click"
+                                                                Text="View Docket" Width="75%" /></td>
+                                                    </tr>
+                                                   <%-- <tr>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; height: 31px">
+                                                            None</td>
+                                                        <td class="InterFaceTableLeftRowUp" style="height: 31px">
+                                                        </td>
+                                                        <td class="InterFaceTableLeftRowUp" style="width: 50%; color: red; height: 31px">
+                                                            <asp:Button ID="btnNone" runat="server" Font-Bold="False" OnClick="btnNone_Click"
+                                                                Text="None" Width="75%" Enabled="False" /></td>
+                                                    </tr>--%>
+                                                    <tr>
+                                                        <td colspan="3" style="height: 2px">
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                &nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="vertical-align: top; width: 100%; height: 10px; text-align: center">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRowUp" colspan="3" style="vertical-align: top; width: 100%;
+                                                height: 10px; text-align: center">
+                                                <%--<asp:Button ID="Button5" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Size="9pt"
+                            Height="23px" OnClick="Button5_Click" Text="Return" Width="141px" />--%>
+                                        <asp:Button ID="btnreturnpanel" runat="server" Text="Return" Font-Bold="true" cssclass ="btn-primary" OnClick="btnreturnpanel_Click" Width="81px" />
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" style="vertical-align: top; height: 2px; text-align: center">
+                                            </td>
+                                        </tr>
+                                    </table>
+
+          </div>
+        </div>
     </form>
 
     <br /><br />

@@ -100,7 +100,7 @@
                  <asp:BoundField DataField="AssignedTo" HeaderText="AssignedTo" NullDisplayText="-" /> 
                <%--  <asp:ButtonField ButtonType="Button" CommandName="btnJobCard" HeaderText="Job Card"
             Text="Print" ItemStyle-ForeColor="Green" />--%>
-                 <asp:ButtonField ButtonType="Button" CommandName="btnSelect" HeaderText="Select"
+                 <asp:ButtonField ButtonType="link" CommandName="btnSelect" HeaderText="Select"
             Text="Select" ItemStyle-ForeColor="Blue"/>
                 
        
@@ -184,7 +184,9 @@
                    </fieldset>
                <br />
                              
-                 <asp:Label ID="lblApplicationCode" runat="server" Text="." Visible="False"></asp:Label>
+                 <asp:Label ID="lblApplicationCode" runat="server" Text="0" Visible="False"></asp:Label>
+                <asp:Label ID="lblstatus" runat="server" Text="0" Visible="False"></asp:Label>
+               <asp:Label ID="lblappcode" runat="server" Text="." Visible="False"></asp:Label>
           
             </div>
              <div class="form-group col-sm-12 col-md-12 col-lg-12">

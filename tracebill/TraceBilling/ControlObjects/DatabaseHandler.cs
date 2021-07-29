@@ -1476,5 +1476,135 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetBillDetailsByCustRef(int areaID, string customerRef)
+        {
+
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetBillDetailsByCustRefs", areaID, customerRef);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+
+        }
+
+        internal DataTable GetCustBillNoByPeriod(string custRef, string period)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustBillNoByPeriod", custRef, period);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        //internal DataTable GetRelationshipManagerDetails(string custRef)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        internal DataTable GetCustBill(string custRef, int billNo, int areaID, string period)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustBillPrinting", custRef, billNo, areaID, period);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+
+        internal DataTable GetCustBillDetails(string custRef, int billNo, int flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustBillDetails", custRef, billNo, flag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable getCredentialsFile(string area, string branch)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCredentialsFile", area,branch);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        
+        internal DataTable GetTariffsFile(string country)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetTariffsFile", int.Parse(country));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetSurveyData(int appid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetSurveyData", appid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetCostingItemsByCostID(int applicationID,int costid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCostingItemsByCostID", applicationID,costid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal void RemoveCostingItem(int appId, int costId)
+        {
+            try
+            {
+                ExecuteCommand("Sp_RemoveCostingItem", appId, costId);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

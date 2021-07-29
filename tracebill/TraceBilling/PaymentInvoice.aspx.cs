@@ -120,11 +120,11 @@ namespace TraceBilling
                 string roleid = Session["roleId"].ToString();
                 if(roleid.Equals("2"))//commercial
                 {
-                    status = "6";
+                    status = "10";
                 }
                 else if (roleid.Equals("3"))//mgr
                 {
-                    status = "10";
+                    status = "6";
                 }
                 else if (roleid.Equals("8"))//revenue
                 {
@@ -410,6 +410,10 @@ namespace TraceBilling
                 if (count != 0)
                 {
                     Msg = i + " Payslip(s) have been generated";
+                    //take status log
+                    string appid = lblappid.Text;
+                    bll.LogApplicationTransactions(int.Parse(appid), 7, int.Parse(createdby));//generate invoice
+
                 }
                 else
                 {
@@ -481,6 +485,11 @@ namespace TraceBilling
                                 //display error
                             }
                         }
+                        string appid = lblappid.Text;
+                        string createdby = Session["UserID"].ToString();
+                        //take log of paid..check paid invoices
+                        bll.LogApplicationTransactions(int.Parse(appid), 8, int.Parse(createdby));//payment reconciled
+                        bll.LogApplicationTransactions(int.Parse(appid), 9, int.Parse(createdby));//payment confirmed
                     }
                 }
             }
@@ -526,7 +535,7 @@ namespace TraceBilling
                 string roleid = Session["roleId"].ToString();
                 if (roleid.Equals("2"))//commercial
                 {
-                    status = "6";
+                    status = "10";
                 }
                 else if (roleid.Equals("3"))//mgr
                 {
@@ -544,7 +553,7 @@ namespace TraceBilling
                     txtappcode.Text = dt.Rows[0]["ApplicationNumber"].ToString();
                     txtname.Text = dt.Rows[0]["ApplicantName"].ToString();
                     string jobno = dt.Rows[0]["JobNumber"].ToString();
-                 
+                    lblappid.Text = dt.Rows[0]["ApplicationID"].ToString();
                     lblarea.Text = dt.Rows[0]["areaId"].ToString();
                     double New = Convert.ToDouble(dt.Rows[0]["Amount"].ToString());
                     double deposit = Convert.ToDouble(dt.Rows[0]["Deposit"].ToString());

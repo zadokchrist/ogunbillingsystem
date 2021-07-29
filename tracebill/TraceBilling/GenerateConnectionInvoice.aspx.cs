@@ -169,7 +169,8 @@ namespace TraceBilling
                 string jobnumber = txtjobnumber.Text.Trim();
                 string country = country_list.SelectedValue.ToString();
                 string area = area_list.SelectedValue.ToString();
-                string status = "4";//survey
+                string status = "4";//after approval
+                lblstatus.Text = status;
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
                 if (dataTable.Rows.Count > 0)
                 {
@@ -220,7 +221,7 @@ namespace TraceBilling
                 if (index >= 0)
                 {
                     // dispatchdisplay.Visible = true;
-                    string jobnumber = gv_surveyjobs.Rows[index].Cells[1].Text;
+                    string jobnumber = gv_surveyjobs.Rows[index].Cells[2].Text;
 
                     maindisplay.Visible = false;
                     btnreturn.Visible = true;
@@ -246,7 +247,8 @@ namespace TraceBilling
         {
             try
             {
-                DataTable dt = bll.GetSurveyReportDetails(jobnumber, 0, 0, 4);
+                string status = lblstatus.Text;
+                DataTable dt = bll.GetSurveyReportDetails(jobnumber, 0, 0, int.Parse(status));
                 if (dt.Rows.Count > 0)
                 {
                     LoadCustomerTypeList();
@@ -256,8 +258,8 @@ namespace TraceBilling
                     txtjobNo.Text = dt.Rows[0]["JobNumber"].ToString();
                     lblApplicationCode.Text = dt.Rows[0]["applicationID"].ToString();
                     txtauthorizedby.Text = Session["FullName"].ToString();
-                    //DateTime surveydt = Convert.ToDateTime(dt.Rows[0]["surveyDate"].ToString());
-                    //txtsurveydate.Text = surveydt.ToString("dddd, dd MMMM yyyy");//
+                    DateTime surveydt = Convert.ToDateTime(dt.Rows[0]["surveyDate"].ToString());
+                    txtsurveydate.Text = surveydt.ToString("yyyy-MM-dd");//
                     txtsurvey.Text= dt.Rows[0]["AssignedTo"].ToString();
                     lblarea.Text = dt.Rows[0]["areaId"].ToString();
                     string customertype = dt.Rows[0]["typeName"].ToString();
@@ -434,7 +436,8 @@ namespace TraceBilling
                         DisplayMessage(res, false);
                     }
                     //log to next level
-                    bll.LogApplicationTransactions(int.Parse(applicationid), 5, int.Parse(createdby));
+                    bll.LogApplicationTransactions(int.Parse(applicationid), 5, int.Parse(createdby));//capture invoice
+                    bll.LogApplicationTransactions(int.Parse(applicationid), 6, int.Parse(createdby));//generate invoice
                     //clear conrols
                     ClearEstimatesControls();
                 }
@@ -496,9 +499,70 @@ namespace TraceBilling
 
             materialoptions.SelectedIndex = materialoptions.Items.IndexOf(materialoptions.Items.FindByValue("1"));
         }
-        protected void DataGrid1_ItemCommand1(object source, DataGridCommandEventArgs e)
+        protected void DataGrid1_ItemCommand(object source, DataGridCommandEventArgs e)
         {
+            try
+            {
+                string appid = lblApplicationCode.Text;
+                if (e.CommandName == "btnEdit")
+                {
+                    string ExpenseCode = e.Item.Cells[3].Text;
+                    
+                    LoadExpenseDetails(ExpenseCode,appid);
+                    //btnSubmit.Enabled = true;
+                    DisplayMessage(".", true);
+                }
+                else if (e.CommandName == "btnRemove")
+                {
+                    string ExpenseCode = e.Item.Cells[3].Text;
+                   // int ExpenseID = Convert.ToInt32(ExpenseCode);
+                    bll.RemoveCostingItem(appid, ExpenseCode);
+                    DisplayMessage("Costing Item have been deleted", true);
+                    // LoadExpenditures();
+                    LoadCostingItems(int.Parse(appid));
+                }
+                else
+                {
+                    DisplayMessage(".", true);
+                   // LoadExpenditures();
+                    //Load
+                }
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
         }
+        private void LoadExpenseDetails(string ExpenseCode,string appid)
+        {
+
+            lblCostcode.Text = ExpenseCode;
+            int ExpenseID = Convert.ToInt32(ExpenseCode);
+            DataTable dataTable = bll.GetCostingItemsByCostID(int.Parse(appid),ExpenseID);
+            if (dataTable.Rows.Count > 0)
+            {
+                string mterial = dataTable.Rows[0]["material"].ToString();
+                string size = dataTable.Rows[0]["Size"].ToString();
+                string qty = dataTable.Rows[0]["quantity"].ToString();
+                double UnitCost = Convert.ToDouble(dataTable.Rows[0]["UnitCost"].ToString());
+                string rate = UnitCost.ToString("#,##0");
+                txtsize.Text = size;
+                txtquantity.Text = qty;
+                material_list.SelectedIndex = material_list.Items.IndexOf(material_list.Items.FindByText(mterial));
+                bool fixed_rate = bool.Parse(dataTable.Rows[0]["fixed"].ToString());
+
+                if (fixed_rate)
+                {
+                    txtrate.Enabled = false;
+                }
+                else
+                {
+                    txtrate.Enabled = true;
+                }
+            }
+
+        }
+
         public void LoadCostingMaterials(int applicationID)
         {
             string category_code = materialoptions.SelectedValue.ToString();

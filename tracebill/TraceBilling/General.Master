@@ -70,9 +70,9 @@
       </a>
         <a href="#">
 <%--            <img src="images/tracelogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:160px;max-width:160px;height:auto;width:auto;">--%>
-            <img src="images/tracebilllogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:160px;max-width:160px;height:auto;width:auto;">
+            <img src="images/tracebilllogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:100px;max-width:100px;height:auto;width:auto;">
         </a>
-         <font size = 20> <font color = white>TRACE BILLING</font></font>
+         <font size = 6> <font color = white>TRACE BILLING SYSTEM</font></font>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
@@ -262,11 +262,11 @@
           <ul class="treeview-menu">
               <% if (Session["roleId"].ToString() == "2")
                                                   {%>  
-            <li><a href="AddApplication.aspx"><i class="fa fa-circle-o"></i> Apply for New Connection</a></li> 
+            <li><a href="AddApplication.aspx"><i class="fa fa-circle-o"></i> Apply for New Connection (S1)</a></li> 
               <%} %>           
           
               <li class="treeview">
-                    <% if (Session["roleId"].ToString() == "6")
+               <%--     <% if (Session["roleId"].ToString() == "6")
                                                   {%>  
               <a href="#"><i class="fa fa-circle-o"></i> Field Survey Mapping
                 <span class="pull-right-container">
@@ -275,27 +275,37 @@
               </a>
               <ul class="treeview-menu">
                 <li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard</a></li>
-                  <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report</a></li>
+                   <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report</a></li>
                   </ul>
                </li>
               <li><a href="GenerateConnectionInvoice.aspx"><i class="fa fa-circle-o"></i> Connection Invoice Generation</a></li>
-               <%} %> 
+               <%} %> --%>
+                <% if (Session["roleId"].ToString() == "6" )
+                                                  {%>  
+             li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard (S2)</a></li>
+                   <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report (S3)</a></li>
+          <li><a href="GenerateConnectionInvoice.aspx"><i class="fa fa-circle-o"></i> Generate Invoice BOQ (S4)</a></li>
+              <%} %> 
+               <% if (Session["roleId"].ToString() == "5" )
+                                                  {%>  
+             <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report (S3)</a></li>
+              <%} %> 
                <% if (Session["roleId"].ToString() == "3")
                                                   {%>  
-              <li><a href="AuthorizeConnection.aspx"><i class="fa fa-circle-o"></i> Connection Authorization</a></li>
+              <li><a href="AuthorizeConnection.aspx"><i class="fa fa-circle-o"></i> Authorize Connection (S5)</a></li>
               <%} %> 
 
                 <% if (Session["roleId"].ToString() == "2")
                                                   {%>  
-              <li><a href="PaymentInvoice.aspx"><i class="fa fa-circle-o"></i> Payment Invoicing</a></li>
+              <li><a href="PaymentInvoice.aspx"><i class="fa fa-circle-o"></i> Payment Invoicing (S6)</a></li>
               <%} %> 
                <% if (Session["roleId"].ToString() == "6")
                                                   {%>
-              <li><a href="FieldConnection.aspx"><i class="fa fa-circle-o"></i> Field Connection</a></li>
+              <li><a href="FieldConnection.aspx"><i class="fa fa-circle-o"></i> Field Connection (S9)</a></li>
                <%} %>
                 <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9")
                                                   {%>
-              <li><a href="CustomerCreation.aspx"><i class="fa fa-circle-o"></i> Customer Creation</a></li>
+              <li><a href="CustomerCreation.aspx"><i class="fa fa-circle-o"></i> Customer Creation (S10)</a></li>
                <%} %>
               <li><a href="ViewApplications.aspx"><i class="fa fa-circle-o"></i> View Application Details</a></li>
            
@@ -311,11 +321,14 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> General Inquiry</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Change of Name</a></li>
+             
+               <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> View Customers</a></li>
+              <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9")
+                                                  {%>
+               <li><a href="#"><i class="fa fa-circle-o"></i> Change of Name</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>
               <li><a href="CloseAccount.aspx"><i class="fa fa-circle-o"></i>Account Closure</a></li>
-               <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> View Customers</a></li>
-            
+               <%} %>
           </ul>
         </li>
            <li class="treeview">
@@ -425,8 +438,8 @@
             
                <% if (Session["roleId"].ToString() == "8")
                                                   {%>  
-               <li><a href="AddTransaction.aspx"><i class="fa fa-circle-o"></i> Add New Payment</a></li>
-            <li><a href="ReconcileTransactions.aspx"><i class="fa fa-circle-o"></i> Reconciliations</a></li>
+               <li><a href="AddTransaction.aspx"><i class="fa fa-circle-o"></i> Add New Payment (S7)</a></li>
+            <li><a href="ReconcileTransactions.aspx"><i class="fa fa-circle-o"></i> Reconciliations (S8)</a></li>
               <%} %>
              <li><a href="ViewTransactions.aspx"><i class="fa fa-circle-o"></i> View Payment Transactions</a></li>
             

@@ -95,7 +95,7 @@
                  <asp:BoundField DataField="Amount" HeaderText="Amount" NullDisplayText="-" /> 
                <%--  <asp:ButtonField ButtonType="Button" CommandName="btnJobCard" HeaderText="Job Card"
             Text="Print" ItemStyle-ForeColor="Green" />--%>
-                 <asp:ButtonField ButtonType="Button" CommandName="btnSelect" HeaderText="Select"
+                 <asp:ButtonField ButtonType="link" CommandName="btnSelect" HeaderText="Select"
             Text="Select" ItemStyle-ForeColor="Blue"/>
                 
        
@@ -429,6 +429,7 @@
                 <asp:Label ID="lblarea" runat="server" Text="." Visible="False"></asp:Label>
           <asp:Label ID="lblpaid" runat="server" Text="." Visible="False"></asp:Label>
           <asp:Label ID="lblInvoiced" runat="server" Text="." Visible="False"></asp:Label>
+          <asp:Label ID="lblappid" runat="server" Text="0" Visible="False"></asp:Label>
     </form>
 
     <br /><br />

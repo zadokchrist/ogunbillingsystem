@@ -198,24 +198,35 @@ namespace TraceBilling
             string commandName = e.CommandName;
             if (commandName == "btnDetails")//details
             {
-                //execute
-                //int index = e.CommandArgument;
-                int index = Int32.Parse((string)e.CommandArgument);
-                if (index >= 0)
+
+                string[] arg = new string[2];
+                arg = e.CommandArgument.ToString().Split(';');
+                string appnumber = arg[0];
+                string appid = arg[1];
+                bool isassigned = bll.CheckJobAssigned(appid);
+                if (isassigned)
                 {
-                   // dispatchdisplay.Visible = true;
-                    string appnumber = gv_surveyjobs.Rows[index].Cells[1].Text;
-                  
+                    DisplayMessage(".", true);
                     maindisplay.Visible = false;
                     btnreturn.Visible = true;
                     assignsurvey.Visible = true;
-                    //txtcategory.Text = GridViewIssue.Rows[index].Cells[1].Text;
                     ShowSurveyDetails(appnumber);
                 }
+                else
+                {
+                    string str = "Sorry, Job card needs to be generated before assigning it.";
+                    DisplayMessage(str, true);
+                }
+
+
             }
             else if (commandName == "btnJobCard")//routecard
             {
-                string str = "Sorry, Job card details not available yet!!!";
+                string[] arg = new string[2];
+                arg = e.CommandArgument.ToString().Split(';');
+                string appnumber = arg[0];
+                string appid = arg[1];
+                string str = "Sorry, Job card details not ready for printing!!!";
                 DisplayMessage(str, true);
             }
             //Get the Row Index.
@@ -286,7 +297,17 @@ namespace TraceBilling
                 else
                 {
                     string returned = bll.AssignSurveyJob(ApplicationCode, Surveyor);
-                    DisplayMessage(returned, false);
+                    //DisplayMessage(returned, true);
+                    if (returned.Contains("Successfully"))
+                    {
+                        DisplayMessage(returned, false);
+                        LoadApplicationByStatus();
+                    }
+                    else
+                    {
+                        DisplayMessage(returned, true);
+                    }
+                    ClearAssignControl();
                 }
             }
             catch (Exception ex)
@@ -294,6 +315,14 @@ namespace TraceBilling
                 DisplayMessage(ex.Message, true);
 
             }
+        }
+
+        private void ClearAssignControl()
+        {
+            txtappcode.Text = "";
+            txtname.Text = "";
+            survey_list.SelectedValue = "0";
+            txtinstructionDate.Text = "";
         }
 
         protected void btngenerate_Click(object sender, EventArgs e)
@@ -380,5 +409,43 @@ namespace TraceBilling
                 }
             }
         }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            string appid = lblApplicationCode.Text;
+            int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["userID"].ToString());
+            int status = 3;//surveying
+            //log status
+            bool isassigned = bll.CheckJobAssigned(appid);
+            string str = "";
+            if(isassigned)
+            {
+                bll.LogApplicationTransactions(int.Parse(appid), status, CreatedBy);
+                str = "Jobcard submitted to Surveyor for further action.";
+                DisplayMessage(str, false);
+            }
+            else
+            {
+                str = "Jobcard not assigned to any surveyor. Please assign it!!";
+                DisplayMessage(str, true);
+            }
+           
+        }
+        protected void gv_surveyjobs_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            int index = e.NewSelectedIndex;
+            if (index >= 0)
+            {
+                //string refnumber = GridViewIssue.Rows[index].Cells[0].Text;
+                string usercode = gv_surveyjobs.Rows[index].Cells[1].Text;
+
+
+            }
+        }
+        protected void gv_surveyjobs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

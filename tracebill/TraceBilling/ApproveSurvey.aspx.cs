@@ -12,6 +12,7 @@ using System.Collections;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
+using RKLib.ExportData;
 //using System.Web.UI.WebControl.
 namespace TraceBilling
 {
@@ -156,7 +157,8 @@ namespace TraceBilling
                 string jobnumber = txtjobnumber.Text.Trim();
                 string country = country_list.SelectedValue.ToString();
                 string area = area_list.SelectedValue.ToString();
-                string status = "2";//survey
+                string status = "3";//jobcard
+                lblstatus.Text = status;
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
                 if (dataTable.Rows.Count > 0)
                 {
@@ -231,7 +233,8 @@ namespace TraceBilling
         {
             try
             {
-                DataTable dt = bll.GetSurveyReportDetails(jobnumber,0,0,2);
+                string status = lblstatus.Text;
+                DataTable dt = bll.GetSurveyReportDetails(jobnumber,0,0,int.Parse(status));
                 if (dt.Rows.Count > 0)
                 {
                     // A.applicationNumber,(A.firstName + '' + A.lastName) as 'fullName'
@@ -240,6 +243,7 @@ namespace TraceBilling
                     txtjobno.Text = dt.Rows[0]["JobNumber"].ToString();
                     lblApplicationCode.Text = dt.Rows[0]["applicationID"].ToString();
                     txtarea.Text = dt.Rows[0]["Area"].ToString();
+                    lblappcode.Text = txtappcode.Text;
                     LoadSurveyQnList();
                     LoadSurveyDisplay();
                 }
@@ -356,12 +360,21 @@ namespace TraceBilling
                         DisplayMessage(al.Count.ToString() + " survey questions selected and successfully approved.", true);
                     }
                 }
+                ClearApproveControls();
+               
             }
             catch (Exception ex)
             {
                 DisplayMessage(ex.Message, true);
 
             }
+        }
+
+        private void ClearApproveControls()
+        {
+            txtsurveyDate.Text = "";
+            chkBoxRequired.ClearSelection();
+            
         }
 
         private void LoadConfirmations(string str_todump, string surveydate)
@@ -385,7 +398,9 @@ namespace TraceBilling
                     bll.SaveSurveyDetails(qnid, ans, appid,createdby,Surveydt);
                    
                 }
-                //log to next level
+                //take log of surveying
+                bll.LogApplicationTransactions(int.Parse(appid), 2, int.Parse(createdby));
+                //log approval
                 bll.LogApplicationTransactions(int.Parse(appid), 4, int.Parse(createdby));
 
             }
@@ -446,7 +461,8 @@ namespace TraceBilling
         {
             DataTable dt = bll.GetSurveyQnList();
             DataGrid1.DataSource = dt;
-            DataGrid1.CurrentPageIndex = 0;
+            ExcelReport(dt);
+           /* DataGrid1.CurrentPageIndex = 0;
             //DataGrid1.DataBind();
             Response.ContentType = "application / pdf";
             Response.AddHeader("content - disposition",  "attachment; filename = JobCard.pdf");
@@ -455,7 +471,7 @@ namespace TraceBilling
             HtmlTextWriter hw = new HtmlTextWriter(sw);
             DataGrid1.AllowPaging = false;
             DataGrid1.DataBind();
-            DataGrid1.RenderControl(hw);
+           // DataGrid1.RenderControl(hw);
             StringReader sr = new StringReader(sw.ToString());
             Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
             HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
@@ -464,7 +480,26 @@ namespace TraceBilling
             htmlparser.Parse(sr);
             pdfDoc.Close();
             Response.Write(pdfDoc);
-            Response.End();
+            Response.End();*/
+        }
+
+       
+        private void ExcelReport(DataTable dataTable)
+        {
+            try
+            {
+                int[] iColumns = { 0, 1, 2 };
+                string appcode = lblappcode.Text;
+                string filename = "JobCard-" + appcode + "-" + DateTime.Now;
+                //Export the details of specified columns to Excel
+                RKLib.ExportData.Export objExport = new RKLib.ExportData.Export();
+                objExport.ExportDetails(dataTable, iColumns, Export.ExportFormat.Excel, filename + ".xls");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
         }
         //private void button1_Click_1(object sender, EventArgs e)
         //{

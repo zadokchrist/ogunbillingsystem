@@ -22,6 +22,7 @@ namespace TraceBilling
         ApplicationObj app = new ApplicationObj();
         ResponseMessage resp = new ResponseMessage();
         DataFile df = new DataFile();
+        PDFPrints pp = new PDFPrints();
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -412,6 +413,77 @@ namespace TraceBilling
                 string error = "100: " + ex.Message;
                 bll.Log("LoadCustomerDisplayLogs", error);
                 DisplayMessage(error, true);
+            }
+        }
+        protected void gvbilldisplay_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            if (e.CommandName == "RowPrint")
+            {
+                string str = "";
+                //string UserID = e.Item.Cells[0].Text;
+                //string appid = Convert.ToString(e.CommandArgument.ToString());
+                //string str = "Sorry, Application Foam print out not available yet!!!";
+                string[] arg = new string[4];
+                arg = e.CommandArgument.ToString().Split(';');
+                string custref = arg[0];
+                string billno = arg[1];
+                string period = arg[2];
+                string areaid = arg[3];
+                PrintInvoice(custref,billno,period, areaid);
+                //DisplayMessage(str, true);
+            }
+           
+        }
+
+        private void PrintInvoice(string custref, string billno,string period,string areaid)
+        {
+            try
+            {
+                string str = "";
+                string res = pp.GetPDFBillFile(int.Parse(areaid), custref, period, int.Parse(billno));
+                if(res.Contains("pdf"))
+                {
+                    str = "Bill Invoice-" + res + " generated successfully.";
+                    DisplayMessage(str, false);
+                }
+                else
+                {
+                    DisplayMessage(str, true);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+        protected void gvbilldisplay_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.RowType == DataControlRowType.DataRow)
+            {
+                //
+                // dispatchdisplay.Visible = true;
+                TableCell link = (TableCell)e.Row.Cells[2];
+                string type = e.Row.Cells[6].Text;
+                // e.Row.BackColor = Color.Blue;
+                //e.Row.ForeColor = Color.Green;
+
+            }
+        }
+        protected void gvbilldisplay_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void gvbilldisplay_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+            int index = e.NewSelectedIndex;
+            if (index >= 0)
+            {
+                //string refnumber = GridViewIssue.Rows[index].Cells[0].Text;
+                string usercode = gvbilldisplay.Rows[index].Cells[1].Text;
+
+
             }
         }
     }
