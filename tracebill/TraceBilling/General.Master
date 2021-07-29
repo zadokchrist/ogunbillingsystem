@@ -328,13 +328,14 @@
                <li><a href="#"><i class="fa fa-circle-o"></i> Change of Name</a></li>
               <li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>
               <li><a href="CloseAccount.aspx"><i class="fa fa-circle-o"></i>Account Closure</a></li>
-<<<<<<< HEAD
-               <%} %>
-=======
               <li><a href="AccountReactivation.aspx"><i class="fa fa-circle-o"></i>Account Reactivation</a></li>
+
+               <%} %>
+
+              
                <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> View Customers</a></li>
             
->>>>>>> 87e227cb4d923963317fcab1c602f3e17fddb337
+
           </ul>
         </li>
            <li class="treeview">

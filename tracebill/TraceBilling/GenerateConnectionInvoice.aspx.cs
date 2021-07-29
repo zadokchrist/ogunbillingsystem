@@ -31,7 +31,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
         private void LoadCountryList()
@@ -222,7 +222,6 @@ namespace TraceBilling
                 {
                     // dispatchdisplay.Visible = true;
                     string jobnumber = gv_surveyjobs.Rows[index].Cells[2].Text;
-
                     maindisplay.Visible = false;
                     btnreturn.Visible = true;
                     connectioninvoice.Visible = true;
