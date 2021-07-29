@@ -483,7 +483,7 @@ namespace TraceBilling
 
         protected void btnjobcard_Click(object sender, EventArgs e)
         {
-<<<<<<< HEAD
+
             DataTable dt = bll.GetSurveyQnList();
             DataGrid1.DataSource = dt;
             ExcelReport(dt);
@@ -508,7 +508,7 @@ namespace TraceBilling
             Response.End();*/
         }
 
-       
+
         private void ExcelReport(DataTable dataTable)
         {
             try
@@ -520,41 +520,42 @@ namespace TraceBilling
                 RKLib.ExportData.Export objExport = new RKLib.ExportData.Export();
                 objExport.ExportDetails(dataTable, iColumns, Export.ExportFormat.Excel, filename + ".xls");
             }
-            catch(Exception ex)
-            {
-                throw ex;
-=======
-            try
-            {
-                DataTable dt = bll.GetSurveyQnList();
-                DataGrid1.DataSource = dt;
-                DataGrid1.CurrentPageIndex = 0;
-                //DataGrid1.DataBind();
-                Response.ContentType = "application / pdf";
-                Response.AddHeader("content - disposition", "attachment; filename = JobCard.pdf");
-                Response.Cache.SetCacheability(HttpCacheability.NoCache);
-                StringWriter sw = new StringWriter();
-                HtmlTextWriter hw = new HtmlTextWriter(sw);
-                DataGrid1.AllowPaging = false;
-                DataGrid1.DataBind();
-                DataGrid1.RenderControl(hw);
-               
-                StringReader sr = new StringReader(sw.ToString());
-                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-                HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
-                PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
-                pdfDoc.Open();
-                htmlparser.Parse(sr);
-                pdfDoc.Close();
-                Response.Write(pdfDoc);
-                Response.End();
-            }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
->>>>>>> 87e227cb4d923963317fcab1c602f3e17fddb337
+                throw ex;
+                //=======
+                //            try
+                //            {
+                //                DataTable dt = bll.GetSurveyQnList();
+                //                DataGrid1.DataSource = dt;
+                //                DataGrid1.CurrentPageIndex = 0;
+                //                //DataGrid1.DataBind();
+                //                Response.ContentType = "application / pdf";
+                //                Response.AddHeader("content - disposition", "attachment; filename = JobCard.pdf");
+                //                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                //                StringWriter sw = new StringWriter();
+                //                HtmlTextWriter hw = new HtmlTextWriter(sw);
+                //                DataGrid1.AllowPaging = false;
+                //                DataGrid1.DataBind();
+                //                DataGrid1.RenderControl(hw);
+
+                //                StringReader sr = new StringReader(sw.ToString());
+                //                Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+                //                HTMLWorker htmlparser = new HTMLWorker(pdfDoc);
+                //                PdfWriter.GetInstance(pdfDoc, Response.OutputStream);
+                //                pdfDoc.Open();
+                //                htmlparser.Parse(sr);
+                //                pdfDoc.Close();
+                //                Response.Write(pdfDoc);
+                //                Response.End();
+                //            }
+                //            catch (Exception ex)
+                //            {
+                //                DisplayMessage(ex.Message, true);
+                
+                //            }
+
             }
-            
         }
         //private void button1_Click_1(object sender, EventArgs e)
         //{
