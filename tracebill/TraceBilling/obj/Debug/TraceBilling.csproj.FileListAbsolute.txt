@@ -102,6 +102,7 @@ D:\working directory\tracebill\current copy\tracebilldashboardlatest\tracebill\T
 D:\working directory\tracebill\current copy\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CopyComplete
 D:\working directory\tracebill\current copy\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 D:\working directory\tracebill\current copy\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
+<<<<<<< HEAD
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\ApplicationInsights.config
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\csc.exe
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -122,3 +123,27 @@ C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
 C:\Users\HP\Desktop\Projects\workingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojResolveAssemblyReference.cache
+=======
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\ApplicationInsights.config
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\csc.exe
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\System.Collections.Immutable.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\System.Reflection.Metadata.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\vbc.exe
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\VBCSCompiler.exe
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\VBCSCompiler.exe.config
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll.config
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.pdb
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CoreCompileInputs.cache
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CopyComplete
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
+C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.AssemblyReference.cache
+D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojAssemblyReference.cache
+>>>>>>> 87e227cb4d923963317fcab1c602f3e17fddb337

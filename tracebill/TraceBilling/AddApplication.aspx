@@ -228,7 +228,7 @@
                     <td style="width: 502px">
                         <label for="tariff">Proposed Category</label>
            <asp:RadioButtonList ID="rtncategory" runat="server" RepeatDirection="Vertical" Width="65%"  AutoPostBack="true" OnSelectedIndexChanged="rtnTariff_SelectedIndexChanged">
-                        <asp:ListItem Value="1">Dommestic</asp:ListItem>
+                        <asp:ListItem Value="1">Domestic</asp:ListItem>
                         <asp:ListItem Value="2">Commercial</asp:ListItem>
                         <asp:ListItem Value="3">Institutional/Government</asp:ListItem>
                          <asp:ListItem Value="2">Community Stand</asp:ListItem>

@@ -15,7 +15,7 @@ using System.Threading;
 
 namespace TraceBilling
 {
-    public partial class CloseAccount : System.Web.UI.Page
+    public partial class AccountReactivation : System.Web.UI.Page
     {
         public DataTable dt;
         BusinessLogic bll = new BusinessLogic();
@@ -53,7 +53,7 @@ namespace TraceBilling
             DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 1);
             if (dataTable.Rows.Count > 0)
             {
-                
+
                 gv_customerview.DataSource = dataTable;
                 gv_customerview.DataBind();
                 DisplayMessage(".", true);
@@ -292,35 +292,6 @@ namespace TraceBilling
             string custref = lblcustref.Text;
             LoadCustomerDisplayLogs(custref, 6);
         }
-
-        protected void btncloseaccount_Click(object sender, EventArgs e)
-        {
-            btnlinks.Visible = true;
-            custdisplay.Visible = false;
-            readingdisplay.Visible = false;
-            billdisplay.Visible = false;
-            transactiondisplay.Visible = false;
-            closeaccountdisplay.Visible = true;
-            customerdisplay.Visible = false;
-            string custref = lblcustref.Text;
-            LoadCustomerDisplayLogs(custref, 6);
-        }
-
-        protected void btndeactivateaccount_Click(object sender, EventArgs e)
-        {
-            string custref = lblcustref.Text;
-            string reasonforclosure = reason.Text;
-            string recordedby = Session["userName"].ToString();
-            if (string.IsNullOrEmpty(reasonforclosure))
-            {
-                DisplayMessage("Please enter reason of closing this account", true);
-            }
-            else
-            {
-                bll.DeactivateAccount(custref, reason.Text, recordedby);
-                DisplayMessage("Account closed successfully", false);
-            }
-        }
         private void LoadCustomerInformation(string custref)
         {
             int countryid = 0;
@@ -328,9 +299,9 @@ namespace TraceBilling
             DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 2);
             if (dataTable.Rows.Count > 0)
             {
-               Session["customerareaid"] = dataTable.Rows[0]["areaId"].ToString();
+                Session["customerareaid"] = dataTable.Rows[0]["areaId"].ToString();
                 area_list3.Text = dataTable.Rows[0]["Area"].ToString();
-                txtInquireCustRef.Text= dataTable.Rows[0]["customerRef"].ToString();
+                txtInquireCustRef.Text = dataTable.Rows[0]["customerRef"].ToString();
                 txtappnumber.Text = dataTable.Rows[0]["applicationId"].ToString();
                 txtcreationdate.Text = dataTable.Rows[0]["creationDate"].ToString();
                 txtcustomer.Text = dataTable.Rows[0]["customerRef"].ToString();
@@ -391,7 +362,7 @@ namespace TraceBilling
             {
                 if (flag == 3)//reading
                 {
-                    
+
                     dt = bll.LoadCustomerDisplay(countryid, areaid, custref, flag);
                     if (dt.Rows.Count > 0)
                     {

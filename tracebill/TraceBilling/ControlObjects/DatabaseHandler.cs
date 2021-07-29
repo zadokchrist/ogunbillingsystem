@@ -419,6 +419,12 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal void DeactivateAccount(string custref, string reason, string recordedby)
+        {
+            ExecuteCommand("sp_CloseAccount", custref, reason, recordedby);
+        }
+
         internal void LogApplicationTransactions(int appID, int status, int createdBy)
         {
             try

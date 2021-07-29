@@ -24,12 +24,29 @@ namespace TraceBilling
 
                 if (IsPostBack == false)
                 {
-
-
                     LoadCountryList();
-                    int countryid = int.Parse(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
                     LoadBranchList(0);
+                    string sessioncountryid = Session["countryId"].ToString();
+                    
+                    if (!sessioncountryid.Equals("1"))
+                    {
+                        country_list.SelectedIndex = country_list.Items.IndexOf(new ListItem(Session["country"].ToString(), Session["countryId"].ToString()));
+                        country_list.Enabled = false;
+                        int countryid = int.Parse(country_list.SelectedValue.ToString());
+                        LoadAreaList(countryid);
+                        area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString() ));
+                        area_list.Enabled = false;
+                        int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                        LoadBranchList(operationid);
+                    }
+                    else
+                    {
+                        int countryid = int.Parse(country_list.SelectedValue.ToString());
+                        LoadAreaList(countryid);
+                    }
+                    
+                    
+                    
                     LoadRoleList();
                     
                     if (Request.QueryString["transferid"] != null)
@@ -207,6 +224,22 @@ namespace TraceBilling
 
         }
 
+        protected void operation_area_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //int deptid = int.Parse(department_list.SelectedValue.ToString());
+                int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                LoadBranchList(operationid);
+                //load session data
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
         protected void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -238,6 +271,10 @@ namespace TraceBilling
                     user.Password = bll.EncryptString(user.UserName);
 
                     resp = bll.SaveSystemUser(user);
+                    string Subject = "USER CREDENTIALS";
+                    string Message = "Dear " + user.FirstName+" "+user.LastName+" "+user.OtherName + ",<br>Please find below are your billing system user credentials. Please remember to change them on your initial login<br>";
+                    Message += "User name : " + user.UserName + "<br>User Password : " + user.UserName;
+                    bll.SendEmail(user.EmailAddress, Subject, Message);
                     if (resp.Response_Code == "0")//save
                     {
                         //log activity

@@ -102,7 +102,7 @@
                 <tr>
                     <td style="width: 502px">
                         <asp:Label runat="server" Text="Operation Area" ID="lbloparea" Visible="true" Font-Bold="true"></asp:Label>
-            <asp:DropDownList ID="area_list" CssClass="form-control" runat="server"  OnDataBound="area_list_DataBound" Visible="true" >
+            <asp:DropDownList ID="area_list" CssClass="form-control" runat="server"  OnDataBound="area_list_DataBound" OnSelectedIndexChanged="operation_area_SelectedIndexChanged" AutoPostBack="true" Visible="true" >
                 </asp:DropDownList>
                     </td>
                 </tr>

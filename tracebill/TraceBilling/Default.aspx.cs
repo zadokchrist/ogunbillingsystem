@@ -27,7 +27,7 @@ namespace TraceBilling
         {
             try
             {
-
+                new Exception("Unable to connect the database");
                 this.GetuserAccess();
             }
             catch (Exception ex)
@@ -100,6 +100,7 @@ namespace TraceBilling
             Session["area"] = dt.Rows[0]["areaName"].ToString();
             Session["areaId"] = dt.Rows[0]["areaId"].ToString();
             Session["branchId"] = dt.Rows[0]["branchId"].ToString();
+            Session["branchName"] = dt.Rows[0]["branchName"].ToString();
             Session["areaCode"] = dt.Rows[0]["areaCode"].ToString();
         }
 

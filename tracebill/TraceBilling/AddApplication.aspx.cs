@@ -25,9 +25,29 @@ namespace TraceBilling
                     LoadRequirementList();
                     LoadCustomerTypeList();
                     LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
+                    
+                    
                     LoadIDList();
+
+                    string sessioncountryid = Session["countryId"].ToString();
+
+                    if (!sessioncountryid.Equals("1"))
+                    {
+                        country_list.SelectedIndex = country_list.Items.IndexOf(new ListItem(Session["country"].ToString(), Session["countryId"].ToString()));
+                        country_list.Enabled = false;
+                        int countryid = int.Parse(country_list.SelectedValue.ToString());
+                        LoadAreaList(countryid);
+                        area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                        area_list.Enabled = false;
+                        int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                        //LoadBranchList(operationid);
+                    }
+                    else
+                    {
+                        int countryid = int.Parse(country_list.SelectedValue.ToString());
+                        LoadAreaList(countryid);
+                        LoadAreaList(countryid);
+                    }
                 }
             }
             catch (Exception ex)
