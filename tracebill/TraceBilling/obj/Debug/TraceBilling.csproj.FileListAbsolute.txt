@@ -143,4 +143,3 @@ C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\T
 C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
 C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.AssemblyReference.cache
-D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojAssemblyReference.cache
