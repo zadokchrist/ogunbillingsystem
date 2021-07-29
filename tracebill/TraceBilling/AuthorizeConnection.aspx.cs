@@ -127,7 +127,7 @@ namespace TraceBilling
                 string applicationame = txtapplicationname.Text.Trim();
                 string country = country_list.SelectedValue.ToString();
                 string area = area_list.SelectedValue.ToString();
-                string status = "5";
+                string status = "6";
                 DataTable dataTable = bll.GetApplicationByStatus(applicationame, country, area, status);
                 if (dataTable.Rows.Count > 0)
                 {
@@ -292,7 +292,7 @@ namespace TraceBilling
                 string output = "";
                 if (action.Contains("Approve"))
                 {
-                    statusid = 6;
+                    statusid = 10;
                     output = "ACTION SAVED SUCCESSFULLY AND FORWARDED TO COMMERCIAL FOR PAYMENT INVOICING";
                 }
                 else if (action.Contains("Terminate"))

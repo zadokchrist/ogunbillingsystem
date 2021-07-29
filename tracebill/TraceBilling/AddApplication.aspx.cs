@@ -224,7 +224,7 @@ namespace TraceBilling
               
                 //end default
                 //validate input
-                resp = bll.ValidateApplication(app.FirstName, app.LastName, app.Email, app.CustomerType, app.Occupation);
+                resp = bll.ValidateApplication(app.FirstName, app.LastName, app.Email, app.CustomerType, app.IdNumber);
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
                     if (app.Country.Equals("0"))
@@ -233,7 +233,7 @@ namespace TraceBilling
                         DisplayMessage(str, true);
                     }
                     {
-                        app.ApplicationNo = bll.GetApplicationNumber("0", Session["countryCode"].ToString(), Session["areaCode"].ToString(), Session["branchCode"].ToString(), userid);
+                        app.ApplicationNo = bll.GetApplicationNumber("0", app.Country, app.Area, app.Branch, userid);
                         //resp.Response_Code="test"; //test only
                         resp = bll.SaveApplication(app);
                         if (resp.Response_Code == "0")
@@ -276,6 +276,21 @@ namespace TraceBilling
             txtfirstname.Text = "";
             txtlastname.Text = "";
             txtothername.Text = "";
+            txtemail.Text = "";
+            txtoccupation.Text = "";
+            txtphone.Text = "";
+            txtaddress.Text = "";
+            cboID.SelectedValue = "0";
+            txtidnumber.Text = "";
+            country_list.SelectedValue = "0";
+            area_list.SelectedValue = "0";
+            txtdivision.Text = "";
+            txtvillage.Text = "";
+            txtplot.Text = "";
+            rtnServicetype.ClearSelection();
+            rtncategory.ClearSelection();
+            customertype_list.ClearSelection();
+            chkBoxRequired.ClearSelection();
         }
         protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         {

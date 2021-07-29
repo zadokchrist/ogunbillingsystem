@@ -100,7 +100,7 @@
                  <asp:BoundField DataField="AssignedTo" HeaderText="AssignedTo" NullDisplayText="-" /> 
                <%--  <asp:ButtonField ButtonType="Button" CommandName="btnJobCard" HeaderText="Job Card"
             Text="Print" ItemStyle-ForeColor="Green" />--%>
-                 <asp:ButtonField ButtonType="Button" CommandName="btnSelect" HeaderText="Select"
+                 <asp:ButtonField ButtonType="link" CommandName="btnSelect" HeaderText="Select"
             Text="Select" ItemStyle-ForeColor="Blue"/>
                 
        
@@ -145,13 +145,15 @@
           </div>
        <div id="connectioninvoice" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
-               <fieldset class="panel panel-primary" runat="server" id="condetails">
-    <legend class="w-auto">&nbsp;Connection Details</legend>
-                 
+              
                    <br< />
                    <div id="customerdisplay" runat="server" visible="false">
+                       <fieldset class="panel panel-primary" runat="server" id="condetails">
+    <legend class="w-auto">&nbsp;Connection Details</legend>
                        <%--<h3>hi customer</h3>--%>
                        <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+                            
+                 
             <table>
                 <tr>
                     <td style="width: 502px">
@@ -230,13 +232,17 @@
               <asp:Button ID="btnsavecustomer" runat="server" Text="Save Details" cssclass ="btn-primary" OnClick="btnsavecustomer_Click" />
               &nbsp;&nbsp;&nbsp;&nbsp;
                   </center>
+                           
                 </div>
+                        </fieldset>
                    </div>
            
-                   </fieldset>
+                   
+
+                    <div id="materialdisplay" runat="server" visible="false">
+                        
                <fieldset class="panel panel-primary" runat="server" id="matdetails">
     <legend class="w-auto">&nbsp;Material Details</legend>
-                    <div id="materialdisplay" runat="server" visible="false">
                         <%-- <h3>materials implementation not available!!!</h3>--%>
                            <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
                                <center>
@@ -291,7 +297,7 @@
                                        <asp:DataGrid ID="DataGrid1" runat="server" AutoGenerateColumns="False" CellPadding="2"
                                                                                 Font-Bold="False" Font-Italic="False" Font-Names="Courier New" Font-Overline="False"
                                                                                 Font-Strikeout="False" Font-Underline="False" ForeColor="#333333" GridLines="Horizontal"
-                                                                                HorizontalAlign="Center" OnItemCommand="DataGrid1_ItemCommand1" PageSize="15"
+                                                                                HorizontalAlign="Center" OnItemCommand="DataGrid1_ItemCommand" PageSize="15"
                                                                                 Style="text-align: justify; font: menu;" Width="98%" AllowPaging="True" >
                                                         <FooterStyle BackColor="InactiveCaption" Font-Bold="False" ForeColor="White" />
                                                         <EditItemStyle BackColor="#999999" />
@@ -300,8 +306,7 @@
                                                         <AlternatingItemStyle BackColor="White" ForeColor="#284775" />
                                                         <ItemStyle ForeColor="#333333" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
                                                         <Columns>
-                                                            <asp:BoundColumn DataField="costID" HeaderText="CostID" Visible="False">
-                                                            </asp:BoundColumn>
+                                                           
                                                             <asp:BoundColumn DataField="No." HeaderText="No.">
                                                                 <HeaderStyle Width="5%" />
                                                             </asp:BoundColumn>
@@ -310,6 +315,8 @@
                                                             </asp:BoundColumn>
                                                             <asp:BoundColumn DataField="material" HeaderText="Material" >
                                                                 <HeaderStyle Width="10%" />
+                                                            </asp:BoundColumn>
+                                                            <asp:BoundColumn DataField="costID" HeaderText="Item#" >
                                                             </asp:BoundColumn>
                                                             <asp:BoundColumn DataField="Size" HeaderText="Size">
                                                                 <HeaderStyle Width="10%" />
@@ -328,6 +335,7 @@
                                                             <asp:BoundColumn DataField="Amount" HeaderText="Amount">
                                                                 <HeaderStyle Width="15%" />
                                                             </asp:BoundColumn>
+                                                             
                                                             <asp:ButtonColumn CommandName="btnEdit" HeaderText="Edit" Text="Edit">
                                                                 <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False"
                                                                     Font-Underline="False" ForeColor="Blue" />
@@ -374,20 +382,23 @@
                                    <asp:Button ID="btnsavematerials" runat="server" Text="Save Details" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
                                    <asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />
                                </center>
-                   </div></div></fieldset>
+                   </div>
+                   </fieldset>
+                   </div>
                <br />
                              
-                 <asp:Label ID="lblApplicationCode" runat="server" Text="." Visible="False"></asp:Label>
+                
+            </div>
+             
+       </div>
+         <asp:Label ID="lblApplicationCode" runat="server" Text="." Visible="False"></asp:Label>
                 <asp:Label ID="lblconnectionId" runat="server" Text="0" Visible="False"></asp:Label>
                 <asp:Label ID="lblarea" runat="server" Text="." Visible="False"></asp:Label>
                 <asp:Label ID="lblCostItemID" runat="server" Text="0" Visible="False"></asp:Label>
                <asp:Label ID="lblCostcode" runat="server" Text="0" Visible="False"></asp:Label>
                <asp:Label ID="lblestimateid" runat="server" Text="0" Visible="False"></asp:Label>
+               <asp:Label ID="lblstatus" runat="server" Text="0" Visible="False"></asp:Label>
               <%-- <asp:Label ID="lblapplicant" runat="server" Text="." Visible="False"></asp:Label>--%>
-            </div>
-             
-       </div>
-        
     </form>
 
     <br /><br />

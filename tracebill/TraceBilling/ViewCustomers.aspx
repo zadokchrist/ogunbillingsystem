@@ -534,7 +534,10 @@
                        CssClass="grid-text" CellPadding="5" 
                               ForeColor="#333333" GridLines="None" Width="92%"
                                   AutoGenerateColumns="False" PageSize="50"
-                              
+                              OnRowCommand="gvbilldisplay_RowCommand"
+                                  OnRowDataBound="gvbilldisplay_RowDataBound"   
+                                 onselectedindexchanging="gvbilldisplay_SelectedIndexChanging"
+                                  onselectedindexchanged="gvbilldisplay_SelectedIndexChanged" 
                    >
                
              <Columns>                
@@ -543,14 +546,28 @@
              <asp:BoundField DataField="billNumber" HeaderText="billNumber"  NullDisplayText="-"/>                
              <asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-"/> 
              <asp:BoundField DataField="billType" HeaderText="billType" NullDisplayText="-" />                         
-<asp:BoundField DataField="period" HeaderText="period" NullDisplayText="-"/> 
                  <asp:BoundField DataField="billdate" HeaderText="billdate" NullDisplayText="-"/> 
                  <asp:BoundField DataField="openbalance" HeaderText="Bal B/F" NullDisplayText="-" DataFormatString="{0:n}"/> 
                   <asp:BoundField DataField="subtotal" HeaderText="BillAmount" NullDisplayText="-"  DataFormatString="{0:n}"/> 
                  <asp:BoundField DataField="closingBalance" HeaderText="Bal C/F" NullDisplayText="-"  DataFormatString="{0:n}"/> 
                  <asp:BoundField DataField="invoiceNumber" HeaderText="invoiceNumber" NullDisplayText="-"/> 
                  <asp:BoundField DataField="capturedby" HeaderText="capturedby" NullDisplayText="-"/> 
-        
+                 <asp:BoundField DataField="areaId" HeaderText="areaid" NullDisplayText="-" Visible="false"/> 
+        <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Invoice
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="PrintButton"
+                                runat="server"
+                                CommandName="RowPrint" 
+                     CommandArgument='<%#Eval("custRef") + ";" +Eval("billNumber")+ ";" +Eval("period") + ";" +Eval("areaid")%>'
+                               
+                                Text="Print" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>
               
              </Columns>
              

@@ -60,15 +60,17 @@
               <center>
               <asp:Button ID="btnroutedownload" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnroutedownload_Click" Text="DOWNLOAD ROUTE" cssclass ="btn-primary"
-                                        Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;     
-                                            
-                                  
+                                        Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;   
+                                                                              
                                     <asp:Button ID="btnreadingupload" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                                        Font-Underline="False" OnClick="btnreadingupload_Click" Text="ONSPOT UPLOAD " cssclass ="btn-primary"
+                                        Font-Underline="False" OnClick="btnreadingupload_Click" Text="ONSPOT UPLOAD" cssclass ="btn-primary"
                                         Width="160px" />&nbsp;&nbsp;&nbsp;&nbsp; 
                   <asp:Button ID="btnreconciliation" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnreconciliation_Click" Text="INVOICE RECONCILIATION" cssclass ="btn-primary"
-                                        Width="187px" />&nbsp;
+                                        Width="187px" />&nbsp;&nbsp;&nbsp;&nbsp;
+                   <asp:Button ID="btnonspotsettings" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
+                                        Font-Underline="False" OnClick="btnonspotsettings_Click" Text="ONSPOT SETTINGS" cssclass ="btn-primary"
+                                        Width="160px" />
                   <br /><br />
                 <asp:Label ID="lblapplicant" runat="server" Text="." ForeColor="Maroon" Font-Bold="true"></asp:Label>
               </center>
@@ -327,7 +329,86 @@
             </div>
                  
        </div>
-
+           <div id="settingsdisplay" runat="server" visible="false">
+           <div class="form-group col-sm-12 col-md-12 col-lg-12">
+               <fieldset class="panel panel-primary" runat="server">
+    <legend class="w-auto">&nbsp;Onspot settings</legend>
+                 
+                   <br< />
+                   <div id="Div2" runat="server" visible="true">
+                 <table align="center" cellpadding="0" cellspacing="0" style="width: 100%">
+                            <tr>
+                                <td style="vertical-align: middle; height: 20px; text-align: center">
+                                    <b>CREDENTIALS FILE DOWNLOAD</b></td>
+                            </tr></table>
+                                                
+                        <table align="center" cellpadding="0" cellspacing="0" style="width: 100%">
+                    <tr>
+                        <td style="width: 48%; text-align: right; vertical-align: top;">
+                            <table align="right" cellpadding="0" cellspacing="0" style="width: 60%">
+                                <tr>
+                                    <td class="InterFaceTableLeftRow" style="height: 10px">
+                                        Area</td>
+                                    <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                    </td>
+                                    <td class="InterFaceTableRightRow" style="height: 10px">
+                                        <asp:DropDownList ID="cboAreasCredentials" runat="server" AutoPostBack="True" CssClass="InterfaceDropdownList"
+                                           OnDataBound="cboAreasCredentials_DataBound" Width="90%" OnSelectedIndexChanged="cboAreasCredentials_SelectedIndexChanged">
+                                        </asp:DropDownList></td>
+                                </tr>
+                                <tr>
+                                    <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                            </td>
+                                    <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                    </td>
+                                    <td class="InterFaceTableRightRow" style="height: 10px">
+                                                            &nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="height: 12px">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td style="width: 2%; height: 2px">
+                        </td>
+                        <td style="width: 48%; text-align: left; vertical-align: top;">
+                            <table align="left" cellpadding="0" cellspacing="0" style="width: 60%">
+                                <tr>
+                                    <td class="InterFaceTableLeftRow" style="height: 10px">
+                                        Branch</td>
+                                    <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                    </td>
+                                    <td class="InterFaceTableRightRow" style="width: 66%; height: 10px">
+                                        <asp:DropDownList ID="cboBranchesCredentials" runat="server" CssClass="InterfaceDropdownList" AutoPostBack="true"
+                                             OnDataBound="cboBranchesCredentials_DataBound" Width="90%" >
+                                        </asp:DropDownList></td>
+                                </tr>
+                                <tr>
+                                    <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                            </td>
+                                    <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                    </td>
+                                    <td class="InterFaceTableRightRow" style="width: 66%; height: 10px">
+                                                            &nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="height: 12px">
+                                        <asp:Button ID="Button2" runat="server" Text="DOWNLOAD" Width="137px" Font-Bold="True" BorderStyle="Inset" OnClick="btnCredentialsSearch_Click" />
+                                        </td>
+                                </tr>
+                            </table>
+                    &nbsp;<br />
+                </td>
+            </tr>
+        </table> 
+                   </div>
+           
+                   </fieldset>                                                      
+              
+            </div>
+                 
+       </div>
          
         
     </form>

@@ -255,7 +255,28 @@ namespace TraceBilling
                 // DisplayMessage(returned, true);
                 LoadApplicationStatusLogs(appid);
             }
+            else if (e.CommandName == "RowPanel")
+            {
+                //string appid = Convert.ToString(e.CommandArgument.ToString());
+                //string str = "Sorry, Application Foam print out not available yet!!!";
+                // DisplayMessage(returned, true);
+                string[] arg = new string[3];
+                arg = e.CommandArgument.ToString().Split(';');
+                string appnumber = arg[0];
+                string name = arg[1];
+                string appid = arg[2];
+                LoadApplicationPanel(appnumber,name,appid);
+            }
         }
+
+        private void LoadApplicationPanel(string appnumber,string name,string appid)
+        {
+            lblname.Text = appnumber+"-->"+name;
+            paneldisplay.Visible = true;
+            maindisplay.Visible = false;
+            statuslogdisplay.Visible = false;
+        }
+
         public void PrintFoam(string appnumber, string areaid)
         {
             try
@@ -336,6 +357,59 @@ namespace TraceBilling
         {
             maindisplay.Visible = true;
             statuslogdisplay.Visible = false;
+            LoadApplicationByStatus();
+        }
+
+        protected void btnAppDetails_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDocuments_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnJobCard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnAudit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnSlips_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnExpense_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnTrench_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDocket_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnreturnpanel_Click(object sender, EventArgs e)
+        {
+            maindisplay.Visible = true;
+            statuslogdisplay.Visible = false;
+            paneldisplay.Visible = false;
             LoadApplicationByStatus();
         }
     }

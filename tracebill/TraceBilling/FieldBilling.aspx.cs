@@ -11,6 +11,7 @@ using System.IO;
 using System.Collections;
 using Newtonsoft.Json;
 using System.Threading;
+using System.Text;
 
 namespace TraceBilling
 {
@@ -233,6 +234,7 @@ namespace TraceBilling
                 LoadAreaList(countryid);
                 LoadAreaList2(countryid);
                 LoadAreaList3(countryid);
+                LoadAreacredentials(countryid);
                 //load session data
             }
             catch (Exception ex)
@@ -280,6 +282,7 @@ namespace TraceBilling
             uploadroutes.Visible = false;
             downloadgrid.Visible = false;
             reconcileschedule.Visible = false;
+            settingsdisplay.Visible = false;
             LoadCountryList2();
             int countryid = Convert.ToInt16(country_list2.SelectedValue.ToString());
             LoadAreaList2(countryid);
@@ -292,6 +295,7 @@ namespace TraceBilling
             downloadroute.Visible = false;
             uploadroutes.Visible = true;
             reconcileschedule.Visible = false;
+            settingsdisplay.Visible = false;
             int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
             LoadAreaList3(countryid);
             LoadBranchList1(0);
@@ -334,11 +338,23 @@ namespace TraceBilling
                 {
                     downloadgrid.Visible = true;
                     ArrayList al = new ArrayList();
+                    ArrayList b = new ArrayList();
                     string countryn = country_list2.SelectedItem.ToString();
                     string arean = area_list2.SelectedItem.ToString();
 
                     String name = countryn + arean + book + walk;
-                    string path = @"C:\\Files\\Route Files";
+                    string path = "";
+                    // string path = @"C:\\Files\\Route Files";
+                    string paramCode = "4";
+                    string fpath = bll.GetSystemParameter(paramCode);
+                  // string newpath = "@" + fpath;
+                    path = fpath;
+                    //get tariff file
+                    string tariff_name = path + "\\tariff.txt";
+                   
+                    string tariff_file = GetTariffFile(country);
+                    
+
                     //write to routes
                     String json = JsonConvert.SerializeObject(dataTable);
                     al.Add(json);
@@ -349,6 +365,18 @@ namespace TraceBilling
                     filepaths_download.Add(file_path);
                     //write to path
                     df.writeToFile(file_path, al);
+                    //add tariff to grid------------
+                    if(!tariff_file.Contains("record"))//no records found
+                    {
+                        b.Add(tariff_file);
+                        tariff_name = path + "\\tariff.txt";
+                        df.writeToTarrifFile(tariff_name, b);
+                        //SHOW ON GRID WITH DOWNLOAD BUTTONS
+                        filepaths_download.Add(tariff_name);
+                        filepath_names.Add("tariff");
+                    }
+                   
+                    //end tariff
                     //download file
                     DataTable downloadsdt = new DataTable();
                     downloadsdt.Columns.Add("Route");
@@ -400,7 +428,12 @@ namespace TraceBilling
             try
             {
                 string path = "";
-                path = @"D:\\Files\\Route Files";
+
+                // path = @"C:\\Files\\Route Files";
+                string paramCode = "4";
+                string fpath = bll.GetSystemParameter(paramCode);
+                //string newpath = "@" + fpath;
+                path = fpath;
                 string result = path + "\\" + filename + ".txt";
                 FileStream fs = null;
                 fs = File.Open(result, FileMode.Open);
@@ -583,6 +616,7 @@ namespace TraceBilling
             downloadroute.Visible = false;
             uploadroutes.Visible = false;
             reconcileschedule.Visible = true;
+            settingsdisplay.Visible = false;
         }
         protected void area_list3_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -600,5 +634,142 @@ namespace TraceBilling
             }
 
         }
+
+        protected void btnonspotsettings_Click(object sender, EventArgs e)
+        {
+            downloadroute.Visible = false;
+            uploadroutes.Visible = false;
+            reconcileschedule.Visible = false;
+            settingsdisplay.Visible = true;
+            int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+            LoadAreacredentials(countryid);
+            LoadBranchCredentials(0);
+        }
+        private void LoadAreacredentials(int countryid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetAreaList(countryid);
+                cboAreasCredentials.DataSource = dt;
+
+                cboAreasCredentials.DataTextField = "areaName";
+                cboAreasCredentials.DataValueField = "areaId";
+                cboAreasCredentials.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadAreacredentials", error);
+                DisplayMessage(error, true);
+            }
+        }
+        protected void cboAreasCredentials_DataBound(object sender, EventArgs e)
+        {
+            cboAreasCredentials.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        }
+        protected void cboBranchesCredentials_DataBound(object sender, EventArgs e)
+        {
+            cboBranchesCredentials.Items.Insert(0, new ListItem("- - select branch - -", "0"));
+        }
+        private void LoadBranchCredentials(int areaid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetBranchList(areaid);
+                cboBranchesCredentials.DataSource = dt;
+                cboBranchesCredentials.DataTextField = "branchName";
+                cboBranchesCredentials.DataValueField = "branchId";
+                cboBranchesCredentials.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayBranchList", error);
+                DisplayMessage(error, true);
+            }
+        }
+        protected void cboAreasCredentials_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string areaid = cboAreasCredentials.SelectedValue.ToString();
+                LoadBranchCredentials(int.Parse(areaid));
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        protected void btnCredentialsSearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string Area = cboAreasCredentials.SelectedValue.ToString();
+                string Branch = cboBranchesCredentials.SelectedValue.ToString();
+                exportCredentials(Area, Branch);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private void exportCredentials(String area, String branch)
+        {
+            try
+            {
+                DataTable dt = bll.getCredentialsFile(area, branch);
+                if (dt.Rows.Count > 0)
+                {
+                    string attachment1 = "attachment; ";
+                    string fileName = "filename=" + "credentials.csv";
+                    string attachment = attachment1 + fileName;
+                    Response.ClearContent();
+                    Response.AddHeader("content-disposition", attachment);
+                    Response.ContentType = "application/vnd.ms-excel";
+                    string tab = "";
+                    StringBuilder sb = new StringBuilder();
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        String userid = row["UserID"].ToString();
+                        String username = row["UserName"].ToString();
+                        String fullname = row["fullName"].ToString();
+                        String password = row["password"].ToString();
+                        string space = ",";
+                        sb.AppendLine(userid + space + username + space + fullname + space + password);
+                    }
+                    Response.Write(sb.ToString());
+                    //Response.Write("\n");
+                    int i;
+                    Response.End();
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
+        }
+        private string GetTariffFile(string country)
+        {
+            string output = "";
+            DataTable dt = bll.GetTariffFileData(country);
+            if (dt.Rows.Count > 0)
+            {
+                output = df.GetTariffFile(dt);
+            }
+            else
+            {
+                output = "No Records found";
+            }
+            return output;
+
+        }
+
     }
 }

@@ -148,15 +148,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl connectioninvoice;
         
         /// <summary>
-        /// condetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl condetails;
-        
-        /// <summary>
         /// customerdisplay control.
         /// </summary>
         /// <remarks>
@@ -164,6 +155,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl customerdisplay;
+        
+        /// <summary>
+        /// condetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl condetails;
         
         /// <summary>
         /// txtappNo control.
@@ -256,15 +256,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Button btnsavecustomer;
         
         /// <summary>
-        /// matdetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl matdetails;
-        
-        /// <summary>
         /// materialdisplay control.
         /// </summary>
         /// <remarks>
@@ -272,6 +263,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl materialdisplay;
+        
+        /// <summary>
+        /// matdetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl matdetails;
         
         /// <summary>
         /// materialoptions control.
@@ -470,5 +470,14 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblestimateid;
+        
+        /// <summary>
+        /// lblstatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblstatus;
     }
 }
