@@ -25,8 +25,8 @@ namespace TraceBilling
                     LoadRequirementList();
                     LoadCustomerTypeList();
                     LoadCountryList();
-                    
-                    
+
+                    LoadBranchList(0);
                     LoadIDList();
 
                     string sessioncountryid = Session["countryId"].ToString();
@@ -40,7 +40,7 @@ namespace TraceBilling
                         area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
                         area_list.Enabled = false;
                         int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                        //LoadBranchList(operationid);
+                        LoadBranchList(operationid);
                     }
                     else
                     {
@@ -52,9 +52,28 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
 
+        }
+
+        private void LoadBranchList(int areaid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetBranchList(areaid);
+                branch_list.DataSource = dt;
+                branch_list.DataTextField = "branchName";
+                branch_list.DataValueField = "branchId";
+                branch_list.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayBranchList", error);
+                DisplayMessage(error, true);
+            }
         }
         private void LoadRequirementList()
         {
@@ -307,6 +326,12 @@ namespace TraceBilling
             }
 
         }
+
+        protected void branch_list_DataBound(object sender, EventArgs e)
+        {
+            branch_list.Items.Insert(0, new ListItem("- - None - -", "0"));
+        //}
+        }
         protected void area_list_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -347,6 +372,22 @@ namespace TraceBilling
             {
                 throw ex;
             }
+        }
+
+        protected void operation_area_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //int deptid = int.Parse(department_list.SelectedValue.ToString());
+                int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                LoadBranchList(operationid);
+                //load session data
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

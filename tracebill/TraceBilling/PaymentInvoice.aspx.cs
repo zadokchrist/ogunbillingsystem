@@ -31,7 +31,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message,true);
             }
         }
         private void LoadCountryList()
@@ -130,7 +130,19 @@ namespace TraceBilling
                 {
                     status = "8";
                 }
+                else if (roleid.Equals("6"))//engineer
+                {
+                    status = "6";
+                }
 
+                if (string.IsNullOrEmpty(country))
+                {
+                    country = "0";
+                }
+                else if (string.IsNullOrEmpty(area))
+                {
+                    area = "0";
+                }
                 DataTable dataTable = bll.GetInvoiceDetails(appnumber, int.Parse(country), int.Parse(area), int.Parse(status));
                 if (dataTable.Rows.Count > 0)
                 {
@@ -363,6 +375,37 @@ namespace TraceBilling
                 throw ex;
             }
         }
+
+        public void PrintFoam(string paymentref,string areaid)
+        {
+            try
+            {
+                PDFPrints pp = new PDFPrints();
+                //string referenceno = "26012021/234/210/0/1";//1:application no, 2:paymentref, 3:referenceno
+                string flag = "1";
+                string res = "";
+                //string companyid = "2";
+                string user = Session["FullName"].ToString();
+                DataTable dt = bll.GetNonConsumptionInvoiceDetails(paymentref);//GetCustomerReportData(appnumber, flag);
+                DataTable dtprofile = bll.GetCompanyProfile(areaid);
+                if (dt.Rows.Count > 0)
+                {
+                    res = pp.GetInvoiceForm(dt, dtprofile, user);//GetPDFForm(dt, dtprofile, user);
+                    //Console.WriteLine(res);
+                    DisplayMessage(res, true);
+                }
+                else
+                {
+                    res = "Sorry, Application Foam print out not available yet!!!";
+                    DisplayMessage(res, true);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         protected void DataGrid2_ItemCommand(object source, DataGridCommandEventArgs e)
         {
             try
@@ -545,6 +588,10 @@ namespace TraceBilling
                 {
                     status = "8";
                 }
+                else if (roleid.Equals("6"))
+                {
+                    status = "6";
+                }
 
                 DataTable dt = bll.GetInvoiceDetails(appnumber, 0, 0, int.Parse(status));
                 if (dt.Rows.Count > 0)
@@ -591,7 +638,7 @@ namespace TraceBilling
             }
             catch(Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 
@@ -608,7 +655,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 
@@ -620,7 +667,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 

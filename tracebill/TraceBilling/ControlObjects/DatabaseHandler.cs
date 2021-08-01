@@ -616,6 +616,20 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal DataTable GetNonConsumptionInvoiceDetails(string paymentref)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("GetNonConsumptionInvoiceByPaymentRef", paymentref);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
         internal DataTable GetConnectionDetails(string appnumber)
         {
             DataTable dt = new DataTable();

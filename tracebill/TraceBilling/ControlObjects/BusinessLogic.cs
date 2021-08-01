@@ -1034,8 +1034,19 @@ namespace TraceBilling.ControlObjects
             return resp;
         }
 
-       
 
+        internal DataTable GetNonConsumptionInvoiceDetails(string paymentref) 
+        {
+            try
+            {
+                dt = dh.GetNonConsumptionInvoiceDetails(paymentref);
+            }
+            catch (Exception ex)
+            {
+                Log("GetNonConsumptionInvoiceDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
         internal DataTable GetInvoiceDetails(string appnumber, int countryid, int areaid, int status)
         {
             DataTable dt = new DataTable();
