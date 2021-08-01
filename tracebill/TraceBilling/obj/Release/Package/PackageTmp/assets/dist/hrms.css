@@ -1,0 +1,30 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Sansita');
+#navbarCustom {
+    font-family: 'Sansita', sans-serif;
+}
+
+#navAside li a{
+    font-family: 'Sansita', sans-serif;
+    font-size: 12px;
+}
+
+body {
+    font-family: 'Sansita', sans-serif;
+    /*font-size: 12px;*/
+}
+
+.Sansita {
+    font-family: 'Sansita', sans-serif;
+}
+
+.logo-mini, .logo-lg {
+    font-family: 'Sansita', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Sansita', sans-serif;
+}
+
+table th td{
+    font-size: 12px;
+}

@@ -440,6 +440,22 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        internal DataTable GetApplicationByIDForPayment(string appid) 
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = dh.GetApplicationByIDForPayment(appid);
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return dt;
+        }
+
 
 
         internal DataTable GetSurveyDetails(string appnumber)

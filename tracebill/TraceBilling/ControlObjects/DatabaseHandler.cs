@@ -256,6 +256,20 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        internal DataTable GetApplicationByIDForPayment(string appid) 
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetApplicationByIDForPayment", appid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
         internal DataTable GetApplicationDetails(string appnumber)
         {
             DataTable dt = new DataTable();
