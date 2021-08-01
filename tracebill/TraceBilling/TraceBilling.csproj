@@ -210,6 +210,7 @@
   <ItemGroup>
     <Content Include="AccountReactivation.aspx" />
     <Content Include="AddApplication.aspx" />
+    <Content Include="AddTerritory.aspx" />
     <Content Include="AddTransaction.aspx" />
     <Content Include="AddUser.aspx" />
     <Content Include="Adjustments.aspx" />
@@ -7620,6 +7621,13 @@
     </Compile>
     <Compile Include="AddApplication.aspx.designer.cs">
       <DependentUpon>AddApplication.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AddTerritory.aspx.cs">
+      <DependentUpon>AddTerritory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AddTerritory.aspx.designer.cs">
+      <DependentUpon>AddTerritory.aspx</DependentUpon>
     </Compile>
     <Compile Include="AddTransaction.aspx.cs">
       <DependentUpon>AddTransaction.aspx</DependentUpon>

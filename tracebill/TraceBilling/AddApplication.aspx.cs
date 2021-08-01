@@ -336,11 +336,13 @@ namespace TraceBilling
         {
             try
             {
+                int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                LoadBranchList(operationid);
                 //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                //int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
 
-                //load session data
-                LoadAreaSessions(areaid);
+                ////load session data
+                //LoadAreaSessions(areaid);
             }
             catch (Exception ex)
             {
