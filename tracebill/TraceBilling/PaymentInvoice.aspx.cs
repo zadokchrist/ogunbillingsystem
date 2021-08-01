@@ -120,7 +120,7 @@ namespace TraceBilling
                 string roleid = Session["roleId"].ToString();
                 if(roleid.Equals("2"))//commercial
                 {
-                    status = "10";
+                    status = "7";
                 }
                 else if (roleid.Equals("3"))//mgr
                 {
@@ -531,8 +531,8 @@ namespace TraceBilling
                         string appid = lblappid.Text;
                         string createdby = Session["UserID"].ToString();
                         //take log of paid..check paid invoices
-                        bll.LogApplicationTransactions(int.Parse(appid), 8, int.Parse(createdby));//payment reconciled
-                        bll.LogApplicationTransactions(int.Parse(appid), 9, int.Parse(createdby));//payment confirmed
+                        //bll.LogApplicationTransactions(int.Parse(appid), 8, int.Parse(createdby));//payment reconciled
+                        bll.LogApplicationTransactions(int.Parse(appid), 11, int.Parse(createdby));//payment confirmed
                     }
                 }
             }
@@ -578,7 +578,7 @@ namespace TraceBilling
                 string roleid = Session["roleId"].ToString();
                 if (roleid.Equals("2"))//commercial
                 {
-                    status = "10";
+                    status = "7";
                 }
                 else if (roleid.Equals("3"))//mgr
                 {

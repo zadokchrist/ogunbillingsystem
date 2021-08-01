@@ -720,9 +720,9 @@ namespace TraceBilling.ControlObjects
 
                             dh.SaveSurveyJobNumber(appID, JobNumber, countryid, areaid, branchid, CreatedBy);
                             //auto Assigning
-                           // Assignjob(appID, CreatedBy, countryid);
+                            //Assignjob(appID, CreatedBy, countryid);
                             //log status
-                           // LogApplicationTransactions(appID, status, CreatedBy);
+                            //LogApplicationTransactions(appID, status, CreatedBy);
                         }
 
 
@@ -1758,7 +1758,7 @@ namespace TraceBilling.ControlObjects
                     message.Response_Code = "103";
                     message.Response_Message = "THE CUSTNAME CANNOT BE EMPTY!";
                 }
-                else if (String.IsNullOrEmpty(meterRef))
+                else if (String.IsNullOrEmpty(meterRef) && !tariff.Equals("3"))
                 {
                     message.Response_Code = "103";
                     message.Response_Message = "THE METERREF CANNOT BE EMPTY!";

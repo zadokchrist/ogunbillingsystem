@@ -414,7 +414,7 @@ namespace TraceBilling
         {
             string appid = lblApplicationCode.Text;
             int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["userID"].ToString());
-            int status = 3;//surveying
+            int status = 4;//surveying
             //log status
             bool isassigned = bll.CheckJobAssigned(appid);
             string str = "";

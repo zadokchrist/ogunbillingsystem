@@ -267,7 +267,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 
@@ -365,7 +365,7 @@ namespace TraceBilling
                         DisplayMessage(res, false);
                     }
                     //log to next level
-                   // bll.LogApplicationTransactions(int.Parse(applicationid), 5, int.Parse(createdby));
+                    bll.LogApplicationTransactions(int.Parse(applicationid), 12, int.Parse(createdby));
                     //clear conrols
                     ClearEstimatesControls();
                 }

@@ -169,7 +169,7 @@ namespace TraceBilling
                 string jobnumber = txtjobnumber.Text.Trim();
                 string country = country_list.SelectedValue.ToString();
                 string area = area_list.SelectedValue.ToString();
-                string status = "3";//after approval
+                string status = "6";//after approval
                 lblstatus.Text = status;
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
                 if (dataTable.Rows.Count > 0)
