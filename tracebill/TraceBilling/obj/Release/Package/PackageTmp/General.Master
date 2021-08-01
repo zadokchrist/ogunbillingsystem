@@ -282,12 +282,13 @@
                <%} %> --%>
                 <% if (Session["roleId"].ToString() == "6")
     {%>  
-             <li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard (S2)</a></li>
+             
                    <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report (S3)</a></li>
           <li><a href="GenerateConnectionInvoice.aspx"><i class="fa fa-circle-o"></i> Generate Invoice BOQ (S4)</a></li>
               <%} %> 
                <% if (Session["roleId"].ToString() == "5")
     {%>  
+                  <li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard (S2)</a></li>
              <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report (S3)</a></li>
               <%} %> 
                <% if (Session["roleId"].ToString() == "3")
