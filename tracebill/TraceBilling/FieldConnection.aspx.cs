@@ -255,6 +255,7 @@ namespace TraceBilling
                     string applicant = appnumber + "-->" + appname.Trim();
                     lblapplicant.Text = applicant;
                     lblareacode.Text = areacode;
+                    lblcustomertype.Text = customertype;
                     //see customer details
                      showmaterialdetails(lblApplicationCode.Text);
 
@@ -365,7 +366,8 @@ namespace TraceBilling
                         DisplayMessage(res, false);
                     }
                     //log to next level
-                    bll.LogApplicationTransactions(int.Parse(applicationid), 12, int.Parse(createdby));
+                    // bll.LogApplicationTransactions(int.Parse(applicationid), 12, int.Parse(createdby));
+                    DisplayMessage("Materials Saved Successfully", false);
                     //clear conrols
                     ClearEstimatesControls();
                 }
@@ -759,84 +761,91 @@ namespace TraceBilling
         {
             try
             {
-                string RecordCode = lblMeterCode.Text.Trim();
-                string ConnectionCode = lblConnectionCode.Text.Trim();
-                string meterref = txtMeterRef.Text.Trim();
-                string applicationid = lblApplicationCode.Text.Trim();
-                string pipediameter = cboMeterSize.SelectedValue.ToString();
-                string metertype = cboType.SelectedValue.ToString();
-                string meternumber = txtNumber.Text.Trim();
-                string remark = txtRemark.Text.Trim();
-                string createdby = Session["UserID"].ToString();
-                string applicant = lblapplicant.Text.Trim();
-                string longitude = txtlongitude.Text.Trim();
-                string latitude = txtlattitude.Text.Trim();
-                string reading = txtReading.Text.Trim();
-                string dials = txtDials.Text.Trim();
-                string meterlife = txtMeterLife.Text.Trim();
-                string manufacturedate = txtManufacturedDate.Text.Trim();
-                string installedby = txtInstalledby.Text.Trim();
-                string installdate = txtInstallationDate.Text.Trim();
-                string blocknumber = cboBlock.SelectedItem.ToString();
-                string connectionno = txtConnectionNo.Text.Trim();
-                DateTime installdt = Convert.ToDateTime(installdate);
-                DateTime manufacturedt = Convert.ToDateTime(manufacturedate);
-                //if (!ConnectionCode.Equals("0"))//record being updated
-                //{
-                //    installdt = DateTime.Parse(installdate);
-                //    manufacturedt = DateTime.Parse(manufacturedate);
-                //}
-                if (pipediameter == "0")
-                {
-                    DisplayMessage("Please select pipe diameter/size", true);
-                }
-                else if (metertype == "0")
-                {
-                    DisplayMessage("Please select meter type", true);
-                }
-                else if (meternumber == "")
-                {
-                    DisplayMessage("Please enter meter number/serial", true);
-                }
-                else if (reading == "")
-                {
-                    DisplayMessage("Please enter initial reading on meter", true);
-                }
-                else if (remark == "")
-                {
-                    DisplayMessage("Please enter a valid general field comment", true);
-                }
-                else if (dials == "")
-                {
-                    DisplayMessage("Please enter valid dials on meter", true);
-                }
-                else if (!bll.IsValidReadingDate(installdate))
-                {
-                    string Todate = DateTime.Now.ToString("dd/MM/yyyy");
-                    DisplayMessage("Invalid Meter Installation Date, It cannot be greater than Today ( " + Todate + " )", true);
-                }
-                else
-                {
-                    //save details
-                    resp = bll.SaveFieldDocket(RecordCode, applicationid, pipediameter, metertype, meterref, meternumber, createdby, remark,longitude,latitude,
-                        reading,dials,meterlife,manufacturedt,installedby,installdt,blocknumber,connectionno);
-                    if (resp.Response_Code == "0")//save
-                    {
-                        string str = " with field docket details against application(" + applicant + ") sucessfully saved.";
-                        string res = resp.Response_Message + str;
-                        DisplayMessage(res, false);
-                    }
-                    else if (resp.Response_Code == "1")//edit and update
-                    {
 
-                        string str = " with field docket details against application(" + applicant + ") updated";
-                        string res = resp.Response_Message + str;
-                        DisplayMessage(res, false);
+                string customertype = lblcustomertype.Text;
+                if (customertype.ToLower().Contains("paid"))
+                {
+                    string RecordCode = lblMeterCode.Text.Trim();
+                    string ConnectionCode = lblConnectionCode.Text.Trim();
+                    string meterref = txtMeterRef.Text.Trim();
+                    string applicationid = lblApplicationCode.Text.Trim();
+                    string pipediameter = cboMeterSize.SelectedValue.ToString();
+                    string metertype = cboType.SelectedValue.ToString();
+                    string meternumber = txtNumber.Text.Trim();
+                    string remark = txtRemark.Text.Trim();
+                    string createdby = Session["UserID"].ToString();
+                    string applicant = lblapplicant.Text.Trim();
+                    string longitude = txtlongitude.Text.Trim();
+                    string latitude = txtlattitude.Text.Trim();
+                    string reading = txtReading.Text.Trim();
+                    string dials = txtDials.Text.Trim();
+                    string meterlife = txtMeterLife.Text.Trim();
+                    string manufacturedate = txtManufacturedDate.Text.Trim();
+                    string installedby = Session["userId"].ToString();//txtInstalledby.Text.Trim();
+                    string installdate = txtInstallationDate.Text.Trim();
+                    string blocknumber = cboBlock.SelectedItem.ToString();
+                    string connectionno = txtConnectionNo.Text.Trim();
+                    DateTime installdt = Convert.ToDateTime(installdate);
+                    DateTime manufacturedt = Convert.ToDateTime(manufacturedate);
+                    //if (!ConnectionCode.Equals("0"))//record being updated
+                    //{
+                    //    installdt = DateTime.Parse(installdate);
+                    //    manufacturedt = DateTime.Parse(manufacturedate);
+                    //}
+                    if (pipediameter == "0")
+                    {
+                        DisplayMessage("Please select pipe diameter/size", true);
                     }
+                    else if (metertype == "0")
+                    {
+                        DisplayMessage("Please select meter type", true);
+                    }
+                    else if (meternumber == "")
+                    {
+                        DisplayMessage("Please enter meter number/serial", true);
+                    }
+                    else if (reading == "")
+                    {
+                        DisplayMessage("Please enter initial reading on meter", true);
+                    }
+                    else if (remark == "")
+                    {
+                        DisplayMessage("Please enter a valid general field comment", true);
+                    }
+                    else if (dials == "")
+                    {
+                        DisplayMessage("Please enter valid dials on meter", true);
+                    }
+                    else if (!bll.IsValidReadingDate(installdate))
+                    {
+                        string Todate = DateTime.Now.ToString("dd/MM/yyyy");
+                        DisplayMessage("Invalid Meter Installation Date, It cannot be greater than Today ( " + Todate + " )", true);
+                    }
+                    else
+                    {
+                        //save details
+                        resp = bll.SaveFieldDocket(RecordCode, applicationid, pipediameter, metertype, meterref, meternumber, createdby, remark, longitude, latitude,
+                            reading, dials, meterlife, manufacturedt, installedby, installdt, blocknumber, connectionno);
+                        if (resp.Response_Code == "0")//save
+                        {
+                            string str = " with field docket details against application(" + applicant + ") sucessfully saved.";
+                            string res = resp.Response_Message + str;
+                            DisplayMessage(res, false);
+                        }
+                        else if (resp.Response_Code == "1")//edit and update
+                        {
+
+                            string str = " with field docket details against application(" + applicant + ") updated";
+                            string res = resp.Response_Message + str;
+                            DisplayMessage(res, false);
+                        }
+                    }
+                
                     //log to next level
                     int status = 12;//forward to billing
                     bll.LogApplicationTransactions(int.Parse(applicationid), status, int.Parse(createdby));
                     //clear conrols
+                    DisplayMessage("Application updated successfully and forwarded to billing for customer creation", false);
                     ClearDocketControls();
                 }
 

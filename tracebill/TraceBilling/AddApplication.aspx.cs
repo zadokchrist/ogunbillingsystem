@@ -257,7 +257,7 @@ namespace TraceBilling
                         resp = bll.SaveApplication(app);
                         if (resp.Response_Code == "0")
                         {
-                             str = " with new application(" + app.ApplicationNo + ") details saved";
+                             str = " with new application(" + app.ApplicationNo + ") details saved and forwareded to surveyor for futher action";
                          
                              res = resp.Response_Message + str;
                             DisplayMessage(res, false);

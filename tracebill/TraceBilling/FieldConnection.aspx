@@ -292,7 +292,7 @@
                 </tr>
                                    </table></div>
                                    <br /><br />
-                                   <asp:Button ID="btnsavematerials" runat="server" Text="Save Details" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                   <asp:Button ID="btnsavematerials" runat="server" Text="Save Material Details" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
                                    <asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />
                                </center>
                    </div></div>
@@ -505,6 +505,7 @@
           <asp:Label ID="lblMeterCode" runat="server" Text="0" Visible="False"></asp:Label>
           <asp:Label ID="lblConnectionCode" runat="server" Text="0" Visible="False"></asp:Label>
           <asp:Label ID="lblareacode" runat="server" Text="0" Visible="False"></asp:Label>
+          <asp:Label ID="lblcustomertype" runat="server" Text="0" Visible="False"></asp:Label>
               <%-- <asp:Label ID="lblapplicant" runat="server" Text="." Visible="False"></asp:Label>--%>
     </form>
 

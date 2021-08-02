@@ -38,7 +38,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
         private void LoadCountryList()
@@ -180,6 +180,7 @@ namespace TraceBilling
                 txtcurrentperiod.Text = bll.GetBillingPeriod(areaid);
                 string branchid = branch_list1.SelectedValue.ToString();
                 LoadBlockMaps(areaid, branchid);
+                LoadBranchList(int.Parse(areaid));
                 //load session data
             }
             catch (Exception ex)
@@ -187,6 +188,25 @@ namespace TraceBilling
                 throw ex;
             }
 
+        }
+
+        private void LoadBranchList(int areaid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetBranchList(areaid);
+                branch_list1.DataSource = dt;
+                branch_list1.DataTextField = "branchName";
+                branch_list1.DataValueField = "branchId";
+                branch_list1.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayBranchList", error);
+                DisplayMessage(error, true);
+            }
         }
         private void DisplayMessage(string message, Boolean isError)
         {
@@ -264,29 +284,41 @@ namespace TraceBilling
                         //1:check customer existing
                         if (bll.IsValidCustRefRefInArea(custref,area))
                         {
-                            //2: check if billed last reading
-                            DataTable dtread = bll.GetLatestReadingStatus(custref, area, branch);
-                            if(dtread.Rows.Count > 0)
+                            //2: check if the customer is post paid or prepaid
+                            //get customer details
+                            bool ispostpaid = bll.IsCustomerFlat(custref, area);
+                            if (ispostpaid)
                             {
-                                //3:check bill status
-                                bool IsBilled = Convert.ToBoolean(dtread.Rows[0]["IsBilled"].ToString());
-                                if(!IsBilled)
-                                {
-                                    //verify further
-                                    VerifyRequest(area, branch,  block, custref);
-
-                                }
-                                else
-                                {
-                                    err = "No Unbilled reading found against customer-" + custref;
-                                    DisplayMessage(err, true);
-                                }
+                                VerifyRequest(area, branch, block, custref);
                             }
                             else
                             {
-                                 err = "No reading records found against customer-" + custref;
-                                DisplayMessage(err, true);
+                                //2: check if billed last reading
+
+                                DataTable dtread = bll.GetLatestReadingStatus(custref, area, branch);
+                                if (dtread.Rows.Count > 0)
+                                {
+                                    //3:check bill status
+                                    bool IsBilled = Convert.ToBoolean(dtread.Rows[0]["IsBilled"].ToString());
+                                    if (!IsBilled)
+                                    {
+                                        //verify further
+                                        VerifyRequest(area, branch, block, custref);
+
+                                    }
+                                    else
+                                    {
+                                        err = "No Unbilled reading found against customer-" + custref;
+                                        DisplayMessage(err, true);
+                                    }
+                                }
+                                else
+                                {
+                                    err = "No reading records found against customer-" + custref;
+                                    DisplayMessage(err, true);
+                                }
                             }
+                            
                         }
                         else
                         {
@@ -344,6 +376,7 @@ namespace TraceBilling
                 string period = txtcurrentperiod.Text;
                 bool BillNow = Convert.ToBoolean(chkBillRequestNow.Checked);
                 DateTime ScheduleDate = DateTime.Now;
+
                 if (chkBillRequestNow.Checked && !String.IsNullOrEmpty(txtscheduledate.Text.Trim()))
                 {
                     string schDate = txtscheduledate.Text.Trim();
@@ -353,8 +386,16 @@ namespace TraceBilling
                    // int Hour = Convert.ToInt32(ScheduleTime[0]); int Min = Convert.ToInt32(ScheduleTime[1]);
                    // ScheduleDate = new DateTime(ScheduleDate.Year, ScheduleDate.Month, ScheduleDate.Day, Hour, Min, 0);
                 }
-               
-                string result = BillRequest(Area, Branch,  block, CustRef, BillNow, ScheduleDate,period);
+                bool ispostpaid = bll.IsCustomerFlat(CustRef, Area);
+                string result = "";
+                if (ispostpaid)
+                {
+                    result = BillRequestPostPaid(Area, Branch, block, CustRef, BillNow, ScheduleDate, period);
+                }
+                else
+                {
+                    result = BillRequestMetered(Area, Branch, block, CustRef, BillNow, ScheduleDate, period);
+                }
                 //DisplayBillResult(result);
                 ClearControls();
                 DisplayMessage(result, true);
@@ -373,7 +414,75 @@ namespace TraceBilling
             billschedule.Visible = true;
         }
 
-        private string BillRequest(string area, string branch, string block, string custRef, bool billNow, DateTime scheduleDate, string period)
+        private string BillRequestPostPaid(string area, string branch, string block, string custRef, bool billNow, DateTime scheduleDate, string period)
+        {
+            string output = "";
+            try
+            {
+                DataTable datatable = bll.GetBillDetails(area, branch, block, custRef);
+                if (datatable.Rows.Count > 0)
+                {
+                    int Success = 0;
+                    int failed = 0;
+                    int total = 0;
+                    string Msg = "";
+                    //sas 10/12
+
+                    foreach (DataRow dr in datatable.Rows)
+                    {
+                        string CustRef = dr["customerRef"].ToString();
+                        string MeterRef = dr["meterRef"].ToString();
+                        string MeterSize = dr["meterSizeId"].ToString();
+                        string PropRef = dr["propertyRef"].ToString();
+                        string CustTarrif = dr["tarrifCode"].ToString();
+                        int CustClass = Convert.ToInt16(dr["classId"].ToString());
+                        int AreaID = Convert.ToInt16(dr["areaId"].ToString());
+                        int BranchID = Convert.ToInt16(dr["branchId"].ToString());
+                        string createdby = Session["UserID"].ToString();
+                        string returned = BillAccount(CustRef, MeterRef, MeterSize, PropRef, CustTarrif, CustClass, AreaID, BranchID, createdby, period);
+
+                        if (returned == "SUCCESS")
+                        {
+                            Success++;
+                        }
+                        else
+                        {
+                            failed++;
+
+                        }
+                    }
+                    total = Success + failed;
+                    if (failed != 0 && Success != 0)
+                    {
+                        Msg = "Your Bill Request of " + total + " accounts has been Processed with " + Success + " successfully and " + failed + " failed";
+                    }
+                    else if (failed == 0)
+                    {
+                        Msg = "Your Bill Request of " + total + " accounts has been Processed Successfully";
+                    }
+                    else
+                    {
+                        Msg = "Your Bill Request of " + total + " accounts has failed";
+                    }
+
+                    return Msg;
+
+                }
+                else
+                {
+                    DisplayMessage("No billing data found", true);
+                }
+                RefreshControls();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return output;
+        }
+
+        private string BillRequestMetered(string area, string branch, string block, string custRef, bool billNow, DateTime scheduleDate, string period)
         {
             string output = "";
             try

@@ -1950,9 +1950,28 @@ namespace TraceBilling.ControlObjects
                 }
                 else
                 {
-                    value = false;
+                    value = true;//value = false;
                 }
 
+            }
+            catch (Exception ex)
+            {
+                Log("ValidCustRef", "101 " + ex.Message);
+            }
+            return value;
+        }
+
+        public bool IsCustomerFlat(string custref, string area)
+        {
+            bool value = false;
+            try
+            {
+                dt = dh.CheckCustRefRefInArea(custref, area);
+                string customertype = dt.Rows[0]["custTypeId"].ToString();
+                if (customertype.Equals("1"))
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {

@@ -286,7 +286,7 @@ namespace TraceBilling
                 txtappnumber.Text = dataTable.Rows[0]["applicationId"].ToString();
                 txtcreationdate.Text = dataTable.Rows[0]["creationDate"].ToString();
                 txtcustomer.Text = dataTable.Rows[0]["customerRef"].ToString();
-                txtMeterRef.Text = dataTable.Rows[0]["meterRef"].ToString();
+                //txtMeterRef.Text = dataTable.Rows[0]["meterRef"].ToString();
                 txtcustname.Text = dataTable.Rows[0]["customerName"].ToString();
                 txtcontact.Text = dataTable.Rows[0]["phoneNo1"].ToString();
                 txtbalance.Text = dataTable.Rows[0]["outstandingBalance"].ToString();
@@ -297,9 +297,9 @@ namespace TraceBilling
                 txtemail.Text = dataTable.Rows[0]["custEmail"].ToString();
                 txtlatitude.Text = dataTable.Rows[0]["latitude"].ToString();
                 txtlongitude.Text = dataTable.Rows[0]["longitude"].ToString();
-                txtmetermake.Text = dataTable.Rows[0]["meterName"].ToString();
-                txtmeterNumber.Text = dataTable.Rows[0]["meterNumber"].ToString();
-                txtmetersize.Text = dataTable.Rows[0]["diameter"].ToString();
+                //txtmetermake.Text = dataTable.Rows[0]["meterName"].ToString();
+                //txtmeterNumber.Text = dataTable.Rows[0]["meterNumber"].ToString();
+                //txtmetersize.Text = dataTable.Rows[0]["diameter"].ToString();
                 txtproperty.Text = dataTable.Rows[0]["propertyRef"].ToString();
                 txttariff.Text = dataTable.Rows[0]["tarrifName"].ToString();
                 txtterritory.Text = dataTable.Rows[0]["territory"].ToString();

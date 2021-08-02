@@ -489,6 +489,7 @@ namespace TraceBilling
                 string areaid = area_list3.SelectedValue.ToString();
                 txtcurrentperiod.Text = bll.GetBillingPeriod(areaid);
                 LoadMeterReaders(areaid, "11");
+                LoadBranchList1(int.Parse(areaid));
                 //load session data
             }
             catch (Exception ex)
