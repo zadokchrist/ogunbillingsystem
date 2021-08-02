@@ -381,6 +381,25 @@
           </ul>
                <%} %>
         </li>
+        <li class="treeview">
+                <% if (Session["roleId"].ToString() == "1")
+                                                  {%>
+          <a href="#">
+            <i class="fa fa-edit"></i>
+            <span>Settings</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="TariffManagement"><i class="fa fa-circle-o"></i>Add Territories</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Taxation Setting</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>--%>
+<%--              <li><a href="#"><i class="fa fa-circle-o"></i> Fines and Non-Consumption fees</a></li>--%>
+          </ul>
+               <%} %>
+        </li>
            <li class="treeview">
                 <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9")
                                                   {%>

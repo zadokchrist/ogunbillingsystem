@@ -196,7 +196,7 @@
                 </tr>--%>
                  <tr>
                     <td style="width: 502px">
-                        <label for="division">Division</label>
+                        <label for="division">Territory</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtdivision" placeholder="Enter division"/>
                     </td>
                 </tr>
@@ -208,7 +208,7 @@
                 </tr>--%>
                  <tr>
                     <td style="width: 502px">
-                        <label for="village">Village</label>
+                        <label for="village">Sub Territory</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtvillage" placeholder="Enter Village"/>
                     </td>
                 </tr>
