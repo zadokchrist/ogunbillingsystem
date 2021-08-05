@@ -1612,5 +1612,89 @@ namespace TraceBilling.ControlObjects
                 throw ex;
             }
         }
+        //added 5/8/2021
+        internal DataTable CheckFlatRated(string custRef)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_CheckFlatRated", custRef);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal string SaveBillTransactionUnMetered(TransactionObj trans,string tariffrecord)
+        {
+            string output = "";
+            try
+            {
+                ExecuteCommand("Sp_ProcessBillUnmetered", trans.CustRef, trans.RdgType, trans.Period, trans.OpenBal, trans.Reason, trans.AreaID, trans.BranchID, trans.CreatedBy, trans.SuppressedCharges, trans.BasisConsumption,
+                   trans.ClassID, trans.RdgRecordId, trans.UnitCost, trans.TariffCode, trans.Sewer, trans.IsVatable, trans.DocumentNo,
+                    trans.MeterSize, trans.TransCode, trans.MeterRef, trans.PostDate, trans.InvoiceNumber, trans.ReadingMethod,int.Parse(tariffrecord));
+                output = "SUCCESS";
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                output = ex.Message;
+            }
+            return output;
+        }
+        internal DataTable GetReadingSheet(string areaid,string branchid,string block)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetReadingSheet", int.Parse(areaid),int.Parse(branchid),block);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetBlockSettingByID(string blockId)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetBlockDetailsByID", int.Parse(blockId));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal void SaveBlockDetails(string code, string country, string area, string branch, string block, string connection, string createdby, bool isactive, string status)
+        {
+            try
+            {
+                ExecuteCommand("Sp_SaveBlockDetails", code,int.Parse(area),int.Parse(branch),block,connection,int.Parse(createdby),isactive,status);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        internal DataTable GetBlockDetails(string areaid,string branchid, string block)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetBlockDetails", int.Parse(areaid),int.Parse(branchid),block);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

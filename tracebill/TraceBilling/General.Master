@@ -343,7 +343,7 @@
                                                   {%>
           <a href="#">
             <i class="fa fa-edit"></i>
-            <span>Meter Management</span>
+            <span>Reading and Metering</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -511,7 +511,7 @@
           </ul>
         </li>
           <li class="treeview">
-                <% if (Session["roleId"].ToString() == "1" || Session["roleId"].ToString() == "4" )
+                <% if (Session["roleId"].ToString() == "1" || Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9" )
                                                   {%>
           <a href="#">
             <i class="fa fa-edit"></i>
@@ -521,10 +521,11 @@
             </span>
           </a>
           <ul class="treeview-menu">
-             
+             <% if (Session["roleId"].ToString() == "1")
+                                                  {%> 
             <li><a href="SystemSettings.aspx"><i class="fa fa-circle-o"></i> Country Customization</a></li>
-              
-              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Tariff Setting</a></li>--%>
+               <%} %>
+              <li><a href="BlockSetting.aspx"><i class="fa fa-circle-o"></i> Block Setting</a></li>
              
             
             

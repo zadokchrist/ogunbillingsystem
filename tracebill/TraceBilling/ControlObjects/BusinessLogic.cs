@@ -260,7 +260,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-      
+       
 
         internal ResponseMessage SaveApplication(ApplicationObj app)
         {
@@ -322,7 +322,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-
+       
 
         public string EncryptString(string ClearText)
         {
@@ -419,6 +419,8 @@ namespace TraceBilling.ControlObjects
         {
             dh.DeactivateAccount( custref, reason, recordedby);
         }
+
+       
 
         internal DataTable GetApplicationByStatus(string applicationame, string country, string area, string status)
         {
@@ -1087,7 +1089,7 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-       
+        
 
         internal void SaveApplicationComment(string appid, string action, string comment, string createdby)
         {
@@ -2202,7 +2204,57 @@ namespace TraceBilling.ControlObjects
                             }
                         }
                     }
-                    
+                    else if(IsFlatRated(custRef))//check flatrate
+                    {
+                        try
+                        {
+                            double recordId = 0;
+                            string Rdg_Type = "PERIODIC";
+                            //Get Consumption
+                            int Consumption = 0;
+                            DataTable dataTable = dh.GetBillBasis(custRef, area, branch);
+                            if (dataTable.Rows.Count > 0)
+                            {
+
+                                string TarriffCode = dataTable.Rows[0]["tariffId"].ToString();
+                                DateTime billingDate = DateTime.Now;
+                                double OpenBal = Convert.ToDouble(dataTable.Rows[0]["OpenBal"].ToString());
+                                double Bal = Convert.ToDouble(dataTable.Rows[0]["outstandingBalance"].ToString());
+                                bool Sewer = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
+                                bool isvatable = Convert.ToBoolean(dataTable.Rows[0]["isVatable"].ToString());
+                                int CustClassID = Convert.ToInt16(dataTable.Rows[0]["classId"].ToString());
+                                string suppressionstatus = dataTable.Rows[0]["disconnectionId"].ToString();
+
+
+                               
+
+                                if (suppressionstatus.Equals("0"))//account inactive
+                                {                                                                       
+                                        output = "Customer Account is suppressed and cannot be billed.";                                  
+                                }
+                                else
+                                {
+                                    output = SaveBillTransactionUnmetered(TarriffCode, custRef, Sewer, Period, CustClassID, isvatable, createdBy, area, branch,
+                                        suppressionstatus, recordId, Rdg_Type, meterSize, OpenBal, billDate, meterRef,"1");
+
+                                }
+                            }
+                            else
+                            {
+                                output = "Failed to get Bill Basis";
+                            }
+                        }
+                        catch(Exception ex)
+                        {
+                            throw ex;
+                        }
+                    }
+                    else
+                    {
+                        output = "Metered Customer Account does not have any unbilled consumption for period ( " + Period + " )";
+
+                    }
+
                 }
             }
             catch (Exception ex)
@@ -2212,7 +2264,26 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
+        public bool IsFlatRated(string custRef)
+        {
+            bool value = false;
+            dt = new DataTable();
+            try
+            {
 
+                dt = dh.CheckFlatRated(custRef);
+                if (dt.Rows.Count > 0)
+                {
+                    value = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log("IsFlatRated", "101 " + ex.Message);
+            }
+            return value;
+        }
 
         private string SaveBillTransaction(string tarriffCode, string custRef, bool sewer, string period, int custClassID, bool isvatable, string createdBy, string area, string branch, DataTable dtReadings, string suppressionstatus, double recordId, string rdgType, string meterSize, double openBal, DateTime billDate, string meterref)
         {
@@ -2739,22 +2810,207 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        /* internal void LogAdjustmentStatus(int recordid, string custRef, string status, string comment, string confirmedby, bool isapproved, DateTime confirmdate)
-         {
-             throw new NotImplementedException();
-         }
-         internal string SaveAdjustment(TransactionObj trans)
-         {
-             throw new NotImplementedException();
-         }
-         internal DataTable GetInceptionAdjustments(string areaID, string branchID, string v, string period)
-         {
-             throw new NotImplementedException();
-         }
-         internal TransactionObj GetInternalTranObj(int recordId, string custref)
-         {
-             throw new NotImplementedException();
-         }*/
+        private string SaveBillTransactionUnmetered(string tarriffCode, string custRef, bool sewer, string period, int custClassID, bool isvatable, string createdBy, 
+            string area, string branch, string suppressionstatus, double recordId, string rdgType, string meterSize, double openBal,
+            DateTime billDate, string meterref, string tariffrecord)
+        {
+            string output = "";
+            try
+            {
 
+                TransactionObj trans = new TransactionObj();
+
+                string watercode = "211";
+                string servicecode = "231";
+                string sewercode = "221";
+
+                //trans.TransCode = WaterTransCode;
+                double amt;
+                string TariffAmount = GetTransValue(tarriffCode, area);
+                if (Double.TryParse(TariffAmount, out amt))
+                {
+
+                    double UnitCost = Convert.ToDouble(TariffAmount);
+
+                    trans.UnitCost = UnitCost;
+                    trans.BasisConsumption = 1;//default to 1 for flatrate
+                    trans.TariffCode = tarriffCode;
+
+                    trans.Period = period;
+                    trans.CustRef = custRef;
+                    //trans.ChargeType = ChargeType;
+
+                    trans.AreaID = int.Parse(area);
+                    trans.BranchID = int.Parse(branch);
+                    trans.CreatedBy = int.Parse(createdBy);
+                    //trans.Billno = BillNoReturned;
+                    trans.ClassID = custClassID;
+                    trans.Sewer = sewer;
+                    trans.SuppressedCharges = suppressionstatus;
+                    trans.RdgRecordId = recordId;
+                    trans.IsVatable = isvatable;
+                    trans.MeterSize = meterSize;
+                    trans.MeterRef = meterref;
+                    trans.OpenBal = openBal;//just added
+                    trans.Reason = rdgType;
+                    trans.RdgType = rdgType;
+                    //trans.PayDate = DateTime.Now;
+                    trans.PostDate = billDate;
+                    trans.InvoiceNumber = "";
+                    trans.ReadingMethod = "M";
+
+                    output = dh.SaveBillTransactionUnMetered(trans, tariffrecord);
+
+                }
+                else
+                {
+                    output = "Invalid Tariff Amount";
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+        internal DataTable GetReadingSheet(string areaid,string branchid,string block)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetReadingSheet(areaid,branchid,block);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetReadingSheet", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal string CallSheetFilling(DataTable dt)
+        {
+            string filePath = "";
+            string fileformat = ".csv";
+            filePath = GetTempPath(fileformat);
+            StreamWriter streamWriter = File.CreateText(filePath);
+            streamWriter.WriteLine(BuildSheetFile(dt));
+            streamWriter.Close();
+            return filePath;
+        }
+        private string BuildSheetFile(DataTable dtdata)
+        {
+            string file = "Sequence,CustRef,PropRef,CustName,Address,SerialNo,Prev RdgDate,Comment,Cur Rdg\r\n";
+
+      
+            foreach (DataRow dr in dtdata.Rows)
+            {
+                string Seq = dr["plotNumber"].ToString();
+                string custref = dr["customerRef"].ToString();
+                string propRef = dr["PropertyRef"].ToString();
+                string custName = dr["customerName"].ToString().Replace(",", "");
+                string Address = dr["Address"].ToString().Replace(",", "");
+                string Serial = dr["meterNumber"].ToString();
+                DateTime PreRdgDate = Convert.ToDateTime(dr["PreRdgDate"].ToString());
+                string PrevRdgDate = PreRdgDate.ToString("MM/dd/yyyy");
+                file += Seq + "," + custref + "," + propRef + "," + custName + "," + Address + "," + Serial + "," + PrevRdgDate + "\r\n";
+            }
+            return file;
+        }
+        public string GetTempPath(string Extensive)
+        {
+            string ParameterCode = "4";
+            string filePath = dh.GetSystemParameter(ParameterCode);
+            string subfolder = "Temp";
+            string DtTime = DateTime.Now.ToString("yyyyMMddHHmmss");
+            //string filePath = Direct + "\\" + AreaName + "\\" + Reader.Replace(" ", "_") + "\\";
+            //string filepath = filePath + "" + DtTime + "" + Extensive;
+            filePath = filePath + "\\" + subfolder + "\\";
+            //string filepath = filePath + "\\"+ subfolder+"\\"+ DtTime + "" + Extensive;
+            string filepath = filePath + "" + DtTime + "" + Extensive;
+            CheckPath(filePath);
+            return filepath;
+        }
+        internal DataTable GetAccountReading(string custref, string period, string areaid, string branchid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetAccountReading(custref,period,areaid,branchid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetAccountReading", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal void SaveBlockDetails(string code, string country, string area, string branch, string block, string connection, string createdby, bool isactive, string status)
+        {
+            try
+            {
+                dh.SaveBlockDetails(code, country,area,branch,block,connection,createdby,isactive,status);
+            }
+            catch (Exception ex)
+            {
+                Log("SaveBlockDetails", "101 " + ex.Message);
+            }
+        }
+        internal DataTable GetBlockSettingByID(string blockId)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetBlockSettingByID(blockId);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetBlockSettingByID", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetBlockDetails(string area,string branch,string block)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetBlockDetails(area,branch,block);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetBlockDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal string GetCustomerType(string custref, string area, string branch, string block)
+        {
+            string output = "";
+
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetBillDetails(area, branch, block,custref);
+                if(dt.Rows.Count > 0)
+                {
+                    output = dt.Rows[0]["typeName"].ToString();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetCustomerType", "101 " + ex.Message);
+            }
+            
+            return output;
+        }
     }
 }

@@ -119,6 +119,7 @@
                              <td></td>
                              <td>
                                  <table>
+                                    
                                      <tr>
                     <td style="width: 400px">
                          <label>Biller Incharge</label>
@@ -245,6 +246,12 @@
                     <td style="width: 400px">
                         <label>Block</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtblock" placeholder="Enter blocks" ReadOnly="true"/>
+                    </td>
+                </tr>
+                                      <tr>
+                    <td style="width: 400px">
+                         <label>Customer Type</label>
+            <asp:TextBox runat="server" CssClass="form-control" ID="txttype"  ReadOnly="true"/>
                     </td>
                 </tr>
                 

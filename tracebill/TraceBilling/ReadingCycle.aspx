@@ -82,8 +82,105 @@
                  
                    <br< />
                    <div id="scheduledisplay" runat="server" visible="true">
-                 <p>This is reading schedule</p>
+                 <%--<p>This is reading schedule</p>--%>
+                   <table width="100%">
+    <tr>
+    <%--<th>New</th>--%>
+<%--        <th class="modal-sm" style="width: 207px">Country</th>--%>
+         <th class="modal-sm" style="width: 226px">Operation Area</th>
+        <th class="modal-sm" style="width: 226px">Branch/Zone</th>
+        <th class="modal-sm" style="width: 226px">Block</th>
+        
+        <th></th>
+        </tr>
+        <tr>
+  
+          
+                          <%--<td class="modal-sm" style="width: 207px" >
+                      
+            <asp:DropDownList ID="country_list2" CssClass="form-control" runat="server"  OnDataBound="country_list2_DataBound" Visible="true" AutoPostBack="True"
+                 OnSelectedIndexChanged="country_list2_SelectedIndexChanged"  >
+                </asp:DropDownList>
+                    </td>--%>
+             
+                           
+             <td class="modal-sm" style="width: 226px" >
+                      
+            <asp:DropDownList ID="area_listsheet" CssClass="form-control" runat="server"  OnDataBound="area_listsheet_DataBound" AutoPostBack="True"
+                 OnSelectedIndexChanged="area_listsheet_SelectedIndexChanged" >
+                
+                </asp:DropDownList>
+                    </td>
+                <td class="modal-sm" style="width: 226px" >
+                      
+            <asp:DropDownList ID="branch_listsheet" CssClass="form-control" runat="server"  OnDataBound="branch_listsheet_DataBound" Visible="true" >
+                
+                </asp:DropDownList>
+                    </td>
+              <td class="modal-sm" style="width: 226px" >
+                      
+            <asp:DropDownList ID="cboBlock" CssClass="form-control" runat="server"  OnDataBound="cboBlock_DataBound" Visible="true" >
+                
+                </asp:DropDownList>
+                    </td>
+                 
+                          <td>
+                         
+           
+                          </td>
+                                                 
+                          </tr>
+                          </table>
+    <center>
+                            <asp:Button ID="Button1" Width="150" Height="40" CssClass="btn-primary"
+                                    runat="server" Text="Search" onclick="Button4_Click" />
+                      
+                       </center>
                    </div>
+                   <div id="sheetdisplay" runat="server" visible="false">
+                       <h5 class="inline">View reading schedule</h5><br />
+                       <center>
+                                    <asp:Button ID="btnexportsheet" runat="server" Text="Export to CSV" cssclass ="btn-primary" OnClick="btnexportsheet_Click"/>
+                       </center>
+
+                 <asp:GridView ID="gv_rdgsheet" runat="server" 
+                       CssClass="grid-text" CellPadding="10" 
+                              ForeColor="#333333" GridLines="None" Width="100%"
+                                  AutoGenerateColumns="False" OnRowCommand="gv_rdgsheet_OnRowCommand"
+                                  OnRowDataBound="gv_rdgsheet_RowDataBound"                                 
+                                 >
+             <Columns>
+           
+           <asp:BoundField DataField="No" HeaderText="No" NullDisplayText="-"/> 
+                 <asp:BoundField DataField="plotNumber" HeaderText="PlotNumber" NullDisplayText="-" /> 
+             <asp:BoundField DataField="blockNumber" HeaderText="Block" NullDisplayText="-"/> 
+             
+             <asp:BoundField DataField="customerName" HeaderText="CustomerName" NullDisplayText="-" /> 
+             <asp:BoundField DataField="customerRef" HeaderText="CustomerRef" NullDisplayText="-" />        
+   
+                  <asp:BoundField DataField="meterNumber" HeaderText="MeterNumber" NullDisplayText="-" /> 
+            
+                 <asp:BoundField DataField="Address" HeaderText="Address" NullDisplayText="-" /> 
+                   <asp:BoundField DataField="PropertyRef" HeaderText="PropertyRef" NullDisplayText="-" /> 
+                 <asp:BoundField DataField="PreRdgDate" HeaderText="PreRdgDate" NullDisplayText="-" /> 
+            
+                                 
+             </Columns>
+             
+             <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+             <EditRowStyle BackColor="#2461BF" />
+             <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" Font-Underline="false" ForeColor="#333333" />
+             <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+             <AlternatingRowStyle BackColor="White" CssClass="GridRows" HorizontalAlign="Left" />
+             <RowStyle BackColor="#EFF3FB" CssClass="GridRows" HorizontalAlign="Left" />
+             <HeaderStyle CssClass="GridTopHeaderCell" Font-Bold="True" BackColor="#3c8dbc" ForeColor="White" />
+                <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                <SortedDescendingHeaderStyle BackColor="#4870BE" />
+             </asp:GridView>
+
+                       </div>
            
                    </fieldset>                                                      
               

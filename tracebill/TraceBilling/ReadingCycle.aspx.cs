@@ -118,6 +118,7 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
+       
         private void LoadFieldComments()
         {
             DataTable dt = new DataTable();
@@ -207,6 +208,7 @@ namespace TraceBilling
                 int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                 LoadAreaList(countryid);
                 LoadAreaList3(countryid);
+                LoadAreaListSheet(countryid);
                 //load session data
             }
             catch (Exception ex)
@@ -215,7 +217,9 @@ namespace TraceBilling
             }
 
         }
-      
+
+       
+
         private void LoadDisplay()
         {
             generateschedule.Visible = false;
@@ -242,6 +246,13 @@ namespace TraceBilling
             capturereading.Visible = false;
            
             handleexeptions.Visible = false;
+            int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+            LoadAreaListSheet(countryid);
+            LoadBranchListSheet(0);
+            string areaid = area_listsheet.SelectedValue.ToString();
+            string branchid = branch_listsheet.SelectedValue.ToString();
+            LoadBlockMaps(areaid, branchid);
+            LoadReadingSchedule();
         }
 
         protected void btnreadingcapture_Click(object sender, EventArgs e)
@@ -732,6 +743,175 @@ namespace TraceBilling
             }
             return Return;
 
+        }
+
+      
+        protected void cboBlock_DataBound(object sender, EventArgs e)
+        {
+            cboBlock.Items.Insert(0, new ListItem("- - Select - -", "0"));
+        }
+        protected void area_listsheet_DataBound(object sender, EventArgs e)
+        {
+            area_listsheet.Items.Insert(0, new ListItem("- - Select Area - -", "0"));
+        }
+        protected void branch_listsheet_DataBound(object sender, EventArgs e)
+        {
+            branch_listsheet.Items.Insert(0, new ListItem("- - All branches- -", "0"));
+        }
+        private void LoadBlockMaps(string areaid, string branchid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetBlockMaps(areaid, branchid);
+                cboBlock.DataSource = dt;
+
+                cboBlock.DataTextField = "blockNumber";
+                cboBlock.DataValueField = "blockID";
+                cboBlock.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("LoadBlockMaps", error);
+                DisplayMessage(error, true);
+            }
+        }
+        private void LoadBranchListSheet(int areaid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetBranchList(areaid);
+                branch_listsheet.DataSource = dt;
+                branch_listsheet.DataTextField = "branchName";
+                branch_listsheet.DataValueField = "branchId";
+                branch_listsheet.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayBranchList", error);
+                DisplayMessage(error, true);
+            }
+        }
+        private void LoadAreaListSheet(int countryid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetAreaList(countryid);
+                area_listsheet.DataSource = dt;
+
+                area_listsheet.DataTextField = "areaName";
+                area_listsheet.DataValueField = "areaId";
+                area_listsheet.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayAreaList", error);
+                DisplayMessage(error, true);
+            }
+        }
+        protected void Button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                LoadReadingSchedule();
+               
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void LoadReadingSchedule()
+        {
+            string areaid = area_listsheet.SelectedValue.ToString();
+            string branchid = branch_listsheet.SelectedValue.ToString();
+            //LoadBlockMaps(areaid, branchid);
+            string block = cboBlock.SelectedValue.ToString();
+            string blockname = cboBlock.SelectedItem.ToString();
+            if (block.Equals("0"))
+            {
+                DisplayMessage("Please select block", true);
+            }
+            else
+            {
+                DataTable dt = bll.GetReadingSheet(areaid, branchid, blockname);
+                if (dt.Rows.Count > 0)
+                {
+                    Session["RdgSheetDT"] = dt;
+                    gv_rdgsheet.DataSource = dt;
+                    gv_rdgsheet.DataBind();
+                    DisplayMessage(".", true);
+                    sheetdisplay.Visible = true;
+                }
+                else
+                {
+                    string error = "100: " + "No records found";
+                    DisplayMessage(error, true);
+                    sheetdisplay.Visible = false;
+                }
+            }
+           
+        }
+
+        protected void gv_rdgsheet_OnRowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            
+        }
+        protected void gv_rdgsheet_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
+        }
+        protected void area_listsheet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //int deptid = int.Parse(department_list.SelectedValue.ToString());
+                string areaid = area_listsheet.SelectedValue.ToString();
+                LoadBlockMaps(areaid, "0");
+
+             
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        protected void btnexportsheet_Click(object sender, EventArgs e)
+        {
+            DataTable dataTable = (DataTable)Session["RdgSheetDT"];
+            if(dataTable.Rows.Count > 0)
+            {
+                ExportCSV(dataTable);
+            }
+        }
+
+        private void ExportCSV(DataTable dataTable)
+        {
+            string filePath = bll.CallSheetFilling(dataTable);
+            DownloadFile(filePath, true);
+        }
+        private void DownloadFile(string path, bool forceDownload)
+        {
+            string name = Path.GetFileName(path);
+            string type = "Application/vnd.ms-excel";
+            if (forceDownload)
+            {
+                Response.AppendHeader("content-disposition",
+                    "attachment; filename=" + name);
+            }
+            if (type != "")
+                Response.ContentType = type;
+            Response.WriteFile(path);
+            Response.End();
+            bll.RemoveFile(path);
         }
     }
 }

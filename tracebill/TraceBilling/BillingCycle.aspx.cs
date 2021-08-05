@@ -262,35 +262,45 @@ namespace TraceBilling
                     {
                         string err = "";
                         //1:check customer existing
-                        if (bll.IsValidCustRefRefInArea(custref,area))
+                        if (bll.IsValidCustRefRefInArea(custref, area))
                         {
-                            //2: check if billed last reading
-                            DataTable dtread = bll.GetLatestReadingStatus(custref, area, branch);
-                            if(dtread.Rows.Count > 0)
+                            //check flat rate
+                            if (bll.IsFlatRated(custref))//check flatrate
                             {
-                                //3:check bill status
-                                bool IsBilled = Convert.ToBoolean(dtread.Rows[0]["IsBilled"].ToString());
-                                if(!IsBilled)
-                                {
-                                    //verify further
-                                    VerifyRequest(area, branch,  block, custref);
-
-                                }
-                                else
-                                {
-                                    err = "No Unbilled reading found against customer-" + custref;
-                                    DisplayMessage(err, true);
-                                }
+                                //verify further
+                                VerifyRequest(area, branch, block, custref);
                             }
                             else
                             {
-                                 err = "No reading records found against customer-" + custref;
-                                DisplayMessage(err, true);
+                                //2: check if billed last reading
+                                DataTable dtread = bll.GetLatestReadingStatus(custref, area, branch);
+                                if (dtread.Rows.Count > 0)
+                                {
+
+                                    //3:check bill status
+                                    bool IsBilled = Convert.ToBoolean(dtread.Rows[0]["IsBilled"].ToString());
+                                    if (!IsBilled)
+                                    {
+                                        //verify further
+                                        VerifyRequest(area, branch, block, custref);
+                                    }
+                                    else
+                                    {
+                                        err = "No Unbilled reading found against customer-" + custref;
+                                        DisplayMessage(err, true);
+                                    }
+                                }
+                                else
+                                {
+                                    err = "No reading records found against customer-" + custref;
+                                    DisplayMessage(err, true);
+                                }
                             }
+
                         }
                         else
                         {
-                             err = "Invalid customer-" + custref + " in selected area.";
+                            err = "Invalid customer-" + custref + " in selected area.";
                             DisplayMessage(err, true);
                         }
 
@@ -330,6 +340,7 @@ namespace TraceBilling
             txtbranch.Text = lblbranch.Text;
             txtcustomerref.Text = lblcustref.Text;
             txtblock.Text = lblblock.Text;
+            txttype.Text = bll.GetCustomerType(lblcustref.Text, "0", "0", "0");
             lblqn.Text = "Are you ready to bill this request?";
         }
 
@@ -353,8 +364,35 @@ namespace TraceBilling
                    // int Hour = Convert.ToInt32(ScheduleTime[0]); int Min = Convert.ToInt32(ScheduleTime[1]);
                    // ScheduleDate = new DateTime(ScheduleDate.Year, ScheduleDate.Month, ScheduleDate.Day, Hour, Min, 0);
                 }
-               
-                string result = BillRequest(Area, Branch,  block, CustRef, BillNow, ScheduleDate,period);
+                //check flatrated
+                string result = "";
+                if(CustRef.Equals(""))//execute
+                {
+                    result = BillRequest(Area, Branch, block, CustRef, BillNow, ScheduleDate, period);
+                }
+                else
+                {
+                    //check flat rate
+                    if (bll.IsFlatRated(CustRef))//check flatrate
+                    {
+                        result = BillRequest(Area, Branch, block, CustRef, BillNow, ScheduleDate, period);
+                    }
+                    else//check reading status
+                    {
+                        DataTable dtReadings = bll.GetAccountReading(CustRef, period, Area, Branch);
+                        if (dtReadings.Rows.Count > 0)
+                        {
+                            result = BillRequest(Area, Branch, block, CustRef, BillNow, ScheduleDate, period);
+                        }
+                        else
+                        {
+                            result = "Metered account has no unbilled reading for current period.";
+                        }
+                    }
+                       
+                }
+                
+                
                 //DisplayBillResult(result);
                 ClearControls();
                 DisplayMessage(result, true);
