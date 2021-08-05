@@ -261,7 +261,7 @@
           </a>
           <ul class="treeview-menu">
               <% if (Session["roleId"].ToString() == "2")
-                                                  {%>  
+                  {%>  
             <li><a href="AddApplication.aspx"><i class="fa fa-circle-o"></i> Apply for New Connection (S1)</a></li> 
               <%} %>           
           
@@ -280,22 +280,23 @@
                </li>
               <li><a href="GenerateConnectionInvoice.aspx"><i class="fa fa-circle-o"></i> Connection Invoice Generation</a></li>
                <%} %> --%>
-                <% if (Session["roleId"].ToString() == "6" )
-                                                  {%>  
-             li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard (S2)</a></li>
+                <% if (Session["roleId"].ToString() == "6")
+    {%>  
+             
                    <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report (S3)</a></li>
           <li><a href="GenerateConnectionInvoice.aspx"><i class="fa fa-circle-o"></i> Generate Invoice BOQ (S4)</a></li>
               <%} %> 
-               <% if (Session["roleId"].ToString() == "5" )
-                                                  {%>  
+               <% if (Session["roleId"].ToString() == "5")
+    {%>  
+                  <li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard (S2)</a></li>
              <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report (S3)</a></li>
               <%} %> 
                <% if (Session["roleId"].ToString() == "3")
-                                                  {%>  
+    {%>  
               <li><a href="AuthorizeConnection.aspx"><i class="fa fa-circle-o"></i> Authorize Connection (S5)</a></li>
               <%} %> 
 
-                <% if (Session["roleId"].ToString() == "2")
+                <% if (Session["roleId"].ToString() == "2" || Session["roleId"].ToString() == "6")
                                                   {%>  
               <li><a href="PaymentInvoice.aspx"><i class="fa fa-circle-o"></i> Payment Invoicing (S6)</a></li>
               <%} %> 
@@ -331,11 +332,6 @@
               <li><a href="AccountReactivation.aspx"><i class="fa fa-circle-o"></i>Account Reactivation</a></li>
 
                <%} %>
-
-              
-               <li><a href="ViewCustomers.aspx"><i class="fa fa-circle-o"></i> View Customers</a></li>
-            
-
           </ul>
         </li>
            <li class="treeview">
@@ -373,6 +369,25 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="TariffManagement"><i class="fa fa-circle-o"></i> Structural Definition</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Taxation Setting</a></li>
+            <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>--%>
+<%--              <li><a href="#"><i class="fa fa-circle-o"></i> Fines and Non-Consumption fees</a></li>--%>
+          </ul>
+               <%} %>
+        </li>
+        <li class="treeview">
+                <% if (Session["roleId"].ToString() == "1")
+                                                  {%>
+          <a href="#">
+            <i class="fa fa-edit"></i>
+            <span>Settings</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="TariffManagement"><i class="fa fa-circle-o"></i>Add Territories</a></li>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Taxation Setting</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>--%>

@@ -292,7 +292,7 @@ namespace TraceBilling
                 string output = "";
                 if (action.Contains("Approve"))
                 {
-                    statusid = 10;
+                    statusid = 7;
                     output = "ACTION SAVED SUCCESSFULLY AND FORWARDED TO COMMERCIAL FOR PAYMENT INVOICING";
                 }
                 else if (action.Contains("Terminate"))

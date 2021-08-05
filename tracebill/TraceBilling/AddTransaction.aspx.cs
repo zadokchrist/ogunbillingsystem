@@ -119,17 +119,30 @@ namespace TraceBilling
                 }
                 else
                 {
-                    txtfullname.Text = "";
-                    txtarea.Text = "";
-                    txtcounry.Text = "";
-                    txtcontact.Text = "";
-                    str = "CustomerRef-"+custref + " not existing.";
-                    DisplayMessage(str,true);
+                    dt = bll.GetApplicationByIDForPayment(custref);
+                    if (dt.Rows.Count > 0)
+                    {
+                        txtfullname.Text = dt.Rows[0]["fullName"].ToString();
+                        txtarea.Text = dt.Rows[0]["area"].ToString();
+                        txtcounry.Text = dt.Rows[0]["country"].ToString();
+                        txtcontact.Text = dt.Rows[0]["contact"].ToString();
+                        DisplayMessage(".", false);
+                    }
+                    else
+                    {
+                        txtfullname.Text = "";
+                        txtarea.Text = "";
+                        txtcounry.Text = "";
+                        txtcontact.Text = "";
+                        str = "CustomerRef-" + custref + " not existing.";
+                        DisplayMessage(str, true);
+                    }
+                    
                 }
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 

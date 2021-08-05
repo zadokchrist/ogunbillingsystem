@@ -58,9 +58,10 @@
         <div class="form-group col-sm-12 col-md-12 col-lg-12">
               <div id="btnlinks" runat="server" visible="true">
               <center>
-              <asp:Button ID="btngenerateschedule" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
+              <%--<asp:Button ID="btngenerateschedule" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btngenerateschedule_Click" Text="GENERATE SCHEDULE" cssclass ="btn-primary"
-                                        Width="153px" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Width="153px" />--%>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
                    <asp:Button ID="btnreadingcapture" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnreadingcapture_Click" Text="CAPTURE READINGS" cssclass ="btn-primary"
                                         Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;

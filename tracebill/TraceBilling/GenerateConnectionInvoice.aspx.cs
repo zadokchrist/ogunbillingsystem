@@ -169,7 +169,7 @@ namespace TraceBilling
                 string jobnumber = txtjobnumber.Text.Trim();
                 string country = country_list.SelectedValue.ToString();
                 string area = area_list.SelectedValue.ToString();
-                string status = "4";//after approval
+                string status = "6";//after approval
                 lblstatus.Text = status;
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
                 if (dataTable.Rows.Count > 0)
@@ -257,7 +257,12 @@ namespace TraceBilling
                     txtjobNo.Text = dt.Rows[0]["JobNumber"].ToString();
                     lblApplicationCode.Text = dt.Rows[0]["applicationID"].ToString();
                     txtauthorizedby.Text = Session["FullName"].ToString();
-                    DateTime surveydt = Convert.ToDateTime(dt.Rows[0]["surveyDate"].ToString());
+                    DateTime surverdate = DateTime.Now;
+                    if (!string.IsNullOrEmpty(dt.Rows[0]["surveyDate"].ToString()))
+                    {
+                        surverdate = Convert.ToDateTime(dt.Rows[0]["surveyDate"].ToString());
+                    }
+                    DateTime surveydt = surverdate;
                     txtsurveydate.Text = surveydt.ToString("yyyy-MM-dd");//
                     txtsurvey.Text= dt.Rows[0]["AssignedTo"].ToString();
                     lblarea.Text = dt.Rows[0]["areaId"].ToString();
@@ -281,7 +286,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
         //protected void rtnTariff_SelectedIndexChanged(object sender, EventArgs e)

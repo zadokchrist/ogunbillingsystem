@@ -191,7 +191,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text =  message + ".";
+            lblmsg.Text = message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -233,7 +233,7 @@ namespace TraceBilling
             {
                 ValidateRequest();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -252,13 +252,13 @@ namespace TraceBilling
                 lblblock.Text = block_list.SelectedItem.ToString();
                 lblperiod.Text = txtcurrentperiod.Text.Trim();
                 lblcustref.Text = custref;
-                if(area == "0")
+                if (area == "0")
                 {
                     DisplayMessage("Please select an Area", true);
                 }
                 else
                 {
-                    if(!custref.Equals(""))
+                    if (!custref.Equals(""))
                     {
                         string err = "";
                         //1:check customer existing
@@ -308,17 +308,17 @@ namespace TraceBilling
                     }
                     else
                     {
-                        VerifyRequest(area, branch, block,custref);
+                        VerifyRequest(area, branch, block, custref);
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
 
-        private void VerifyRequest(string area, string branch,  string block, string custref)
+        private void VerifyRequest(string area, string branch, string block, string custref)
         {
             try
             {
@@ -327,7 +327,7 @@ namespace TraceBilling
                 DisplaySummary();
                 DisplayMessage(".", true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -358,15 +358,15 @@ namespace TraceBilling
                 if (chkBillRequestNow.Checked && !String.IsNullOrEmpty(txtscheduledate.Text.Trim()))
                 {
                     string schDate = txtscheduledate.Text.Trim();
-                   // string schTime = txtScheduleTime.Text.Trim();
+                    // string schTime = txtScheduleTime.Text.Trim();
                     ScheduleDate = Convert.ToDateTime(schDate);
-                   // string[] ScheduleTime = txtScheduleTime.Text.Trim().Split(':');
-                   // int Hour = Convert.ToInt32(ScheduleTime[0]); int Min = Convert.ToInt32(ScheduleTime[1]);
-                   // ScheduleDate = new DateTime(ScheduleDate.Year, ScheduleDate.Month, ScheduleDate.Day, Hour, Min, 0);
+                    // string[] ScheduleTime = txtScheduleTime.Text.Trim().Split(':');
+                    // int Hour = Convert.ToInt32(ScheduleTime[0]); int Min = Convert.ToInt32(ScheduleTime[1]);
+                    // ScheduleDate = new DateTime(ScheduleDate.Year, ScheduleDate.Month, ScheduleDate.Day, Hour, Min, 0);
                 }
                 //check flatrated
                 string result = "";
-                if(CustRef.Equals(""))//execute
+                if (CustRef.Equals(""))//execute
                 {
                     result = BillRequest(Area, Branch, block, CustRef, BillNow, ScheduleDate, period);
                 }
@@ -389,15 +389,15 @@ namespace TraceBilling
                             result = "Metered account has no unbilled reading for current period.";
                         }
                     }
-                       
+
                 }
-                
-                
+
+
                 //DisplayBillResult(result);
                 ClearControls();
                 DisplayMessage(result, true);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -417,14 +417,14 @@ namespace TraceBilling
             try
             {
                 DataTable datatable = bll.GetBillDetails(area, branch, block, custRef);
-                if(datatable.Rows.Count > 0)
+                if (datatable.Rows.Count > 0)
                 {
                     int Success = 0;
                     int failed = 0;
                     int total = 0;
                     string Msg = "";
                     //sas 10/12
-                   
+
                     foreach (DataRow dr in datatable.Rows)
                     {
                         string CustRef = dr["customerRef"].ToString();
@@ -436,7 +436,7 @@ namespace TraceBilling
                         int AreaID = Convert.ToInt16(dr["areaId"].ToString());
                         int BranchID = Convert.ToInt16(dr["branchId"].ToString());
                         string createdby = Session["UserID"].ToString();
-                        string returned = BillAccount(CustRef, MeterRef, MeterSize, PropRef, CustTarrif, CustClass, AreaID, BranchID, createdby,period);
+                        string returned = BillAccount(CustRef, MeterRef, MeterSize, PropRef, CustTarrif, CustClass, AreaID, BranchID, createdby, period);
 
                         if (returned == "SUCCESS")
                         {
@@ -445,7 +445,7 @@ namespace TraceBilling
                         else
                         {
                             failed++;
-                           
+
                         }
                     }
                     total = Success + failed;
@@ -461,7 +461,7 @@ namespace TraceBilling
                     {
                         Msg = "Your Bill Request of " + total + " accounts has failed";
                     }
-                   
+
                     return Msg;
 
                 }
@@ -471,7 +471,7 @@ namespace TraceBilling
                 }
                 RefreshControls();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -488,7 +488,7 @@ namespace TraceBilling
             txtscheduledate.Text = "";
         }
 
-        private string BillAccount(string custRef, string meterRef, string meterSize, string propRef, string custTarrif, int custClass, int areaID, int branchID, string createdBy,string period)
+        private string BillAccount(string custRef, string meterRef, string meterSize, string propRef, string custTarrif, int custClass, int areaID, int branchID, string createdBy, string period)
         {
             string output = "";
             CustomerObj cust = new CustomerObj();

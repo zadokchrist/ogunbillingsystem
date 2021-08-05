@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraceBilling {
-    
-    
-    public partial class FieldConnection {
-        
+namespace TraceBilling
+{
+
+
+    public partial class FieldConnection
+    {
+
         /// <summary>
         /// lblmsg control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmsg;
-        
+
         /// <summary>
         /// txtjobnumber control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtjobnumber;
-        
+
         /// <summary>
         /// country_list control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList country_list;
-        
+
         /// <summary>
         /// area_list control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList area_list;
-        
+
         /// <summary>
         /// Button3 control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button3;
-        
+
         /// <summary>
         /// returnbtn control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl returnbtn;
-        
+
         /// <summary>
         /// btnreturn control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnreturn;
-        
+
         /// <summary>
         /// maindisplay control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl maindisplay;
-        
+
         /// <summary>
         /// baltxt control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl baltxt;
-        
+
         /// <summary>
         /// gv_surveyjobs control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gv_surveyjobs;
-        
+
         /// <summary>
         /// btnlinks control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl btnlinks;
-        
+
         /// <summary>
         /// btnmaterials control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnmaterials;
-        
+
         /// <summary>
         /// btndocket control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btndocket;
-        
+
         /// <summary>
         /// lblapplicant control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblapplicant;
-        
+
         /// <summary>
         /// connectioninvoice control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl connectioninvoice;
-        
+
         /// <summary>
         /// matdetails control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl matdetails;
-        
+
         /// <summary>
         /// materialdisplay control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl materialdisplay;
-        
+
         /// <summary>
         /// materialoptions control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList materialoptions;
-        
+
         /// <summary>
         /// material_list control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList material_list;
-        
+
         /// <summary>
         /// txtsize control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtsize;
-        
+
         /// <summary>
         /// txtquantity control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtquantity;
-        
+
         /// <summary>
         /// txtrate control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtrate;
-        
+
         /// <summary>
         /// btnsubmititem control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnsubmititem;
-        
+
         /// <summary>
         /// itemdisplay control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl itemdisplay;
-        
+
         /// <summary>
         /// DataGrid1 control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid DataGrid1;
-        
+
         /// <summary>
         /// lblTotalCost control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblTotalCost;
-        
+
         /// <summary>
         /// pipedetails control.
         /// </summary>
@@ -254,7 +256,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl pipedetails;
-        
+
         /// <summary>
         /// pipediameter_list control.
         /// </summary>
@@ -263,7 +265,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList pipediameter_list;
-        
+
         /// <summary>
         /// pipematerial_list control.
         /// </summary>
@@ -272,7 +274,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList pipematerial_list;
-        
+
         /// <summary>
         /// txtpipelength control.
         /// </summary>
@@ -281,7 +283,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtpipelength;
-        
+
         /// <summary>
         /// txtexcavation control.
         /// </summary>
@@ -290,7 +292,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtexcavation;
-        
+
         /// <summary>
         /// txtcomment control.
         /// </summary>
@@ -299,7 +301,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtcomment;
-        
+
         /// <summary>
         /// btnsavematerials control.
         /// </summary>
@@ -308,7 +310,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnsavematerials;
-        
+
         /// <summary>
         /// btnPrintInvoice control.
         /// </summary>
@@ -317,7 +319,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnPrintInvoice;
-        
+
         /// <summary>
         /// docketdisplay control.
         /// </summary>
@@ -326,7 +328,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl docketdisplay;
-        
+
         /// <summary>
         /// cboBlock control.
         /// </summary>
@@ -335,7 +337,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList cboBlock;
-        
+
         /// <summary>
         /// btnGetNumber control.
         /// </summary>
@@ -344,7 +346,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetNumber;
-        
+
         /// <summary>
         /// txtConnectionNo control.
         /// </summary>
@@ -353,7 +355,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtConnectionNo;
-        
+
         /// <summary>
         /// txtMeterRef control.
         /// </summary>
@@ -362,7 +364,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMeterRef;
-        
+
         /// <summary>
         /// btnGetMeterRef control.
         /// </summary>
@@ -371,7 +373,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetMeterRef;
-        
+
         /// <summary>
         /// cboType control.
         /// </summary>
@@ -380,7 +382,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList cboType;
-        
+
         /// <summary>
         /// txtNumber control.
         /// </summary>
@@ -389,7 +391,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNumber;
-        
+
         /// <summary>
         /// cboMeterSize control.
         /// </summary>
@@ -398,7 +400,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList cboMeterSize;
-        
+
         /// <summary>
         /// txtRemark control.
         /// </summary>
@@ -407,7 +409,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtRemark;
-        
+
         /// <summary>
         /// txtlattitude control.
         /// </summary>
@@ -416,7 +418,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtlattitude;
-        
+
         /// <summary>
         /// txtlongitude control.
         /// </summary>
@@ -425,7 +427,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtlongitude;
-        
+
         /// <summary>
         /// txtReading control.
         /// </summary>
@@ -434,7 +436,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtReading;
-        
+
         /// <summary>
         /// txtDials control.
         /// </summary>
@@ -443,7 +445,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDials;
-        
+
         /// <summary>
         /// RangeValidator2 control.
         /// </summary>
@@ -452,7 +454,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RangeValidator RangeValidator2;
-        
+
         /// <summary>
         /// txtMeterLife control.
         /// </summary>
@@ -461,7 +463,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMeterLife;
-        
+
         /// <summary>
         /// RangeValidator3 control.
         /// </summary>
@@ -470,7 +472,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RangeValidator RangeValidator3;
-        
+
         /// <summary>
         /// txtManufacturedDate control.
         /// </summary>
@@ -479,7 +481,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtManufacturedDate;
-        
+
         /// <summary>
         /// txtInstalledby control.
         /// </summary>
@@ -488,7 +490,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtInstalledby;
-        
+
         /// <summary>
         /// txtInstallationDate control.
         /// </summary>
@@ -497,7 +499,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtInstallationDate;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -506,7 +508,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// lblApplicationCode control.
         /// </summary>
@@ -515,7 +517,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblApplicationCode;
-        
+
         /// <summary>
         /// lblconnectionId control.
         /// </summary>
@@ -524,7 +526,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblconnectionId;
-        
+
         /// <summary>
         /// lblarea control.
         /// </summary>
@@ -533,7 +535,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblarea;
-        
+
         /// <summary>
         /// lblCostItemID control.
         /// </summary>
@@ -542,7 +544,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCostItemID;
-        
+
         /// <summary>
         /// lblCostcode control.
         /// </summary>
@@ -551,7 +553,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCostcode;
-        
+
         /// <summary>
         /// lblestimateid control.
         /// </summary>
@@ -560,7 +562,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblestimateid;
-        
+
         /// <summary>
         /// lblMeterCode control.
         /// </summary>
@@ -569,7 +571,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblMeterCode;
-        
+
         /// <summary>
         /// lblConnectionCode control.
         /// </summary>
@@ -578,7 +580,7 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblConnectionCode;
-        
+
         /// <summary>
         /// lblareacode control.
         /// </summary>
@@ -587,5 +589,14 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblareacode;
+
+        /// <summary>
+        /// lblcustomertype control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblcustomertype;
     }
 }

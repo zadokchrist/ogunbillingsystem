@@ -171,6 +171,11 @@
                 </asp:DropDownList>
                     </td>
                 </tr>
+                <td style="width: 502px">
+                         <asp:Label runat="server" Text="Operation Branch" ID="txtbranch" Visible="true" Font-Bold="true"></asp:Label>
+                  <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true">
+                </asp:DropDownList>
+                    </td>
                <%-- <tr>
                     <td style="width: 502px">
                          <label for="city">City</label>
@@ -191,7 +196,7 @@
                 </tr>--%>
                  <tr>
                     <td style="width: 502px">
-                        <label for="division">Division</label>
+                        <label for="division">Territory</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtdivision" placeholder="Enter division"/>
                     </td>
                 </tr>
@@ -203,7 +208,7 @@
                 </tr>--%>
                  <tr>
                     <td style="width: 502px">
-                        <label for="village">Village</label>
+                        <label for="village">Sub Territory</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtvillage" placeholder="Enter Village"/>
                     </td>
                 </tr>

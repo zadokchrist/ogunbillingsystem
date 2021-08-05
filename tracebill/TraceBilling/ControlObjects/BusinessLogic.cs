@@ -442,6 +442,22 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        internal DataTable GetApplicationByIDForPayment(string appid) 
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = dh.GetApplicationByIDForPayment(appid);
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return dt;
+        }
+
 
 
         internal DataTable GetSurveyDetails(string appnumber)
@@ -706,9 +722,9 @@ namespace TraceBilling.ControlObjects
 
                             dh.SaveSurveyJobNumber(appID, JobNumber, countryid, areaid, branchid, CreatedBy);
                             //auto Assigning
-                           // Assignjob(appID, CreatedBy, countryid);
+                            //Assignjob(appID, CreatedBy, countryid);
                             //log status
-                           // LogApplicationTransactions(appID, status, CreatedBy);
+                            //LogApplicationTransactions(appID, status, CreatedBy);
                         }
 
 
@@ -1020,8 +1036,19 @@ namespace TraceBilling.ControlObjects
             return resp;
         }
 
-       
 
+        internal DataTable GetNonConsumptionInvoiceDetails(string paymentref) 
+        {
+            try
+            {
+                dt = dh.GetNonConsumptionInvoiceDetails(paymentref);
+            }
+            catch (Exception ex)
+            {
+                Log("GetNonConsumptionInvoiceDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
         internal DataTable GetInvoiceDetails(string appnumber, int countryid, int areaid, int status)
         {
             DataTable dt = new DataTable();
@@ -1733,7 +1760,7 @@ namespace TraceBilling.ControlObjects
                     message.Response_Code = "103";
                     message.Response_Message = "THE CUSTNAME CANNOT BE EMPTY!";
                 }
-                else if (String.IsNullOrEmpty(meterRef))
+                else if (String.IsNullOrEmpty(meterRef) && !tariff.Equals("3"))
                 {
                     message.Response_Code = "103";
                     message.Response_Message = "THE METERREF CANNOT BE EMPTY!";
@@ -1925,9 +1952,28 @@ namespace TraceBilling.ControlObjects
                 }
                 else
                 {
-                    value = false;
+                    value = true;//value = false;
                 }
 
+            }
+            catch (Exception ex)
+            {
+                Log("ValidCustRef", "101 " + ex.Message);
+            }
+            return value;
+        }
+
+        public bool IsCustomerFlat(string custref, string area)
+        {
+            bool value = false;
+            try
+            {
+                dt = dh.CheckCustRefRefInArea(custref, area);
+                string customertype = dt.Rows[0]["custTypeId"].ToString();
+                if (customertype.Equals("1"))
+                {
+                    return true;
+                }
             }
             catch (Exception ex)
             {

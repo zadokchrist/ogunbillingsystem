@@ -157,7 +157,7 @@ namespace TraceBilling
                 string jobnumber = txtjobnumber.Text.Trim();
                 string country = country_list.SelectedValue.ToString();
                 string area = area_list.SelectedValue.ToString();
-                string status = "3";//jobcard
+                string status = "4";//approve survey report
                 lblstatus.Text = status;
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
                 if (dataTable.Rows.Count > 0)
@@ -322,9 +322,9 @@ namespace TraceBilling
             try
             {
                 //save checklist item by id
-                //ArrayList a = new ArrayList();
+                ArrayList a = new ArrayList();
                 string str = "";
-                /* for (int i = 0; i < chkBoxRequired.Items.Count; i++)
+                for (int i = 0; i < chkBoxRequired.Items.Count; i++)
                 {
                     if (chkBoxRequired.Items[i].Selected == true)// getting selected value from CheckBox List  
                     {
@@ -341,7 +341,7 @@ namespace TraceBilling
                 string res = a.Count.ToString() + " survey questions saved and report successfully approved";
 
                 DisplayMessage(res, false);
-                */
+
                 //send to next status 3
                 //new implementation
                 string str_todump = GetRecordsToDump();
@@ -397,9 +397,9 @@ namespace TraceBilling
 
                 }
                 //take log of surveying
-                bll.LogApplicationTransactions(int.Parse(appid), 2, int.Parse(createdby));
+                //bll.LogApplicationTransactions(int.Parse(appid), 2, int.Parse(createdby));
                 //log approval
-                bll.LogApplicationTransactions(int.Parse(appid), 4, int.Parse(createdby));
+                bll.LogApplicationTransactions(int.Parse(appid), 6, int.Parse(createdby));
 
             }
             catch (Exception ex)

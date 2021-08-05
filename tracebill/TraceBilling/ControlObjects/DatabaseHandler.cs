@@ -256,6 +256,20 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        internal DataTable GetApplicationByIDForPayment(string appid) 
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetApplicationByIDForPayment", appid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
         internal DataTable GetApplicationDetails(string appnumber)
         {
             DataTable dt = new DataTable();
@@ -595,6 +609,20 @@ namespace TraceBilling.ControlObjects
             try
             {
                 dt = ExecuteDataSet("Sp_GetInvoiceDetails", appnumber, countryid, areaid, status);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetNonConsumptionInvoiceDetails(string paymentref)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("GetNonConsumptionInvoiceByPaymentRef", paymentref);
             }
             catch (Exception ex)
             {
