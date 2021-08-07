@@ -100,7 +100,7 @@
                  <asp:BoundField DataField="AssignedTo" HeaderText="AssignedTo" NullDisplayText="-" /> 
                <%--  <asp:ButtonField ButtonType="Button" CommandName="btnJobCard" HeaderText="Job Card"
             Text="Print" ItemStyle-ForeColor="Green" />--%>
-                 <asp:ButtonField ButtonType="Button" CommandName="btnSelect" HeaderText="Select"
+                 <asp:ButtonField ButtonType="link" CommandName="btnSelect" HeaderText="Select"
             Text="Select" ItemStyle-ForeColor="Blue"/>
                 
        
@@ -293,7 +293,7 @@
                                    </table></div>
                                    <br /><br />
                                    <asp:Button ID="btnsavematerials" runat="server" Text="Save Material Details" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                   <asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />
+                                   <%--<asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />--%>
                                </center>
                    </div></div>
 
@@ -314,6 +314,16 @@
     <div class="col-md-6">
 
          <table style="width: 50%">
+             <tr>
+                                                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                                                Customer Type</td>
+                                                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                                                                &nbsp;</td>
+                                                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                                                <asp:TextBox ID="txtcusttype" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                                                                    Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+                                                                            </td>
+                                                                        </tr>
              <tr>                                                <td class="InterFaceTableLeftRowUp" style="height: 10px">
                                                                                 Block No</td>
                                                                             <td class="InterFaceTableMiddleRowUp" style="height: 10px">

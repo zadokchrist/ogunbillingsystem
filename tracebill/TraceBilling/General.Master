@@ -296,7 +296,7 @@
               <li><a href="AuthorizeConnection.aspx"><i class="fa fa-circle-o"></i> Authorize Connection (S5)</a></li>
               <%} %> 
 
-                <% if (Session["roleId"].ToString() == "2" || Session["roleId"].ToString() == "6")
+                <% if (Session["roleId"].ToString() == "2")
                                                   {%>  
               <li><a href="PaymentInvoice.aspx"><i class="fa fa-circle-o"></i> Payment Invoicing (S6)</a></li>
               <%} %> 

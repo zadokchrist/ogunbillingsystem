@@ -442,6 +442,8 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        
+
         internal DataTable GetApplicationByIDForPayment(string appid) 
         {
             DataTable dt = new DataTable();
@@ -1749,7 +1751,7 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal ResponseMessage ValidateCustomer(string custName, string meterRef, string propertyRef, string tariff, string category)
+        internal ResponseMessage ValidateCustomer(string custName, string meterRef, string propertyRef, string custtype, string category)
         {
             ResponseMessage message = new ResponseMessage();
             try
@@ -1760,7 +1762,7 @@ namespace TraceBilling.ControlObjects
                     message.Response_Code = "103";
                     message.Response_Message = "THE CUSTNAME CANNOT BE EMPTY!";
                 }
-                else if (String.IsNullOrEmpty(meterRef) && !tariff.Equals("3"))
+                else if (String.IsNullOrEmpty(meterRef) && !custtype.Equals("1"))//exclude flatrate
                 {
                     message.Response_Code = "103";
                     message.Response_Message = "THE METERREF CANNOT BE EMPTY!";
@@ -3057,6 +3059,16 @@ namespace TraceBilling.ControlObjects
             }
             
             return output;
+        }
+        internal bool CheckConnectionDetails(string appid,string flag)
+        {
+            bool value = false;
+            DataTable dt = dh.GetFieldConnectionData(int.Parse(appid),int.Parse(flag));
+            if (dt.Rows.Count > 0)
+            {
+                value = true;
+            }
+            return value;
         }
     }
 }

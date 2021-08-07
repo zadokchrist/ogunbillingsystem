@@ -222,7 +222,12 @@ namespace TraceBilling
                     lblarea.Text = area;
                     lblbranch.Text = branch;
                     lblApplicationCode.Text = appid;
-                    string property = areacode+ "/" + txtblock.Text + "/" + txtconnectionno.Text;
+                    string block = txtblock.Text;
+                    string book = block.Substring(0, 3);
+                    string walk = block.Substring(3, 3);
+                    string newblock = book + "/" + walk;
+                    // string property = areacode+ "/" + txtblock.Text + "/" + txtconnectionno.Text;
+                    string property = areacode + "/" + newblock + "/" + txtconnectionno.Text;
                     txtproperty.Text = property;
                     txtservicetype.Text = dt.Rows[0]["serviceName"].ToString();
                     //P.tariffId,P.classId,P.categoryId,P.disconnectionId,P.IsActive,P.IsSewer
@@ -232,6 +237,7 @@ namespace TraceBilling
                     string disconstatus = dt.Rows[0]["disconnectionId"].ToString();
                     string isactive = dt.Rows[0]["IsActive"].ToString();
                     string issewer = dt.Rows[0]["IsSewer"].ToString();
+                    string areasewer = dt.Rows[0]["hasSewer"].ToString();
                     cboMeterSize.SelectedIndex = cboMeterSize.Items.IndexOf(cboMeterSize.Items.FindByValue(metersize));
                     cboType.SelectedIndex = cboType.Items.IndexOf(cboType.Items.FindByValue(metertype));
                     cboclass.SelectedIndex = cboclass.Items.IndexOf(cboclass.Items.FindByText(classtype));
@@ -257,6 +263,18 @@ namespace TraceBilling
                             chksewer.Checked = true;
                         }
                     }
+                    if(areasewer.Equals("True"))
+                    {
+                       
+                        chksewer.Enabled = true;
+                    }
+                    else
+                    {
+                        chksewer.Checked = false;
+                        chksewer.Enabled = false;
+
+                    }
+                    ManageCreationControls(custtype);
 
                 }
                 else
@@ -276,6 +294,7 @@ namespace TraceBilling
             {
                 cust = new CustomerObj();
                 cust.CustomerType = customertype_list.SelectedValue.ToString();
+                string custtype = customertype_list.SelectedItem.ToString();
                 cust.CustName = txtfullname.Text.Trim();
                 cust.ApplicationNo = txtappnumber.Text.Trim();
                 cust.ApplicationId = lblApplicationCode.Text;
@@ -292,8 +311,6 @@ namespace TraceBilling
                 cust.PropertyRef = txtproperty.Text.Trim();
                 cust.Latitude = txtlattitude.Text.Trim();
                 cust.Longitude = txtlongitude.Text.Trim();
-                cust.MeterMake = cboType.SelectedValue.ToString();
-                cust.MeterSize = cboMeterSize.SelectedValue.ToString();
                 cust.Category = cbocategory.SelectedValue.ToString();
                 cust.Classification = cboclass.SelectedValue.ToString();
                 cust.Tariff = cbotariff.SelectedValue.ToString();
@@ -308,16 +325,26 @@ namespace TraceBilling
                 cust.CustRef = lblCustomerCode.Text;
                 cust.MeterNumber = txtmeterNumber.Text.Trim();
                 cust.Territory = txtterritory.Text.Trim();
+
+                string str = ""; string res = "";
+
                 //set deault
                 //app.ApplicationDate = DateTime.Now;
                 cust.Status = "13"; //creeated
-                string str = ""; string res = "";
-               
-               
-
-                //end default
-                //validate input
-                resp = bll.ValidateCustomer(cust.CustName,cust.MeterRef,cust.PropertyRef,cust.Tariff,cust.Category);
+                                    //validate input
+                resp = bll.ValidateCustomer(cust.CustName, cust.MeterRef, cust.PropertyRef, cust.CustomerType, cust.Category);
+                if (custtype.ToLower().Contains("paid"))
+                {
+                    cust.MeterMake = cboType.SelectedValue.ToString();
+                    cust.MeterSize = cboMeterSize.SelectedValue.ToString();                   
+                   
+                }
+                else//flatrate
+                {
+                    cust.MeterMake = "0";
+                    cust.MeterSize = "0";
+                    txtmeterNumber.Text = "";
+                }
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
 
@@ -344,7 +371,7 @@ namespace TraceBilling
                         res = resp.Response_Message + str;
                         DisplayMessage(res, true);
                     }
-                    RefreshControls();
+
 
 
                 }
@@ -352,6 +379,13 @@ namespace TraceBilling
                 {
                     DisplayMessage(resp.Response_Message, true);
                 }
+                RefreshControls();
+
+
+
+
+                //end default
+
             }
             catch(Exception ex)
             {
@@ -572,5 +606,23 @@ namespace TraceBilling
                 throw ex;
             }
         }
+        private void ManageCreationControls(string customertype)
+        {
+            if (customertype.ToLower().Contains("flat"))
+            {
+               
+                cboType.Enabled = false;
+                txtmeterNumber.Enabled = false;
+                cboMeterSize.Enabled = false;
+                
+            }
+            else
+            {
+                cboType.Enabled = true;
+                txtmeterNumber.Enabled = true;
+                cboMeterSize.Enabled = true;
+            }
+        }
+
     }
 }

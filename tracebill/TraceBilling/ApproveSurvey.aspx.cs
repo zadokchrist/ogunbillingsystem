@@ -399,7 +399,8 @@ namespace TraceBilling
                 //take log of surveying
                 //bll.LogApplicationTransactions(int.Parse(appid), 2, int.Parse(createdby));
                 //log approval
-                bll.LogApplicationTransactions(int.Parse(appid), 6, int.Parse(createdby));
+                bll.LogApplicationTransactions(int.Parse(appid), 5, int.Parse(createdby));//capture invoice
+                bll.LogApplicationTransactions(int.Parse(appid), 6, int.Parse(createdby));//send to 5
 
             }
             catch (Exception ex)

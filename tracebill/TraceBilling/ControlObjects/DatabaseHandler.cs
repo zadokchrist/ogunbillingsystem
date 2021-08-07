@@ -1724,5 +1724,18 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetFieldConnectionData(int appid,int flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetFieldConnectionData", appid,flag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

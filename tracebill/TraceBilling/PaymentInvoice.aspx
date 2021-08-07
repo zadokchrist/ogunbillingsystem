@@ -207,7 +207,8 @@
                                 </td>
                                 <td class="InterFaceTableRightRowUp" style="width: 40%">
                                     <asp:TextBox ID="txtDeposit" runat="server" BackColor="LightGreen" CssClass="InterfaceTextboxLongReadOnly"
-                                        Font-Bold="True" ForeColor="Maroon" Width="80%" onkeyup="javascript:this.value=Comma(this.value);"></asp:TextBox></td>
+                                        Font-Bold="True" ForeColor="Maroon" Width="80%" onkeyup="javascript:this.value=Comma(this.value);"
+                                        AutoPostBack="True" OnTextChanged="txtDeposit_TextChanged"></asp:TextBox></td>
                                <td class="InterFaceTableRightRowUp" style="width: 20%; background-color: white;
                                     text-align: left">
                                     <%--<asp:CheckBox ID="chkDeposit" runat="server" Font-Bold="True" Text="Tick" />--%>
@@ -339,10 +340,10 @@
                                                              <asp:BoundColumn DataField="IsConfirmed" HeaderText="Confirmed">
                                                                 <HeaderStyle Width="10%" />
                                                                 </asp:BoundColumn>
-                                                            <asp:ButtonColumn CommandName="btnView" HeaderText="View" Text="View">
+                                                          <%--  <asp:ButtonColumn CommandName="btnView" HeaderText="View" Text="View">
                                                                 <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False"
                                                                     Font-Underline="False" ForeColor="Blue" />
-                                                            </asp:ButtonColumn>
+                                                            </asp:ButtonColumn>--%>
                                                             
                                                         </Columns>
                                                         <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />

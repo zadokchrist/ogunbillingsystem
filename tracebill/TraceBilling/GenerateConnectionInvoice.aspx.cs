@@ -202,6 +202,8 @@ namespace TraceBilling
                 btnreturn.Visible = true;
                 connectioninvoice.Visible = false;
                 lblapplicant.Visible = false;
+                btncustomer.Visible = false;
+                btnmaterials.Visible = false;
                 LoadConnectionDetails();
             }
             catch (Exception ex)
@@ -226,6 +228,7 @@ namespace TraceBilling
                     btnreturn.Visible = true;
                     connectioninvoice.Visible = true;
                     customerdisplay.Visible = true;
+                    materialdisplay.Visible = false;
                     //txtcategory.Text = GridViewIssue.Rows[index].Cells[1].Text;
                     ShowConnectionInvoiceDetails(jobnumber);
                 }
@@ -276,6 +279,7 @@ namespace TraceBilling
                     lblapplicant.Text = applicant;
                     //see customer details
                     showcustomerdetails(lblApplicationCode.Text);
+                    EnableButtonControls();
 
                 }
                 else
@@ -292,7 +296,12 @@ namespace TraceBilling
         //protected void rtnTariff_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //}
-
+        private void EnableButtonControls()
+        {
+            btnmaterials.Visible = true;
+            btncustomer.Visible = true;
+            lblapplicant.Visible = true;
+        }
 
 
         protected void gv_surveyjobs_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -333,15 +342,28 @@ namespace TraceBilling
 
         protected void btnmaterials_Click(object sender, EventArgs e)
         {
-            customerdisplay.Visible = false;
-            materialdisplay.Visible = true;
-            //condetails.Visible = false;
-            LoadMaterialCategories();
+            //check if connection details are saved
             string appid = lblApplicationCode.Text.Trim();
-            LoadCostingMaterials(int.Parse(appid));
-            LoadCostingItems(int.Parse(appid));
-            LoadPipeDiameterList();
-            LoadPipeTypeList();
+            bool connectionsaved = bll.CheckConnectionDetails(appid,"1");
+            if(connectionsaved)
+            {
+                customerdisplay.Visible = false;
+                materialdisplay.Visible = true;
+                //condetails.Visible = false;
+                LoadMaterialCategories();
+
+                LoadCostingMaterials(int.Parse(appid));
+                LoadCostingItems(int.Parse(appid));
+                LoadPipeDiameterList();
+                LoadPipeTypeList();
+                DisplayMessage(".", false);
+            }
+            else
+            {
+                string str = "Please click to save customer details before material estimates";
+                DisplayMessage(str, true);
+            }
+            
         }
 
         protected void btnsavecustomer_Click(object sender, EventArgs e)
@@ -440,8 +462,8 @@ namespace TraceBilling
                         DisplayMessage(res, false);
                     }
                     //log to next level
-                    bll.LogApplicationTransactions(int.Parse(applicationid), 5, int.Parse(createdby));//capture invoice
-                    bll.LogApplicationTransactions(int.Parse(applicationid), 6, int.Parse(createdby));//generate invoice
+                   // bll.LogApplicationTransactions(int.Parse(applicationid), 5, int.Parse(createdby));//capture invoice
+                    bll.LogApplicationTransactions(int.Parse(applicationid), 10, int.Parse(createdby));//generate invoice
                     //clear conrols
                     ClearEstimatesControls();
                 }
@@ -453,10 +475,10 @@ namespace TraceBilling
             }
         }
 
-        protected void btnPrintInvoice_Click(object sender, EventArgs e)
-        {
+        //protected void btnPrintInvoice_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         protected void btnsubmititem_Click(object sender, EventArgs e)
         {

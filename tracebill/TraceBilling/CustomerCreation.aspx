@@ -79,7 +79,7 @@
                 </div>--%>
                              <asp:GridView ID="gv_surveyjobs" runat="server" 
                        CssClass="grid-text" CellPadding="10" 
-                              ForeColor="#333333" GridLines="None" Width="100%"
+                              ForeColor="#333333" GridLines="None" Width="90%"
                                   AutoGenerateColumns="False" OnRowCommand="gv_surveyjobs_OnRowCommand"
                                   OnRowDataBound="gv_surveyjobs_RowDataBound"                                 
                                  >
@@ -102,7 +102,7 @@
                  <asp:BoundField DataField="statusName" HeaderText="Status" NullDisplayText="-" /> 
                <%--  <asp:ButtonField ButtonType="Button" CommandName="btnJobCard" HeaderText="Job Card"
             Text="Print" ItemStyle-ForeColor="Green" />--%>
-                 <asp:ButtonField ButtonType="Button" CommandName="btnSelect" HeaderText="Select"
+                 <asp:ButtonField ButtonType="link" CommandName="btnSelect" HeaderText="Select"
             Text="Select" ItemStyle-ForeColor="Blue"/>
                 
        
@@ -386,7 +386,7 @@
                                                                                     &nbsp;</td>
                                                                                 <td class="InterFaceTableRightRow" style="height: 10px">
                                                                                     <asp:TextBox ID="txtblock" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%"></asp:TextBox>
+                                                                                        Width="80%" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
                                                                                 </td>
                                                                             </tr>
             <tr>

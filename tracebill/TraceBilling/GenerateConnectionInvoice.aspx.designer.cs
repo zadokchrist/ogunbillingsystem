@@ -409,15 +409,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Button btnsavematerials;
         
         /// <summary>
-        /// btnPrintInvoice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnPrintInvoice;
-        
-        /// <summary>
         /// lblApplicationCode control.
         /// </summary>
         /// <remarks>

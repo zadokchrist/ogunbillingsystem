@@ -127,7 +127,7 @@ namespace TraceBilling
                 string applicationame = txtapplicationname.Text.Trim();
                 string country = country_list.SelectedValue.ToString();
                 string area = area_list.SelectedValue.ToString();
-                string status = "6";
+                string status = "10";
                 DataTable dataTable = bll.GetApplicationByStatus(applicationame, country, area, status);
                 if (dataTable.Rows.Count > 0)
                 {
@@ -306,7 +306,7 @@ namespace TraceBilling
                     output = "Action logged successfully as " + action;
                 }
                 bll.LogApplicationTransactions(int.Parse(applicationid), statusid, int.Parse(createdby));                
-                DisplayMessage(output, true);
+                DisplayMessage(output, false);
                 ClearControls();
             }
             catch (Exception ex)

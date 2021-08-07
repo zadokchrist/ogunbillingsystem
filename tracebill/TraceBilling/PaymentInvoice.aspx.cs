@@ -8,6 +8,10 @@ using System.Data;
 using TraceBilling.ControlObjects;
 using TraceBilling.EntityObjects;
 using System.Drawing;
+using System.IO;
+using System.Text;
+using System.Collections;
+
 namespace TraceBilling
 {
     public partial class PaymentInvoice : System.Web.UI.Page
@@ -31,7 +35,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message,true);
+                DisplayMessage(ex.Message, true);
             }
         }
         private void LoadCountryList()
@@ -118,7 +122,7 @@ namespace TraceBilling
                 string area = area_list.SelectedValue.ToString();
                 string status = "";
                 string roleid = Session["roleId"].ToString();
-                if(roleid.Equals("2"))//commercial
+                if (roleid.Equals("2"))//commercial
                 {
                     status = "7";
                 }
@@ -206,7 +210,7 @@ namespace TraceBilling
         protected void btngenerate_Click(object sender, EventArgs e)
         {
             generateinvoice.Visible = true;
-           // approveinvoice.Visible = false;
+            // approveinvoice.Visible = false;
             confirminvoice.Visible = false;
             reconcileinvoice.Visible = false;
             if (bll.CheckPaymentInvoice(lblApplicationCode.Text))
@@ -218,7 +222,7 @@ namespace TraceBilling
             else
             {
                 btninvoicegeneration.Visible = true;
-               // btninvoicegeneration.ForeColor = Color.LightBlue;
+                // btninvoicegeneration.ForeColor = Color.LightBlue;
                 txtDeposit.ReadOnly = false;
             }
         }
@@ -226,7 +230,7 @@ namespace TraceBilling
         protected void btnapprove_Click(object sender, EventArgs e)
         {
             generateinvoice.Visible = false;
-           // approveinvoice.Visible = true;
+            // approveinvoice.Visible = true;
             confirminvoice.Visible = false;
             reconcileinvoice.Visible = false;
         }
@@ -234,7 +238,7 @@ namespace TraceBilling
         protected void btnconfirm_Click(object sender, EventArgs e)
         {
             generateinvoice.Visible = false;
-           // approveinvoice.Visible = false;
+            // approveinvoice.Visible = false;
             confirminvoice.Visible = true;
             reconcileinvoice.Visible = false;
             LoadSlipConfirmation();
@@ -243,7 +247,7 @@ namespace TraceBilling
         protected void btnreconcile_Click(object sender, EventArgs e)
         {
             generateinvoice.Visible = false;
-           // approveinvoice.Visible = false;
+            // approveinvoice.Visible = false;
             confirminvoice.Visible = false;
             reconcileinvoice.Visible = true;
             LoadReconcileControls();
@@ -254,7 +258,7 @@ namespace TraceBilling
             try
             {
                 string appcode = lblApplicationCode.Text.Trim();
-                string a = "",b = "",c="",d="",e="",f="";
+                string a = "", b = "", c = "", d = "", e = "", f = "";
                 string str = "";
                 DataTable dt = bll.GetInvoiceDetailsByAppNumber(appcode);
                 if (dt.Rows.Count > 0)
@@ -266,7 +270,7 @@ namespace TraceBilling
                         string paymentcode = dr["paymentCode"].ToString();
                         double invoiced = Convert.ToDouble(dr["amountInvoiced"].ToString());
                         double paid = Convert.ToDouble(dr["totalPaid"].ToString());
-                        if(paymentcode.Equals("NC"))
+                        if (paymentcode.Equals("NC"))
                         {
                             a = paymentref + ":" + invoiced.ToString();
                             b = paymentref + ":" + paid.ToString();
@@ -282,7 +286,7 @@ namespace TraceBilling
                     txtinvoice1.Text = lblInvoiced.Text;
                     txtpaid1.Text = lblpaid.Text;
                     //ToString("#,##0");
-                    double total = 0,total2=0;
+                    double total = 0, total2 = 0;
                     //decimal total2 = 0;
                     foreach (DataRow dr1 in dt.Rows)
                     {
@@ -292,7 +296,7 @@ namespace TraceBilling
                         f = total2.ToString("#,##0");
                     }
 
-                    if(total2 < total)
+                    if (total2 < total)
                     {
                         str = "Total amount paid: " + f + " is less than Total invoiced: " + e;
                     }
@@ -316,7 +320,7 @@ namespace TraceBilling
             //generate reference for each slip
             bool newcon = false;
             bool deposit = false;
-            if(!txtNew.Equals(""))
+            if (!txtNew.Equals(""))
             {
                 newcon = true;
             }
@@ -334,7 +338,7 @@ namespace TraceBilling
                 string[] array = strArray.Split(',');
                 string appcode = lblApplicationCode.Text.Trim();
                 GeneratePaySlips(array, appcode);
-               // LoadSlipConfirmation();
+                // LoadSlipConfirmation();
             }
         }
 
@@ -344,7 +348,7 @@ namespace TraceBilling
             {
                 string appcode = lblApplicationCode.Text.Trim();
                 DataTable dt = bll.GetInvoiceDetailsByAppNumber(appcode);
-                if(dt.Rows.Count > 0)
+                if (dt.Rows.Count > 0)
                 {
                     DataGrid1.DataSource = dt;
                     DataGrid1.DataBind();
@@ -355,28 +359,28 @@ namespace TraceBilling
                     DisplayMessage(str, true);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
         }
         protected void DataGrid1_ItemCommand(object source, DataGridCommandEventArgs e)
         {
-            try
-            {
+        //    try
+        //    {
 
-                if (e.CommandName == "btnView")
-                {
-                    //string ApplicationID = e.Item.Cells[1].Text;
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        if (e.CommandName == "btnView")
+        //        {
+        //            //string ApplicationID = e.Item.Cells[1].Text;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
         }
 
-        public void PrintFoam(string paymentref,string areaid)
+        public void PrintFoam(string paymentref, string areaid)
         {
             try
             {
@@ -411,7 +415,7 @@ namespace TraceBilling
             try
             {
 
-               
+
             }
             catch (Exception ex)
             {
@@ -436,7 +440,7 @@ namespace TraceBilling
                     if (Code != "")
                     {
                         string Amount = GetAmount(Code);
-                        returned = bll.GenerateAdviceSlipRef(appcode, Amount,Code,createdby);
+                        returned = bll.GenerateAdviceSlipRef(appcode, Amount, Code, createdby);
                         if (!returned.Contains("Successfully"))
                         {
                             Msg = returned;
@@ -466,9 +470,9 @@ namespace TraceBilling
                     }
                 }
                 DisplayMessage(Msg, true);
-              
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -479,14 +483,14 @@ namespace TraceBilling
             if (Code == "NC")
             {
                 output = txtgross.Text.Trim();
-               
+
             }
             else if (Code == "DP")
             {
                 output = txtDeposit.Text.Trim();
-               
+
             }
-            
+
             return output;
         }
 
@@ -510,7 +514,9 @@ namespace TraceBilling
                     dt = bll.GetInvoiceDetailsByAppNumber(appnumber);
                     if (dt.Rows.Count > 0)
                     {
-                        foreach(DataRow dr in dt.Rows)
+                        ArrayList a = new ArrayList();//sucess
+                        ArrayList b = new ArrayList();//fail
+                        foreach (DataRow dr in dt.Rows)
                         {
                             string PaymentRef = dr["paymentRef"].ToString();
                             double invoiced = Convert.ToDouble(dr["amountInvoiced"].ToString());
@@ -519,24 +525,36 @@ namespace TraceBilling
                             string Confirmed = dr["IsConfirmed"].ToString();
                             string paid = dr["IsPaid"].ToString();
 
-                            if(amountpaid >= invoiced)//update result
+                            if (amountpaid >= invoiced)//update result
                             {
                                 //check invoice status
+                                a.Add(PaymentRef);
+
                             }
                             else
                             {
                                 //display error
+                                b.Add(PaymentRef);
                             }
                         }
-                        string appid = lblappid.Text;
-                        string createdby = Session["UserID"].ToString();
-                        //take log of paid..check paid invoices
-                        //bll.LogApplicationTransactions(int.Parse(appid), 8, int.Parse(createdby));//payment reconciled
-                        bll.LogApplicationTransactions(int.Parse(appid), 11, int.Parse(createdby));//payment confirmed
+                        if (a.Count > 0)
+                        {
+                            string appid = lblappid.Text;
+                            string createdby = Session["UserID"].ToString();
+                            //take log of paid..check paid invoices
+                            //bll.LogApplicationTransactions(int.Parse(appid), 8, int.Parse(createdby));//payment reconciled
+                            bll.LogApplicationTransactions(int.Parse(appid), 11, int.Parse(createdby));//send to field
+                            DisplayMessage("Payment invoices confirmed successfully", false);
+                        }
+                        else
+                        {
+                            DisplayMessage("Sorry, No payment made against payment invoices", true);
+                        }
+
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -567,12 +585,12 @@ namespace TraceBilling
                     ShowInvoiceDetails(appnumber);
                 }
             }
-            
+
         }
 
         private void ShowInvoiceDetails(string appnumber)
         {
-           try
+            try
             {
                 string status = "";
                 string roleid = Session["roleId"].ToString();
@@ -596,7 +614,7 @@ namespace TraceBilling
                 DataTable dt = bll.GetInvoiceDetails(appnumber, 0, 0, int.Parse(status));
                 if (dt.Rows.Count > 0)
                 {
-                    
+
                     txtappcode.Text = dt.Rows[0]["ApplicationNumber"].ToString();
                     txtname.Text = dt.Rows[0]["ApplicantName"].ToString();
                     string jobno = dt.Rows[0]["JobNumber"].ToString();
@@ -607,7 +625,7 @@ namespace TraceBilling
                     double vat = Convert.ToDouble(dt.Rows[0]["Vat"].ToString());
                     txtNew.Text = New.ToString("#,##0");
                     txtDeposit.Text = deposit.ToString("#,##0");
-                   // txtvat.Text = vat.ToString("#,##0");
+                    // txtvat.Text = vat.ToString("#,##0");
                     //load controls
                     btnlinks.Visible = true;
                     string applicant = txtappcode.Text + "-->" + txtname.Text;
@@ -618,7 +636,7 @@ namespace TraceBilling
                     double gross = New + vat;
                     txtgross.Text = gross.ToString("#,##0");
                     //check if invoice already generated
-                    if(bll.CheckPaymentInvoice(lblApplicationCode.Text))
+                    if (bll.CheckPaymentInvoice(lblApplicationCode.Text))
                     {
                         generateinvoice.Visible = false;
                         confirminvoice.Visible = true;
@@ -636,7 +654,7 @@ namespace TraceBilling
                     DisplayMessage(str, true);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 DisplayMessage(ex.Message, true);
             }
@@ -679,6 +697,15 @@ namespace TraceBilling
         protected void btnreconexport_Click(object sender, EventArgs e)
         {
 
+        }
+        protected void txtDeposit_TextChanged(object sender, EventArgs e)
+        {
+            string newcon = txtNew.Text;
+            string newconvat = txtgross.Text;
+            string deposit = txtDeposit.Text;
+
+            double totalCharge = double.Parse(newconvat) + double.Parse(deposit);
+            txtTotalFee.Text = totalCharge.ToString("#,##0");
         }
     }
 }

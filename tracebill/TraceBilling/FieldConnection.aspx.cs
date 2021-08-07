@@ -184,7 +184,9 @@ namespace TraceBilling
                 connectioninvoice.Visible = false;
                 docketdisplay.Visible = false;
                 lblapplicant.Visible = false;
-                btnlinks.Visible = false;
+               // btnlinks.Visible = false;
+                btnmaterials.Visible = false;
+                btndocket.Visible = false;
                 LoadConnectionDetails();
             }
             catch (Exception ex)
@@ -208,7 +210,8 @@ namespace TraceBilling
 
                     maindisplay.Visible = false;
                     btnreturn.Visible = true;
-                    connectioninvoice.Visible = true;
+                   // btnlinks.Visible = true;
+                   connectioninvoice.Visible = true;
 
                     //txtcategory.Text = GridViewIssue.Rows[index].Cells[1].Text;
                     ShowMaterialDetails(jobnumber);
@@ -232,6 +235,7 @@ namespace TraceBilling
             //btnlinks.Visible = true;
             //connectioninvoice.Visible = true;
             //docketdisplay.Visible = false;
+           // connectioninvoice.Visible = true;
             try
             {
                 DataTable dt = bll.GetSurveyReportDetails(jobnumber, 0, 0, 11);
@@ -258,7 +262,8 @@ namespace TraceBilling
                     lblcustomertype.Text = customertype;
                     //see customer details
                      showmaterialdetails(lblApplicationCode.Text);
-
+                    ManageFieldControls(customertype);
+                    EnableButtonControls();
                 }
                 else
                 {
@@ -270,6 +275,13 @@ namespace TraceBilling
             {
                 DisplayMessage(ex.Message, true);
             }
+        }
+
+        private void EnableButtonControls()
+        {
+            btnmaterials.Visible = true;
+            btndocket.Visible = true;
+            lblapplicant.Visible = true;
         }
 
         private void showmaterialdetails(string text)
@@ -379,10 +391,10 @@ namespace TraceBilling
             }
         }
 
-        protected void btnPrintInvoice_Click(object sender, EventArgs e)
-        {
+        //protected void btnPrintInvoice_Click(object sender, EventArgs e)
+        //{
 
-        }
+        //}
 
         protected void btnsubmititem_Click(object sender, EventArgs e)
         {
@@ -641,6 +653,7 @@ namespace TraceBilling
             txtMeterLife.Text = "";
             txtManufacturedDate.Text = "";
             txtReading.Text = "";
+            txtcusttype.Text = "";
 
         }
         private void ClearEstimatesControls()
@@ -650,21 +663,32 @@ namespace TraceBilling
             pipediameter_list.SelectedValue = "0";
             pipematerial_list.SelectedValue = "0";
             lblestimateid.Text = "0";
+            txtcomment.Text = "";
 
         }
 
         protected void btndocket_Click(object sender, EventArgs e)
         {
-            //materialdisplay.Visible = false;
-            docketdisplay.Visible = true;
-            connectioninvoice.Visible = false;
-            LoadMaterialCategories();
+            //check if connection details are saved
             string appid = lblApplicationCode.Text.Trim();
-            LoadPipeSizeList();
-            LoadMeterTypes();
-            LoadBlockSession();
-            LoadDocketByApplication(int.Parse(appid));
-            DisplayMessage(".", false);
+            bool connectionsaved = bll.CheckConnectionDetails(appid,"2");
+            if (connectionsaved)
+            {
+                //materialdisplay.Visible = false;
+                docketdisplay.Visible = true;
+                connectioninvoice.Visible = false;
+                LoadMaterialCategories();               
+                LoadPipeSizeList();
+                LoadMeterTypes();
+                LoadBlockSession();
+                LoadDocketByApplication(int.Parse(appid));
+                DisplayMessage(".", false);
+            }
+            else
+            {
+                string str = "Please click to save material expenditure before field docket";
+                DisplayMessage(str, true);
+            }
         }
 
         private void LoadDocketByApplication(int appid)
@@ -695,6 +719,7 @@ namespace TraceBilling
                     cboMeterSize.SelectedIndex = cboMeterSize.Items.IndexOf(cboMeterSize.Items.FindByValue(metersize));
                     cboType.SelectedIndex = cboType.Items.IndexOf(cboType.Items.FindByValue(metertype));
                     cboBlock.SelectedIndex = cboBlock.Items.IndexOf(cboBlock.Items.FindByText(blockno));
+                    txtcusttype.Text = lblcustomertype.Text;
                 }
             }
             catch(Exception ex)
@@ -763,29 +788,36 @@ namespace TraceBilling
             {
 
                 string customertype = lblcustomertype.Text;
+                string longitude = txtlongitude.Text.Trim();
+                string latitude = txtlattitude.Text.Trim();
+                string remark = txtRemark.Text.Trim();
+                string applicationid = lblApplicationCode.Text.Trim();
+                string RecordCode = lblMeterCode.Text.Trim();
+                string ConnectionCode = lblConnectionCode.Text.Trim();
+                string installedby = Session["userId"].ToString();//txtInstalledby.Text.Trim();
+                string installdate = txtInstallationDate.Text.Trim();
+                string blocknumber = cboBlock.SelectedItem.ToString();
+                string connectionno = txtConnectionNo.Text.Trim();
+                string createdby = Session["UserID"].ToString();
+                string applicant = lblapplicant.Text.Trim();
+                DateTime installdt = Convert.ToDateTime(installdate);
                 if (customertype.ToLower().Contains("paid"))
                 {
-                    string RecordCode = lblMeterCode.Text.Trim();
-                    string ConnectionCode = lblConnectionCode.Text.Trim();
+                    
                     string meterref = txtMeterRef.Text.Trim();
-                    string applicationid = lblApplicationCode.Text.Trim();
+                   
                     string pipediameter = cboMeterSize.SelectedValue.ToString();
                     string metertype = cboType.SelectedValue.ToString();
                     string meternumber = txtNumber.Text.Trim();
-                    string remark = txtRemark.Text.Trim();
-                    string createdby = Session["UserID"].ToString();
-                    string applicant = lblapplicant.Text.Trim();
-                    string longitude = txtlongitude.Text.Trim();
-                    string latitude = txtlattitude.Text.Trim();
+                   
+                  
+         
                     string reading = txtReading.Text.Trim();
                     string dials = txtDials.Text.Trim();
                     string meterlife = txtMeterLife.Text.Trim();
                     string manufacturedate = txtManufacturedDate.Text.Trim();
-                    string installedby = Session["userId"].ToString();//txtInstalledby.Text.Trim();
-                    string installdate = txtInstallationDate.Text.Trim();
-                    string blocknumber = cboBlock.SelectedItem.ToString();
-                    string connectionno = txtConnectionNo.Text.Trim();
-                    DateTime installdt = Convert.ToDateTime(installdate);
+                
+                   
                     DateTime manufacturedt = Convert.ToDateTime(manufacturedate);
                     //if (!ConnectionCode.Equals("0"))//record being updated
                     //{
@@ -816,6 +848,10 @@ namespace TraceBilling
                     {
                         DisplayMessage("Please enter valid dials on meter", true);
                     }
+                    else if (installdate == "")
+                    {
+                        DisplayMessage("Please enter valid date of installation", true);
+                    }
                     else if (!bll.IsValidReadingDate(installdate))
                     {
                         string Todate = DateTime.Now.ToString("dd/MM/yyyy");
@@ -841,13 +877,49 @@ namespace TraceBilling
                         }
                     }
                 
-                    //log to next level
-                    int status = 12;//forward to billing
-                    bll.LogApplicationTransactions(int.Parse(applicationid), status, int.Parse(createdby));
-                    //clear conrols
-                    DisplayMessage("Application updated successfully and forwarded to billing for customer creation", false);
-                    ClearDocketControls();
+                  
                 }
+                else//save flat rate
+                {
+                     if (remark == "")
+                    {
+                        DisplayMessage("Please enter a valid general field comment", true);
+                    }
+                    else if (installdate == "")
+                    {
+                        DisplayMessage("Please enter valid date of installation", true);
+                    }
+                    else if (!bll.IsValidReadingDate(installdate))
+                    {
+                        string Todate = DateTime.Now.ToString("dd/MM/yyyy");
+                        DisplayMessage("Invalid Meter Installation Date, It cannot be greater than Today ( " + Todate + " )", true);
+                    }
+                     else
+                    {
+                        //save details
+                        resp = bll.SaveFieldDocket(RecordCode, applicationid, "0", "0", "", "", createdby, remark, longitude, latitude,
+                            "0", "0", "0", DateTime.Now, installedby, installdt, blocknumber, connectionno);
+                        if (resp.Response_Code == "0")//save
+                        {
+                            string str = " with field docket details against application(" + applicant + ") sucessfully saved.";
+                            string res = resp.Response_Message + str;
+                            DisplayMessage(res, false);
+                        }
+                        else if (resp.Response_Code == "1")//edit and update
+                        {
+
+                            string str = " with field docket details against application(" + applicant + ") updated";
+                            string res = resp.Response_Message + str;
+                            DisplayMessage(res, false);
+                        }
+                    }
+                }
+                //log to next level
+                int status = 12;//forward to billing
+                bll.LogApplicationTransactions(int.Parse(applicationid), status, int.Parse(createdby));
+                //clear conrols
+                DisplayMessage("Application updated successfully and forwarded to billing for customer creation", false);
+                ClearDocketControls();
 
             }
             catch (Exception ex)
@@ -922,5 +994,31 @@ namespace TraceBilling
                 DisplayMessage(ex.Message, true);
             }
         }
+        private void ManageFieldControls(string customertype)
+        {
+            if (customertype.ToLower().Contains("flat"))
+            {
+                btnGetMeterRef.Enabled = false;
+                cboType.Enabled = false;
+                txtNumber.Enabled = false;
+                cboMeterSize.Enabled = false;
+                txtReading.Enabled = false;
+                txtDials.Enabled = false;
+                txtMeterLife.Enabled = false;
+                txtManufacturedDate.Enabled = false;
+            }
+            else
+            {
+                btnGetMeterRef.Enabled = true;
+                cboType.Enabled = true;
+                txtNumber.Enabled = true;
+                cboMeterSize.Enabled = true;
+                txtReading.Enabled = true;
+                txtDials.Enabled = true;
+                txtMeterLife.Enabled = true;
+                txtManufacturedDate.Enabled = true;
+            }
+        }
+            
     }
 }

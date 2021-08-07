@@ -77,7 +77,7 @@
                 </div>--%>
                              <asp:GridView ID="gv_surveyjobs" runat="server" 
                        CssClass="grid-text" CellPadding="10" 
-                              ForeColor="#333333" GridLines="None" Width="100%"
+                              ForeColor="#333333" GridLines="None" Width="90%"
                                   AutoGenerateColumns="False" OnRowCommand="gv_surveyjobs_OnRowCommand"
                                   OnRowDataBound="gv_surveyjobs_RowDataBound"                                 
                                  >
@@ -380,7 +380,7 @@
                                    </table></div>
                                    <br /><br />
                                    <asp:Button ID="btnsavematerials" runat="server" Text="Save Details" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
-                                   <asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />
+<%--                                   <asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />--%>
                                </center>
                    </div>
                    </fieldset>
