@@ -1470,8 +1470,10 @@ namespace TraceBilling.ControlObjects
             string output = "";
             try
             {
+
                 ExecuteCommand("Sp_SaveMeterRequestLogs", custref, meterref, oldtype, oldsize,int.Parse(olddials), int.Parse(prevrdg), serial, Convert.ToDateTime(prerdgdt), int.Parse(appfnlrdg), Convert.ToDateTime(appfnlrdgdt), isestimated,
-                    int.Parse(consumption), reason, newserial, newsize, newmake, int.Parse(newdials), Convert.ToDateTime(manufacturedt), int.Parse(newlife), comment, int.Parse(appinitialrdg), Convert.ToDateTime(appinitedgdt),
+                    int.Parse(consumption), reason, 
+                    newserial, newsize, newmake, int.Parse(newdials), Convert.ToDateTime(manufacturedt), int.Parse(newlife), comment, int.Parse(appinitialrdg), Convert.ToDateTime(appinitedgdt),
                     int.Parse(createdby), requesttype,int.Parse(areaid),int.Parse(branchid),period,servedby);
                 output = "success";
 
@@ -1736,6 +1738,48 @@ namespace TraceBilling.ControlObjects
                 throw ex;
             }
             return dt;
+        }
+
+        internal string ModifyMeter(string action, string requesttype,
+            string meterRef, string custRef, string serial, string oldReading, string oldRdgDate,
+            string curReading, string curRdgDate1, bool isestimated, string newReading, string dials,
+            string installedBy, string curRdgDate2, string type, string size, string life,
+            string manufacturedDate, string reason, string area, string branch, string createdby,
+            string period, string finalconsumption, string suppressioncode, string approvercomment, string recordid)
+        {
+
+            string output = "";
+            try
+            {
+                ExecuteCommand("Sp_ModifyMeter", meterRef, serial, int.Parse(life), Convert.ToDateTime(manufacturedDate),
+                    size, int.Parse(type), int.Parse(dials), installedBy, reason, area, int.Parse(createdby), 0, requesttype,
+                    "M", 1, isestimated, int.Parse(curReading), Convert.ToDateTime(curRdgDate1), "", int.Parse(oldReading),
+                   Convert.ToDateTime(oldRdgDate), "", int.Parse(finalconsumption), "", int.Parse(branch), installedBy,
+                   period, 0, int.Parse(newReading), custRef, 0, suppressioncode, 1, 1, 0, 1, "N/A", 0, "WS", DateTime.Now,
+                   action,approvercomment,int.Parse(recordid));
+                output = "success";
+
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                Log("Sp_ModifyMeter", "101 " + ex.Message);
+                output = ex.Message;
+            }
+            return output;
+        }
+
+        internal void UpdateMeterRequestStatus(string custRef, string requestid, string action, string approvercomment, string createdBy, bool iscompleted)
+        {
+            try
+            {
+                ExecuteCommand("Sp_UpdateMeterRequestStatus", custRef,int.Parse(requestid),action,approvercomment,int.Parse(createdBy),iscompleted);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

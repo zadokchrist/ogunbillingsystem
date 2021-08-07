@@ -121,6 +121,24 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblapplicant;
         
         /// <summary>
+        /// returnbtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl returnbtn;
+        
+        /// <summary>
+        /// btnreturn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnreturn;
+        
+        /// <summary>
         /// searchdisplay control.
         /// </summary>
         /// <remarks>
@@ -265,13 +283,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl servicingisplay;
         
         /// <summary>
-        /// txtCustName control.
+        /// lblservice control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCustName;
+        protected global::System.Web.UI.WebControls.Label lblservice;
         
         /// <summary>
         /// txtViewMeterRef control.
@@ -463,13 +481,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl replacementdisplay;
         
         /// <summary>
-        /// txtnamereplace control.
+        /// lblreplace control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtnamereplace;
+        protected global::System.Web.UI.WebControls.Label lblreplace;
         
         /// <summary>
         /// txtmeterefrep control.
@@ -751,6 +769,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl confirmdisplay;
         
         /// <summary>
+        /// lblapproval control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblapproval;
+        
+        /// <summary>
         /// txtConfirmreqtype control.
         /// </summary>
         /// <remarks>
@@ -758,6 +785,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtConfirmreqtype;
+        
+        /// <summary>
+        /// txtconfirmid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtconfirmid;
         
         /// <summary>
         /// txtconfirmcustref control.
@@ -1037,5 +1073,23 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblperiod;
+        
+        /// <summary>
+        /// lblsizeid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsizeid;
+        
+        /// <summary>
+        /// lbltypeid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbltypeid;
     }
 }

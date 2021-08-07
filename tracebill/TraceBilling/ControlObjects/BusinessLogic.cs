@@ -1184,6 +1184,8 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
+       
+
         private bool IsPayRefExisting(string paymentCode, string applicationId)
         {
             bool value = false;
@@ -2777,10 +2779,15 @@ namespace TraceBilling.ControlObjects
         internal string ModifyMeter(string action, string requesttype, string meterRef, string custRef, string serial, 
             string oldReading, string oldRdgDate, string curReading, string curRdgDate1, bool isestimated, string newReading,
             string dials, string installedBy, string curRdgDate2, string type, string size, string life, string manufacturedDate,
-            string reason, string area, string branch)
+            string reason, string area, string branch,string createdby,string period,string finalconsumption,string suppressioncode,
+            string approvercomment,string requestid)
         {
             string output = "";
-            output = "success";
+            output = dh.ModifyMeter(action, requesttype, meterRef, custRef, serial,
+            oldReading, oldRdgDate, curReading, curRdgDate1, isestimated, newReading,
+            dials, installedBy, curRdgDate2, type, size, life, manufacturedDate,
+             reason,  area, branch,createdby,period,finalconsumption,suppressioncode,approvercomment,requestid);
+           // output = "success";
             return output;
         }
         internal DataTable getCredentialsFile(string area, string branch)
@@ -3069,6 +3076,17 @@ namespace TraceBilling.ControlObjects
                 value = true;
             }
             return value;
+        }
+        internal void UpdateMeterRequestStatus(string custRef, string requestid, string action, string approvercomment, string createdBy, bool iscompleted)
+        {
+            try
+            {
+                dh.UpdateMeterRequestStatus(custRef,requestid,action,approvercomment,createdBy,iscompleted);
+            }
+            catch (Exception ex)
+            {
+                Log("UpdateMeterRequestStatus", "101 " + ex.Message);
+            }
         }
     }
 }

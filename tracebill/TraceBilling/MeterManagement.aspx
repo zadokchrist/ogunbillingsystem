@@ -82,6 +82,10 @@
               </center>
 
               </div>
+               <div id="returnbtn" runat="server">
+              <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
+                                    runat="server" Text="Return to metering list" onclick="btnReturn_Click" />
+          </div>
              <div id="searchdisplay" runat="server" visible="false">
                  <h5 class="inline">View customer Logs</h5>
              
@@ -259,8 +263,9 @@
                                             <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                             </td>
                                             <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                &nbsp;<asp:TextBox ID="txtCustName" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                    Font-Bold="True" ForeColor="DarkRed" Width="90%" style="text-align: center"></asp:TextBox>
+                                               <%-- &nbsp;<asp:TextBox ID="txtCustName" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" Width="90%" style="text-align: center"></asp:TextBox>--%>
+                                                 <asp:Label ID="lblservice" runat="server" Text="." Font-Bold="true" ForeColor="DarkRed"></asp:Label>
                                             </td>
                                         </tr>
                                     </table>
@@ -516,8 +521,10 @@
                                             <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                             </td>
                                             <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                &nbsp;<asp:TextBox ID="txtnamereplace" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                    Font-Bold="True" ForeColor="DarkRed" Width="90%" style="text-align: center"></asp:TextBox>
+                                                <%--&nbsp;<asp:TextBox ID="txtnamereplace" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" Width="90%" style="text-align: center"></asp:TextBox>--%>
+                                                 <asp:Label ID="lblreplace" runat="server" Text="." Font-Bold="true" ForeColor="DarkRed"></asp:Label>
+
                                             </td>
                                         </tr>
                                     </table>
@@ -861,7 +868,7 @@
                 <asp:LinkButton ID="approbalButton"
                                 runat="server"
                                 CommandName="RowApprove" 
-                      CommandArgument='<%#Eval("custref") + ";" +Eval("recordId")%>'              
+                      CommandArgument='<%#Eval("custref") + ";" +Eval("recordId") + ";" +Eval("name")%>'              
                                 Text="select" />
                  
             </ItemTemplate>
@@ -888,10 +895,28 @@
                    <div id="confirmdisplay" runat="server" visible="false">
                        <hr />
                        <table style="width: 100%">
-                          
+                          <tr>
+                                <td colspan="3" style="vertical-align: top; width: 100%; text-align: center">
+                                    <table align="center" cellpadding="0" cellspacing="0" style="width: 60%">
+                                        <tr>
+                                            <td class="InterFaceTableLeftRowUp" style="height: 10px">
+                                                Name</td>
+                                            <td class="InterFaceTableMiddleRowUp" style="height: 10px">
+                                            </td>
+                                            <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                                <%--&nbsp;<asp:TextBox ID="txtnamereplace" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" Width="90%" style="text-align: center"></asp:TextBox>--%>
+                                                 <asp:Label ID="lblapproval" runat="server" Text="." Font-Bold="true" ForeColor="DarkRed"></asp:Label>
+
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
                             <tr>
                                 <td style="vertical-align: top; width: 48%; text-align: right">
                                     <table align="right" cellpadding="0" cellspacing="0" style="width: 70%">
+
                                          <tr>
                                             <td class="InterFaceTableLeftRow" style="height: 10px">
                                                 Request Type</td>
@@ -899,6 +924,15 @@
                                                 &nbsp;</td>
                                             <td class="InterFaceTableRightRow" style="height: 10px">
                                                 <asp:TextBox ID="txtConfirmreqtype" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                                    Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="InterFaceTableLeftRow" style="height: 10px">
+                                                Request Number</td>
+                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
+                                                &nbsp;</td>
+                                            <td class="InterFaceTableRightRow" style="height: 10px">
+                                                <asp:TextBox ID="txtconfirmid" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
                                                     Font-Bold="True" ForeColor="DarkRed" ReadOnly="True" Width="90%"></asp:TextBox>&nbsp;</td>
                                         </tr>
                                          <tr>
@@ -1186,15 +1220,16 @@
                             </td>
                         </tr>
                     </table>
-                   </div>
-                     <center>
+                        <center>
                                  
                 <asp:Button ID="btnsave" runat="server" Text="Save" cssclass ="btn-primary" OnClick="btnsave_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp; 
-                        <asp:Button ID="btncancel" runat="server" Text="Cancel" cssclass ="btn-primary" OnClick="btncancel_Click" />
+                        <asp:Button ID="btncancel" runat="server" Text="Return" cssclass ="btn-primary" OnClick="btncancel_Click" />
               &nbsp;&nbsp;&nbsp;&nbsp; 
               
                    </center>
+                   </div>
+                    
            
                    </fieldset>                                                      
               
@@ -1206,6 +1241,8 @@
             <asp:Label ID="lblarea" runat="server" Text="0" Visible="False"></asp:Label> 
           <asp:Label ID="lblbranch" runat="server" Text="0" Visible="False"></asp:Label> 
           <asp:Label ID="lblperiod" runat="server" Text="0" Visible="False"></asp:Label> 
+          <asp:Label ID="lblsizeid" runat="server" Text="0" Visible="False"></asp:Label>
+          <asp:Label ID="lbltypeid" runat="server" Text="0" Visible="False"></asp:Label>
         
     </form>
 

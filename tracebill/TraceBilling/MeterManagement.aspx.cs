@@ -200,15 +200,25 @@ namespace TraceBilling
 
         protected void Button3_Click(object sender, EventArgs e)
         {
-            string roleid = Session["roleId"].ToString();
-            if (roleid.Equals("9"))//BO
+            //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+            string areaid = area_list.SelectedValue.ToString();
+            if(areaid.Equals("0"))
             {
-                LoadDisplay();
+                DisplayMessage("Please select an operation area", true);
             }
-            else if (roleid.Equals("4"))//BM
+            else
             {
-                LoadApprovalRequests();
+                string roleid = Session["roleId"].ToString();
+                if (roleid.Equals("9"))//BO
+                {
+                    LoadDisplay();
+                }
+                else if (roleid.Equals("4"))//BM
+                {
+                    LoadApprovalRequests();
+                }
             }
+         
         }
 
         protected void btninventorysave_Click(object sender, EventArgs e)
@@ -439,8 +449,10 @@ namespace TraceBilling
                     meterservice.Visible = false;
                     meterreplacement.Visible = false;
                     metertransfer.Visible = true;
-                    DisplayMessage(".", true);
+                    string str = "Sorry, meter transfer not available yet.";
+                    DisplayMessage(str, true);
                 }
+                btnreturn.Visible = true;
 
             }
             catch(Exception ex)
@@ -465,14 +477,16 @@ namespace TraceBilling
                     txtsizerep.Text = dTable.Rows[0]["size"].ToString();
                     txtmakerep.Text = dTable.Rows[0]["meterName"].ToString();
                     txtserialrep.Text = dTable.Rows[0]["serial"].ToString();
-                    txtnamereplace.Text = dTable.Rows[0]["customerName"].ToString();
+                    string name = dTable.Rows[0]["customerName"].ToString();
                     txtmeterefrep.Text = dTable.Rows[0]["meterRef"].ToString();
                     txtproprefrep.Text = dTable.Rows[0]["propertyRef"].ToString();
                     txtdialsrep.Text = dTable.Rows[0]["dials"].ToString();
                     LoadReplacementReasons();
                     LoadMeterTypes_rep();
                     LoadPipeSizeList();
-
+                    lblreplace.Text = name + "-->" + custref;
+                    searchdisplay.Visible = false;
+                    //btnreturn.Visible = true;
                 }
             }
             catch (Exception ex)
@@ -497,11 +511,13 @@ namespace TraceBilling
                     txtViewSize.Text = dTable.Rows[0]["size"].ToString();
                     txtViewType.Text = dTable.Rows[0]["meterName"].ToString();
                     txtViewSerial.Text = dTable.Rows[0]["serial"].ToString();
-                    txtCustName.Text = dTable.Rows[0]["customerName"].ToString();
+                    string name = dTable.Rows[0]["customerName"].ToString();
                     txtViewMeterRef.Text = dTable.Rows[0]["meterRef"].ToString();
                     txtViewPropRef.Text = dTable.Rows[0]["propertyRef"].ToString();
                     txtViewDial.Text = dTable.Rows[0]["dials"].ToString();
-                   
+                    lblservice.Text = name + "-->" + custref;
+                    searchdisplay.Visible = false;
+                    //btnreturn.Visible = true;
                 }
             }
             catch(Exception ex)
@@ -566,12 +582,12 @@ namespace TraceBilling
                 string reason = cboReason.SelectedItem.ToString();
                 string olddials = txtViewDial.Text ;
                 //new initials
-                string newserial = "";
-                string newsize = "";
-                string newmake = "";
-                string newdials = "0";
+                string newserial = serial;
+                string newsize = oldsize;
+                string newmake = oldtype;
+                string newdials = olddials;
                 string manufacturedt = prerdgdt;
-                string newlife ="0";
+                string newlife = "0";
                 string comment = txtInitialReason.Text.Trim();
                 string appinitialrdg = txtInitialReading.Text;
                 string appinitedgdt = txtInitialRdgDate.Text;
@@ -630,6 +646,7 @@ namespace TraceBilling
             meterservice.Visible = false;
             meterreplacement.Visible = false;
             metertransfer.Visible = false;
+            searchdisplay.Visible = true;
         }
         private void LoadServiceReasons()
         {
@@ -686,7 +703,7 @@ namespace TraceBilling
                 string meterref = txtmeterefrep.Text;
                 string oldtype = txtmakerep.Text;
                 string oldsize = txtsizerep.Text;
-                string prevrdg = txtprerdgdtrep.Text;
+                string prevrdg = txtprerdgrep.Text;
                 string serial = txtserialrep.Text;
                 string prerdgdt = txtprerdgdtrep.Text;
                 string appfnlrdg = txtrdgreplace.Text;
@@ -695,28 +712,26 @@ namespace TraceBilling
                 string consumption = txtconsumptionrep.Text;
                 string reason = cboReasonrep.SelectedItem.ToString();
                 string olddials = txtdialsrep.Text ;
+              
                 //newdetails
-                string newserial = txtNewSerial.Text;
-                string newsize = cboMeterSize.SelectedItem.ToString();
-                string newmake = cboType2.SelectedItem.ToString();
-                string newdials = txtnewdials.Text;
+                 string newserial = txtNewSerial.Text;
+                 string newsize = cboMeterSize.SelectedItem.ToString();
+                 string newmake = cboType2.SelectedItem.ToString();
+                 string newdials = txtnewdials.Text;
                 string manufacturedt = txtManufacturedDate.Text;
-                string newlife = txtnewliferep.Text;
-                //string newserial = "";
-                //string newsize = "";
-                //string newmake = "";
-                //string newdials = "0";
-                //string manufacturedt = prerdgdt;
-                //string newlife = "0";
-                string comment = txtcommentrep.Text.Trim();
-                string appinitialrdg = txtNewReading.Text;
-                string appinitedgdt = txtNewRdgDate.Text;
-                string createdby = Session["UserID"].ToString();
-                string requesttype = "REPLACEMENT";//for replacement
-                string areaid = area_list.SelectedValue.ToString();
-                string branchid = "0";
-                string servedby = txtInstalledBy.Text;
-                string period = bll.GetBillingPeriod(areaid);
+                 string newlife = txtnewliferep.Text;
+                 
+                 string comment = txtcommentrep.Text.Trim();
+                 string appinitialrdg = txtNewReading.Text;
+                 string appinitedgdt = txtNewRdgDate.Text;
+                 string createdby = Session["UserID"].ToString();
+                 string requesttype = "REPLACEMENT";//for replacement
+                 string areaid = area_list.SelectedValue.ToString();
+                 string branchid = "0";
+                 string servedby = txtInstalledBy.Text;
+                 string period = bll.GetBillingPeriod(areaid);
+                
+
                 string res = bll.LogMeterRequest(custref, meterref, oldtype, oldsize,olddials, prevrdg, serial, prerdgdt, appfnlrdg, appfnlrdgdt, isestimated,
                    consumption, reason, newserial, newsize, newmake, newdials, manufacturedt, newlife, comment, appinitialrdg, appinitedgdt,
                    createdby, requesttype, areaid, branchid, period,servedby);
@@ -813,6 +828,8 @@ namespace TraceBilling
             meterservice.Visible = false;
             meterreplacement.Visible = false;
             metertransfer.Visible = false;
+            searchdisplay.Visible = true;
+            DisplayMessage(".", true);
         }
         private void LoadPipeSizeList()
         {
@@ -866,7 +883,9 @@ namespace TraceBilling
             try
             {
                 string requesttype = txtConfirmreqtype.Text.Trim();
-                string Action = cboaction.SelectedItem.ToString();               
+                string requestid = txtconfirmid.Text.Trim();
+                string Action = cboaction.SelectedItem.ToString();
+                string Actionid = cboaction.SelectedValue.ToString();
                 string MeterRef = txtConfirmMeterRef.Text.Trim();
                 string custRef = txtconfirmcustref.Text.Trim();
                 string Serial = txtconfirmnewserial.Text.Trim();
@@ -876,6 +895,8 @@ namespace TraceBilling
                 string CurRdgDate = txtConfirmCurRdgDate.Text.Trim();
                 string NewReading = txtconfirmnewreading.Text.Trim();
                 string NewRdgDate = txtconfirminstalldate.Text.Trim();
+                string finalconsumption = txtConfirmConsumption.Text.Trim();
+                
                 string Reason = txtConfirmreason.Text.Trim();
                 string requestercomment = txtconfirmcomment.Text;
                 string approvercomment = txtapprovercomment.Text;
@@ -883,26 +904,60 @@ namespace TraceBilling
                 string InstalledBy = txtconfirminstalledby.Text.Trim();
                 string Size = txtConfirmSize.Text.Trim();
                 string Type = txtconfirmnewmake.Text;
+                //get ids
+                Size = lblsizeid.Text;
+                Type = lbltypeid.Text;                
                 string Life = txtconfirmnewlife.Text.Trim();
                 string Area = lblarea.Text;
                 string Branch = lblbranch.Text;
                 string period = lblperiod.Text;
                 bool isestimated = chkConfirmEstimated.Checked;
+                string createdBy = Session["UserID"].ToString();
                 string ManufacturedDate = txtconfirmmanufacturedate.Text.Trim();
-                string res = bll.ModifyMeter(Action,requesttype, MeterRef, custRef, Serial, oldReading, OldRdgDate, CurReading,
-                   CurRdgDate, isestimated, NewReading, dials, InstalledBy, CurRdgDate, Type, Size, Life, ManufacturedDate, Reason, Area, Branch);
+                // string period = bll.GetBillingPeriod(Area);
+                string suppressioncode = "1";//active
                 string str = "";
-                if (res.Contains("success"))
+                bool iscompleted = false;
+                if (Actionid.Equals("0"))
                 {
-                    str = "Meter action-"+ requesttype + " completed against customer-" + custRef;
-                    DisplayMessage(str, false);
+                    str = "Please select a required action for approval.";
+                    DisplayMessage(str, true);
                 }
                 else
                 {
-                     str = "Meter action-" + requesttype + " failed against customer-" + custRef;
-                    DisplayMessage(str, true);
+                    if(Actionid.Equals("2"))//rejected
+                    {
+                        //log status
+                        bll.UpdateMeterRequestStatus(custRef, requestid, Action, approvercomment, createdBy,iscompleted);
+                        str = "Meter action-" + requesttype + " rejected against customer-" + custRef;
+                        DisplayMessage(str, false);
+
+                    }
+                    else//accepted
+                    {
+                        string res = bll.ModifyMeter(Action, requesttype, MeterRef, custRef, Serial, oldReading, OldRdgDate, CurReading,
+                  CurRdgDate, isestimated, NewReading, dials, InstalledBy, CurRdgDate, Type, Size, Life, ManufacturedDate, Reason, Area, Branch,
+                  createdBy, period, finalconsumption, suppressioncode, approvercomment, requestid);
+
+                        if (res.Contains("success"))
+                        {
+                            iscompleted = true;
+                            bll.UpdateMeterRequestStatus(custRef, requestid, Action, approvercomment, createdBy, iscompleted);
+                            LoadApprovalRequests();
+                            str = "Meter action-" + requesttype + " approved and completed against customer-" + custRef;
+                            DisplayMessage(str, false);
+                        }
+                        else
+                        {
+                            str = "Meter action-" + requesttype + " failed against customer-" + custRef;
+                            DisplayMessage(str, true);
+                        }
+                    }
+                   
+                    RefreshConfirmControls();
+                    //LoadApprovalRequests();
                 }
-                RefreshConfirmControls();
+                
             }
             catch(Exception ex)
             {
@@ -931,11 +986,19 @@ namespace TraceBilling
            txtConfirmSize.Text="";
             txtconfirmnewmake.Text="";
            txtconfirmnewlife.Text="";
+            txtconfirmid.Text = "";
+            txtConfirmSerial.Text = "";
+            txtConfirmConsumption.Text = "";
+            txtConfirmOldDials.Text = "";
+            txtConfirmType.Text = "";
+            txtconfirmnewsize.Text = "";
+            txtconfirmmanufacturedate.Text = "";
         }
 
         protected void btncancel_Click(object sender, EventArgs e)
         {
             confirmdisplay.Visible = false;
+            DisplayMessage(".", true);
         }
         protected void gv_approvalview_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -969,7 +1032,7 @@ namespace TraceBilling
         {
             string custref = "";
             string flag = "";
-            string recordid = "";
+            string recordid = "";string name = "";
             if (e.CommandName == "RowApprove")
             {
                // custref = Convert.ToString(e.CommandArgument.ToString());
@@ -977,14 +1040,14 @@ namespace TraceBilling
                 arg = e.CommandArgument.ToString().Split(';');
                  custref = arg[0];
                  recordid = arg[1];
-
+                name = arg[2];
             }
            
-            LoadApproverDisplay(custref,recordid);
+            LoadApproverDisplay(custref,recordid,name);
 
         }
 
-        private void LoadApproverDisplay(string custref,string recordid)
+        private void LoadApproverDisplay(string custref,string recordid,string name)
         {
             meterinventory.Visible = false;
             meterservice.Visible = false;
@@ -992,10 +1055,10 @@ namespace TraceBilling
             metertransfer.Visible = false;
             meterapproval.Visible = true;
             DisplayMessage(".", true);
-            LoadCustomerRequests(custref,recordid);
+            LoadCustomerRequests(custref,recordid,name);
         }
 
-        private void LoadCustomerRequests(string custref,string recordid)
+        private void LoadCustomerRequests(string custref,string recordid,string name)
         {
             try
             {
@@ -1011,6 +1074,8 @@ namespace TraceBilling
                     txtConfirmOldDials.Text = dTable.Rows[0]["olddials"].ToString();
                     txtConfirmType.Text = dTable.Rows[0]["oldmake"].ToString();
                     txtConfirmSize.Text = dTable.Rows[0]["oldsize"].ToString();
+                    
+
                     txtConfirmPreReading.Text = dTable.Rows[0]["prevrdg"].ToString();
                     txtConfirmPreRdgDate.Text = dTable.Rows[0]["prerdgdate"].ToString();
                     txtConfirmCurReading.Text = dTable.Rows[0]["appfnlrdg"].ToString();
@@ -1035,9 +1100,27 @@ namespace TraceBilling
                     {
                         chkConfirmEstimated.Checked = true;
                     }
-                    //DateTime CurReadingDate = Convert.ToDateTime(dTable.Rows[0]["CurReadingDate"].ToString());
-                    //txtPreRdgDate.Text = CurReadingDate.ToString("MM/dd/yyyy");
-
+                    txtconfirmid.Text = recordid;
+                    //d.diameterId,T.meterTypeId
+                    string size = dTable.Rows[0]["diameterId"].ToString();
+                    string type = dTable.Rows[0]["meterTypeId"].ToString();
+                    if(size.Equals(""))
+                    {
+                        lblsizeid.Text = "0";
+                    }
+                    else
+                    {
+                        lblsizeid.Text = size;
+                    }
+                    if (type.Equals(""))
+                    {
+                        lbltypeid.Text = "0";
+                    }
+                    else
+                    {
+                        lbltypeid.Text = type;
+                    }
+                    lblapproval.Text = name + "-->" + custref;
 
                 }
                 else
@@ -1051,6 +1134,15 @@ namespace TraceBilling
             }
         }
 
-     
+        protected void btnReturn_Click(object sender, EventArgs e)
+        {
+            meterinventory.Visible = false;
+            meterservice.Visible = false;
+            meterreplacement.Visible = false;
+            metertransfer.Visible = false;
+            searchdisplay.Visible = true;
+            DisplayMessage(".", true);
+            lblcustref.Text = "0";
+        }
     }
 }
