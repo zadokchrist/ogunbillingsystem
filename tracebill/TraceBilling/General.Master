@@ -494,7 +494,7 @@
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> General Reports</a></li>--%>
               <%--<li><a href="#"><i class="fa fa-circle-o"></i> Management Reports</a></li>--%>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Historical Data Migration</a></li>--%>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Audit trails</a></li>
+            <li><a href="GetAuditReport.aspx"><i class="fa fa-circle-o"></i> Audit trails</a></li>
               <%--<li><a href="#"><i class="fa fa-circle-o"></i> Data Import and Export</a></li>--%>
               <%--<li><a href="#"><i class="fa fa-circle-o"></i> Bill re-generation</a></li>--%>
              
