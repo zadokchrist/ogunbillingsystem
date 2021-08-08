@@ -333,7 +333,7 @@ namespace TraceBilling
                         chksewer.Checked = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
                         chkclosed.Checked = Convert.ToBoolean(dataTable.Rows[0]["closed"].ToString());
                         string constatus = dataTable.Rows[0]["disconnectionId"].ToString();
-                        if (constatus.Equals("0"))
+                        if (constatus.Equals("1"))
                         {
                             chkactive.Checked = true;
                         }
