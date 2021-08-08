@@ -29,6 +29,7 @@ namespace TraceBilling
                     int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     LoadAreaList(countryid);
                     LoadApplicationByStatus();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Survey Jobs page");
                 }
             }
             catch (Exception ex)

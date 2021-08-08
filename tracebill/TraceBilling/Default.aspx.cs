@@ -57,6 +57,7 @@ namespace TraceBilling
                     CreateSession(dt);
                     //Response.Redirect("Inquiry.aspx", false);
                     string StartPage = Session["StartPage"].ToString();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Logged Into the system");
                     Redirection(StartPage);
                 }
                 else

@@ -27,6 +27,7 @@ namespace TraceBilling
                     int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     LoadAreaList(countryid);
                     LoadConnectionDetails();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Field Connection page");
                 }
             }
             catch (Exception ex)

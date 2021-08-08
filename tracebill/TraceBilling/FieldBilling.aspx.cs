@@ -36,6 +36,7 @@ namespace TraceBilling
                     int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     LoadAreaList(countryid);
                     LoadDisplay();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Field Billing");
                 }
             }
             catch (Exception ex)
@@ -399,6 +400,8 @@ namespace TraceBilling
                     DataGriddownloads.Visible = false;
 
                 }
+
+                bll.RecordAudittrail(Session["userName"].ToString(), "Processed Route Request");
             }
             catch (Exception ex)
             {

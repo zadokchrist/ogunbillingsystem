@@ -730,6 +730,20 @@ namespace TraceBilling.ControlObjects
                 throw ex;
             }
         }
+        
+        internal DataTable GetAllTransactionsByDate(int countryid, int areaid,string startdate,string enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetAllTransactionsByDate", countryid, areaid,startdate,enddate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
         internal DataTable GetAllTransactions(int countryid, int areaid)
         {
             DataTable dt = new DataTable();
@@ -744,6 +758,7 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+
         internal DataTable GetRouteFile(string country, string area, string branch, string book, string walk)
         {
             DataTable dt = new DataTable();
@@ -756,6 +771,18 @@ namespace TraceBilling.ControlObjects
                 throw ex;
             }
             return dt;
+        }
+
+        internal void RecordAudittrail(string username,string actiontaken) 
+        {
+            try
+            {
+                ExecuteCommand("Sp_InsertAudittrail", username, actiontaken);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
         internal DataTable GetVendorList()
         {

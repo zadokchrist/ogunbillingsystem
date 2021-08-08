@@ -34,6 +34,7 @@ namespace TraceBilling
                     LoadAreaList(countryid);
                     LoadAreaList3(countryid);
                     LoadDisplay();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Billing Cycle page");
                 }
             }
             catch (Exception ex)

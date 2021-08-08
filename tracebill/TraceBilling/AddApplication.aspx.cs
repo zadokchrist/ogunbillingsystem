@@ -48,6 +48,7 @@ namespace TraceBilling
                         LoadAreaList(countryid);
                         LoadAreaList(countryid);
                     }
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Adding New Applicant page");
                 }
             }
             catch (Exception ex)

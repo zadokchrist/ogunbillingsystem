@@ -39,6 +39,7 @@ namespace TraceBilling
                     LoadDisplay();
                     CreateAdjustmentsDataTable();
                     dtUpdate = (DataTable)Session["dtAdjustments"];
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Adjustments page");
                 }
             }
             catch (Exception ex)
