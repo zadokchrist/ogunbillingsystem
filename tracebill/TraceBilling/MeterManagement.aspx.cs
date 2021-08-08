@@ -59,7 +59,7 @@ namespace TraceBilling
             btninventory.Visible = true;
             btnservicing.Visible = true;
             btnreplacement.Visible = true;
-            btntransfer.Visible = true;
+            //btntransfer.Visible = false;
             btnapprove.Visible = false;
 
             int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
@@ -798,7 +798,7 @@ namespace TraceBilling
             btninventory.Visible = false;
             btnservicing.Visible = false;
             btnreplacement.Visible = false;
-            btntransfer.Visible = false;
+            //btntransfer.Visible = false;
             btnapprove.Visible = true;
             int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
             int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());

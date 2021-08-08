@@ -327,7 +327,7 @@
               <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9")
                                                   {%>
                <li><a href="#"><i class="fa fa-circle-o"></i> Change of Name</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Customer Relations Mgt</a></li>--%>
               <li><a href="CloseAccount.aspx"><i class="fa fa-circle-o"></i>Account Closure</a></li>
               <li><a href="AccountReactivation.aspx"><i class="fa fa-circle-o"></i>Account Reactivation</a></li>
 
@@ -411,7 +411,7 @@
 
 <%--           <li><a href="#"><i class="fa fa-circle-o"></i> Service Definition</a></li>--%>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Consumption & Non-Consumption charges </a></li>--%>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Auto & Manual Bill production</a></li>
+           <%-- <li><a href="#"><i class="fa fa-circle-o"></i> Auto & Manual Bill production</a></li>--%>
             
               <%--<li><a href="#"><i class="fa fa-circle-o"></i> Billing Simulations & forecasts</a></li>--%>
               <%--<li><a href="#"><i class="fa fa-circle-o"></i> Invoice Customization</a></li>--%>

@@ -71,9 +71,9 @@
                                         Font-Underline="False" OnClick="btnreplacement_Click" Text="METER REPLACEMENT" cssclass ="btn-primary"
                                         Width="159px" />&nbsp;&nbsp;&nbsp;&nbsp;                 
                                   
-                                    <asp:Button ID="btntransfer" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
+                                    <%--<asp:Button ID="btntransfer" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btntransfer_Click" Text="METER TRANSFER" cssclass ="btn-primary"
-                                        Width="160px" />&nbsp;&nbsp;&nbsp;&nbsp; 
+                                        Width="160px" />&nbsp;&nbsp;&nbsp;&nbsp; --%>
                                      <asp:Button ID="btnapprove" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnapprove_Click" Text="APPROVE REQUESTS" cssclass ="btn-primary"
                                         Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;
