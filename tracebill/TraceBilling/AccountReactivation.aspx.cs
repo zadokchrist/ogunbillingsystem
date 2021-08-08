@@ -295,51 +295,108 @@ namespace TraceBilling
         }
         private void LoadCustomerInformation(string custref)
         {
-            int countryid = 0;
-            int areaid = 0;
-            DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 2);
-            if (dataTable.Rows.Count > 0)
+            try
             {
-                Session["customerareaid"] = dataTable.Rows[0]["areaId"].ToString();
-                area_list3.Text = dataTable.Rows[0]["Area"].ToString();
-                txtInquireCustRef.Text = dataTable.Rows[0]["customerRef"].ToString();
-                txtappnumber.Text = dataTable.Rows[0]["applicationId"].ToString();
-                txtcreationdate.Text = dataTable.Rows[0]["creationDate"].ToString();
-                txtcustomer.Text = dataTable.Rows[0]["customerRef"].ToString();
-                txtMeterRef.Text = dataTable.Rows[0]["meterRef"].ToString();
-                txtcustname.Text = dataTable.Rows[0]["customerName"].ToString();
-                txtcontact.Text = dataTable.Rows[0]["phoneNo1"].ToString();
-                txtbalance.Text = dataTable.Rows[0]["outstandingBalance"].ToString();
-                txtcategory.Text = dataTable.Rows[0]["categoryName"].ToString();
-                txtarea.Text = dataTable.Rows[0]["Area"].ToString();
-                txtaddress.Text = dataTable.Rows[0]["Address"].ToString();
-                txtcusttype.Text = dataTable.Rows[0]["typeName"].ToString();
-                txtemail.Text = dataTable.Rows[0]["custEmail"].ToString();
-                txtlatitude.Text = dataTable.Rows[0]["latitude"].ToString();
-                txtlongitude.Text = dataTable.Rows[0]["longitude"].ToString();
-                txtmetermake.Text = dataTable.Rows[0]["meterName"].ToString();
-                txtmeterNumber.Text = dataTable.Rows[0]["meterNumber"].ToString();
-                txtmetersize.Text = dataTable.Rows[0]["diameter"].ToString();
-                txtproperty.Text = dataTable.Rows[0]["propertyRef"].ToString();
-                txttariff.Text = dataTable.Rows[0]["tarrifName"].ToString();
-                txtterritory.Text = dataTable.Rows[0]["territory"].ToString();
-                txtzone.Text = dataTable.Rows[0]["Branch"].ToString();
-                chksewer.Checked = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
-                chkclosed.Checked = Convert.ToBoolean(dataTable.Rows[0]["closed"].ToString());
-                string constatus = dataTable.Rows[0]["disconnectionId"].ToString();
-                if (constatus.Equals("0"))
+                int countryid = 0;
+                int areaid = 0;
+                DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 2);
+                string customertype = dataTable.Rows[0]["typeName"].ToString();
+                if (customertype.ToLower().Contains("paid"))
                 {
-                    chkactive.Checked = true;
+                    dataTable = bll.GetCustomerDetailsByIDMetered(countryid, areaid, custref, 2);
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        Session["customerareaid"] = dataTable.Rows[0]["areaId"].ToString();
+                        area_list3.Text = dataTable.Rows[0]["Area"].ToString();
+                        txtInquireCustRef.Text = dataTable.Rows[0]["customerRef"].ToString();
+                        txtappnumber.Text = dataTable.Rows[0]["applicationId"].ToString();
+                        txtcreationdate.Text = dataTable.Rows[0]["creationDate"].ToString();
+                        txtcustomer.Text = dataTable.Rows[0]["customerRef"].ToString();
+                        txtMeterRef.Text = dataTable.Rows[0]["meterRef"].ToString();
+                        txtcustname.Text = dataTable.Rows[0]["customerName"].ToString();
+                        txtcontact.Text = dataTable.Rows[0]["phoneNo1"].ToString();
+                        txtbalance.Text = dataTable.Rows[0]["outstandingBalance"].ToString();
+                        txtcategory.Text = dataTable.Rows[0]["categoryName"].ToString();
+                        txtarea.Text = dataTable.Rows[0]["Area"].ToString();
+                        txtaddress.Text = dataTable.Rows[0]["Address"].ToString();
+                        txtcusttype.Text = dataTable.Rows[0]["typeName"].ToString();
+                        txtemail.Text = dataTable.Rows[0]["custEmail"].ToString();
+                        txtlatitude.Text = dataTable.Rows[0]["latitude"].ToString();
+                        txtlongitude.Text = dataTable.Rows[0]["longitude"].ToString();
+                        txtmetermake.Text = dataTable.Rows[0]["meterName"].ToString();
+                        txtmeterNumber.Text = dataTable.Rows[0]["meterNumber"].ToString();
+                        txtmetersize.Text = dataTable.Rows[0]["diameter"].ToString();
+                        txtproperty.Text = dataTable.Rows[0]["propertyRef"].ToString();
+                        txttariff.Text = dataTable.Rows[0]["tarrifName"].ToString();
+                        txtterritory.Text = dataTable.Rows[0]["territory"].ToString();
+                        txtzone.Text = dataTable.Rows[0]["Branch"].ToString();
+                        chksewer.Checked = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
+                        chkclosed.Checked = Convert.ToBoolean(dataTable.Rows[0]["closed"].ToString());
+                        string constatus = dataTable.Rows[0]["disconnectionId"].ToString();
+                        if (constatus.Equals("0"))
+                        {
+                            chkactive.Checked = true;
+                        }
+                        lblapplicant.Text = txtcustname.Text + "-->" + txtcustomer.Text;
+                    }
+                    else
+                    {
+                        string error = "100: " + "No records found";
+                        bll.Log("LoadCustomerInformation", error);
+                        DisplayMessage(error, true);
+                        customerdisplay.Visible = false;
+                    }
                 }
-                lblapplicant.Text = txtcustname.Text + "-->" + txtcustomer.Text;
+                else
+                {
+                    if (dataTable.Rows.Count > 0)
+                    {
+                        Session["customerareaid"] = dataTable.Rows[0]["areaId"].ToString();
+                        area_list3.Text = dataTable.Rows[0]["Area"].ToString();
+                        txtInquireCustRef.Text = dataTable.Rows[0]["customerRef"].ToString();
+                        txtappnumber.Text = dataTable.Rows[0]["applicationId"].ToString();
+                        txtcreationdate.Text = dataTable.Rows[0]["creationDate"].ToString();
+                        txtcustomer.Text = dataTable.Rows[0]["customerRef"].ToString();
+                        txtMeterRef.Text = dataTable.Rows[0]["meterRef"].ToString();
+                        txtcustname.Text = dataTable.Rows[0]["customerName"].ToString();
+                        txtcontact.Text = dataTable.Rows[0]["phoneNo1"].ToString();
+                        txtbalance.Text = dataTable.Rows[0]["outstandingBalance"].ToString();
+                        txtcategory.Text = dataTable.Rows[0]["categoryName"].ToString();
+                        txtarea.Text = dataTable.Rows[0]["Area"].ToString();
+                        txtaddress.Text = dataTable.Rows[0]["Address"].ToString();
+                        txtcusttype.Text = dataTable.Rows[0]["typeName"].ToString();
+                        txtemail.Text = dataTable.Rows[0]["custEmail"].ToString();
+                        txtlatitude.Text = dataTable.Rows[0]["latitude"].ToString();
+                        txtlongitude.Text = dataTable.Rows[0]["longitude"].ToString();
+                        txtmetersize.Text = dataTable.Rows[0]["diameter"].ToString();
+                        txtproperty.Text = dataTable.Rows[0]["propertyRef"].ToString();
+                        txttariff.Text = dataTable.Rows[0]["tarrifName"].ToString();
+                        txtterritory.Text = dataTable.Rows[0]["territory"].ToString();
+                        txtzone.Text = dataTable.Rows[0]["Branch"].ToString();
+                        chksewer.Checked = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
+                        chkclosed.Checked = Convert.ToBoolean(dataTable.Rows[0]["closed"].ToString());
+                        string constatus = dataTable.Rows[0]["disconnectionId"].ToString();
+                        if (constatus.Equals("0"))
+                        {
+                            chkactive.Checked = true;
+                        }
+                        lblapplicant.Text = txtcustname.Text + "-->" + txtcustomer.Text;
+                    }
+                    else
+                    {
+                        string error = "100: " + "No records found";
+                        bll.Log("LoadCustomerInformation", error);
+                        DisplayMessage(error, true);
+                        customerdisplay.Visible = false;
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                string error = "100: " + "No records found";
-                bll.Log("LoadCustomerInformation", error);
-                DisplayMessage(error, true);
-                customerdisplay.Visible = false;
+                DisplayMessage(ex.Message, true);
             }
+
+
         }
 
         protected void btnReturn_Click(object sender, EventArgs e)

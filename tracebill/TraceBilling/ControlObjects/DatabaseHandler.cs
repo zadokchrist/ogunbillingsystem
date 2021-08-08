@@ -1318,6 +1318,20 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        internal DataTable GetCustomerDetailsByIDMetered(int countryid, int areaid, string custref, int flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustomerDetailsByIDMetered", countryid, areaid, custref, flag);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
         internal string GetSystemParameter(string paramCode)
         {
             string output = "0";
