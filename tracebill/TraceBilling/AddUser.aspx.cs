@@ -54,6 +54,7 @@ namespace TraceBilling
                         string UserCode = Request.QueryString["transferid"].ToString();
                         LoadControls(UserCode);
                     }
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Adding New User page");
                 }
             }
             catch (Exception ex)

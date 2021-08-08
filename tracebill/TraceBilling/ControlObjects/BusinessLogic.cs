@@ -1303,6 +1303,36 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetAllTransactionsByDate(int countryid, int areaid,string startdate,string enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = dh.GetAllTransactionsByDate(countryid, areaid,startdate,enddate);
+                if (dt.Rows.Count > 0)
+                {
+                    return dt;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetAllTransactions", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal void RecordAudittrail(string username, string actiontaken) 
+        {
+            try
+            {
+                dh.RecordAudittrail(username, actiontaken);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         internal DataTable GetRouteFile(string country, string area, string branch, string book, string walk)
         {
             DataTable dt = new DataTable();

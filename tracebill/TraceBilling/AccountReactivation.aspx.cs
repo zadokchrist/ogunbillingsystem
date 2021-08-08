@@ -36,6 +36,7 @@ namespace TraceBilling
                     int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     LoadAreaList(countryid);
                     LoadDisplay();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Account Reactivation");
                 }
             }
             catch (Exception ex)

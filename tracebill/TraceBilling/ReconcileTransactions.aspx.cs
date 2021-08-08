@@ -30,6 +30,7 @@ namespace TraceBilling
                     int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     LoadAreaList(countryid);
                     LoadPaymentTransactions();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Reconcile Transactions page");
                 }
             }
             catch (Exception ex)

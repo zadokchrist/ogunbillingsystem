@@ -115,7 +115,9 @@ namespace TraceBilling
             {
                 string countryid = country_list.SelectedValue.ToString();
                 string areaid = area_list.SelectedValue.ToString();
-                DataTable dt = bll.GetAllTransactions(int.Parse(countryid), int.Parse(areaid));
+                string startdate = txtstartdate.Text;
+                string enddate = txtenddate.Text;
+                DataTable dt = bll.GetAllTransactionsByDate(int.Parse(countryid), int.Parse(areaid), startdate,enddate);
                 if (dt.Rows.Count > 0)
                 {
                     DataGrid1.DataSource = dt;
@@ -126,6 +128,8 @@ namespace TraceBilling
                     string str = "No records found.";
                     DisplayMessage(str, true);
                 }
+
+                bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Transactions page");
             }
             catch (Exception ex)
             {
@@ -168,10 +172,10 @@ namespace TraceBilling
         {
             try
             {
-                if (e.CommandName == "btnPrint")
-                {
-                    //string ApplicationID = e.Item.Cells[1].Text;
-                }
+                //if (e.CommandName == "btnPrint")
+                //{
+                //    //string ApplicationID = e.Item.Cells[1].Text;
+                //}
 
             }
             catch (Exception ex)

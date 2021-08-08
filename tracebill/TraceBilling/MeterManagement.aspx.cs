@@ -43,7 +43,7 @@ namespace TraceBilling
                     {
                         LoadApprovalRequests();
                     }
-                    
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Meter Management page");
                 }
             }
             catch (Exception ex)

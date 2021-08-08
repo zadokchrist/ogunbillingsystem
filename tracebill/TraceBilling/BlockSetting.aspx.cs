@@ -26,6 +26,7 @@ namespace TraceBilling
                     LoadAreaList(countryid);
                     LoadBranchList1(0);
                     LoadBlockDetails();
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Block Setting page");
                 }
             }
             catch (Exception ex)

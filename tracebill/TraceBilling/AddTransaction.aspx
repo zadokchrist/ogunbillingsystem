@@ -114,7 +114,7 @@
                     <i class="fa fa-calendar"></i>
                   </div>
                     <%--<asp:TextBox runat="server" class="form-control pull-right" id="datepicker" ReadOnly="true" />--%>
-                    <asp:TextBox ID="txtpaymentDate" CssClass="paymentdate"  runat="server"></asp:TextBox>
+                    <asp:TextBox ID="txtpaymentDate" CssClass="form-control"  runat="server"></asp:TextBox>
                            <%-- <asp:TextBox ID="datepicker" runat="server" CssClass="InterfaceTextboxLongReadOnly"
                                         Font-Bold="True" ForeColor="DarkRed" Width="80%"></asp:TextBox>
 

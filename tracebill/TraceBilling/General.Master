@@ -5,10 +5,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-  
-
-
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <%--<a href="General.Master">General.Master</a>--%>
@@ -423,13 +419,13 @@
            <li class="treeview">
                <% if (Session["roleId"].ToString() == "1" || Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "10" || Session["roleId"].ToString() == "8")
                                                   {%>
-          <a href="#">
+          <%--<a href="#">
             <i class="fa fa-edit"></i>
             <span>Revenue and Debt Mgt</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a>
+          </a>--%>
        
 
           <ul class="treeview-menu">
@@ -494,13 +490,13 @@
           </a>
           <ul class="treeview-menu">
 
-
-            <li><a href="#"><i class="fa fa-circle-o"></i> General Reports</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Management Reports</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Historical Data Migration</a></li>
+              <li><a href="ViewTransactions.aspx"><i class="fa fa-circle-o"></i> Payment Reports</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> General Reports</a></li>--%>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Management Reports</a></li>--%>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Historical Data Migration</a></li>--%>
             <li><a href="#"><i class="fa fa-circle-o"></i> Audit trails</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Data Import and Export</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> Bill re-generation</a></li>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Data Import and Export</a></li>--%>
+              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Bill re-generation</a></li>--%>
              
           </ul>
         </li>
