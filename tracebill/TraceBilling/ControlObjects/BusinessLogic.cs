@@ -1870,6 +1870,19 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal DataTable GetAuditReport(string username, string startdate, string enddate) 
+        {
+            try
+            {
+                dt = dh.GetAuditReport(username, startdate, enddate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
         internal DataTable GetCustomerReportData(string appnumber, string flag)
         {
             dt = new DataTable();

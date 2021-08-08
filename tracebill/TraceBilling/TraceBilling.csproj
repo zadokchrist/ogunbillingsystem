@@ -6884,6 +6884,7 @@
     </Content>
     <Content Include="General.Master" />
     <Content Include="GenerateConnectionInvoice.aspx" />
+    <Content Include="GetAuditReport.aspx" />
     <!--<Content Include="images\tracebilllogo.jpeg" />-->
     <Content Include="icons\lagoswater.png" />
     <Content Include="icons\ogunwater.png" />
@@ -7751,6 +7752,13 @@
     </Compile>
     <Compile Include="GenerateConnectionInvoice.aspx.designer.cs">
       <DependentUpon>GenerateConnectionInvoice.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GetAuditReport.aspx.cs">
+      <DependentUpon>GetAuditReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GetAuditReport.aspx.designer.cs">
+      <DependentUpon>GetAuditReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

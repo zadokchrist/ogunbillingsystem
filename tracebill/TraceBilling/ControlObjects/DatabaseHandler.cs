@@ -1102,6 +1102,20 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+        internal DataTable GetAuditReport(string username, string startdate,string enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetAuditTrail", username, startdate, enddate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
         internal DataTable GetCompanyProfile(string companyid)
         {
             DataTable dt = new DataTable();
