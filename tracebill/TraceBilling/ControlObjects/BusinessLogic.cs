@@ -2489,6 +2489,22 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+        internal DataTable GetCustomerDetailsByIDMetered(int countryid, int areaid, string custref, int flag)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCustomerDetailsByIDMetered(countryid, areaid, custref, flag);
+
+            }
+            catch (Exception ex)
+            {
+                Log("LoadCustomerDisplay", "101 " + ex.Message);
+            }
+            return dt;
+        }
         //reading validation added 31/5/2021
         public string GetReadingFilePath(string fileName, string Reader, string fileType, string Area, string Branch)
         {
