@@ -420,6 +420,11 @@ namespace TraceBilling.ControlObjects
             dh.DeactivateAccount( custref, reason, recordedby);
         }
 
+        internal void ReactivateAccount(string custref,string reason,string recordedby) 
+        {
+            dh.ReactivateAccount(custref, reason, recordedby);
+        }
+
        
 
         internal DataTable GetApplicationByStatus(string applicationame, string country, string area, string status)

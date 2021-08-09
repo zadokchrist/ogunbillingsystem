@@ -219,6 +219,7 @@ namespace TraceBilling
             billdisplay.Visible = false;
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = false;
+            reactivateaccountdisplay.Visible = false;
             customerdisplay.Visible = false;
             string custref = lblcustref.Text;
             LoadCustomerInformation(custref);
@@ -233,6 +234,7 @@ namespace TraceBilling
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = false;
             customerdisplay.Visible = false;
+            reactivateaccountdisplay.Visible = false;
             string custref = lblcustref.Text;
             //LoadAreaList3(int.Parse(countryid));
             string areaid = Session["customerareaid"].ToString();
@@ -250,6 +252,7 @@ namespace TraceBilling
             billdisplay.Visible = false;
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = false;
+            reactivateaccountdisplay.Visible = false;
             customerdisplay.Visible = false;
             string custref = lblcustref.Text;
             LoadCustomerDisplayLogs(custref, 3);
@@ -263,6 +266,7 @@ namespace TraceBilling
             billdisplay.Visible = true;
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = false;
+            reactivateaccountdisplay.Visible = false;
             customerdisplay.Visible = false;
             string custref = lblcustref.Text;
             LoadCustomerDisplayLogs(custref, 4);
@@ -276,6 +280,7 @@ namespace TraceBilling
             billdisplay.Visible = false;
             transactiondisplay.Visible = true;
             paymentdisplay.Visible = false;
+            reactivateaccountdisplay.Visible = false;
             customerdisplay.Visible = false;
             string custref = lblcustref.Text;
             LoadCustomerDisplayLogs(custref, 5);
@@ -289,6 +294,21 @@ namespace TraceBilling
             billdisplay.Visible = false;
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = true;
+            reactivateaccountdisplay.Visible = false;
+            customerdisplay.Visible = false;
+            string custref = lblcustref.Text;
+            LoadCustomerDisplayLogs(custref, 6);
+        }
+
+        protected void btnreactivateacountdetails_Click(object sender, EventArgs e)
+        {
+            btnlinks.Visible = true;
+            custdisplay.Visible = false;
+            readingdisplay.Visible = false;
+            billdisplay.Visible = false;
+            transactiondisplay.Visible = false;
+            paymentdisplay.Visible = false;
+            reactivateaccountdisplay.Visible = true;
             customerdisplay.Visible = false;
             string custref = lblcustref.Text;
             LoadCustomerDisplayLogs(custref, 6);
@@ -336,6 +356,7 @@ namespace TraceBilling
                         if (constatus.Equals("1"))
                         {
                             chkactive.Checked = true;
+                            chkclosed.Checked = true;
                         }
                         lblapplicant.Text = txtcustname.Text + "-->" + txtcustomer.Text;
                     }
@@ -399,6 +420,22 @@ namespace TraceBilling
 
         }
 
+        protected void btnreactivate_Click(object sender, EventArgs e)
+        {
+            string custref = lblcustref.Text;
+            string reasonforactivating = reason.Text;
+            string recordedby = Session["userName"].ToString();
+            if (string.IsNullOrEmpty(reasonforactivating))
+            {
+                DisplayMessage("Please enter reason of Reactivating this account", true);
+            }
+            else
+            {
+                bll.ReactivateAccount(custref, reason.Text, recordedby);
+                DisplayMessage("Account Reactivated successfully", false);
+            }
+        }
+
         protected void btnReturn_Click(object sender, EventArgs e)
         {
             LoadDisplay();
@@ -408,6 +445,7 @@ namespace TraceBilling
             billdisplay.Visible = false;
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = false;
+            reactivateaccountdisplay.Visible = false;
             lblcustref.Text = "0";
         }
         private void LoadCustomerDisplayLogs(string custref, int flag)

@@ -114,6 +114,15 @@ namespace TraceBilling
         protected global::System.Web.UI.WebControls.Button btnpaymentdetails;
 
         /// <summary>
+        /// activateaccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button activateaccount;
+
+        /// <summary>
         /// lblapplicant control.
         /// </summary>
         /// <remarks>
@@ -724,6 +733,33 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvpaymentdisplay;
+
+        /// <summary>
+        /// reactivateaccountdisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl reactivateaccountdisplay;
+
+        /// <summary>
+        /// reason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox reason;
+
+        /// <summary>
+        /// Button2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button2;
 
         /// <summary>
         /// lblcustref control.

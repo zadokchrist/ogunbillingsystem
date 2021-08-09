@@ -439,6 +439,11 @@ namespace TraceBilling.ControlObjects
             ExecuteCommand("sp_CloseAccount", custref, reason, recordedby);
         }
 
+        internal void ReactivateAccount(string custref, string reason, string recordedby)
+        {
+            ExecuteCommand("sp_ReactivateAccount", custref, reason, recordedby);
+        }
+
         internal void LogApplicationTransactions(int appID, int status, int createdBy)
         {
             try

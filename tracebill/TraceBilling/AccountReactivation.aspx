@@ -72,6 +72,9 @@
                                         Font-Underline="False" OnClick="btnpaymentdetails_Click" Text="PAYMENTS" cssclass ="btn-primary"
                                         Width="149px" />&nbsp;
                   <br /><br />
+                  <asp:Button ID="activateaccount" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
+                                        Font-Underline="False" OnClick="btnreactivateacountdetails_Click" Text="REACTIVATE ACCOUNT" cssclass ="btn-primary" />&nbsp;
+                  <br /><br />
                 <asp:Label ID="lblapplicant" runat="server" Text="." ForeColor="Maroon" Font-Bold="true"></asp:Label>
               </center>
 
@@ -156,309 +159,255 @@
           <div id="custdisplay" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
                <fieldset class="panel panel-primary" runat="server">
-    <legend class="w-auto">&nbsp;Customer Details</legend>
+                   <legend class="w-auto">&nbsp;Customer Details</legend>
                  
                    <br< />
                  <%--<p>This is customer display</p>--%>
                    <div class="row">
-    <div class="col-md-6">
+                       <div class="col-md-6">
 
-         <table style="width: 80%">
-             <tr>                                                <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                                                                </td>
-                                                                            <td class="InterFaceTableMiddleRowUp" style="height: 10px">
-                                                                            </td>
-                                                                            <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                                                <asp:Label ID="lblcustdetails" runat="server" Text="Customer Details" ForeColor="Blue" Font-Bold="true"></asp:Label>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                Application Number</td>
-                                                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                &nbsp;</td>
-                                                                            <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                <asp:TextBox ID="txtappnumber" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                    Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
-                                                                            </td>
-                                                                        </tr>
-             <tr>
-                                                                            <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                Creation Date</td>
-                                                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                &nbsp;</td>
-                                                                            <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                <asp:TextBox ID="txtcreationdate" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                    Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
-                                                                            </td>
-                                                                        </tr>
-              <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Customer Ref</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtcustomer" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        ReadOnly="True" Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon"></asp:TextBox><br />
-                                                                                    
-                                                                                </td>
-                                                                            </tr>
-             <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Meter Ref</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtMeterRef" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        ReadOnly="True" Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon"></asp:TextBox><br />
-                                                                                    
-                                                                                </td>
-                                                                            </tr>
-             <tr>
-                                                                            <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                Customer Name</td>
-                                                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                &nbsp;</td>
-                                                                            <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                <asp:TextBox ID="txtcustname" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                    Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
-                                                                            </td>
-                                                                        </tr>
-            
+                           <table style="width: 80%">
+                               <tr>
+                                   <td class="InterFaceTableLeftRowUp" style="height: 10px"></td>
+                                   <td class="InterFaceTableMiddleRowUp" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                       <asp:Label ID="lblcustdetails" runat="server" Text="Customer Details" ForeColor="Blue" Font-Bold="true"></asp:Label>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Application Number</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtappnumber" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Creation Date</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtcreationdate" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Customer Ref</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtcustomer" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                           ReadOnly="True" Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon"></asp:TextBox><br />
 
-             <tr>
-                                                                            <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                Customer Contact </td>
-                                                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                &nbsp;</td>
-                                                                            <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                <asp:TextBox ID="txtcontact" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                    Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="true" ></asp:TextBox>
-                                                                            </td>
-                                                                        </tr>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Meter Ref</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtMeterRef" runat="server" BackColor="LightGray" CssClass="InterfaceTextboxLongReadOnly"
+                                           ReadOnly="True" Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon"></asp:TextBox><br />
 
-             <tr>
-                                                                            <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                Email Address</td>
-                                                                            <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                &nbsp;</td>
-                                                                            <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                <asp:TextBox ID="txtemail" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                    Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="false"></asp:TextBox>
-                                                                            </td>
-                                                                        </tr>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Customer Name</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtcustname" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+                                   </td>
+                               </tr>
 
 
-                                                                            
-                                                                         
-                                                                            
-                                                                           
-             <tr>
-                                                                                <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                                                                    Physical Address</td>
-                                                                                <td class="InterFaceTableMiddleRowUp" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtaddress" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Height="40px" TextMode="MultiLine" Width="80%"></asp:TextBox>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Latitude</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtlatitude" runat="server"  CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
-                                                                                         Width="80%"></asp:TextBox>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Customer Contact </td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtcontact" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="true"></asp:TextBox>
+                                   </td>
+                               </tr>
 
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Longitude</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtlongitude" runat="server"  CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
-                                                                                         Width="80%"></asp:TextBox></td>
-                                                                            </tr>
-             <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Territory</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtterritory" runat="server"  CssClass="InterfaceTextboxLongReadOnly"
-                                                                                         Width="80%"></asp:TextBox></td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="3" style="height: 12px">
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-    </div>
-    <div class="col-md-6">
-       <!--table2 -->
-         <%--<table><tr><td>yyyy</td></tr></table>--%>
-        <table style="width: 80%">
-                                                                            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    </td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:Label ID="lblcustbilling" runat="server" Text="Billing Details" ForeColor="Blue" Font-Bold="true"></asp:Label> 
-                                      
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Customer Type</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtcusttype" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray" ></asp:TextBox>
-                                                                                  
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Area</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtarea" runat="server" CssClass="InterfaceTextboxLongReadOnly" Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
-                                                                                    
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Branch/Zone</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtzone" runat="server" CssClass="InterfaceTextboxLongReadOnly" Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox></td>
-                                                                            </tr>
-            <tr>
-                                                                                <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                                                                    PropertyRef</td>
-                                                                                <td class="InterFaceTableMiddleRowUp" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtproperty" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
-                                                                                </td>
-                                                                            </tr>
-                                                                        <tr>
-                                                                                <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                                                                    Meter &nbsp;Number</td>
-                                                                                <td class="InterFaceTableMiddleRowUp" style="height: 10px">
-                                                                                </td>
-                                                                                <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtmeterNumber" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%"></asp:TextBox>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Meter make</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtmetermake" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
-                                                                                        Width="80%"></asp:TextBox>
-                                                                                </td>
-                                                                            </tr>
-            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Meter Size</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtmetersize" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
-                                                                                        Width="80%"></asp:TextBox>
-                                                                                </td>
-                                                                            </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Email Address</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtemail" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="false"></asp:TextBox>
+                                   </td>
+                               </tr>
 
-            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Tariff</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txttariff" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%" ReadOnly="true"></asp:TextBox>
-                                                                                  
-                                                                                </td>
-                                                                            </tr>
-                      <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Category</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtcategory" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%" ReadOnly="true"></asp:TextBox>
-                                                                                  
-                                                                                </td>
-                                                                            </tr>
-                        <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Outstanding Balance</td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtbalance" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
-                                                                                </td>
-                                                                            </tr>
-           
-            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    </td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                 
-                                                                                    <asp:CheckBox ID="chkactive" runat="server"  Text="Is Suppressed/Inactive?" Enabled="False" Font-Bold="True"/>
-                                                                                </td>
-                                                                            </tr>
-            <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    </td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                 
-                                                                                    <asp:CheckBox ID="chksewer" runat="server"   Text="Has Sewer" Enabled="False" Font-Bold="True"/>
-                                                                                </td>
-                                                                            </tr>
-             <tr>
-                                                                                <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    </td>
-                                                                                <td class="InterFaceTableMiddleRow" style="height: 10px">
-                                                                                    &nbsp;</td>
-                                                                                <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                 
-                                                                                    <asp:CheckBox ID="chkclosed" runat="server"  Text="Is Closed?" Enabled="False" Font-Bold="True" />
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="3" style="height: 12px">
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-    </div>
-</div>
+
+
+
+
+
+                               <tr>
+                                   <td class="InterFaceTableLeftRowUp" style="height: 10px">Physical Address</td>
+                                   <td class="InterFaceTableMiddleRowUp" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                       <asp:TextBox ID="txtaddress" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Height="40px" TextMode="MultiLine" Width="80%"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Latitude</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtlatitude" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
+                                           Width="80%"></asp:TextBox>
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Longitude</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtlongitude" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
+                                           Width="80%"></asp:TextBox></td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Territory</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtterritory" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%"></asp:TextBox></td>
+                               </tr>
+                               <tr>
+                                   <td colspan="3" style="height: 12px"></td>
+                               </tr>
+                           </table>
+                       </div>
+                       <div class="col-md-6">
+                           <!--table2 -->
+                           <%--<table><tr><td>yyyy</td></tr></table>--%>
+                           <table style="width: 80%">
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:Label ID="lblcustbilling" runat="server" Text="Billing Details" ForeColor="Blue" Font-Bold="true"></asp:Label>
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Customer Type</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtcusttype" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Area</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtarea" runat="server" CssClass="InterfaceTextboxLongReadOnly" Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Branch/Zone</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtzone" runat="server" CssClass="InterfaceTextboxLongReadOnly" Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox></td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRowUp" style="height: 10px">PropertyRef</td>
+                                   <td class="InterFaceTableMiddleRowUp" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                       <asp:TextBox ID="txtproperty" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRowUp" style="height: 10px">Meter &nbsp;Number</td>
+                                   <td class="InterFaceTableMiddleRowUp" style="height: 10px"></td>
+                                   <td class="InterFaceTableRightRowUp" style="height: 10px">
+                                       <asp:TextBox ID="txtmeterNumber" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Meter make</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtmetermake" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
+                                           Width="80%"></asp:TextBox>
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Meter Size</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtmetersize" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true"
+                                           Width="80%"></asp:TextBox>
+                                   </td>
+                               </tr>
+
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Tariff</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txttariff" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" ReadOnly="true"></asp:TextBox>
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Category</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtcategory" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" ReadOnly="true"></asp:TextBox>
+
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px">Outstanding Balance</td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+                                       <asp:TextBox ID="txtbalance" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                           Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
+                                   </td>
+                               </tr>
+
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+
+                                       <asp:CheckBox ID="chkactive" runat="server" Text="Is Suppressed/Inactive?" Enabled="False" Font-Bold="True" />
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+
+                                       <asp:CheckBox ID="chksewer" runat="server" Text="Has Sewer" Enabled="False" Font-Bold="True" />
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td class="InterFaceTableLeftRow" style="height: 10px"></td>
+                                   <td class="InterFaceTableMiddleRow" style="height: 10px">&nbsp;</td>
+                                   <td class="InterFaceTableRightRow" style="height: 10px">
+
+                                       <asp:CheckBox ID="chkclosed" runat="server" Text="Is Closed?" Enabled="False" Font-Bold="True" />
+                                   </td>
+                               </tr>
+                               <tr>
+                                   <td colspan="3" style="height: 12px"></td>
+                               </tr>
+                           </table>
+                       </div>
+                   </div>
            
                    </fieldset>                                                      
               
             </div>
                  
        </div>
-
           <div id="readingdisplay" runat="server" visible="false">
               <div class="form-group col-sm-12 col-md-12 col-lg-12">
                   <fieldset class="panel panel-primary" runat="server">
@@ -926,6 +875,25 @@
               </div>
 
           </div>
+          <div id="reactivateaccountdisplay" runat="server" visible="false">
+              <div class="row">
+                  <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                      <label>Reason for Activating</label>
+                      <asp:TextBox ID="reason" runat="server" BackColor="LightBlue" CssClass="InterfaceTextboxLongReadOnly"
+                          Font-Bold="True" ForeColor="Maroon"></asp:TextBox>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class=" form-group col-sm-3 col-md-3 col-lg-3">
+                      <asp:Button ID="Button2" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
+                          Font-Underline="False" OnClick="btnreactivate_Click" Text="REACTIVATE ACCOUNT" CssClass="btn-primary"
+                       />
+                  </div>
+              </div>
+              
+              
+
+          </div>
         <asp:Label ID="lblcustref" runat="server" Text="0" Visible="False"></asp:Label>
 
         
@@ -942,7 +910,7 @@
                 dateFormat: "dd/mm/yy"
             });
         });
-        
+
         function NumberOnly() {
             var AsciiValue = event.keyCode
             if ((AsciiValue >= 48 && AsciiValue <= 57) || (AsciiValue == 8 || AsciiValue == 127))
