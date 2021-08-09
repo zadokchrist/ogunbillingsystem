@@ -32,7 +32,7 @@ namespace TraceBilling
             }
             catch (Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
         private void LoadCountryList()
@@ -225,7 +225,7 @@ namespace TraceBilling
                     lblApplicationCode.Text = appid;
                     string block = txtblock.Text;
                     string book = block.Substring(0, 3);
-                    string walk = block.Substring(3, 3);
+                    string walk = block.Substring(0, 1);
                     string newblock = book + "/" + walk;
                     // string property = areacode+ "/" + txtblock.Text + "/" + txtconnectionno.Text;
                     string property = areacode + "/" + newblock + "/" + txtconnectionno.Text;
@@ -285,7 +285,7 @@ namespace TraceBilling
             }
             catch(Exception ex)
             {
-                throw ex;
+                DisplayMessage(ex.Message, true);
             }
         }
 
