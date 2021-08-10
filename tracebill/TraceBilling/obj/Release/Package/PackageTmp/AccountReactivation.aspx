@@ -878,6 +878,13 @@
           <div id="reactivateaccountdisplay" runat="server" visible="false">
               <div class="row">
                   <div class="form-group col-sm-3 col-md-3 col-lg-3">
+                      <label>Customer Relations Management Refrence</label>
+                      <asp:TextBox ID="crmreference" runat="server" BackColor="LightBlue" CssClass="InterfaceTextboxLongReadOnly"
+                          Font-Bold="True" ForeColor="Maroon"></asp:TextBox>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-sm-3 col-md-3 col-lg-3">
                       <label>Reason for Activating</label>
                       <asp:TextBox ID="reason" runat="server" BackColor="LightBlue" CssClass="InterfaceTextboxLongReadOnly"
                           Font-Bold="True" ForeColor="Maroon"></asp:TextBox>

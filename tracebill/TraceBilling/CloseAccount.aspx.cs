@@ -323,6 +323,7 @@ namespace TraceBilling
             else
             {
                 bll.DeactivateAccount(custref, reason.Text, recordedby, crmreference.Text);
+                bll.RecordAudittrail(Session["userName"].ToString(), "Closed Account with reference "+ custref);
                 DisplayMessage("Account closed successfully", false);
             }
         }
