@@ -429,10 +429,15 @@ namespace TraceBilling
             {
                 DisplayMessage("Please enter reason of Reactivating this account", true);
             }
+            else if (string.IsNullOrEmpty(crmreference.Text))
+            {
+                DisplayMessage("Please Enter CRM reference", true);
+            }
             else
             {
-                bll.ReactivateAccount(custref, reason.Text, recordedby);
+                bll.ReactivateAccount(custref, reason.Text, recordedby, crmreference.Text);
                 DisplayMessage("Account Reactivated successfully", false);
+                bll.RecordAudittrail(Session["userName"].ToString(), "Reactivated Customer with Customer Reference "+ crmreference.Text);
             }
         }
 

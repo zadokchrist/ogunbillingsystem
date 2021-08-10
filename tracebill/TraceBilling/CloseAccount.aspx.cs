@@ -316,9 +316,13 @@ namespace TraceBilling
             {
                 DisplayMessage("Please enter reason of closing this account", true);
             }
+            else if (string.IsNullOrEmpty(crmreference.Text))
+            {
+                DisplayMessage("Please enter Crm Reference", true);
+            }
             else
             {
-                bll.DeactivateAccount(custref, reason.Text, recordedby);
+                bll.DeactivateAccount(custref, reason.Text, recordedby, crmreference.Text);
                 DisplayMessage("Account closed successfully", false);
             }
         }

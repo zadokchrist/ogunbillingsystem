@@ -415,14 +415,14 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
-        internal void DeactivateAccount(string custref, string reason, string recordedby)
+        internal void DeactivateAccount(string custref, string reason, string recordedby,string crmreference)
         {
-            dh.DeactivateAccount( custref, reason, recordedby);
+            dh.DeactivateAccount( custref, reason, recordedby,crmreference);
         }
 
-        internal void ReactivateAccount(string custref,string reason,string recordedby) 
+        internal void ReactivateAccount(string custref,string reason,string recordedby,string crmreference) 
         {
-            dh.ReactivateAccount(custref, reason, recordedby);
+            dh.ReactivateAccount(custref, reason, recordedby, crmreference);
         }
 
        

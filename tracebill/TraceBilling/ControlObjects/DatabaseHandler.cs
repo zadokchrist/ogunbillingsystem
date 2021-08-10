@@ -434,14 +434,14 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-        internal void DeactivateAccount(string custref, string reason, string recordedby)
+        internal void DeactivateAccount(string custref, string reason, string recordedby,string crmreference)
         {
-            ExecuteCommand("sp_CloseAccount", custref, reason, recordedby);
+            ExecuteCommand("sp_CloseAccount", custref, reason, recordedby, crmreference);
         }
 
-        internal void ReactivateAccount(string custref, string reason, string recordedby)
+        internal void ReactivateAccount(string custref, string reason, string recordedby,string crmreference)
         {
-            ExecuteCommand("sp_ReactivateAccount", custref, reason, recordedby);
+            ExecuteCommand("sp_ReactivateAccount", custref, reason, recordedby, crmreference);
         }
 
         internal void LogApplicationTransactions(int appID, int status, int createdBy)
