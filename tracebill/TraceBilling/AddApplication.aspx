@@ -155,14 +155,14 @@
                  
                     </td>
                 </tr>
-                   <tr>
+               <%--    <tr>
                     <td style="width: 502px">
                         <label for="country">Country</label>
             <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
                  OnSelectedIndexChanged="country_list_SelectedIndexChanged">
                 </asp:DropDownList>
                     </td>
-                </tr>
+                </tr>--%>
                  <tr>
                     <td style="width: 502px">
                         <label for="country">Operation Area</label>

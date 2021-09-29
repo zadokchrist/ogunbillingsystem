@@ -305,7 +305,7 @@
               <li><a href="CustomerCreation.aspx"><i class="fa fa-circle-o"></i> Customer Creation (S10)</a></li>
                <%} %>
               <li><a href="ViewApplications.aspx"><i class="fa fa-circle-o"></i> View Application Details</a></li>
-           
+           </li>
           </ul>
         </li>
            <li class="treeview">

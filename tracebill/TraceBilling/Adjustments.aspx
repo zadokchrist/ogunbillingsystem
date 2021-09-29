@@ -378,18 +378,21 @@
               
             </div>--%>
                  
-       </div>
+      
 
 
       <asp:Label ID="lblcustref" runat="server" Text="." Visible="False"></asp:Label>   
         
-    </form>
+    </form> 
+
+	</div>
 
     <br /><br />
         
 	</div>
  
-</div>
+
+    
     <script type="text/javascript">
         $(function () {
             $(".effectivedate").datepicker({
