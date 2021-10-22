@@ -144,9 +144,9 @@ namespace TraceBilling
                 string appnumber = txtappnumber.Text.Trim();
                 string country = "2";
                 string area = area_list.SelectedValue.ToString();
-                string status = "";
+                string status = "0";
                 string roleid = Session["roleId"].ToString();
-                if (roleid.Equals("2"))//commercial
+                if (roleid.Equals("2") || roleid.Equals("10"))//commercial
                 {
                     status = "7";
                 }
@@ -616,9 +616,9 @@ namespace TraceBilling
         {
             try
             {
-                string status = "";
+                string status = "0";
                 string roleid = Session["roleId"].ToString();
-                if (roleid.Equals("2"))//commercial
+                if (roleid.Equals("2") || roleid.Equals("10"))//commercial
                 {
                     status = "7";
                 }

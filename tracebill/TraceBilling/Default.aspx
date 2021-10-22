@@ -63,12 +63,13 @@
       <div class="form-group has-feedback">
           <asp:Label ID="lblmsg" runat="server" Text="" ForeColor="red"></asp:Label>
     
-        <asp:TextBox ID="txtusername" runat="server" CssClass="form-control" placeholder="Username or Email"  required></asp:TextBox>
+        <asp:TextBox ID="txtusername" runat="server" CssClass="form-control" placeholder="Username or Email" ></asp:TextBox>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <asp:TextBox ID="txtpassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="Password"  required></asp:TextBox>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <asp:TextBox ID="txtpassword" runat="server" CssClass="form-control" TextMode="Password" placeholder="Password" ></asp:TextBox>
+       <input type="checkbox" id="pass1" onclick="showpass(this);" />Show
+           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
           <div class="form-group has-feedback">
              <asp:checkbox runat="server" id="ckremember"></asp:checkbox><label for="rememberme">Remember me</label>
@@ -113,27 +114,20 @@
 <!-- AdminLTE for demo purposes -->
 <script src="assets/dist/js/demo.js"></script>
 <script type="text/javascript" src="assets/plugins/jquery.maskedinput.js"></script>
-<script>
-    //jQuery(function ($) {
-    //    $(".txtDateOfEvaluation").mask("99/99/9999", { placeholder: "mm/dd/yyyy" });
-    //});
-</script>
-<script src="assets/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script>
-    //Date picker
-    $(".txtAge, .txtAdmissionDate, .txtDateOfEvaluation").datepicker({
-    //autoclose: true
-});
-</script>
-<script src="assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
-<script>
-    //Timepicker
-    $(".timepicker").timepicker({
-        showInputs: false
-    });
-</script>
-
 
 </body>
+    <script type="text/javascript">
+    function showpass(check_box) {
+        var spass = document.getElementById("txtpassword");
+        if (check_box.checked) {
+            spass.setAttribute("type", "text");
+          
+        }
+        else {
+            spass.setAttribute("type", "password");
+            
+        }
+    }
+        </script>
 </html>
 
