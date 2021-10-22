@@ -259,7 +259,9 @@ namespace TraceBilling
                         resp = bll.SaveApplication(app);
                         if (resp.Response_Code == "0")
                         {
-                             str = " with new application(" + app.ApplicationNo + ") details saved and forwareded to surveyor for futher action";
+                            string ApplicationID = "0";
+                            UploadFiles(ApplicationID);
+                            str = " with new application(" + app.ApplicationNo + ") details saved and forwareded to surveyor for futher action";
                          
                              res = resp.Response_Message + str;
                             DisplayMessage(res, false);
@@ -282,6 +284,24 @@ namespace TraceBilling
             catch(Exception ex)
             {
                 throw ex;
+            }
+        }
+        private void UploadFiles(string ApplicationCode)
+        {
+            HttpFileCollection uploads;
+            uploads = HttpContext.Current.Request.Files;
+            int countfiles = 0;
+            for (int i = 0; i <= (uploads.Count - 1); i++)
+            {
+                if (uploads[i].ContentLength > 0)
+                {
+                    string c = System.IO.Path.GetFileName(uploads[i].FileName);
+                    string cNoSpace = c.Replace(" ", "-");
+                    string c1 = "Serial-" + ApplicationCode + "-" + (countfiles + i + 1) + "-" + cNoSpace;
+                    string Path = bll.GetFileApplicationPath();
+                    FileField.PostedFile.SaveAs(Path + "" + c1);
+                    bll.SaveApplicationFiles(ApplicationCode, (Path + "" + c1), c);
+                }
             }
         }
 
@@ -393,5 +413,45 @@ namespace TraceBilling
             }
 
         }
+        protected void gvdocuments_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+
+        }
+        protected void gvdocuments_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            if (e.CommandName == "RowDelete")
+            {
+                //string UserID = e.Item.Cells[0].Text;
+                string ItemId = "0";
+
+                //ItemId = e.Item.Cells[1].Text;
+                ItemId = Convert.ToString(e.CommandArgument.ToString());
+                //delete record              
+                string appno = lblapplication.Text;
+                string deletedby = Session["UserID"].ToString();
+                bll.DeleteApplicationItem(appno, int.Parse(ItemId), deletedby);
+                LoadAttachments(appno);
+            }
+           
+
+        }
+
+        private void LoadAttachments(string appid)
+        {
+            DataTable dt = bll.GetFileAttachments(appid);
+            gvdocuments.DataSource = dt;
+            gvdocuments.DataBind();
+        }
+
+        protected void gvdocuments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void gvdocuments_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+           
+        }
+
     }
 }

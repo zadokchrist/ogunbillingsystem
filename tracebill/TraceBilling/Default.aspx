@@ -24,6 +24,13 @@
   <link rel="stylesheet" href="assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.css" />
 
     
+    <style type="text/css">
+        .auto-style1 {
+            width: 87%;
+        }
+    </style>
+
+    
 </head>
 <!-- <body class="hold-transition register-page" style="background-color:#eee;"> -->
 <%-- <body class="hold-transition register-page" style="background:url('assets/dist/img/background1.jpg') no-repeat center center fixed;">--%>
@@ -40,10 +47,16 @@
 
       <div class="register-logo">
 <%--        <img src="images/tracelogo.png" style="height:70px; width: 85px" />--%>
-            <img src="images/tracebilllogo.png" style="height:70px; width: 85px" />
+           <img src="images/ogunwater.png" style="height:70px; width: 85px" />
+         <%-- <table class="auto-style1">
+              <tr>
+                  <td align="left"> <img src="images/tracebilllogo.png" style="height:70px; width: 85px" /></td>
+                  <td align="right"> <img src="images/ogunwater.png" style="height:70px; width: 85px" /></td>
+              </tr>
+          </table>--%>
 
       </div>
-      <h6><b><font color="black"><center>TRACEBILL SYSTEM</center></b></h6>
+      <h6><b><font color="black"><center>OGUN WATER BILLING SYSTEM</center></b></h6>
     
    
       <div>

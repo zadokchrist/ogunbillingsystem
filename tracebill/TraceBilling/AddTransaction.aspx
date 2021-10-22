@@ -38,13 +38,13 @@
                     </td>
                 </tr>
                
-                <tr>
+                <%--<tr>
                     <td style="width: 502px">
                         <asp:Label runat="server" Text="Country" Font-Bold="true" ></asp:Label>
                  
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtcounry"  placeholder="enter country" ReadOnly="true"/>
                     </td>
-                </tr>
+                </tr>--%>
                 <tr>
                     <td style="width: 502px">
                         <asp:Label runat="server" Text="Operation Area" Font-Bold="true"></asp:Label>

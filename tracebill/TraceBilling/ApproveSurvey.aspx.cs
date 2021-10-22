@@ -13,7 +13,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using iTextSharp.text.html.simpleparser;
 using RKLib.ExportData;
-//using System.Web.UI.WebControl.
+
 namespace TraceBilling
 {
     public partial class ApproveSurvey : System.Web.UI.Page
@@ -29,12 +29,34 @@ namespace TraceBilling
             {
                 if (IsPostBack == false)
                 {
+                                       
+                    if (Session["roleId"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
+                    else
+                    {
+                        string sessioncountryid = Session["countryId"].ToString();
 
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
-                    LoadSurveyReportDetails();
-                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Approve Survey page");
+                        if (!sessioncountryid.Equals("1"))
+                        {
+
+                            LoadAreaList(int.Parse(sessioncountryid));
+                            area_list.SelectedIndex = area_list.Items.IndexOf(new System.Web.UI.WebControls.ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                            area_list.Enabled = false;
+                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                            // LoadBranchList(operationid);
+                        }
+                        else
+                        {
+                            //int countryid = int.Parse(country_list.SelectedValue.ToString());
+                            int countryid = int.Parse(sessioncountryid);
+                            LoadAreaList(countryid);
+                        }
+                        LoadSurveyReportDetails();
+                        bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Approve Survey page");
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -42,25 +64,25 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        private void LoadCountryList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
+        //private void LoadCountryList()
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetCountryList();
+        //        country_list.DataSource = dt;
 
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        country_list.DataTextField = "countryName";
+        //        country_list.DataValueField = "countryId";
+        //        country_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayCountryList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void LoadAreaList(int countryid)
         {
             DataTable dt = new DataTable();
@@ -113,30 +135,30 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- - select country - -", "0"));
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- - select country - -", "0"));
+        //}
         protected void area_list_DataBound(object sender, EventArgs e)
         {
             area_list.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- - select area - -", "0"));
         }
 
-        protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                LoadAreaList(countryid);
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //int deptid = int.Parse(department_list.SelectedValue.ToString());
+        //        int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+        //        LoadAreaList(countryid);
+        //        //load session data
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
         protected void Button3_Click(object sender, EventArgs e)
         {
@@ -156,7 +178,7 @@ namespace TraceBilling
             try
             {
                 string jobnumber = txtjobnumber.Text.Trim();
-                string country = country_list.SelectedValue.ToString();
+                string country = "2";
                 string area = area_list.SelectedValue.ToString();
                 string status = "4";//approve survey report
                 lblstatus.Text = status;

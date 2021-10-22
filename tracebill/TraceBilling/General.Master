@@ -66,9 +66,11 @@
       </a>
         <a href="#">
 <%--            <img src="images/tracelogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:160px;max-width:160px;height:auto;width:auto;">--%>
-            <img src="images/tracebilllogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:100px;max-width:100px;height:auto;width:auto;">
+<%--            <img src="images/tracebilllogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:100px;max-width:100px;height:auto;width:auto;">--%>
+                    <img src="images/ogunwater.png" alt="ogun Logo" class="logo-lg" style="max-height:100px;max-width:100px;height:82px; width:114px;">
+
         </a>
-         <font size = 6> <font color = white>TRACE BILLING SYSTEM</font></font>
+         <font size = 6> <font color = white>OGUN STATE WATER BILLING SYSTEM</font></font>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->

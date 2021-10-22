@@ -111,7 +111,14 @@
                                                         <td style="height: 19px; width: 354px;">
                                                             <br />
                                                             <p id="upload-area">
-                                                                <input id="FileField" runat="server" size="60" type="file" />
+                                                                <input id="FileField" runat="server" size="60" type="file" onclick="setUploadButtonState()"/>
+                                                                
+                                                            </p>
+                                                            <p>
+                                                               
+                                                                <label for="Delete">
+  <input id="fileinput"  onclick="removefile()" type="reset" value="Delete" />
+</label>
                                                             </p>
                                                             <p>
                                                                 <input id="Button1" onclick="addFileUploadBox()" type="button" value="Add a file" />
@@ -144,7 +151,6 @@
                 </tr>
              
             </table>
-                      
              
             </div>
           <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
@@ -165,39 +171,21 @@
                 </tr>--%>
                  <tr>
                     <td style="width: 502px">
-                        <label for="country">Operation Area</label>
+                        <label for="country">Area</label>
             <asp:DropDownList ID="area_list" CssClass="form-control" runat="server"  OnDataBound="area_list_DataBound" Visible="true" AutoPostBack="True"
                  OnSelectedIndexChanged="area_list_SelectedIndexChanged">
                 </asp:DropDownList>
                     </td>
                 </tr>
                 <td style="width: 502px">
-                         <asp:Label runat="server" Text="Operation Branch" ID="txtbranch" Visible="true" Font-Bold="true"></asp:Label>
+                         <asp:Label runat="server" Text="Branch" ID="txtbranch" Visible="true" Font-Bold="true"></asp:Label>
                   <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true">
                 </asp:DropDownList>
                     </td>
-               <%-- <tr>
-                    <td style="width: 502px">
-                         <label for="city">City</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtcity" placeholder="Enter city"/>
-                    </td>
-                </tr>
-                 <tr>
-                    <td style="width: 502px">
-                        <label for="state">State</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtstate" placeholder="Enter state"/>
-                    </td>
-                </tr>--%>
-                <%-- <tr>
-                    <td style="width: 502px">
-                        <label for="street">Street</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtstreet" placeholder="Enter street"/>
-                    </td>
-                </tr>--%>
-                 <tr>
+                               <tr>
                     <td style="width: 502px">
                         <label for="division">Territory</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtdivision" placeholder="Enter division"/>
+            <asp:TextBox runat="server" CssClass="form-control" ID="txtdivision" placeholder="Enter territory"/>
                     </td>
                 </tr>
                <%--  <tr>
@@ -209,7 +197,7 @@
                  <tr>
                     <td style="width: 502px">
                         <label for="village">Sub Territory</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtvillage" placeholder="Enter Village"/>
+            <asp:TextBox runat="server" CssClass="form-control" ID="txtvillage" placeholder="Enter sub territory"/>
                     </td>
                 </tr>
                  <tr>
@@ -224,8 +212,8 @@
                         <label for="service">Service Type</label>
            <asp:RadioButtonList ID="rtnServicetype" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="true" OnSelectedIndexChanged="rtnServicetype_SelectedIndexChanged">
                         <asp:ListItem Value="1">Water</asp:ListItem>
-                        <asp:ListItem Value="2">Sewerage</asp:ListItem>
-                        <asp:ListItem Value="3">Water and Sewerage</asp:ListItem>
+                       <%-- <asp:ListItem Value="2">Sewerage</asp:ListItem>
+                        <asp:ListItem Value="3">Water and Sewerage</asp:ListItem>--%>
                    </asp:RadioButtonList>
                     </td>
                 </tr>
@@ -243,7 +231,48 @@
                  
             </table>
                                
+                                <div id="documentdisplay" runat="server" visible="true">
+                               <asp:Label ID="lbldocumets" runat="server" Text="View Attachments" ForeColor="Blue" Font-Bold="true" ></asp:Label><br />
+
+                                            <asp:GridView ID="gvdocuments" runat="server" 
+                       CssClass="grid-text" CellPadding="5" 
+                              ForeColor="#333333" GridLines="None" Width="92%"
+                                  AutoGenerateColumns="False"
+                                  OnRowDataBound="gvdocuments_RowDataBound" 
+                                 onselectedindexchanging="gvdocuments_SelectedIndexChanging"
+                                  onselectedindexchanged="gvdocuments_SelectedIndexChanged"
+                                 OnRowCommand="gvdocuments_RowCommand">
+             <Columns>   
+                   
+           <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-"/> 
+                 <asp:BoundField DataField="FileID" HeaderText="FileID" NullDisplayText="-" Visible="false"/> 
                  
+             <asp:BoundField DataField="FilePath" HeaderText="FilePath"  NullDisplayText="-"/>                
+                <asp:BoundField DataField="FileName" HeaderText="FileName"  NullDisplayText="-"/>   
+          
+                 <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Delete
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="DeleteButton"
+                                runat="server"
+                                CommandName="RowDelete" 
+                    CommandArgument='<%#Eval("FileID") %>'
+                               
+                                Text="Remove" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>
+               
+  
+              
+             </Columns>
+            </asp:GridView>
+
+                </div>      
+ 
             
             </div>
                  
@@ -254,6 +283,8 @@
                   </div>
           <hr />  
         </div>
+  <asp:Label ID="lblapplication" runat="server" Text="0" Visible="false"></asp:Label>
+
     </form>
     
 
@@ -289,6 +320,28 @@
         button.value = "Processing";
 
     }
+    function removefile()
+    {
+        //$('#fileinput').val("")
+        document.getElementById("fileinput").value = null;
+    }
+    function setUploadButtonState() {
 
+        var maxFileSize = 2048000 //2mb @2000-- 4MB -> 4000 * 1024....4096000
+        var fileUpload = $('#fileUpload');
+
+        if (fileUpload.val() == '') {
+            return false;
+        }
+        else {
+            if (fileUpload[0].files[0].size < maxFileSize) {
+                $('#button_fileUpload').prop('disabled', false);
+                return true;
+            } else {
+                $('#lbl_uploadMessage').text('File too big !')
+                return false;
+            }
+        }
+    }
 </script>
 </asp:Content>
