@@ -24,15 +24,15 @@ namespace TraceBilling
 
                 if (IsPostBack == false)
                 {
-                    LoadCountryList();
+                    //LoadCountryList();
                     LoadBranchList(0);
                     string sessioncountryid = Session["countryId"].ToString();
                     
                     if (!sessioncountryid.Equals("1"))
                     {
-                        country_list.SelectedIndex = country_list.Items.IndexOf(new ListItem(Session["country"].ToString(), Session["countryId"].ToString()));
-                        country_list.Enabled = false;
-                        int countryid = int.Parse(country_list.SelectedValue.ToString());
+                        //country_list.SelectedIndex = country_list.Items.IndexOf(new ListItem(Session["country"].ToString(), Session["countryId"].ToString()));
+                       // country_list.Enabled = false;
+                        int countryid = 2;
                         LoadAreaList(countryid);
                         area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString() ));
                         area_list.Enabled = false;
@@ -41,7 +41,7 @@ namespace TraceBilling
                     }
                     else
                     {
-                        int countryid = int.Parse(country_list.SelectedValue.ToString());
+                        int countryid = 2;
                         LoadAreaList(countryid);
                     }
                     
@@ -89,7 +89,7 @@ namespace TraceBilling
                         chkactive.Checked = true;
                     }
                     role_list.SelectedIndex = role_list.Items.IndexOf(role_list.Items.FindByValue(roleid));
-                    country_list.SelectedIndex = country_list.Items.IndexOf(country_list.Items.FindByValue(countryid));
+                    //country_list.SelectedIndex = country_list.Items.IndexOf(country_list.Items.FindByValue(countryid));
                     area_list.SelectedIndex = area_list.Items.IndexOf(area_list.Items.FindByValue(areaid));
                    
                     LoadAreaList(int.Parse(countryid));
@@ -105,25 +105,25 @@ namespace TraceBilling
             }
         }
 
-        private void LoadCountryList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
+        //private void LoadCountryList()
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetCountryList();
+        //        country_list.DataSource = dt;
 
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        country_list.DataTextField = "countryName";
+        //        country_list.DataValueField = "countryId";
+        //        country_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayCountryList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void LoadAreaList(int countryid)
         {
             DataTable dt = new DataTable();
@@ -193,10 +193,10 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
+        //}
         protected void area_list_DataBound(object sender, EventArgs e)
         {
             area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
@@ -209,21 +209,21 @@ namespace TraceBilling
         {
             role_list.Items.Insert(0, new ListItem("- - select role - -", "0"));
         }
-        protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                LoadAreaList(countryid);
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //int deptid = int.Parse(department_list.SelectedValue.ToString());
+        //        int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+        //        LoadAreaList(countryid);
+        //        //load session data
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
         protected void operation_area_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -256,7 +256,7 @@ namespace TraceBilling
                 user.Contact2 = txtphone2.Text.Trim();
                 user.EmailAddress = txtemail.Text.Trim();
                 user.Designation = txtdesignation.Text.Trim();
-                user.Country = country_list.SelectedValue.ToString();
+                user.Country = "2";
                 user.Area = area_list.SelectedValue.ToString();
                 user.Role = role_list.SelectedValue.ToString();
                 user.Branch = branch_list.SelectedValue.ToString();
@@ -319,7 +319,7 @@ namespace TraceBilling
             txtdesignation.Text = "";
             txtreason.Text = "";
             txtusername.Text = "";
-            country_list.SelectedValue = "0";
+           // country_list.SelectedValue = "0";
             area_list.SelectedValue = "0";
             role_list.SelectedValue = "0";
             branch_list.SelectedValue = "0";            
