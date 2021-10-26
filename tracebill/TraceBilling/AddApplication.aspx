@@ -124,7 +124,7 @@
                 
                 <tr>
                     <td style="width: 50%">
-                        <label for="uploads">Attach Files</label>
+                        <label for="uploads">Attach Files (Maximum file size 3 Mbs)</label>
                          <table align="center" cellpadding="0" cellspacing="0" style="border-right: #a4a2ca 1px solid;
                                                     border-top: #a4a2ca 1px solid; border-left: #a4a2ca 1px solid; width: 75%; border-bottom: #a4a2ca 1px solid;
                                                     background-color: #ffffff; height: 10px;">
