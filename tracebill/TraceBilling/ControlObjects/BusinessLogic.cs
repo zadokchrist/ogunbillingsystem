@@ -415,10 +415,14 @@ namespace TraceBilling.ControlObjects
             return output;
         }
 
+       
+
         internal void DeactivateAccount(string custref, string reason, string recordedby,string crmreference)
         {
             dh.DeactivateAccount( custref, reason, recordedby,crmreference);
         }
+
+       
 
         internal void ReactivateAccount(string custref,string reason,string recordedby,string crmreference) 
         {
@@ -3150,6 +3154,79 @@ namespace TraceBilling.ControlObjects
             catch (Exception ex)
             {
                 Log("UpdateMeterRequestStatus", "101 " + ex.Message);
+            }
+        }
+        public string GetFileApplicationPath()
+        {
+            string Path = dh.GetSystemParameter("5");
+            CheckPath(Path);
+            return Path;
+        }
+        public void SaveApplicationFiles(string ApplicationCode, string FilePath, string FileName)
+        {
+            try
+            {
+                string userCode = HttpContext.Current.Session["UserID"].ToString();
+
+                string ret = PostAppDocument(ApplicationCode, FilePath, FileName, userCode);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public string PostAppDocument(string AppID, string filePath, string fileName, string user_code)
+        {
+            string output = "";
+            if (String.IsNullOrEmpty(AppID))
+            {
+                output = "Please Provide Application ID";
+            }
+            else if (String.IsNullOrEmpty(filePath))
+            {
+                output = "Please Provide Application Document Path";
+            }
+            else if (String.IsNullOrEmpty(fileName))
+            {
+                output = "Please Provide Application Document File Name";
+            }
+            else
+            {
+                int appId = int.Parse(AppID);
+                int user_id = int.Parse(user_code);
+                dh.SaveApplicationFile(appId, filePath, fileName, user_id);
+                output = "SAVED";
+            }
+            return output;
+        }
+        internal DataTable GetFileAttachments(string appid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetFileAttachments(appid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetBlockDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public void DeleteApplicationItem(string appid, int recordid, string deletedby)
+        {
+            try
+            {
+                dh.DeleteApplicationItem(appid, recordid, deletedby);
+            }
+            catch (Exception ex)
+            {
+
+                //throw ex;
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("DeleteVehicleItem", resp.Response_Code + " " + resp.Response_Message);
             }
         }
     }

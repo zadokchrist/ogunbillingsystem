@@ -113,7 +113,7 @@ namespace TraceBilling
                 {
                     txtfullname.Text = dt.Rows[0]["fullName"].ToString();
                     txtarea.Text = dt.Rows[0]["area"].ToString();
-                    txtcounry.Text = dt.Rows[0]["country"].ToString();
+                   // txtcounry.Text = dt.Rows[0]["country"].ToString();
                     txtcontact.Text = dt.Rows[0]["contact"].ToString();
                     DisplayMessage(".", false);
                 }
@@ -124,7 +124,7 @@ namespace TraceBilling
                     {
                         txtfullname.Text = dt.Rows[0]["fullName"].ToString();
                         txtarea.Text = dt.Rows[0]["area"].ToString();
-                        txtcounry.Text = dt.Rows[0]["country"].ToString();
+                       // txtcounry.Text = dt.Rows[0]["country"].ToString();
                         txtcontact.Text = dt.Rows[0]["contact"].ToString();
                         DisplayMessage(".", false);
                     }
@@ -132,7 +132,7 @@ namespace TraceBilling
                     {
                         txtfullname.Text = "";
                         txtarea.Text = "";
-                        txtcounry.Text = "";
+                        //txtcounry.Text = "";
                         txtcontact.Text = "";
                         str = "CustomerRef-" + custref + " not existing.";
                         DisplayMessage(str, true);
@@ -223,7 +223,7 @@ namespace TraceBilling
             txtnaration.Text = "";
             txtpaymentDate.Text = "";
             txtcontact.Text = "";
-            txtcounry.Text = "";
+           // txtcounry.Text = "";
             vendor_list.SelectedValue = "0";
             txttransref.Text = "";
             txtamount.Text = "";

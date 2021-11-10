@@ -22,15 +22,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// country_list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList country_list;
-        
-        /// <summary>
         /// area_list control.
         /// </summary>
         /// <remarks>

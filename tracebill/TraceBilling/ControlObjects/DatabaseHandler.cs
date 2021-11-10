@@ -1841,5 +1841,43 @@ namespace TraceBilling.ControlObjects
                 throw ex;
             }
         }
+
+        internal void SaveApplicationFile(int appId, string filePath, string fileName, int user_id)
+        {
+            try
+            {
+                ExecuteCommand("Sp_SaveApplicationFile", appId, filePath, fileName, user_id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        internal DataTable GetFileAttachments(string appid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetApplicationFiles", int.Parse(appid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        public void DeleteApplicationItem(string appid, int itemno, string deletedby)
+        {
+            try
+            {
+                ExecuteCommand("Sp_DeleteApplicationItem", appid, itemno, int.Parse(deletedby));
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }
