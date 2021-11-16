@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using System.Collections;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 
 namespace TraceBilling.ControlObjects
 {
@@ -96,6 +97,8 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+
+       
 
         internal DataTable GetAreaList(int countryid)
         {
@@ -281,8 +284,7 @@ namespace TraceBilling.ControlObjects
             return resp;
         }
 
-
-
+       
         internal ResponseMessage ValidateLogin(string username, string encrypted_password)
         {
             ResponseMessage message = new ResponseMessage();
@@ -3226,8 +3228,471 @@ namespace TraceBilling.ControlObjects
                 //throw ex;
                 resp.Response_Code = "101";
                 resp.Response_Message = ex.Message;
-                Log("DeleteVehicleItem", resp.Response_Code + " " + resp.Response_Message);
+                Log("DeleteApplicationItem", resp.Response_Code + " " + resp.Response_Message);
             }
         }
+        public DateTime GetPeriodEndDate(DateTime StartDate)
+        {
+            DateTime output;
+            int months = 30;
+            //output= StartDate.AddMonths(months).AddDays(-1);
+            output = new DateTime(StartDate.Year, StartDate.Month, 1).AddMonths(1).AddDays(-1);
+            return output;
+
+        }
+        public DateTime GetBillPeriodStartDate(int recordcode)
+        {
+            DateTime output;
+            
+            output = GetBillPeriodStartDate(recordcode);
+            return output;
+
+        }
+        public string SaveBillingPeriod(string recordCode, string area_code, DateTime startDate)
+        {
+            string output = "";
+            int RecordID = Convert.ToInt32(recordCode);
+            
+            string Period = startDate.ToString("yyyyMM");
+            string areacode = HttpContext.Current.Session["areaCode"].ToString();
+            string PeriodCode = areacode + "" + Period;
+            int AreaID = Convert.ToInt16(area_code);
+            int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["UserID"].ToString());
+            if (PeriodExists(Period, AreaID) && recordCode == "0")
+            {
+                output = "Period Creation Failed, Period " + Period + " already exists";
+            }
+            else
+            {
+                dh.SaveBillingPeriod(RecordID, PeriodCode, Period, startDate, AreaID, CreatedBy);
+                if (recordCode == "0")
+                {
+                    output = "Billing Period ( " + Period + " ) Details have been Created Successfully";
+                }
+                else
+                {
+                    output = "Billing Period Successfully Closed and Period " + Period + " Successfully Opened";
+                }
+            }
+            return output;
+
+        }
+
+        private bool PeriodExists(string period, int areaID)
+        {
+            DataTable DTable = dh.CheckAreaPeriod(period, areaID);
+            int foundRows = DTable.Rows.Count;
+            if (foundRows > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        internal DataTable GetAllBillingPeriod(string areaid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetAllBillingPeriod(areaid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetAllBillingPeriod", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        //reports
+        internal DataTable GetBalanceOutstanding(string branch, DateTime fromdate, DateTime todate, string amount)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetBalanceOutstanding(branch,fromdate,todate,amount);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetBalanceOutstanding", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public DateTime ReturnDate(string date, int type)
+        {
+            DateTime dates;
+
+            if (type == 1)
+            {
+
+                if (date == "")
+                {
+                    dates = DateTime.Parse("July 1, 2009");
+                }
+                else
+                {
+                    dates = DateTime.Parse(date);
+                }
+            }
+            else
+            {
+                if (date == "")
+                {
+                    dates = DateTime.Now;
+                }
+                else
+                {
+                    dates = DateTime.Parse(date);
+                }
+            }
+
+            return dates;
+        }
+        internal DataTable GetCustomerCount(string branch, string period)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCustomerCount(branch, period);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetCustomerCount", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetMeterAudit(string branch, string period)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetMeterAudit(branch, period);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetMeterAudit", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetTransactionAudit(string branch, string period, string code)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTransactionAudit(branch, period,code);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTransactionAudit", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetStatement(string custref, DateTime startdate, DateTime enddate)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetStatement(custref,startdate,enddate);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetStatement", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        //build statement logic 10/11/2021
+        public DataTable GetStatementData(DataTable dt)
+        {
+            try
+            {
+                string res = "";
+                ArrayList a = new ArrayList();
+
+                //string result = "";
+                //int count = 0;
+                //string space = "   ";
+                //int i = 0;
+                int rowcount = dt.Rows.Count;
+                string balance = "";
+                double prev = 0;
+                foreach (DataRow dr in dt.Rows)
+                {
+                    //get accountperiod
+                    string PropRef = dr["PropertyRef"].ToString();
+                    string Period = dr["Period"].ToString();
+                    string date = dr["Date"].ToString();
+                    string transactions = dr["Transactions"].ToString();
+                    string docno = dr["DocNo"].ToString();
+                    string amount = dr["Amount"].ToString();
+                    string openbal = dr["OpenBal"].ToString();
+                    string consumption = dr["Consumption"].ToString();
+                    string selectdate = dr["startDate"].ToString();
+                    string custref = dr["customerRef"].ToString();
+                    string custname = dr["customerName"].ToString().Replace(",", "");
+                    string address = dr["address"].ToString().Replace(",", "");
+                    string estimated = dr["Estimated"].ToString();
+                    string reading = dr["Reading"].ToString();
+                    string meternumber = dr["MeterNumber"].ToString();
+                    string enddate = dr["endDate"].ToString();
+                    int rowindex = dt.Rows.IndexOf(dr);
+                    //get openingbalance
+                    if (rowindex == 0)
+                    {
+                        balance = (double.Parse(openbal) + double.Parse(amount)).ToString();
+                        prev = double.Parse(balance);
+                    }
+                    else
+                    {
+                        balance = GetRunningBalance(openbal, amount, rowindex, dt, prev);
+                        prev = double.Parse(balance);
+                        //openbal = "";
+                    }
+                    //subtotal = Math.Round((double.Parse(custBillTable.Rows[0]["number19"].ToString())), 0, MidpointRounding.AwayFromZero);
+                    double newopenbal = Math.Round((double.Parse(openbal)), 0, MidpointRounding.AwayFromZero);
+                    double newbalance = Math.Round((double.Parse(balance)), 0, MidpointRounding.AwayFromZero);
+                    double newamount = Math.Round((double.Parse(amount)), 0, MidpointRounding.AwayFromZero);
+                    res = newopenbal.ToString() + "," + selectdate + "," + custref + "," + custname + "," + PropRef + "," + address + "," + date + "," + transactions + "," + Period + "," + docno + "," + estimated + "," +
+                        reading + "," + consumption + "," + newamount + "," + meternumber + "," + newbalance.ToString();
+                    a.Add(res);
+                    //Console.WriteLine(res);
+                    //build pdf
+                }
+                //add to datatable
+                DataTable data = GetStatementData(a);
+                //if (data.Rows.Count > 0)
+                //{
+                //clear to print
+                return data;
+                //}
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        private DataTable GetStatementData(ArrayList a)
+        {
+            //create new table
+            //DataTable dt = new DataTable("Table2");
+            DataTable dt = GetStatementTransactionsDataTable();
+
+            //loop thru string
+            foreach (string s in a)
+            {
+                string[] parameters = Regex.Split(s, ",");
+                double openbal = double.Parse(parameters[0].Trim());
+                string selectdate = parameters[1].Trim();
+                string custref = parameters[2].Trim();
+                string custname = parameters[3].Trim();
+                string PropRef = parameters[4].Trim();
+                string address = parameters[5].Trim();
+                string date = parameters[6].Trim();
+                string transactions = parameters[7].Trim();
+                string Period = parameters[8].Trim();
+                string docno = parameters[9].Trim();
+                string estimated = parameters[10].Trim();
+                string reading = parameters[11].Trim();
+                string consumption = parameters[12].Trim();
+                double amount = double.Parse(parameters[13].Trim());
+                string meternumber = parameters[14].Trim();
+                double newbalance = double.Parse(parameters[15].Trim());
+                // string enddate = parameters[16].Trim();
+                DataRow dr2 = dt.NewRow();
+                //dr["No."] = i;
+                //dr2["OpenBal"] = openbal.ToString("#,##0");
+                //dr2["customerRef"] = custref;
+                //  dr2["customerName"] = custname;
+                //  dr2["PropertyRef"] = PropRef;
+                //  dr2["address"] = address;
+                dr2["Date"] = date;
+                dr2["Transactions"] = transactions;
+                dr2["Period"] = Period;
+                dr2["DocNo"] = docno;
+                dr2["Estimated"] = estimated;
+                dr2["Reading"] = reading;
+                dr2["Consumption"] = consumption;
+                dr2["Amount"] = amount.ToString("#,##0");
+                dr2["MeterNumber"] = meternumber;
+                dr2["Balance"] = newbalance.ToString("#,##0");
+                // dr2["endDate"] = enddate;
+                dt.Rows.Add(dr2);
+                dt.AcceptChanges();
+            }
+            return dt;
+        }
+
+        private string GetRunningBalance(string openbal, string amount, int rowindex, DataTable data, double prevbal)
+        {
+            string output = "";
+
+            double amt = 0;
+            if (rowindex == 0)
+            {
+                output = (double.Parse(openbal) + double.Parse(amount)).ToString();
+            }
+            else
+            {
+                //get previous row index
+                int prevrowindex = rowindex - 1;
+                //get amount against prevrowindex
+                //double prevamt = GetPreviousAmount(data, prevrowindex);
+                //add to currentamount on index
+                //output = (prevamt + double.Parse(amount)).ToString();
+                output = (prevbal + double.Parse(amount)).ToString();
+
+            }
+            //}
+            return output;
+        }
+
+        private double GetPreviousAmount(DataTable data, int prevrowindex)
+        {
+            double output = 0;
+            foreach (DataRow row in data.Rows)
+            {
+                int newprevrow = data.Rows.IndexOf(row);
+                if (newprevrow.ToString() == prevrowindex.ToString())
+                {
+                    output = double.Parse(row["Amount"].ToString());
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            return output;
+        }
+        private DataTable GetStatementTransactionsDataTable()
+        {
+            DataTable dt = new DataTable("Table2");
+            // dt.Columns.Add("OpenBal");
+            // dt.Columns.Add("startDate");
+            // dt.Columns.Add("customerRef");
+            // dt.Columns.Add("CustomerName");
+            // dt.Columns.Add("PropertyRef");
+            // dt.Columns.Add("address");
+            dt.Columns.Add("Date");
+            dt.Columns.Add("Transactions");
+            dt.Columns.Add("Period");
+            dt.Columns.Add("DocNo");
+            dt.Columns.Add("Estimated");
+            dt.Columns.Add("Reading");
+            dt.Columns.Add("Consumption");
+            dt.Columns.Add("Amount");
+            dt.Columns.Add("MeterNumber");
+            dt.Columns.Add("Balance");
+            // dt.Columns.Add("endDate");
+            return dt;
+        }
+        public bool IsDateTime(string text)
+        {
+            DateTime dateTime;
+            bool isDateTime = false;
+            try
+            {
+                // Check for empty string.
+                if (string.IsNullOrEmpty(text))
+                {
+                    return false;
+                }
+                else
+                {
+                    isDateTime = DateTime.TryParse(text, out dateTime);
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }        
+   
+            return isDateTime;
+        }
+        public DateTime GetValidDate(string date)
+        {
+            DateTime output = DateTime.Now;
+            try
+            {
+                //bool valid = IsDateTime(date);
+                //if(valid)
+                //{
+                //    output = Convert.ToDateTime(date);
+                //}
+                //else
+                //{
+                //    output = GetDate2(date);
+                //}
+                output = GetDate2(date);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+        public DateTime GetDate2(string date)
+        {
+            DateTime dt= DateTime.Now;
+            try
+            {
+                 int str = 20; int str2 = 20; int newYear = 0;//int newNumber = int.Parse(a.ToString() + b.ToString())
+                if (!date.Trim().Equals(""))
+                {
+                    if (date.Contains("/"))
+                    {
+                        string[] sDate = date.Split('/');
+                       
+                        int day = int.Parse(sDate[1].Trim());//reverted 02/03/2021 with format dd/mm/yyyy
+                        int month = int.Parse(sDate[0].Trim());
+                        
+                        int year = int.Parse(sDate[2].Trim());
+                        if (sDate[2].Length < 3)
+                        {
+                            newYear = int.Parse(str.ToString() + sDate[2].Trim().ToString());
+                        }
+                        else
+                        {
+                            newYear = year;
+                        }
+                        if (month < 13)
+                        {
+                            dt = new DateTime(newYear, month, day);
+                        }
+                        else
+                        {
+                            dt = new DateTime(newYear, day, month);
+                        }
+
+                    }
+                    
+                    //dt = new DateTime(year, month, day);
+                }
+                else
+                {
+                    dt = new DateTime(1900, 1, 1);
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
     }
 }
