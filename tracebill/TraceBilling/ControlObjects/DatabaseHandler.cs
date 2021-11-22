@@ -1879,5 +1879,147 @@ namespace TraceBilling.ControlObjects
             }
 
         }
+        public DateTime GetBillPeriodStartDate(int RecordCode)
+        {
+            DateTime startDate = new DateTime();
+            try
+            {
+               
+                dt = ExecuteDataSet("Sp_GetBillPeriodStartDate", RecordCode);
+                if(dt.Rows.Count > 0)
+                {
+                    startDate = DateTime.Parse(dt.Rows[0]["StartDate"].ToString());
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return startDate;
+        }
+
+        internal void SaveBillingPeriod(int recordID, string periodCode, string period, DateTime startDate, int areaID, int createdBy)
+        {
+            try
+            {
+                ExecuteCommand("Sp_SaveBillingPeriod", recordID, periodCode, period, startDate, areaID, createdBy);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        internal DataTable CheckAreaPeriod(string period, int areaID)
+        {
+
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_CheckAreaPeriod", areaID, period);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        // 
+        internal DataTable GetAllBillingPeriod(string areaid)
+        {
+
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetAllBillingPeriod", int.Parse(areaid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetBalanceOutstanding(string branch, DateTime fromdate, DateTime todate, string amount)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetBalanceOutstanding", 10,int.Parse(branch),fromdate,todate,amount);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetCustomerCount(string branch,  string period)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetCustomerCount", 10, int.Parse(branch), period);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetMeterAudit(string branch, string period)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetMeterAudit", 10, int.Parse(branch), period);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetTransactionAudit(string branch, string period, string code)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetTransactionAudit", 10, int.Parse(branch), period,code);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetStatement(string custref, DateTime startdate, DateTime enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetStatementBetweenDates", custref,startdate,enddate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        public string GetOutstandingBalance(DataTable dtprint)
+        {
+            string output = "0";
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dtprint);
+            //To find last row in data set
+
+            if (ds.Tables[0].Rows.Count > 0)
+            {
+                output = ds.Tables[0].Rows[ds.Tables[0].Rows.Count - 1]["Balance"].ToString();
+            }
+            return output;
+        }
+
     }
 }

@@ -10,7 +10,7 @@
 namespace TraceBilling {
     
     
-    public partial class ReconcileTransactions {
+    public partial class BillingPeriods {
         
         /// <summary>
         /// lblmsg control.
@@ -22,6 +22,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
+        /// periodsetting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl periodsetting;
+        
+        /// <summary>
         /// area_list control.
         /// </summary>
         /// <remarks>
@@ -31,49 +40,58 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.DropDownList area_list;
         
         /// <summary>
-        /// txtstartdate control.
+        /// txttartdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtstartdate;
+        protected global::System.Web.UI.WebControls.TextBox txttartdate;
         
         /// <summary>
-        /// txtenddate control.
+        /// btnSave control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtenddate;
+        protected global::System.Web.UI.WebControls.Button btnSave;
         
         /// <summary>
-        /// Button3 control.
+        /// qndisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl qndisplay;
         
         /// <summary>
-        /// returnbtn control.
+        /// lblQn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl returnbtn;
+        protected global::System.Web.UI.WebControls.Label lblQn;
         
         /// <summary>
-        /// btnreturn control.
+        /// btnYes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreturn;
+        protected global::System.Web.UI.WebControls.Button btnYes;
+        
+        /// <summary>
+        /// btnNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNo;
         
         /// <summary>
         /// maindisplay control.
@@ -94,75 +112,21 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl baltxt;
         
         /// <summary>
-        /// chkTransactions control.
+        /// gv_billingperiod control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkTransactions;
+        protected global::System.Web.UI.WebControls.GridView gv_billingperiod;
         
         /// <summary>
-        /// DataGrid1 control.
+        /// lblCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid DataGrid1;
-        
-        /// <summary>
-        /// btnreconcile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreconcile;
-        
-        /// <summary>
-        /// btnreconcancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreconcancel;
-        
-        /// <summary>
-        /// btnreconexport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreconexport;
-        
-        /// <summary>
-        /// lblApplicationCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblApplicationCode;
-        
-        /// <summary>
-        /// lblconnectionId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconnectionId;
-        
-        /// <summary>
-        /// lblarea control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblarea;
+        protected global::System.Web.UI.WebControls.Label lblCode;
     }
 }

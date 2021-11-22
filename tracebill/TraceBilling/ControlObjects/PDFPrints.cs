@@ -14,7 +14,8 @@ namespace TraceBilling.ControlObjects
 {
     public class PDFPrints
     {
-
+        BusinessLogic bll = new BusinessLogic();
+        DatabaseHandler dh = new DatabaseHandler();
         public string GetPDFForm(DataTable dt, DataTable dtprofile, string user)
         {
             string output = "";
@@ -1819,5 +1820,345 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
             }
             return output;
         }
+        //get statement
+        public string GetStatementPrint(string custref, string fromdate, string todate, string user,DataTable dtstmt)
+        {
+            string output = "";
+            try
+            {
+                string pdf = "";
+               
+               // DateTime startdate = Convert.ToDateTime(fromdate);
+                //DateTime enddate = Convert.ToDateTime(todate);
+                string AreaID = "10";
+                //DataTable dtprint = dh.GetStatement(custref, startdate, enddate);
+                DataTable dtprint = dtstmt;
+                if (dtprint.Rows.Count > 0)
+                {
+                    //first details
+                    string CustRef = dtprint.Rows[0]["customerRef"].ToString();
+                    string Propref = dtprint.Rows[0]["PropertyRef"].ToString();
+                    string custname = dtprint.Rows[0]["customerName"].ToString();
+                    string custaddress = dtprint.Rows[0]["address"].ToString();
+                    string stdate = dtprint.Rows[0]["startDate"].ToString();
+                    string eddate = dtprint.Rows[0]["endDate"].ToString();
+                    string openbal = dtprint.Rows[0]["OpenBal"].ToString();
+                    //contact details
+                    DataTable dtprofile = dh.GetCompanyProfile(AreaID.ToString());
+                    string companyname = "", email = "", address = "", tollcontact = "", website = "", othercontact = "", combinedaddress = "", combinedcontact = "", logofile = "";
+
+                    if (dtprofile.Rows.Count > 0)
+                    {
+                        companyname = dtprofile.Rows[0]["companyName"].ToString().ToUpper();
+                        address = dtprofile.Rows[0]["physicalAddress"].ToString();
+                        email = dtprofile.Rows[0]["emailAddress"].ToString();
+                        website = dtprofile.Rows[0]["webAddress"].ToString();
+                        tollcontact = dtprofile.Rows[0]["tollContact"].ToString();
+                        othercontact = dtprofile.Rows[0]["otherContact"].ToString();
+                        logofile = dtprofile.Rows[0]["logoPath"].ToString();
+                        combinedaddress = "Email:" + email + " " + "website:" + website;
+                        combinedcontact = "TollFree:" + tollcontact + " " + "other contact:" + othercontact;
+                    }
+                    //mngrname = "";
+                    //mngrphone = combinedcontact;
+                    //mngremail = combinedaddress;
+
+                    //Populate Methods in the File Formater Class....write to pdf logic
+                    //D:\TestFiles\billimages
+                    // string targetdir = @"\\10.0.1.10\\Application\\PDFBillImages\\billimages\\";
+                    string targetdir = @"D:\\Data\\Files\\PDFStatements\\";
+                    if (Directory.Exists(targetdir))
+                    {
+
+                    }
+                    else
+                    {
+                        Directory.CreateDirectory(targetdir);
+                    }
+                    string fileName = CustRef + "-" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                    pdf = targetdir + fileName + ".pdf";
+                    output = pdf;
+                    PdfPTable pdfTable = new PdfPTable(3);
+                    PdfPTable pdftablecustname = new PdfPTable(2);
+
+                    FileStream fs = new FileStream(pdf, FileMode.Create);
+                    Document pdfdocument = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
+                    PdfWriter.GetInstance(pdfdocument, fs);
+                    pdfdocument.Open();
+
+                    pdfTable.DefaultCell.Padding = 3;
+                    pdfTable.WidthPercentage = 100;
+                    pdfTable.HorizontalAlignment = Element.ALIGN_CENTER;
+                    pdfTable.DefaultCell.BorderWidth = 0;
+                    pdfTable.DefaultCell.Border = 0;
+
+                    pdftablecustname.DefaultCell.Padding = 3;
+                    pdftablecustname.WidthPercentage = 100;
+                    pdftablecustname.HorizontalAlignment = Element.ALIGN_CENTER;
+                    pdftablecustname.DefaultCell.BorderWidth = 0;
+                    pdftablecustname.DefaultCell.Border = 0;
+
+                    BaseColor headercolor = new BaseColor(87, 145, 189);
+                    BaseColor white = new BaseColor(255, 255, 255);
+                    BaseColor fontcolor = new BaseColor(0, 0, 0);
+                    iTextSharp.text.Font headertextcolor = iTextSharp.text.FontFactory.GetFont("Times New Roman", 13, white);
+                    iTextSharp.text.Font textcolor = iTextSharp.text.FontFactory.GetFont("Times New Roman", 8, fontcolor);
+                    iTextSharp.text.Font bluetext = iTextSharp.text.FontFactory.GetFont("Times New Roman", 13, headercolor);
+
+                    //customer table
+                    PdfPTable customertable = new PdfPTable(1);
+                    customertable.DefaultCell.Padding = 3;
+                    customertable.WidthPercentage = 100;
+                    customertable.HorizontalAlignment = Element.ALIGN_CENTER;
+                    customertable.DefaultCell.BorderWidth = 0;
+                    customertable.DefaultCell.Border = 0;
+
+                    ////building readings table
+                    PdfPCell custdetail = new PdfPCell(new Phrase("CUSTOMER DETAILS", headertextcolor));
+
+
+                    //setting color to header of payment table
+                    custdetail.BackgroundColor = headercolor;
+                    customertable.AddCell(custdetail);
+                    //add values
+                    //Space For getpayments 
+                    string custstr = "CUSTOMER NAME:" + custname + "                      " + "CUSTREF:" + CustRef + "\r\n" +
+                        "PROPERTY REF:" + Propref + "\r\n" +
+                        "ADDRESS:" + custaddress;
+                    customertable.AddCell(new PdfPCell(new Phrase(custstr, textcolor)));
+                    //issueing officer
+                    PdfPTable officertable = new PdfPTable(1);
+                    officertable.DefaultCell.Padding = 3;
+                    officertable.WidthPercentage = 100;
+                    officertable.HorizontalAlignment = Element.ALIGN_CENTER;
+                    officertable.DefaultCell.BorderWidth = 0;
+                    officertable.DefaultCell.Border = 0;
+
+                    ////building readings table
+                    PdfPCell officerdetail = new PdfPCell(new Phrase("OFFICER DETAILS", headertextcolor));
+
+
+                    //setting color to header of payment table
+                    officerdetail.BackgroundColor = headercolor;
+                    officertable.AddCell(officerdetail);
+                    //add values
+                    //Space For getpayments 
+                    DateTime printdate = DateTime.Now;
+                    string officerstr = "PRINTED BY:" + user + "                       " + "PRINT DATE:" + printdate.ToString() + "\r\n" +
+                        "SIGN:" + "...........................";
+                    officertable.AddCell(new PdfPCell(new Phrase(officerstr, textcolor)));
+
+
+                    //add payments
+                    /////////charge table and the second last
+                    PdfPTable paymenttable = new PdfPTable(1);
+                    paymenttable.DefaultCell.Padding = 3;
+                    paymenttable.WidthPercentage = 100;
+                    paymenttable.HorizontalAlignment = Element.ALIGN_CENTER;
+                    paymenttable.DefaultCell.BorderWidth = 0;
+                    paymenttable.DefaultCell.Border = 0;
+
+                    ////building readings table
+                    PdfPCell paymentdetail = new PdfPCell(new Phrase("STATEMENT DETAILS", headertextcolor));
+
+
+                    //setting color to header of payment table
+                    paymentdetail.BackgroundColor = headercolor;
+                    paymenttable.AddCell(paymentdetail);
+                  
+                    //add data table
+                    //document.Open();
+                    // iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
+                    // iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont(FontFactory.HELVETICA, 5);
+                    iTextSharp.text.Font font5 = iTextSharp.text.FontFactory.GetFont("Times New Roman", 8, fontcolor);
+                    // DataTable dt = dtprint;
+                    DataTable dt = bll.GetStatementData(dtprint);
+                    string outstandingbal = dh.GetOutstandingBalance(dt);
+
+                    //Space For getpayments 
+                    string payments = "FROM:" + stdate + "                      " + "TO:" + eddate + "\r\n" +
+                        "Opening Balance:  " + double.Parse(openbal).ToString("#,##0") + "\r\n" +
+                        "Outstanding Balance:   " + outstandingbal;
+                    paymenttable.AddCell(new PdfPCell(new Phrase(payments, textcolor)));
+                    PdfPTable table = new PdfPTable(dt.Columns.Count);
+                    PdfPRow row = null;
+                    float[] widths = new float[] { 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f, 4f };
+
+                    table.SetWidths(widths);
+
+                    table.WidthPercentage = 100;
+                    int iCol = 0;
+                    string colname = "";
+                    PdfPCell cell = new PdfPCell(new Phrase("Products"));
+
+                    cell.Colspan = dt.Columns.Count;
+
+                    foreach (DataColumn c in dt.Columns)
+                    {
+
+                        table.AddCell(new Phrase(c.ColumnName, font5));
+                    }
+
+                    foreach (DataRow r in dt.Rows)
+                    {
+                        if (dt.Rows.Count > 0)
+                        {
+                            table.AddCell(new Phrase(r[0].ToString(), font5));
+                            table.AddCell(new Phrase(r[1].ToString(), font5));
+                            table.AddCell(new Phrase(r[2].ToString(), font5));
+                            table.AddCell(new Phrase(r[3].ToString(), font5));
+                            table.AddCell(new Phrase(r[4].ToString(), font5));
+                            table.AddCell(new Phrase(r[5].ToString(), font5));
+                            table.AddCell(new Phrase(r[6].ToString(), font5));
+                            table.AddCell(new Phrase(r[7].ToString(), font5));
+                            table.AddCell(new Phrase(r[8].ToString(), font5));
+                            table.AddCell(new Phrase(r[9].ToString(), font5));
+                            //table.AddCell(new Phrase(r[10].ToString(), font5));
+                            //table.AddCell(new Phrase(r[11].ToString(), font5));
+                            //table.AddCell(new Phrase(r[12].ToString(), font5));
+                            //table.AddCell(new Phrase(r[13].ToString(), font5));
+                            //table.AddCell(new Phrase(r[14].ToString(), font5));
+                            //table.AddCell(new Phrase(r[15].ToString(), font5));
+
+                        }
+                    }
+
+                    // document.Close();
+                    //finished adding headers
+                    //end payments
+
+
+                    iTextSharp.text.Font bigtext = iTextSharp.text.FontFactory.GetFont("Times New Roman", 18, fontcolor);
+                    Paragraph header = new Paragraph(new Phrase(companyname, bigtext));
+                    Paragraph add = new Paragraph(new Phrase(combinedaddress, textcolor));
+                    Paragraph contact = new Paragraph(new Phrase(combinedcontact, textcolor));
+                    Paragraph invoicedetails = new Paragraph(new Phrase("STATEMENT OF ACCOUNT", textcolor));
+
+                    header.Alignment = Element.ALIGN_CENTER;
+
+                    add.Alignment = Element.ALIGN_CENTER;
+
+                    contact.Alignment = Element.ALIGN_CENTER;
+                    invoicedetails.Alignment = Element.ALIGN_CENTER;
+
+                    //pdfdocument.Add(new Paragraph("\r\n"));
+
+                    /////////////adding image and 
+                    PdfPTable headtable = new PdfPTable(2);
+
+                    float[] widthsx = new float[] { 100f, 400f };
+                    headtable.SetWidths(widthsx);
+                    headtable.DefaultCell.Padding = 3;
+                    headtable.WidthPercentage = 100;
+                    headtable.HorizontalAlignment = Element.ALIGN_CENTER;
+                    headtable.DefaultCell.BorderWidth = 0;
+                    headtable.DefaultCell.Border = Rectangle.BOX;
+
+                    PdfPCell imagecell = new PdfPCell(new Phrase("", headertextcolor));
+
+                    imagecell.Rowspan = 3;
+                    imagecell.Border = Rectangle.NO_BORDER;
+                    //String path1 = Path.Combine(Environment.CurrentDirectory, @"icons\logoimg2.png");
+                    //String path=System.Reflection.Assembly.GetEntryAssembly().Location;
+                    //String path = System.Reflection.Assembly.GetExecutingAssembly().CodeBase;
+                    String path = AppDomain.CurrentDomain.BaseDirectory;
+                    //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);    
+                    //string mylogo = @"icons\"+ logofile;
+                    //string headlogo = Path.Combine(path, @"icons/tracebilllogo.png");
+                    //string headlogo = Path.Combine(path, mylogo);
+                    string headlogo = Path.Combine(path, @"icons\" + logofile);
+                    //String logo = HttpContext.Current.Server.MapPath("~/Images/") + "nswc_logo.png";
+                    iTextSharp.text.Image headimage = iTextSharp.text.Image.GetInstance(headlogo);
+                    headimage.ScaleAbsolute(50f, 50f);
+
+                    headimage.Alignment = iTextSharp.text.Image.ALIGN_CENTER;
+
+
+
+                    pdfdocument.Add(headimage);
+                    pdfdocument.Add(header);
+                    pdfdocument.Add(add);
+                    pdfdocument.Add(contact);
+                    pdfdocument.Add(invoicedetails);
+                    pdfdocument.Add(new Paragraph("\r\n"));
+                    //pdfdocument.Add(new Paragraph("Relationship Contact Person"));
+                    // pdfdocument.Add(new Paragraph("\r\n"));
+                    pdfdocument.Add(headtable);
+                    // pdfdocument.Add(new Paragraph("\r\n"));
+                    // pdfdocument.Add(tintable);
+
+                    /////
+                    //  String path=Path.Combine(Environment.CurrentDirectory, @"icons\nwsc.png");
+
+                    String logo = Path.Combine(path, @"icons\tracebilllogo.png");
+
+                    // String logo = path;
+                    iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(logo);
+                    image.ScaleToFit(300, 300);
+
+
+                    image.Alignment = iTextSharp.text.Image.UNDERLYING;
+                    image.SetAbsolutePosition(100, 280);
+
+                    //pdfdocument.Add(image);
+                    //pdfdocument.Add(pdftablecustname);
+                    pdfdocument.Add(new Paragraph("\r\n"));
+                    pdfdocument.Add(pdfTable);
+                    //pdfdocument.Add(new Paragraph("\r\n"));
+
+                    // pdfdocument.Add(new Paragraph("\r\n"));
+                    pdfdocument.Add(customertable);
+                    pdfdocument.Add(new Paragraph("\r\n"));
+                    pdfdocument.Add(paymenttable);
+                    pdfdocument.Add(new Paragraph("\r\n"));
+                    pdfdocument.Add(table);
+                    pdfdocument.Add(new Paragraph("\r\n"));
+                    pdfdocument.Add(officertable);
+                    //
+                    if (!Directory.Exists(targetdir))
+                    {
+                        Directory.CreateDirectory(targetdir);
+                    }
+                    //else
+                    //{
+                    //    Directory.CreateDirectory(targetdir);
+                    //}
+                    pdfdocument.Close();
+                    fs.Close();
+                    //  Clears all content output from Buffer Stream
+                     HttpContext.Current.Response.ClearContent();
+
+                     //Clears all headers from Buffer Stream
+                     HttpContext.Current.Response.ClearHeaders();
+
+                     //Adds an HTTP header to the output stream
+                     HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;filename=" + Path.GetFileName(pdf));
+
+                     //Gets or Sets the HTTP MIME type of the output stream
+                     HttpContext.Current.Response.ContentType = "application/pdf";
+
+
+
+                     //Writes the content of the specified file directory to an HTTP response output stream as a file block
+                     HttpContext.Current.Response.WriteFile(pdf);
+
+                     //sends all currently buffered output to the client
+                     HttpContext.Current.Response.Flush();                   
+
+
+                }
+                else
+                {
+                    Console.WriteLine("No Statement Available");
+                    //Library.WriteErrorLog("No Bills Available");
+                }
+            }
+            catch (Exception ex)
+            {
+                output = ex.Message;
+            }
+            return output;
+        }
+
     }
 }

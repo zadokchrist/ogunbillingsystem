@@ -10,7 +10,7 @@
 namespace TraceBilling {
     
     
-    public partial class ReconcileTransactions {
+    public partial class RPT_Statement {
         
         /// <summary>
         /// lblmsg control.
@@ -22,13 +22,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// area_list control.
+        /// txtcustref control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list;
+        protected global::System.Web.UI.WebControls.TextBox txtcustref;
         
         /// <summary>
         /// txtstartdate control.
@@ -49,31 +49,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtenddate;
         
         /// <summary>
-        /// Button3 control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
-        
-        /// <summary>
-        /// returnbtn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl returnbtn;
-        
-        /// <summary>
-        /// btnreturn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreturn;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
         /// maindisplay control.
@@ -85,6 +67,24 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl maindisplay;
         
         /// <summary>
+        /// Imageexcel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton Imageexcel;
+        
+        /// <summary>
+        /// Imagepdf control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton Imagepdf;
+        
+        /// <summary>
         /// baltxt control.
         /// </summary>
         /// <remarks>
@@ -94,75 +94,21 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl baltxt;
         
         /// <summary>
-        /// chkTransactions control.
+        /// GridViewIssue control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkTransactions;
+        protected global::System.Web.UI.WebControls.GridView GridViewIssue;
         
         /// <summary>
-        /// DataGrid1 control.
+        /// lblcustref control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid DataGrid1;
-        
-        /// <summary>
-        /// btnreconcile control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreconcile;
-        
-        /// <summary>
-        /// btnreconcancel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreconcancel;
-        
-        /// <summary>
-        /// btnreconexport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreconexport;
-        
-        /// <summary>
-        /// lblApplicationCode control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblApplicationCode;
-        
-        /// <summary>
-        /// lblconnectionId control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblconnectionId;
-        
-        /// <summary>
-        /// lblarea control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblarea;
+        protected global::System.Web.UI.WebControls.Label lblcustref;
     }
 }

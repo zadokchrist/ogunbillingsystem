@@ -13,5 +13,55 @@ namespace TraceBilling
         {
 
         }
+
+        protected void Imagebalance_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imagereadingaudit_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imagetransaudit_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imagecount_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imagestatement_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imagesales_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imageconnection_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imagebilling_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void Imageexcel_Click(object sender, ImageClickEventArgs e)
+        {
+
+        }
+
+        protected void balance_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

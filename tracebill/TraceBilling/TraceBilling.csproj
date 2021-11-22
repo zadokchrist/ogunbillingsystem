@@ -234,6 +234,7 @@
     <Content Include="assets\dist\css\alt\AdminLTE-select2.min.css" />
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.css" />
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.min.css" />
+    <Content Include="BillingPeriods.aspx" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="BlockSetting.aspx" />
     <Content Include="CloseAccount.aspx" />
@@ -6889,6 +6890,9 @@
     <Content Include="icons\lagoswater.png" />
     <Content Include="icons\ogunwater.png" />
     <Content Include="icons\tracebilllogo.png" />
+    <Content Include="images\excel.png" />
+    <Content Include="images\ogunwater.png" />
+    <Content Include="images\report.png" />
     <Content Include="images\tracelogo.png" />
     <Content Include="Logout.aspx" />
     <Content Include="MainPage.Master" />
@@ -7538,6 +7542,11 @@
     <Content Include="ReadingCycle.aspx" />
     <Content Include="ReconcileTransactions.aspx" />
     <Content Include="Reports.aspx" />
+    <Content Include="RPT_BalanceOutstanding.aspx" />
+    <Content Include="RPT_CustomerCount.aspx" />
+    <Content Include="RPT_MeterAudit.aspx" />
+    <Content Include="RPT_Statement.aspx" />
+    <Content Include="RPT_TransactionAudit.aspx" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -7684,6 +7693,13 @@
     <Compile Include="BillingCycle.aspx.designer.cs">
       <DependentUpon>BillingCycle.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BillingPeriods.aspx.cs">
+      <DependentUpon>BillingPeriods.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BillingPeriods.aspx.designer.cs">
+      <DependentUpon>BillingPeriods.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BlockSetting.aspx.cs">
       <DependentUpon>BlockSetting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7813,6 +7829,41 @@
     </Compile>
     <Compile Include="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RPT_BalanceOutstanding.aspx.cs">
+      <DependentUpon>RPT_BalanceOutstanding.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RPT_BalanceOutstanding.aspx.designer.cs">
+      <DependentUpon>RPT_BalanceOutstanding.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RPT_CustomerCount.aspx.cs">
+      <DependentUpon>RPT_CustomerCount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RPT_CustomerCount.aspx.designer.cs">
+      <DependentUpon>RPT_CustomerCount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RPT_MeterAudit.aspx.cs">
+      <DependentUpon>RPT_MeterAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RPT_MeterAudit.aspx.designer.cs">
+      <DependentUpon>RPT_MeterAudit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RPT_Statement.aspx.cs">
+      <DependentUpon>RPT_Statement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RPT_Statement.aspx.designer.cs">
+      <DependentUpon>RPT_Statement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RPT_TransactionAudit.aspx.cs">
+      <DependentUpon>RPT_TransactionAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RPT_TransactionAudit.aspx.designer.cs">
+      <DependentUpon>RPT_TransactionAudit.aspx</DependentUpon>
     </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
