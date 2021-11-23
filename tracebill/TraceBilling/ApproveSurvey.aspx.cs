@@ -366,6 +366,9 @@ namespace TraceBilling
                 DisplayMessage(res, false);
 
                 //send to next status 3
+                string createdby = Session["userId"].ToString();
+                string appid = lblApplicationCode.Text;
+                bll.LogApplicationTransactions(int.Parse(appid), 3, int.Parse(createdby));//send to 5
                 //new implementation
                 string str_todump = GetRecordsToDump();
                 string surveydate = txtsurveyDate.Text.Trim();
