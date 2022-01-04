@@ -1,45 +1,35 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="ApproveSurvey.aspx.cs" Inherits="TraceBilling.ApproveSurvey" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
-          <br />
-          <div><h3>SURVEY REPORT APPROVAL</h3></div>
+                     <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
+              <div><h3>SURVEY REPORT APPROVAL</h3></div>
     
           <center>
                 <asp:Label runat="server" ID="lblmsg" Visible="false" ></asp:Label>
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+      <%--  <div class="form-group col-sm-12">
+       
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
+  
            <th class="modal-sm" style="width: 250px">Job Number</th>
-<%--        <th class="modal-sm" style="width: 236px">Country</th>--%>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+   
            <td class="modal-sm" style="width: 250px">
                            <asp:TextBox ID="txtjobnumber" runat="server" CssClass="form-control" Width="217px" ></asp:TextBox>
                      
                           </td> 
-                        <%--  <td class="modal-sm" style="width: 236px" >
-                      
-            <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="country_list_SelectedIndexChanged" Width="235px">
-                </asp:DropDownList>
-                    </td>--%>
-             
+                       
                            
              <td class="datepicker-inline" style="width: 226px" >
                       
@@ -58,8 +48,7 @@
                                                  
                           </tr>
                           </table>
-                          </div>
-          <hr />
+                          </div>--%>
           <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to Job list" onclick="btnReturn_Click" />
@@ -157,16 +146,17 @@
                     </td>
                 </tr>
                    <tr>
-                    <td style="width: 502px">
+                    <td style="width: 502px; height: 91px;">
                           <label>Date Of Survey:</label>
 
-                <div class="input-group date">
+               <%-- <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                    <%--<asp:TextBox runat="server" class="form-control pull-right" id="datepicker" ReadOnly="true" />--%>
                     <asp:TextBox ID="txtsurveyDate" CssClass="surveydate"  runat="server"></asp:TextBox>
-                    </div>
+                    </div>--%>
+ <asp:TextBox ID="txtsurveyDate" runat="server" CssClass="form-control"></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="txtsurveyDate_CalendarExtender" runat="server" TargetControlID="txtsurveyDate" Format="yyyy-MM-dd"/>
                     </td>
                 </tr>
                 <tr>
@@ -194,7 +184,9 @@
                                        <asp:Button ID="btnjobcard" runat="server" Text="Export JobCard" cssclass ="btn-primary" OnClick="btnjobcard_Click" />
 
                       <div id="surveydisplay" runat="server">
-                           <asp:Label runat="server" Text="Survey Question Check List" ID="lblQnLst" Font-Bold="true" Visible="true"></asp:Label>
+                           <asp:Label runat="server" Text="Survey Question Check List" ID="lblQnLst" Font-Bold="true" Visible="true"></asp:Label><br />
+                  <asp:Label runat="server" Text="NB: Please tick list item and enter field  answer" ID="Label1" Font-Bold="true" Visible="true" ForeColor="Red"></asp:Label>
+
                         <asp:DataGrid ID="DataGrid1" runat="server" AllowPaging="True" AutoGenerateColumns="False"
                                         CellPadding="4" Font-Bold="False" Font-Italic="False" Font-Names="Courier New"
                                         Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="#333333"

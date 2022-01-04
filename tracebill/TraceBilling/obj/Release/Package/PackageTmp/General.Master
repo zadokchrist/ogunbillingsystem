@@ -73,52 +73,7 @@
          <font size = 6> <font color = white>OGUN STATE WATER BILLING SYSTEM</font></font>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- Messages: style can be found in dropdown.less-->
-         
-          <!-- Notifications: style can be found in dropdown.less -->
-         <%-- <li class="dropdown notifications-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> xxxxxxxxxxxxxxx
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> xxxxxxxxxxxxxxxxxxxxxxxx
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="footer"><a href="#">View all</a></li>
-            </ul>
-          </li>--%>
-          <!-- Tasks: style can be found in dropdown.less -->
-        
-          <!-- User Account: style can be found in dropdown.less -->
+          
          <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/avatar.png" class="user-image" alt="User Image">
@@ -137,20 +92,7 @@
                 </p>
               </li>
               <!-- Menu Body -->
-              <%--<li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>--%>
+              
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
@@ -201,41 +143,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <!--<li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-            <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-          </ul>
-        </li> -->
-        <!--<li class="treeview">
-          <a href="#">
-            <i class="fa fa-files-o"></i>
-            <span>Layout Options</span>
-            <span class="pull-right-container">
-              <span class="label label-primary pull-right">4</span>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-          </ul>
-        </li>-->
-        <!--<li>
-          <a href="pages/widgets.html">
-            <i class="fa fa-th"></i> <span>Widgets</span>
-            <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
-          </a>
-        </li>-->
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-pie-chart"></i>
@@ -264,20 +172,7 @@
               <%} %>           
           
               <li class="treeview">
-               <%--     <% if (Session["roleId"].ToString() == "6")
-                                                  {%>  
-              <a href="#"><i class="fa fa-circle-o"></i> Field Survey Mapping
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard</a></li>
-                   <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report</a></li>
-                  </ul>
-               </li>
-              <li><a href="GenerateConnectionInvoice.aspx"><i class="fa fa-circle-o"></i> Connection Invoice Generation</a></li>
-               <%} %> --%>
+            
                 <% if (Session["roleId"].ToString() == "6")
     {%>  
              
@@ -294,7 +189,7 @@
               <li><a href="AuthorizeConnection.aspx"><i class="fa fa-circle-o"></i> Authorize Connection (S5)</a></li>
               <%} %> 
 
-                <% if (Session["roleId"].ToString() == "2")
+                <% if (Session["roleId"].ToString() == "2" || Session["roleId"].ToString() == "10")
                                                   {%>  
               <li><a href="PaymentInvoice.aspx"><i class="fa fa-circle-o"></i> Payment Invoicing (S6)</a></li>
               <%} %> 
@@ -304,7 +199,7 @@
                <%} %>
                 <% if (Session["roleId"].ToString() == "4" || Session["roleId"].ToString() == "9")
                                                   {%>
-              <li><a href="CustomerCreation.aspx"><i class="fa fa-circle-o"></i> Customer Creation (S10)</a></li>
+              <li><a href="CustomerCreation.aspx"><i class="fa fa-circle-o"></i> Customer Activation (S10)</a></li>
                <%} %>
               <li><a href="ViewApplications.aspx"><i class="fa fa-circle-o"></i> View Application Details</a></li>
            </li>
@@ -457,9 +352,12 @@
 
           <ul class="treeview-menu">
             
-               <% if (Session["roleId"].ToString() == "8")
+               <% if (Session["roleId"].ToString() == "10")
                                                   {%>  
                <li><a href="AddTransaction.aspx"><i class="fa fa-circle-o"></i> Add New Payment (S7)</a></li>
+              <%} %>
+               <% if (Session["roleId"].ToString() == "8")
+                                                  {%>  
             <li><a href="ReconcileTransactions.aspx"><i class="fa fa-circle-o"></i> Reconciliations (S8)</a></li>
               <%} %>
              <li><a href="ViewTransactions.aspx"><i class="fa fa-circle-o"></i> View Payment Transactions</a></li>

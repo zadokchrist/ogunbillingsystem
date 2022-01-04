@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="ReconcileTransactions.aspx.cs" Inherits="TraceBilling.ReconcileTransactions" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
      <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
+ <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
           <br />
           <div><h3>RECONCILIATION PROCESS MANAGEMENT</h3></div>
     
@@ -11,12 +14,11 @@
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+<%--        <div class="form-group col-sm-12">
+       
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
+  
           
          <th class="modal-sm" style="width: 226px">Operation Area</th>
          <th class="datepicker-inline" style="width: 226px">Start Date</th>
@@ -24,13 +26,7 @@
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
-           
+  
                  
              
                            
@@ -59,7 +55,29 @@
                                                  
                           </tr>
                           </table>
-                          </div>
+                          </div>--%>
+           <div class="col-sm-3">From Date
+                  <asp:TextBox ID="txtstartdate" runat="server" CssClass="form-control"
+                               ></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="txtstartdate_CalendarExtender" runat="server" TargetControlID="txtstartdate" Format="yyyy-MM-dd"/>
+                      
+
+            </div>
+              <div class="col-sm-3">To Date
+                  <asp:TextBox ID="txtenddate" runat="server" CssClass="form-control"
+                               ></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="txtenddate_CalendarExtender" runat="server" TargetControlID="txtenddate" Format="yyyy-MM-dd"/>
+                      
+
+            </div>
+             <div class="col-sm-4">  
+        Search <br />
+                 <asp:Button ID="Button3" Width="150" Height="40" CssClass="btn-primary
+                               round_btn form-control  center_text inline"
+                                    runat="server" Text="Search" onclick="Button3_Click"  />
+                
+                           
+           </div>
           <hr />
           <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="202px" Height="40px" CssClass="btn-primary" Visible="false"

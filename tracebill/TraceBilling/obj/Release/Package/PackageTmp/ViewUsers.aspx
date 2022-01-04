@@ -11,46 +11,46 @@
 
         
         <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
-                          <table width="100%">
+         
+
+                           <table width="100%">
     <tr>
-    <th></th>
-           <th>From Date</th>
-        <th>To Date</th>
-         <th>Country</th>
+        <th>Search (name..)</th>  
+        <th>Branch</th>       
+         <th>Role</th>
         <th></th>
         </tr>
         <tr>
-        <td>
-        
-        <%--<asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />--%>
-        </td>
-           <td>
-                           <asp:TextBox ID="txtfromdatesrc" runat="server" CssClass="form-control" Width="150" ></asp:TextBox>
-                    
-                          </td> 
-                           <td>
-                           <asp:TextBox ID="txttodatesrc" runat="server" CssClass="form-control" Width="150"></asp:TextBox>
-                     
-                           </td>
-                            <th>
+            <td>
+         <asp:TextBox ID="txtsearch" 
+                               runat="server" CssClass="form-control" Width="216px"></asp:TextBox>
+            </td>
+             <td>
            
-                                <asp:DropDownList ID="country_list" CssClass="form-control" runat="server" Width="216px"  OnDataBound="country_list_DataBound" Visible="true">
+                                <asp:DropDownList ID="ddlbranch"
+                                      DataTextField="branchName"
+                                     DataValueField="branchId" 
+                                     CssClass="form-control" runat="server" Width="216px" 
+                                     OnDataBound="ddlbranch_DataBound" Visible="true">
                         </asp:DropDownList>
-                </th>
-                 
-                          <th>
-                          <asp:Button ID="Button3" Width="150" Height="40" CssClass="btn-primary"
-                                    runat="server" Text="Search" onclick="Button3_Click" />
-                           
+                </td>
+                            
+             <td>
            
-                          </th>
-                                                 
+                                <asp:DropDownList ID="ddlrole"
+                                      DataTextField="RoleName"
+                                     DataValueField="RoleID" 
+                                     CssClass="form-control" runat="server" Width="216px" 
+                                     OnDataBound="ddlrole_DataBound" Visible="true">
+                        </asp:DropDownList>
+                </td>
+            <td>
+                  <asp:Button ID="Button1" Width="150" Height="40" CssClass="btn-primary round_btn"
+                                    runat="server" Text="Search" onclick="Button3_Click" />
+                               </td>          
                           </tr>
                           </table>
+             
                           </div>
          <%-- <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
@@ -62,12 +62,15 @@
                    <p id='baltxt' class="inline" style="color:Green; font-size:14px;" runat="server"></p>
                              <asp:GridView ID="GridViewUser" runat="server" 
                        CssClass="grid-text" CellPadding="10" 
+                                 AllowPaging="true"
+                                  PageSize="10"
                               ForeColor="#333333" GridLines="None" Width="100%"
                                   AutoGenerateColumns="False"
                                   OnRowDataBound="GridViewUser_RowDataBound" 
                                  onselectedindexchanging="GridViewUser_SelectedIndexChanging"
                                   onselectedindexchanged="GridViewUser_SelectedIndexChanged"
-                                 OnRowCommand="GridViewUser_RowCommand"                               
+                                 OnRowCommand="GridViewUser_RowCommand"   
+                                 OnPageIndexChanging="GridViewUser_PageIndexChanging"                            
                                  >
              <Columns>
            
@@ -82,28 +85,12 @@
             <asp:BoundField DataField="emailAddress" HeaderText="EmailAddress" NullDisplayText="-" /> 
               <asp:BoundField DataField="roleName" HeaderText="Role" NullDisplayText="-" /> 
              
-             <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-">             
-                 </asp:BoundField> 
-
+                 
              <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> 
        
            
               <asp:BoundField DataField="AccStatus" HeaderText="Active" NullDisplayText="-"/>
-                 
-             <%--<asp:CommandField ShowSelectButton="true" ButtonType="Link" SelectText="View"   HeaderText="Details"/>
-            <asp:CommandField ShowSelectButton="true" ButtonType="Link" SelectText="Edit"   HeaderText="Change" />
-                 <asp:CommandField ShowSelectButton="true" ButtonType="Link" SelectText="Reset"   HeaderText="Password"/>
-                 
-            --%>
-          <%-- <asp:CommandField
-            ButtonType="Link"
-            ShowEditButton="true"
-            EditText="Edit"           
-           
-           
-            ShowDeleteButton="true"
-            DeleteText="Delete"
-            />--%>
+              
                  <asp:TemplateField ShowHeader="True">
                       <HeaderTemplate>
                         Modify
@@ -135,14 +122,21 @@
             </ItemTemplate>
                      <ItemStyle Width="5%" />
                  </asp:TemplateField>
-                <%-- <asp:TemplateField>
-        <ItemTemplate>
-            <asp:LinkButton ID="DeleteButton"
-                            Text="Delete"
-                            CommandName="RowDelete" 
-                            runat="server" />
-        </ItemTemplate>
-    </asp:TemplateField>--%>
+                <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Password
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="ResetButton"
+                                runat="server"
+                                CommandName="RowReset" 
+                    CommandArgument='<%#Eval("userID") + ";" +Eval("userName") + ";" +Eval("fullName") + ";" +Eval("emailAddress") %>'
+                               
+                                Text="Reset" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="10%" />
+                 </asp:TemplateField>
               
              </Columns>
              
@@ -160,8 +154,6 @@
              </asp:GridView>
 
                
-           <%-- </asp:View>
-                </asp:MultiView>--%>
                       
              
             </div>

@@ -13,7 +13,15 @@
           
              </div>     
              
-  
+    <div class="col-sm-3">Operation Area
+              <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddloperationarea_DataBound" Visible="true" AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged">
+                        </asp:DropDownList>
+          </div>
       
           <div class="col-sm-3">Branch
                <asp:DropDownList ID="ddlbranch" 

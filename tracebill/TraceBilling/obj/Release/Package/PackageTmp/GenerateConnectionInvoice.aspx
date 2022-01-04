@@ -11,24 +11,18 @@
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+      <%--  <div class="form-group col-sm-12">
+        
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
+   
            <th class="modal-sm" style="width: 250px">Job Number</th>
         <th class="modal-sm" style="width: 236px">Country</th>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+  
            <td class="modal-sm" style="width: 250px">
                            <asp:TextBox ID="txtjobnumber" runat="server" CssClass="form-control" Width="217px" ></asp:TextBox>
                      
@@ -58,8 +52,8 @@
                                                  
                           </tr>
                           </table>
-                          </div>
-          <hr />
+                          </div>--%>
+       
           <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to Job list" onclick="btnReturn_Click" />
@@ -185,8 +179,11 @@
                 </tr>
                  <tr>
                     <td style="width: 502px"><label for="AuthorizedBy">Authorized By</label>
-            <asp:TextBox runat="server" CssClass="form-control" ID="txtauthorizedby" ReadOnly="false"/></td>
-                </tr>
+<%--            <asp:TextBox runat="server" CssClass="form-control" ID="txtauthorizedby" ReadOnly="false"/></td>--%>
+                <asp:DropDownList ID="authorizer_list" CssClass="form-control" runat="server" AutoPostBack="false" OnDataBound="authorizer_list_DataBound"
+                           Visible="true">
+                       </asp:DropDownList>
+                 </tr>
                 </table>
                            </div>
                            <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
@@ -209,7 +206,7 @@
                     <td style="width: 502px"><label for="SurveyedBy">Surveyed By</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtsurvey" ReadOnly="true"/></td>
                 </tr>
-                 <tr>
+              <%--   <tr>
                     <td style="width: 502px">
                           <label>Date Of Instruction:</label>
 
@@ -220,7 +217,7 @@
                     <asp:TextBox ID="txtinstructionDate" CssClass="instructiondate"  runat="server"></asp:TextBox>
                     </div>
                     </td>
-                </tr>
+                </tr>--%>
 
                 </table>
                            </div>
@@ -271,9 +268,9 @@
                                                                 </asp:DropDownList></td>
                 </tr>
                   <tr>
-                      <td style="width: 502px"><label for="size">Size</label>
+                      <%--<td style="width: 502px"><label for="size">Size</label>
                       <asp:TextBox ID="txtsize" runat="server"></asp:TextBox>
-                    </td>
+                    </td>--%>
                       <td style="width: 502px"><label for="quantity">Quantity</label>
                       <asp:TextBox ID="txtquantity" runat="server"></asp:TextBox>
                     </td>
@@ -352,7 +349,7 @@
                                    </div>
                                    <br />
                                   <div id="pipedetails" runat="server" >
-                                   <asp:Label runat="server" Text="Details of required pipe" Font-Bold="true" ></asp:Label>
+                                   <asp:Label runat="server" Text="Pipe length and Trench depth" Font-Bold="true" ></asp:Label>
                                
                                    <table style="margin-right:auto;margin-left:0px">
                  <tr>
@@ -407,10 +404,10 @@
  
 </div>
      <script type="text/javascript">
-        $(function () {
-            $(".instructiondate").datepicker({
-                dateFormat: "dd-M-yy"
-            });
-        });
+        //$(function () {
+        //    $(".instructiondate").datepicker({
+        //        dateFormat: "dd-M-yy"
+        //    });
+        //});
     </script>
 </asp:Content>

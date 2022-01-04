@@ -11,34 +11,21 @@
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+      <%--  <div class="form-group col-sm-12">
+        
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
            <th class="modal-sm" style="width: 250px">Application Number</th>
-<%--        <th class="modal-sm" style="width: 236px">Country</th>--%>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+     
            <td class="modal-sm" style="width: 250px">
                            <asp:TextBox ID="txtappnumber" runat="server" CssClass="form-control" Width="217px" ></asp:TextBox>
                      
                           </td> 
-                        <%--  <td class="modal-sm" style="width: 236px" >
-                      
-            <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="country_list_SelectedIndexChanged" Width="235px">
-                </asp:DropDownList>
-                    </td>--%>
+                       
              
                            
              <td class="datepicker-inline" style="width: 226px" >
@@ -58,8 +45,7 @@
                                                  
                           </tr>
                           </table>
-                          </div>
-          <hr />
+                          </div>--%>
           <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to invoice list" onclick="btnReturn_Click" />
@@ -185,7 +171,7 @@
                                     </td>
                                
                             </tr>
-                                 <tr>
+                                <%-- <tr>
                                 <td class="InterFaceTableLeftRowUp" style="width: 42%">
                                     New Connection with VAT</td>
                                 <td class="InterFaceTableMiddleRowUp">
@@ -195,11 +181,10 @@
                                         Font-Bold="True" ForeColor="Maroon" ReadOnly="True" Width="80%"></asp:TextBox></td>
                                     <td class="InterFaceTableRightRowUp" style="width: 20%; background-color: white;
                                     text-align: left">
-                                   <%-- <asp:CheckBox ID="CheckBox1" runat="server" Font-Bold="True" Text="Tick" Checked="true" />--%>
 
                                     </td>
                                
-                            </tr>
+                            </tr>--%>
                             <tr>
                                 <td class="InterFaceTableLeftRowUp" style="width: 42%">
                                     Deposit Fee</td>
@@ -218,7 +203,7 @@
                            
                             <tr>
                                 <td class="InterFaceTableLeftRowUp" style="width: 42%">
-                                    Total (Vat inclusive)</td>
+                                    Total</td>
                                 <td class="InterFaceTableMiddleRowUp">
                                 </td>
                                 <td class="InterFaceTableRightRowUp" style="width: 40%">

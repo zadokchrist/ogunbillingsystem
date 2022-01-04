@@ -11,24 +11,18 @@
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+       <%-- <div class="form-group col-sm-12">
+        
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
+    
            <th class="modal-sm" style="width: 250px">Job Number</th>
         <th class="modal-sm" style="width: 236px">Country</th>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+    
            <td class="modal-sm" style="width: 250px">
                            <asp:TextBox ID="txtjobnumber" runat="server" CssClass="form-control" Width="217px" ></asp:TextBox>
                      
@@ -58,8 +52,8 @@
                                                  
                           </tr>
                           </table>
-                          </div>
-          <hr />
+                          </div>--%>
+       
           <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to Job list" onclick="btnReturn_Click" />
@@ -344,7 +338,7 @@
                                                                                     Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray"></asp:TextBox>
                                                                             </td>
                                                                         </tr>
-             <tr>
+                                                                       <%--<tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                     Meter Ref</td>
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
@@ -355,7 +349,7 @@
                                                                                     <asp:Button ID="btnGetMeterRef" runat="server" OnClick="btnGetMeterRef_Click" Text="Get Reference"
                                                                                     Width="103px" Font-Bold="True" Font-Italic="False" Font-Names="Arial Narrow" />
                                                                                 </td>
-                                                                            </tr>
+                                                                            </tr>--%>
               <tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                     Meter Make / Type</td>
@@ -449,7 +443,7 @@
                                                                                     <asp:RangeValidator ID="RangeValidator2" Type="Integer" MinimumValue="4" MaximumValue="10" ControlToValidate="txtDials" runat="server" ErrorMessage="enter only numbers between 1 and 10" ForeColor="Red"></asp:RangeValidator>
                                                                                 </td>
                                                                             </tr>
-                                                                            <tr>
+                                                                            <%--<tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                     Meter Life</td>
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
@@ -458,7 +452,7 @@
                                                                                     <asp:TextBox ID="txtMeterLife" runat="server" CssClass="InterfaceTextboxLongReadOnly" Width="80%" onkeypress="return NumberOnly()"></asp:TextBox>
                                                                                     <asp:RangeValidator ID="RangeValidator3" Type="Integer" MinimumValue="1" MaximumValue="10" ControlToValidate="txtMeterLife" runat="server" ErrorMessage="enter only numbers between 1 and 30" ForeColor="Red"></asp:RangeValidator>
                                                                                 </td>
-                                                                            </tr>
+                                                                            </tr>--%>
                                                                             <tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                     Manufacture Date</td>
