@@ -19,28 +19,31 @@
                  
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 50%"><label for="ApplicationNumber">Application Number</label>
-           
+               <%-- <tr>
+                    <td style="width: 50%">
+             <asp:Label runat="server" Text="Application Number" ID="appnumber" Visible="false" Font-Bold="true"></asp:Label>
+                        </td>
                 <td style="width: 50%">
-                     <asp:TextBox runat="server" CssClass="form-control" ID="txtApplicationNo" ReadOnly="true"/></td>
+                     <asp:TextBox runat="server" CssClass="form-control" ID="txtApplicationNo" ReadOnly="true" Visible="false"/>
                      </td>
-                </tr>
+                </tr>--%>
                  <tr>
                     <td style="width: 50%">
                         <label for="service">Proposed Customer Type</label>
-           
+                                <asp:Label ID="l1" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                      
                     </td>
                       <td style="width: 50%">
-                          <asp:RadioButtonList ID="customertype_list" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="true">                       
+                          <asp:RadioButtonList ID="customertype_list" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="false">                       
                    </asp:RadioButtonList>
                      </td>
                 </tr>
                 <tr>
                     <td style="width: 50%">
                         <asp:Label runat="server" Text="First Name"  Font-Bold="true"></asp:Label>
-                        
+                          <asp:Label ID="l2" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                      <td style="width: 50%">
                          <asp:TextBox runat="server" CssClass="form-control" ID="txtfirstname"  placeholder="Enter First Name"/>
@@ -49,7 +52,8 @@
                 <tr>
                     <td style="width: 50%">
                         <asp:Label runat="server" Text="Last Name" Font-Bold="true" ></asp:Label>
-                        
+                       <asp:Label ID="l3" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                      <td style="width: 50%">
                          <asp:TextBox runat="server" CssClass="form-control" ID="txtlastname"  placeholder="Enter Last Name"/>
@@ -86,26 +90,41 @@
                 <tr>
                     <td style="width: 50%">
                         <asp:Label runat="server" Text="Phone Number" Font-Bold="true"></asp:Label>
-                 
+                         <asp:Label ID="l4" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                         
                     </td>
                      <td style="width: 50%">
-                         <asp:TextBox runat="server" CssClass="form-control" ID="txtphone"  placeholder="Enter Phone number"/>
+                         <asp:TextBox runat="server" CssClass="form-control" ID="txtphone"  placeholder="Enter Phone number"  onkeypress="return NumberOnly()" MaxLength="12"/>
+                         <asp:RegularExpressionValidator Display = "Dynamic" ControlToValidate = "txtphone" ID="revphone" ValidationExpression = "^[\s\S]{10,15}$" runat="server"
+                 ErrorMessage="Minimum 9 and Maximum 12 characters required." ForeColor="Red"></asp:RegularExpressionValidator>
                      </td>
                 </tr>
                 <tr>
                     <td style="width: 50%">
-                        <label for="address">Address</label>
-               
+                        <label for="address">Street/Road</label>
+                      <asp:Label ID="l5" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                      <td style="width: 50%">
-                         <asp:TextBox runat="server" CssClass="form-control" ID="txtaddress" placeholder="Enter physical address" Rows="2" TextMode="MultiLine"/>
+                         <asp:TextBox runat="server" CssClass="form-control" ID="txtaddress" placeholder="Enter street address" Rows="2" TextMode="MultiLine"/>
+                     </td>
+                </tr>
+                 <tr>
+                    <td style="width: 50%">
+                        <label for="landmark">Nearest Landmark</label>
+                      <asp:Label ID="l5x" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                    </td>
+                     <td style="width: 50%">
+                         <asp:TextBox runat="server" CssClass="form-control" ID="txtlandmark" placeholder="Enter known land mark" Rows="2" TextMode="MultiLine"/>
                      </td>
                 </tr>
                <tr>
                     <td style="width: 50%">
                         <label for="Personal ID">Personal Identity</label>
-                  
+                         <asp:Label ID="l6" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                         </td>
                     <td style="width: 50%">
                               <table style="width: 96%">
@@ -149,17 +168,7 @@
                                                 </table>
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 50%">
-                     
-                                                <label for="uploads"> Application Requirement CheckList(All those with Star are Compulsory)</label>
-                                                <asp:CheckBoxList ID="chkBoxRequired" runat="server" Font-Bold="True" RepeatDirection="Horizontal"
-                                                    Width="98%" style="font: menu" Font-Names="Arial Narrow">
-                                                </asp:CheckBoxList>
-                                        
-                    </td>
-                   
-                </tr>
+              
                 
              
             </table>
@@ -183,20 +192,41 @@
                 </tr>--%>
                  <tr>
                     <td style="width: 50%">
-                        <label for="country">Area</label>
-            
+                        <label for="country">Administrative Area</label>
+                                 <asp:Label ID="l8" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                       <td style="width: 50%">
                           <asp:DropDownList ID="area_list" CssClass="form-control" runat="server"  OnDataBound="area_list_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="area_list_SelectedIndexChanged">
+                 >
                 </asp:DropDownList>
+                          
                      </td>
                 </tr>
-                <tr><td style="width: 50%">
-                         <asp:Label runat="server" Text="Branch" ID="txtbranch" Visible="true" Font-Bold="true"></asp:Label>
+                 <tr><td style="width: 50%">
+                         <asp:Label runat="server" Text="Operation Area" ID="Label1" Visible="true" Font-Bold="true"></asp:Label>
+                  <asp:Label ID="l9x" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                  </td>
                      <td style="width: 50%">
-                          <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true">
+                          <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddloperationarea_DataBound" Visible="true" AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged">
+                        </asp:DropDownList>
+                     </td>
+                    </tr>
+                <tr><td style="width: 50%">
+                         <asp:Label runat="server" Text="Branch" ID="txtbranch" Visible="true" Font-Bold="true"></asp:Label>
+                  <asp:Label ID="l9" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                 </td>
+                     <td style="width: 50%">
+                          <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true"
+                              AutoPostBack="true"
+                              OnSelectedIndexChanged="branch_list_SelectedIndexChanged">
                 </asp:DropDownList>
                      </td>
                     </tr>
@@ -206,7 +236,14 @@
            
                     </td>
                  <td style="width: 50%">
-                      <asp:TextBox runat="server" CssClass="form-control" ID="txtdivision" placeholder="Enter territory"/>
+                      <%--<asp:TextBox runat="server" CssClass="form-control" ID="txtdivision" placeholder="Enter territory"/>--%>
+                     <asp:DropDownList ID="ddlterritory" 
+                                    DataTextField="territory"
+                                     DataValueField="territoryId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlterritory_DataBound" Visible="true"
+                              OnSelectedIndexChanged="ddlterritory_SelectedIndexChanged">
+                        </asp:DropDownList>
                      </td>
                 </tr>
                <%--  <tr>
@@ -221,8 +258,15 @@
             
                     </td>
                       <td style="width: 50%">
-                          <asp:TextBox runat="server" CssClass="form-control" ID="txtvillage" placeholder="Enter sub territory"/>
-                     </td>
+                          <%--<asp:TextBox runat="server" CssClass="form-control" ID="txtvillage" placeholder="Enter sub territory"/>--%>
+                     <asp:DropDownList ID="ddlsubterritory" 
+                                    DataTextField="subTerritory"
+                                     DataValueField="subTerritoryId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlsubterritory_DataBound" Visible="true"
+                              >
+                        </asp:DropDownList>
+                      </td>
                 </tr>
                  <tr>
                     <td style="width: 50%">
@@ -234,7 +278,7 @@
                      </td>
                 </tr>
                 
-                 <tr>
+                 <%--<tr>
                     <td style="width: 50%">
                         <label for="service">Service Type</label>
            
@@ -242,32 +286,37 @@
                       <td style="width: 50%">
                           <asp:RadioButtonList ID="rtnServicetype" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="true" OnSelectedIndexChanged="rtnServicetype_SelectedIndexChanged">
                         <asp:ListItem Value="1" Selected="True">Water</asp:ListItem>
-                       <%-- <asp:ListItem Value="2">Sewerage</asp:ListItem>
-                        <asp:ListItem Value="3">Water and Sewerage</asp:ListItem>--%>
+                        <asp:ListItem Value="2">Sewerage</asp:ListItem>
+                        <asp:ListItem Value="3">Water and Sewerage</asp:ListItem>
                    </asp:RadioButtonList>
                      </td>
-                </tr>
-                <tr>
-<td style="width: 50%">
-                                  
-                    </td>
-                    <td style="width: 50%">
-                                  
-                    </td>
-                </tr>
+                </tr>--%>
+                
                 <tr>
                     <td style="width: 50%">
                         <label for="tariff">Proposed Category</label>
-           
+                                <asp:Label ID="l7" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                      <td style="width: 50%">
-                         <asp:RadioButtonList ID="rtncategory" runat="server" RepeatDirection="Vertical" Width="65%"  AutoPostBack="true" OnSelectedIndexChanged="rtnTariff_SelectedIndexChanged">
+                         <asp:RadioButtonList ID="rtncategory" runat="server" RepeatDirection="Vertical" Width="65%"  AutoPostBack="false" OnSelectedIndexChanged="rtnTariff_SelectedIndexChanged">
                         <asp:ListItem Value="1">Domestic</asp:ListItem>
                         <asp:ListItem Value="2">Commercial</asp:ListItem>
                         <asp:ListItem Value="3">Institutional/Government</asp:ListItem>
                          <asp:ListItem Value="2">Community Stand</asp:ListItem>
                    </asp:RadioButtonList>
                      </td>
+                </tr>
+                  <tr>
+                    <td style="width: 50%">
+                     
+                                                <label for="uploads"> Application Requirement CheckList(All those with Star are Compulsory)</label>
+                                                <asp:CheckBoxList ID="chkBoxRequired" runat="server" Font-Bold="True" RepeatDirection="vertical"
+                                                    Width="98%" style="font: menu" Font-Names="Arial Narrow">
+                                                </asp:CheckBoxList>
+                                        
+                    </td>
+                   
                 </tr>
                  
             </table>
@@ -383,6 +432,13 @@
                 return false;
             }
         }
+    }
+    function NumberOnly() {
+        var AsciiValue = event.keyCode
+        if ((AsciiValue >= 48 && AsciiValue <= 57) || (AsciiValue == 8 || AsciiValue == 127))
+            event.returnValue = true;
+        else
+            event.returnValue = false;
     }
 </script>
 </asp:Content>

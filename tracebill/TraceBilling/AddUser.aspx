@@ -19,6 +19,8 @@
             <table>
                 <tr>
                     <td style="width: 50%"><label for="firstname">First Name</label>
+             <asp:Label ID="l1" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
             </td>
                      <td style="width: 50%">
                          <asp:TextBox runat="server" CssClass="form-control" ID="txtfirstname" placeholder="Enter FirstName"/>
@@ -26,6 +28,8 @@
                 </tr>
                  <tr>
                     <td style="width: 50%"><label for="lastname">Last Name</label>
+               <asp:Label ID="l2" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
             </td>
                      <td style="width: 50%">
                          <asp:TextBox runat="server" CssClass="form-control" ID="txtlastname" placeholder="Enter LastName" AutoPostBack="True" OnTextChanged="txtlastname_TextChanged"/>
@@ -40,7 +44,8 @@
                  </tr>
                  <tr>
                     <td style="width: 302px"><label for="username">Preferred User Name</label>
-            
+              <asp:Label ID="l3" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                     <td style="width: 50%">
                         <asp:TextBox runat="server" CssClass="form-control" ID="txtusername" placeholder="Enter username" ReadOnly="true"/>
@@ -49,9 +54,13 @@
                 </tr>
                  <tr>
                     <td style="width: 50%"><label for="phonenumber">Phone Number 1</label>
+               <asp:Label ID="l4" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
             </td>
                 <td style="width: 50%">
-                    <asp:TextBox runat="server" CssClass="form-control" ID="txtphone" placeholder="Enter Contact Number 1"/>
+                    <asp:TextBox runat="server" CssClass="form-control" ID="txtphone" placeholder="Enter Contact Number 1" onkeypress="return NumberOnly()" MaxLength="12"/>
+                     <asp:RegularExpressionValidator Display = "Dynamic" ControlToValidate = "txtphone" ID="revphone" ValidationExpression = "^[\s\S]{10,15}$" runat="server"
+                 ErrorMessage="Minimum 9 and Maximum 12 characters required." ForeColor="Red"></asp:RegularExpressionValidator>
                      </td>
                  </tr>
                      <tr>
@@ -74,22 +83,25 @@
             <table>
                    <tr>
                     <td style="width: 50%"><label for="email">Email</label>
+           <asp:Label ID="l5" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
            </td>
                 <td style="width: 50%">
                      <asp:TextBox runat="server" CssClass="form-control" ID="txtemail" placeholder="Enter Email address"/>
                      </td>
                    </tr>
-                 <tr>
+                <%-- <tr>
                     <td style="width: 50%"><label for="designation">Designation</label>
             </td>
                <td style="width: 50%">
                    <asp:TextBox runat="server" CssClass="form-control" ID="txtdesignation" placeholder="Enter Job Designation"/>
                      </td>
-                      </tr>  
+                      </tr>--%>  
                   <tr>
                     <td style="width: 50%">
-                         <asp:Label runat="server" Text="Role" ID="role" Visible="true" Font-Bold="true"></asp:Label>
-                  
+                         <asp:Label runat="server" Text="Designation" ID="role" Visible="true" Font-Bold="true"></asp:Label>
+                     <asp:Label ID="l6" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                       <td style="width: 50%">
                           <asp:DropDownList ID="role_list" CssClass="form-control" runat="server"  OnDataBound="role_list_DataBound" Visible="true">
@@ -106,14 +118,31 @@
                 </tr>--%>
                 <tr>
                     <td style="width: 50%">
-                        <asp:Label runat="server" Text="Operation Area" ID="lbloparea" Visible="true" Font-Bold="true"></asp:Label>
-           
+                        <asp:Label runat="server" Text="Administrative Area" ID="lbloparea" Visible="true" Font-Bold="true"></asp:Label>
+                                <asp:Label ID="lbx" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                     <td style="width: 50%">
                          <asp:DropDownList ID="area_list" CssClass="form-control" runat="server"  OnDataBound="area_list_DataBound" OnSelectedIndexChanged="operation_area_SelectedIndexChanged" AutoPostBack="true" Visible="true" >
                 </asp:DropDownList>
                      </td>
                 </tr>
+                                 <tr><td style="width: 50%">
+                         <asp:Label runat="server" Text="Operation Area" ID="Label1" Visible="true" Font-Bold="true"></asp:Label>
+                  <asp:Label ID="l9x" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                 </td>
+                     <td style="width: 50%">
+                          <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddloperationarea_DataBound" Visible="true" AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged">
+                        </asp:DropDownList>
+                     </td>
+                    </tr>
+
                  
                       <tr>
                     <td style="width: 50%">
@@ -128,10 +157,25 @@
                <tr>
                     <td style="width: 50%">
                         <label runat="server" for="reason" id="reason">Reason for adding user</label>
-               
+                  <asp:Label ID="l7" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                    <td style="width: 50%">
                        <asp:TextBox runat="server" CssClass="form-control" ID="txtreason" placeholder="Enter any reason" Rows="2" TextMode="MultiLine"/>
+                     </td>
+                </tr>
+                <tr>
+                    <td style="width: 50%"><label for="txtstatus">Status</label>
+                 <asp:Label ID="l8" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+    
+                    </td>
+                     <td style="width: 50%">
+                          <asp:DropDownList ID="ddlstatus"
+                                      DataTextField="status"
+                                     DataValueField="recordId" 
+                                     CssClass="form-control" runat="server" 
+                                     OnDataBound="ddlstatus_DataBound" Visible="true">
+                        </asp:DropDownList>
                      </td>
                 </tr>
                  <tr>
@@ -161,4 +205,14 @@
        
 
 </div>
+     <script type="text/javascript">
+     
+        function NumberOnly() {
+            var AsciiValue = event.keyCode
+            if ((AsciiValue >= 48 && AsciiValue <= 57) || (AsciiValue == 8 || AsciiValue == 127))
+                event.returnValue = true;
+            else
+                event.returnValue = false;
+        }
+    </script>  
 </asp:Content>

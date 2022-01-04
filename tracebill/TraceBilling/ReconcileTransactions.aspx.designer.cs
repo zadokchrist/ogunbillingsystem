@@ -13,6 +13,15 @@ namespace TraceBilling {
     public partial class ReconcileTransactions {
         
         /// <summary>
+        /// toolScriptManageer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager toolScriptManageer1;
+        
+        /// <summary>
         /// lblmsg control.
         /// </summary>
         /// <remarks>
@@ -20,15 +29,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmsg;
-        
-        /// <summary>
-        /// area_list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list;
         
         /// <summary>
         /// txtstartdate control.
@@ -40,6 +40,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtstartdate;
         
         /// <summary>
+        /// txtstartdate_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtstartdate_CalendarExtender;
+        
+        /// <summary>
         /// txtenddate control.
         /// </summary>
         /// <remarks>
@@ -47,6 +56,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtenddate;
+        
+        /// <summary>
+        /// txtenddate_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtenddate_CalendarExtender;
         
         /// <summary>
         /// Button3 control.

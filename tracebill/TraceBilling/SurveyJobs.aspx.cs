@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls;
 using System.Drawing;
 using System.Data;
 using TraceBilling.ControlObjects;
@@ -24,10 +23,13 @@ namespace TraceBilling
             {
                 if (IsPostBack == false)
                 {
-                    
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
+                    if (Session["RoleID"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
+                    //LoadCountryList();
+                    //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+                    //LoadAreaList(countryid);
                     LoadApplicationByStatus();
                     bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Survey Jobs page");
                 }
@@ -37,44 +39,25 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        private void LoadCountryList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
-
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void LoadSurveyList(int countryid)
         {
             DataTable dt = new DataTable();
@@ -107,33 +90,19 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
-        }
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
+        //}
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
         protected void survey_list_DataBound(object sender, EventArgs e)
         {
             survey_list.Items.Insert(0, new ListItem("- - select survey - -", "0"));
         }
-        protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                LoadAreaList(countryid);
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
+        
 
         protected void Button3_Click(object sender, EventArgs e)
         {
@@ -152,9 +121,9 @@ namespace TraceBilling
         {
             try
             {
-                string applicationame = txtapplicationname.Text.Trim();
-                string country = country_list.SelectedValue.ToString();
-                string area = area_list.SelectedValue.ToString();
+                string applicationame = "";
+                string country = "2";
+                string area = "10";
                 string status = "1";
                 DataTable dataTable = bll.GetApplicationByStatus(applicationame,country,area,status);
                 if (dataTable.Rows.Count > 0)
@@ -204,7 +173,7 @@ namespace TraceBilling
                 arg = e.CommandArgument.ToString().Split(';');
                 string appnumber = arg[0];
                 string appid = arg[1];
-                bool isassigned = bll.CheckJobAssigned(appid);
+                bool isassigned = bll.CheckJobAssigned(appid,"1");
                 if (isassigned)
                 {
                     DisplayMessage(".", true);
@@ -230,11 +199,35 @@ namespace TraceBilling
                 string str = "Sorry, Job card details not ready for printing!!!";
                 DisplayMessage(str, true);
             }
-            //Get the Row Index.
-            //int rowIndex = Convert.ToInt32(e.CommandArgument);
+           else  if (commandName == "btnSubmit")//details
+            {
 
-            //Get the Row reference in which Button was clicked.
-            //GridViewRow row = GridView1.Rows[rowIndex];
+                string[] arg = new string[2];
+                arg = e.CommandArgument.ToString().Split(';');
+                string appnumber = arg[0];
+                string appid = arg[1];
+               
+                //string appid = lblApplicationCode.Text;
+                int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["userID"].ToString());
+                int status = 4;//surveying
+                               //log status
+                bool isassigned = bll.CheckJobAssigned(appid, "2");
+                string str = "";
+                if (isassigned)
+                {
+                    bll.LogApplicationTransactions(int.Parse(appid), status, CreatedBy);
+                    str = "Jobcard submitted to Surveyor for further action.";
+                    DisplayMessage(str, false);
+                    LoadApplicationByStatus();
+                }
+                else
+                {
+                    str = "Jobcard not assigned to any surveyor. Please assign it!!";
+                    DisplayMessage(str, true);
+                }
+
+
+            }
         }
 
         private void ShowSurveyDetails(string appnumber)
@@ -302,6 +295,7 @@ namespace TraceBilling
                     if (returned.Contains("Successfully"))
                     {
                         DisplayMessage(returned, false);
+                        assignsurvey.Visible = false;
                         LoadApplicationByStatus();
                     }
                     else
@@ -323,7 +317,7 @@ namespace TraceBilling
             txtappcode.Text = "";
             txtname.Text = "";
             survey_list.SelectedValue = "0";
-            txtinstructionDate.Text = "";
+           // txtinstructionDate.Text = "";
         }
 
         protected void btngenerate_Click(object sender, EventArgs e)
@@ -334,9 +328,7 @@ namespace TraceBilling
                 string returned = bll.GenerateJobCards(StringToProcess, "WATER");
                 if (returned.Contains("Successfully"))
                 {
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
+                   
                     LoadApplicationByStatus();
                 }
                 if (returned.Contains("Successfully"))
@@ -411,13 +403,13 @@ namespace TraceBilling
             }
         }
 
-        protected void btnSubmit_Click(object sender, EventArgs e)
+        /*protected void btnSubmit_Click(object sender, EventArgs e)
         {
             string appid = lblApplicationCode.Text;
             int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["userID"].ToString());
             int status = 4;//surveying
             //log status
-            bool isassigned = bll.CheckJobAssigned(appid);
+            bool isassigned = bll.CheckJobAssigned(appid,"2");
             string str = "";
             if(isassigned)
             {
@@ -431,7 +423,7 @@ namespace TraceBilling
                 DisplayMessage(str, true);
             }
            
-        }
+        }*/
         protected void gv_surveyjobs_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
         {
             int index = e.NewSelectedIndex;

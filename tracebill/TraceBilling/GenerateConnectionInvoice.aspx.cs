@@ -23,9 +23,9 @@ namespace TraceBilling
                 if (IsPostBack == false)
                 {
 
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
+                    //LoadCountryList();
+                    //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+                    //LoadAreaList(countryid);
                     LoadConnectionDetails();
                     bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Generate Connection Invoice page");
                 }
@@ -35,44 +35,44 @@ namespace TraceBilling
                 DisplayMessage(ex.Message, true);
             }
         }
-        private void LoadCountryList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
+        //private void LoadCountryList()
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetCountryList();
+        //        country_list.DataSource = dt;
 
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
+        //        country_list.DataTextField = "countryName";
+        //        country_list.DataValueField = "countryId";
+        //        country_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayCountryList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void LoadCustomerTypeList()
         {
             DataTable dt = new DataTable();
@@ -125,51 +125,51 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
-        }
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
+        //}
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
 
-        protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                LoadAreaList(countryid);
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //int deptid = int.Parse(department_list.SelectedValue.ToString());
+        //        int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+        //        LoadAreaList(countryid);
+        //        //load session data
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        protected void Button3_Click(object sender, EventArgs e)
-        {
-            try
-            {
+        //protected void Button3_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
 
-                LoadConnectionDetails();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        //        LoadConnectionDetails();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //}
 
         private void LoadConnectionDetails()
         {
             try
             {
-                string jobnumber = txtjobnumber.Text.Trim();
-                string country = country_list.SelectedValue.ToString();
-                string area = area_list.SelectedValue.ToString();
+                string jobnumber = "";
+                string country = "2";
+                string area = "10";
                 string status = "6";//after approval
                 lblstatus.Text = status;
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
@@ -256,11 +256,12 @@ namespace TraceBilling
                 {
                     LoadCustomerTypeList();
                     LoadCustomerClass();
+                    LoadAuthorizerList(2);
                     txtappNo.Text = dt.Rows[0]["ApplicationNumber"].ToString();
                     txtname.Text = dt.Rows[0]["ApplicantName"].ToString();
                     txtjobNo.Text = dt.Rows[0]["JobNumber"].ToString();
                     lblApplicationCode.Text = dt.Rows[0]["applicationID"].ToString();
-                    txtauthorizedby.Text = Session["FullName"].ToString();
+                   // txtauthorizedby.Text = Session["FullName"].ToString();
                     DateTime surverdate = DateTime.Now;
                     if (!string.IsNullOrEmpty(dt.Rows[0]["surveyDate"].ToString()))
                     {
@@ -326,8 +327,8 @@ namespace TraceBilling
                 DataTable dtcust = bll.GetFieldCustomerDetails(appid);
                 if (dtcust.Rows.Count > 0)
                 {
-                    DateTime instructiondt = Convert.ToDateTime(dtcust.Rows[0]["instructionDate"].ToString());
-                    txtinstructionDate.Text = instructiondt.ToString("dd-M-yy");
+                    //DateTime instructiondt = Convert.ToDateTime(dtcust.Rows[0]["instructionDate"].ToString());
+                   // txtinstructionDate.Text = instructiondt.ToString("dd-M-yy");
                     btnsavecustomer.Text = "Update Details";
                 }
                 else
@@ -379,13 +380,15 @@ namespace TraceBilling
                 string category = category_list.SelectedValue.ToString();
                 DateTime connectiondate = DateTime.Now;
                 string areaid = lblarea.Text;
-                string authorizedby = txtauthorizedby.Text.Trim();
-                string instuctiondt = txtinstructionDate.Text.Trim();
+                string authorizedby = authorizer_list.SelectedItem.ToString();
+                string instuctiondt ="0";
                 string applicant = lblapplicant.Text.Trim();
                 resp = bll.ValidateConnection(customertype, category, instuctiondt, authorizedby);
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
-                    DateTime instructiondate = Convert.ToDateTime(instuctiondt);
+                    //DateTime instructiondate = Convert.ToDateTime(instuctiondt);
+                    DateTime instructiondate = DateTime.Now; ;
+
                     string createdby = Session["UserID"].ToString();
                     //save details
                     resp = bll.SaveFieldConnection(conid, appid, jobno, customertype, category, authorizedby, connectiondate, instructiondate, createdby, areaid);
@@ -488,7 +491,7 @@ namespace TraceBilling
                 string CostCode = lblCostcode.Text.Trim();
                 string ApplicationCode = lblApplicationCode.Text.Trim();
                 string ExpenseItemCode = lblCostItemID.Text.Trim();
-                string Size = txtsize.Text.Trim();
+                string Size = "0";//txtsize.Text.Trim();
                 string Length = "N/A"; //txtCostLength.Text.Trim();
                 string UnitCost = txtrate.Text.Trim();
                 string Quantity = txtquantity.Text.Trim();
@@ -573,7 +576,7 @@ namespace TraceBilling
                 string qty = dataTable.Rows[0]["quantity"].ToString();
                 double UnitCost = Convert.ToDouble(dataTable.Rows[0]["UnitCost"].ToString());
                 string rate = UnitCost.ToString("#,##0");
-                txtsize.Text = size;
+               // txtsize.Text = size;
                 txtquantity.Text = qty;
                 material_list.SelectedIndex = material_list.Items.IndexOf(material_list.Items.FindByText(mterial));
                 bool fixed_rate = bool.Parse(dataTable.Rows[0]["fixed"].ToString());
@@ -680,7 +683,7 @@ namespace TraceBilling
         {
             try
             {
-                txtsize.Text = "";
+                //txtsize.Text = "";
                 txtquantity.Text = "";
                 string material = material_list.Text.Trim();
                 if (!material.Equals(""))
@@ -701,8 +704,7 @@ namespace TraceBilling
         private void ClearCostingControls()
         {
             txtquantity.Text = "";
-            txtsize.Text = "";
-            txtsize.Text = "";
+           // txtsize.Text = "";
             lblCostcode.Text = "0";
             lblCostItemID.Text = "0";
 
@@ -762,6 +764,30 @@ namespace TraceBilling
             pipematerial_list.SelectedValue = "0";
             lblestimateid.Text = "0";
 
+        }
+        //added 29/12/2021
+        private void LoadAuthorizerList(int countryid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = bll.GetUserList(countryid, 6);//technical
+                authorizer_list.DataSource = dt;
+
+                authorizer_list.DataTextField = "fullname";
+                authorizer_list.DataValueField = "userId";
+                authorizer_list.DataBind();
+            }
+            catch (Exception ex)
+            {
+                string error = "100: " + ex.Message;
+                bll.Log("DisplayAuthorizerList", error);
+                DisplayMessage(error, true);
+            }
+        }
+        protected void authorizer_list_DataBound(object sender, EventArgs e)
+        {
+            authorizer_list.Items.Insert(0, new ListItem("- - select Authorizer - -", "0"));
         }
     }
 }

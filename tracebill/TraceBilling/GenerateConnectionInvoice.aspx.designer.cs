@@ -22,42 +22,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// txtjobnumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtjobnumber;
-        
-        /// <summary>
-        /// country_list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList country_list;
-        
-        /// <summary>
-        /// area_list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list;
-        
-        /// <summary>
-        /// Button3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
-        
-        /// <summary>
         /// returnbtn control.
         /// </summary>
         /// <remarks>
@@ -202,13 +166,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.RadioButtonList customertype_list;
         
         /// <summary>
-        /// txtauthorizedby control.
+        /// authorizer_list control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtauthorizedby;
+        protected global::System.Web.UI.WebControls.DropDownList authorizer_list;
         
         /// <summary>
         /// category_list control.
@@ -236,15 +200,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtsurvey;
-        
-        /// <summary>
-        /// txtinstructionDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtinstructionDate;
         
         /// <summary>
         /// btnsavecustomer control.
@@ -290,15 +245,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList material_list;
-        
-        /// <summary>
-        /// txtsize control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtsize;
         
         /// <summary>
         /// txtquantity control.

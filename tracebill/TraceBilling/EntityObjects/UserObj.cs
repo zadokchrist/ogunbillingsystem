@@ -7,7 +7,8 @@ namespace TraceBilling.EntityObjects
 {
     public class UserObj
     {
-        private string firstname, lastname,othername, designation, contact1,contact2, emailaddress, country, area, createdby, branch,  usercode, username, password, role, reason, userid;
+        private string firstname, lastname,othername, designation, contact1,contact2, emailaddress, country, area, createdby, branch, 
+            usercode, username, password, role, reason, userid,status,operationarea;
         private bool isactive;
         public string FirstName
         {
@@ -99,6 +100,16 @@ namespace TraceBilling.EntityObjects
         {
             get { return userid; }
             set { userid = value; }
+        }
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
+        }
+        public string OperationArea
+        {
+            get { return operationarea; }
+            set { operationarea = value; }
         }
     }
 }

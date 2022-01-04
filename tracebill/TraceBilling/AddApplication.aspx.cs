@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Data;
 using TraceBilling.ControlObjects;
 using TraceBilling.EntityObjects;
+using System.IO;
+
 namespace TraceBilling
 {
     public partial class ApplicationForm : System.Web.UI.Page
@@ -22,13 +24,17 @@ namespace TraceBilling
             {
                 if (IsPostBack == false)
                 {
+                    if (Session["RoleID"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
                     LoadRequirementList();
                     LoadCustomerTypeList();
                    // LoadCountryList();
 
-                    LoadBranchList(0);
+                    LoadBranchList(0,0);
                     LoadIDList();
-
+                    LoadFilters(10);
                     string sessioncountryid = Session["countryId"].ToString();
 
                     if (!sessioncountryid.Equals("1"))
@@ -40,8 +46,10 @@ namespace TraceBilling
                         LoadAreaList(int.Parse(sessioncountryid));
                         area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
                         area_list.Enabled = false;
-                        int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                        LoadBranchList(operationid);
+                        int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                        int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+
+                        LoadBranchList(areaid,operationid);
                     }
                     else
                     {
@@ -59,12 +67,22 @@ namespace TraceBilling
 
         }
 
-        private void LoadBranchList(int areaid)
+        private void LoadFilters(int areaid)
+        {
+            ddloperationarea.DataSource = bll.GetOperationAreaList(areaid);
+            ddloperationarea.DataBind();
+            ddlterritory.DataSource = bll.GetTerritoryList(int.Parse(ddloperationarea.SelectedValue.ToString()), 0);
+            ddlterritory.DataBind();
+            ddlsubterritory.DataSource = bll.GetSubTerritoryList(int.Parse(ddlterritory.SelectedValue.ToString()));
+            ddlsubterritory.DataBind();
+        }
+
+        private void LoadBranchList(int areaid,int operationid)
         {
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetBranchList(areaid);
+                dt = bll.GetBranchList(areaid,operationid);
                 branch_list.DataSource = dt;
                 branch_list.DataTextField = "branchName";
                 branch_list.DataValueField = "branchId";
@@ -186,9 +204,9 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void rtnServicetype_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
+        //protected void rtnServicetype_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //}
         protected void rtnTariff_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
@@ -221,12 +239,12 @@ namespace TraceBilling
                 app.IdType = cboID.SelectedValue.ToString();
                 app.IdNumber = txtidnumber.Text.Trim();
                 app.Country = "2";//country_list.SelectedValue.ToString();
-               // app.City = txtcity.Text.Trim();
-               // app.State = txtstate.Text.Trim();
-                app.Division = txtdivision.Text.Trim();
-                app.Village = txtvillage.Text.Trim();
+                                  // app.City = txtcity.Text.Trim();
+                                  // app.State = txtstate.Text.Trim();
+                                  // app.Division = txtdivision.Text.Trim();
+                                  // app.Village = txtvillage.Text.Trim();
                 app.PlotNumber = txtplot.Text.Trim();
-                app.ServiceId = rtnServicetype.SelectedValue.ToString();
+                app.ServiceId = "1";//rtnServicetype.SelectedValue.ToString();1-water
                 app.CategoryId = rtncategory.SelectedValue.ToString();
                 //set deault
                 app.ApplicationDate = DateTime.Now;
@@ -241,11 +259,15 @@ namespace TraceBilling
                 app.Country = a;
                 app.Area = b;
                 app.Branch = c;
-                LoadCodeSessions(a,b,c);
-              
+                LoadCodeSessions(a, b, c);
+                //new settings
+                app.OperationId = ddloperationarea.SelectedValue.ToString();
+                app.Branch = branch_list.SelectedValue.ToString();
+                app.Territory = ddlterritory.SelectedValue.ToString();
+                app.SubTerritory = ddlsubterritory.SelectedValue.ToString();
                 //end default
                 //validate input
-                resp = bll.ValidateApplication(app.FirstName, app.LastName, app.Email, app.CustomerType, app.IdNumber);
+                resp = bll.ValidateApplication(app.FirstName, app.LastName, app.Telephone, app.Address, app.IdNumber);
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
                     if (app.Country.Equals("0"))
@@ -253,35 +275,79 @@ namespace TraceBilling
                         str = "Please select country";
                         DisplayMessage(str, true);
                     }
+                    else if (app.OperationId.Equals("0"))
                     {
-                        app.ApplicationNo = bll.GetApplicationNumber("0", app.Country, app.Area, app.Branch, userid);
-                        //resp.Response_Code="test"; //test only
-                        resp = bll.SaveApplication(app);
-                        if (resp.Response_Code == "0")
+                        str = "Please select operation area";
+                        DisplayMessage(str, true);
+                    }
+                    else if (customertype_list.SelectedValue.Equals("0"))
+                    {
+                        str = "Please select customer type";
+                        DisplayMessage(str, true);
+                    }
+
+
+                    else
+                    {
+                        int bites = FileField.PostedFile.ContentLength;
+                        String ext = Path.GetExtension(FileField.PostedFile.FileName);
+                        int mbs = bites / 1024;
+                        int maxbites = 3145728;//3mbs
+                        //1mb=1048576 bytes,3mb=3145728 bytes
+                        String[] allowed = { ".png", ".jpg", ".jpeg", ".pdf" };
+                        Boolean isvalidFile = false;
+                        foreach (string extension in allowed)
                         {
-                            string ApplicationID = "0";
-                            UploadFiles(ApplicationID);
-                            str = " with new application(" + app.ApplicationNo + ") details saved and forwareded to surveyor for futher action";
-                         
-                             res = resp.Response_Message + str;
-                            DisplayMessage(res, false);
+                            if (extension.Equals(ext))
+                            {
+                                isvalidFile = true;
+                            }
+                        }
+                        if (!isvalidFile)
+                        {
+                            DisplayMessage("jpg,png,jpeg and pdf formats only are allowed" + ext, true);
+                        }
+                        else if (bites >= maxbites)
+                        {
+                            DisplayMessage("files too big not uploaded maximum file size 3mbs", true);
                         }
                         else
                         {
-                             str = " details with application identity(" + app.ApplicationNo + ")";
-                             res = resp.Response_Message + str;
-                            DisplayMessage(res, true);
+                            // app.ApplicationNo = bll.GetApplicationNumber("0", app.Country, app.Area, app.Branch, userid);
+                            //new application number
+                            app.ApplicationNo = bll.GetNewApplicationNumber("0", app.OperationId, app.Branch);
+
+                            //resp.Response_Code="test"; //test only
+                            resp = bll.SaveApplication(app);
+                            if (resp.Response_Code == "0")
+                            {
+                                string ApplicationID = "0";
+                                UploadFiles(ApplicationID);
+                                str = " with new application(" + app.ApplicationNo + ") details saved and forwarded to surveyor for futher action";
+
+                                res = resp.Response_Message + str;
+                                //DisplayMessage(res, false);
+                                //alert(res);
+                                MsgBox(res, this.Page, this);
+                            }
+                            else
+                            {
+                                str = " details with application identity(" + app.ApplicationNo + ")";
+                                res = resp.Response_Message + str;
+                                DisplayMessage(res, true);
+                            }
+                            RefreshControls();
                         }
-                        RefreshControls();
+
                     }
-                   
+
                 }
                 else
                 {
                     DisplayMessage(resp.Response_Message, true);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -295,15 +361,25 @@ namespace TraceBilling
             {
                 if (uploads[i].ContentLength > 0)
                 {
-                    string c = System.IO.Path.GetFileName(uploads[i].FileName);
-                    string cNoSpace = c.Replace(" ", "-");
+                    // string c = System.IO.Path.GetFileName(uploads[i].FileName);
+                    string c = DateTime.Now.Ticks + System.IO.Path.GetFileName(uploads[i].FileName);
+
+                    string cNoSpace = c.Replace(" ", "_");
                     string c1 = "Serial-" + ApplicationCode + "-" + (countfiles + i + 1) + "-" + cNoSpace;
                     string Path = bll.GetFileApplicationPath();
+                    if (!Directory.Exists(Path))
+                    {
+                        Directory.CreateDirectory(Path);
+                    }
+
                     FileField.PostedFile.SaveAs(Path + "" + c1);
                     bll.SaveApplicationFiles(ApplicationCode, (Path + "" + c1), c);
+
+
                 }
             }
         }
+
 
         private void LoadCodeSessions(string a,string b,string c)
         {
@@ -325,13 +401,18 @@ namespace TraceBilling
             txtidnumber.Text = "";
             //country_list.SelectedValue = "0";
             area_list.SelectedValue = "0";
-            txtdivision.Text = "";
-            txtvillage.Text = "";
+           // txtdivision.Text = "";
+           // txtvillage.Text = "";
             txtplot.Text = "";
-            rtnServicetype.ClearSelection();
+           // rtnServicetype.ClearSelection();
             rtncategory.ClearSelection();
             customertype_list.ClearSelection();
             chkBoxRequired.ClearSelection();
+            ddloperationarea.SelectedValue = "0";
+            ddlterritory.SelectedValue = "0";
+            ddlsubterritory.SelectedValue = "0";
+            branch_list.SelectedValue = "0";
+            txtlandmark.Text = "";
         }
         //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -354,24 +435,7 @@ namespace TraceBilling
             branch_list.Items.Insert(0, new ListItem("- - None - -", "0"));
         //}
         }
-        protected void area_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                LoadBranchList(operationid);
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                //int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
-
-                ////load session data
-                //LoadAreaSessions(areaid);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
+        
 
         private void LoadAreaSessions(int areaid)
         {
@@ -403,8 +467,10 @@ namespace TraceBilling
             try
             {
                 //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                LoadBranchList(operationid);
+                int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+
+                LoadBranchList(areaid,operationid);
                 //load session data
             }
             catch (Exception ex)
@@ -452,6 +518,73 @@ namespace TraceBilling
         {
            
         }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("select area", "0"));
+        }
+        protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(branch_list.SelectedValue.ToString());
 
+                // LoadBranchList(operationid);
+                ddlterritory.DataSource = bll.GetTerritoryList(operationid,branchid);
+                ddlterritory.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        protected void ddlterritory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int territory = Convert.ToInt16(ddlterritory.SelectedValue.ToString());
+                //LoadBranchList(operationid);
+                ddlsubterritory.DataSource = bll.GetSubTerritoryList(territory);
+                ddlsubterritory.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        protected void ddlterritory_DataBound(object sender, EventArgs e)
+        {
+            ddlterritory.Items.Insert(0, new ListItem("--none--", "0"));
+        }
+        protected void ddlsubterritory_DataBound(object sender, EventArgs e)
+        {
+            ddlsubterritory.Items.Insert(0, new ListItem("--none--", "0"));
+        }
+        protected void branch_list_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(branch_list.SelectedValue.ToString());
+
+                // LoadBranchList(operationid);
+                ddlterritory.DataSource = bll.GetTerritoryList(operationid, branchid);
+                ddlterritory.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        public void MsgBox(String ex, Page pg, Object obj)
+        {
+            string s = "<SCRIPT language='javascript'>alert('" + ex.Replace("\r\n", "\\n").Replace("'", "") + "'); </SCRIPT>";
+            Type cstype = obj.GetType();
+            ClientScriptManager cs = pg.ClientScript;
+            cs.RegisterClientScriptBlock(cstype, s, s.ToString());
+        }
     }
 }

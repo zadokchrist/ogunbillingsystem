@@ -31,6 +31,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
+        /// l1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l1;
+        
+        /// <summary>
         /// txtcustrefNo control.
         /// </summary>
         /// <remarks>
@@ -67,6 +76,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtarea;
         
         /// <summary>
+        /// l2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l2;
+        
+        /// <summary>
         /// vendor_list control.
         /// </summary>
         /// <remarks>
@@ -74,6 +92,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList vendor_list;
+        
+        /// <summary>
+        /// l3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l3;
         
         /// <summary>
         /// txttransref control.
@@ -85,6 +112,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txttransref;
         
         /// <summary>
+        /// l4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l4;
+        
+        /// <summary>
         /// txtamount control.
         /// </summary>
         /// <remarks>
@@ -94,6 +130,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtamount;
         
         /// <summary>
+        /// l5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l5;
+        
+        /// <summary>
         /// txtpaymentDate control.
         /// </summary>
         /// <remarks>
@@ -101,6 +146,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtpaymentDate;
+        
+        /// <summary>
+        /// l6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label l6;
         
         /// <summary>
         /// rtnpaymethod control.

@@ -36,17 +36,17 @@ namespace TraceBilling
                         if (!sessioncountryid.Equals("1"))
                         {
 
-                            LoadAreaList(int.Parse(sessioncountryid));
-                            area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                            //LoadAreaList(int.Parse(sessioncountryid));
+                            //area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                            //area_list.Enabled = false;
+                            //int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
                             // LoadBranchList(operationid);
                         }
                         else
                         {
                             //int countryid = int.Parse(country_list.SelectedValue.ToString());
                             int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList(countryid);
+                            //LoadAreaList(countryid);
                         }
                         LoadPaymentTransactions();
                         bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Reconcile Transactions page");
@@ -61,25 +61,25 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -94,17 +94,17 @@ namespace TraceBilling
             }
         }
         
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
 
         private void LoadPaymentTransactions()
         {
             try
             {
                 string countryid = "2";
-                string areaid = area_list.SelectedValue.ToString();
+                string areaid = "10";
                 DataTable dt = bll.GetPaymentTransactions(int.Parse(countryid), int.Parse(areaid));
                 if (dt.Rows.Count > 0)
                 {
@@ -128,7 +128,45 @@ namespace TraceBilling
             try
             {
 
-                LoadPaymentTransactions();
+                LoadPaymentTransactionsByDate();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void LoadPaymentTransactionsByDate()
+        {
+            try
+            {
+                string countryid = "2";
+                string areaid = "10";
+                String datefrom = txtstartdate.Text.Trim();
+                String dateto = txtenddate.Text.Trim();
+
+                DateTime date = DateTime.Parse(DateTime.Now.ToShortDateString());
+                if (!datefrom.Equals(""))
+                {
+                    date = DateTime.Parse(datefrom);
+                }
+                DateTime todate = DateTime.Parse(DateTime.Now.ToShortDateString());
+                if (!dateto.Equals(""))
+                {
+                    todate = DateTime.Parse(dateto);
+                }
+                DataTable dt = bll.GetPaymentTransactionsByDate(int.Parse(countryid), int.Parse(areaid),date,todate);
+                if (dt.Rows.Count > 0)
+                {
+                    Session["TransactionDT"] = dt;
+                    DataGrid1.DataSource = dt;
+                    DataGrid1.DataBind();
+                }
+                else
+                {
+                    string str = "No records found.";
+                    DisplayMessage(str, true);
+                }
             }
             catch (Exception ex)
             {

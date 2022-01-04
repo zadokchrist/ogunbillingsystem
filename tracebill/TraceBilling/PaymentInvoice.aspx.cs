@@ -39,17 +39,17 @@ namespace TraceBilling
                         if (!sessioncountryid.Equals("1"))
                         {
 
-                            LoadAreaList(int.Parse(sessioncountryid));
-                            area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                            //LoadAreaList(int.Parse(sessioncountryid));
+                            //area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                            //area_list.Enabled = false;
+                            //int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
                             // LoadBranchList(operationid);
                         }
                         else
                         {
                             //int countryid = int.Parse(country_list.SelectedValue.ToString());
-                            int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList(countryid);
+                            //int countryid = int.Parse(sessioncountryid);
+                            //LoadAreaList(countryid);
                         }
                         LoadInvoiceDetails();
                         bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Payment Invoicing of the customer page");
@@ -81,25 +81,25 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -117,10 +117,10 @@ namespace TraceBilling
         //{
         //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
         //}
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
 
         //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -141,9 +141,9 @@ namespace TraceBilling
         {
             try
             {
-                string appnumber = txtappnumber.Text.Trim();
+                string appnumber = "";
                 string country = "2";
-                string area = area_list.SelectedValue.ToString();
+                string area = "10";
                 string status = "0";
                 string roleid = Session["roleId"].ToString();
                 if (roleid.Equals("2") || roleid.Equals("10"))//commercial
@@ -506,7 +506,7 @@ namespace TraceBilling
             string output = "";
             if (Code == "NC")
             {
-                output = txtgross.Text.Trim();
+                output = txtNew.Text.Trim();
 
             }
             else if (Code == "DP")
@@ -646,7 +646,7 @@ namespace TraceBilling
                     lblarea.Text = dt.Rows[0]["areaId"].ToString();
                     double New = Convert.ToDouble(dt.Rows[0]["Amount"].ToString());
                     double deposit = Convert.ToDouble(dt.Rows[0]["Deposit"].ToString());
-                    double vat = Convert.ToDouble(dt.Rows[0]["Vat"].ToString());
+                    double vat = 0;//Convert.ToDouble(dt.Rows[0]["Vat"].ToString());
                     txtNew.Text = New.ToString("#,##0");
                     txtDeposit.Text = deposit.ToString("#,##0");
                     // txtvat.Text = vat.ToString("#,##0");
@@ -658,18 +658,22 @@ namespace TraceBilling
                     double totalCharge = New + deposit + vat;
                     txtTotalFee.Text = totalCharge.ToString("#,##0");
                     double gross = New + vat;
-                    txtgross.Text = gross.ToString("#,##0");
+                    //txtgross.Text = gross.ToString("#,##0");
                     //check if invoice already generated
                     if (bll.CheckPaymentInvoice(lblApplicationCode.Text))
                     {
                         generateinvoice.Visible = false;
                         confirminvoice.Visible = true;
+                        btnconfirm.Enabled = true;
+                        btnreconcile.Enabled = true;
                         LoadSlipConfirmation();
                     }
                     else
                     {
                         generateinvoice.Visible = true;
                         confirminvoice.Visible = false;
+                        btnconfirm.Enabled = false;
+                        btnreconcile.Enabled = false;
                     }
                 }
                 else
@@ -725,7 +729,7 @@ namespace TraceBilling
         protected void txtDeposit_TextChanged(object sender, EventArgs e)
         {
             string newcon = txtNew.Text;
-            string newconvat = txtgross.Text;
+            string newconvat = "0";//txtgross.Text;
             string deposit = txtDeposit.Text;
 
             double totalCharge = double.Parse(newconvat) + double.Parse(deposit);

@@ -11,24 +11,17 @@
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+<%--        <div class="form-group col-sm-12">
+        
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
            <th class="modal-sm" style="width: 250px">Application Name</th>
         <th class="modal-sm" style="width: 236px">Country</th>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+   
            <td class="modal-sm" style="width: 250px">
                            <asp:TextBox ID="txtapplicationname" runat="server" CssClass="form-control" Width="217px" ></asp:TextBox>
                      
@@ -58,8 +51,8 @@
                                                  
                           </tr>
                           </table>
-                          </div>
-          <hr />
+                          </div>--%>
+         
           <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to Job list" onclick="btnReturn_Click" />
@@ -100,8 +93,8 @@
               
                  </asp:BoundField> 
    <asp:BoundField DataField="className" HeaderText="className" NullDisplayText="-" /> 
-               <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-" /> 
-                  <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> 
+<%--               <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-" /> --%>
+<%--                  <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> --%>
             <asp:BoundField DataField="isgenerated" HeaderText="Job Generated" NullDisplayText="-" /> 
 <%--                  <asp:BoundField DataField="areaId" HeaderText="AreaID" NullDisplayText="-" Visible="false" /> --%>
                  <asp:BoundField DataField="assignedTo" HeaderText="AssignedTo" NullDisplayText="-" /> 
@@ -138,12 +131,27 @@
             </ItemTemplate>
                      <ItemStyle Width="5%" />
                  </asp:TemplateField>
+                   
              <asp:TemplateField HeaderText="Select" ItemStyle-Width="150">           
                 <ItemTemplate>
                     <asp:CheckBox ID="chkCtrl" runat="server" />
                 </ItemTemplate>            
         </asp:TemplateField>
-                                 
+                  <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Action
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="submitButton"
+                                runat="server"
+                                CommandName="btnSubmit" 
+                     CommandArgument='<%#Eval("applicationNumber") + ";" +Eval("ApplicationID") %>'
+                               
+                                Text="Submit" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>               
              </Columns>
              
              <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
@@ -187,12 +195,12 @@
                 <tr>
                     <td style="width: 502px">
                                    <asp:Label runat="server" Text="Surveyor/Plumber" ID="surveyor" Visible="true"></asp:Label>
-                         <asp:DropDownList ID="survey_list" CssClass="form-control" runat="server" AutoPostBack="True" OnDataBound="survey_list_DataBound"
+                         <asp:DropDownList ID="survey_list" CssClass="form-control" runat="server" AutoPostBack="false" OnDataBound="survey_list_DataBound"
                            Visible="true">
                        </asp:DropDownList>
                     </td>
                 </tr>
-                 <tr>
+              <%--   <tr>
                     <td style="width: 502px">
                           <label>Date Of Instruction:</label>
 
@@ -200,28 +208,27 @@
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                    <%--<asp:TextBox runat="server" class="form-control pull-right" id="datepicker" ReadOnly="true" />--%>
                     <asp:TextBox ID="txtinstructionDate" CssClass="instructiondate"  runat="server"></asp:TextBox>
                     </div>
                     </td>
-                </tr>
+                </tr>--%>
                
             </table>
                    </fieldset>
                <br />
                  <asp:Button ID="btnreturn2" runat="server" Text="Return" cssclass ="btn-primary" OnClick="btnreturn2_Click" />
               &nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="btnAssign" runat="server" Text="Save" cssclass ="btn-primary" OnClick="btnAssign_Click" style="height: 26px" />
+                <asp:Button ID="btnAssign" runat="server" Text="Assign" cssclass ="btn-primary" OnClick="btnAssign_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp;              
                  <asp:Label ID="lblApplicationCode" runat="server" Text="." Visible="False"></asp:Label>
             
             </div>
                  
-           <div class="form-group col-sm-12 col-md-12 col-lg-12">
+          <%-- <div class="form-group col-sm-12 col-md-12 col-lg-12">
                   <center>
                <asp:Button ID="btnSubmit" runat="server" Text="Submit to Surveyor" cssclass ="btn-primary" OnClick="btnSubmit_Click" />
           </center>
-                  </div>
+                  </div>--%>
        </div>
         
     </form>
@@ -231,11 +238,11 @@
 	</div>
  
 </div>
-    <script type="text/javascript">
+  <%--  <script type="text/javascript">
         $(function () {
             $(".instructiondate").datepicker({
                 dateFormat: "dd-M-yy"
             });
         });
-    </script>
+    </script>--%>
 </asp:Content>

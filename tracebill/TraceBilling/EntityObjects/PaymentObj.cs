@@ -8,7 +8,7 @@ namespace TraceBilling.EntityObjects
     public class PaymentObj
     {
         private string custref, vendortransref, vendorcode, fullname, paymentdate, amount, createdby, paymentmethod, narration, contact, country, area, chequeno, paymentcode;
-
+        private DateTime paydate;
         public String CustRef
         {
             get { return custref; }
@@ -79,6 +79,11 @@ namespace TraceBilling.EntityObjects
         {
             get { return paymentcode; }
             set { paymentcode = value; }
+        }
+        public DateTime PayDate
+        {
+            get { return paydate; }
+            set { paydate = value; }
         }
 
     }

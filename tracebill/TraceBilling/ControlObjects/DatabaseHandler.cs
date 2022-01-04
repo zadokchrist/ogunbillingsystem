@@ -129,12 +129,12 @@ namespace TraceBilling.ControlObjects
 
        
 
-        internal DataTable GetUserList(int countryid,int roleid)
+        internal DataTable GetUserList(int areaid,int roleid)
         {
             DataTable dt = new DataTable();
             try
             {
-                dt = ExecuteDataSet("Sp_GetUserList", countryid,roleid);
+                dt = ExecuteDataSet("Sp_GetUserList", areaid,roleid);
             }
             catch (Exception ex)
             {
@@ -178,7 +178,7 @@ namespace TraceBilling.ControlObjects
                 dt = ExecuteDataSet("Sp_SaveApplication", app.ApplicationId,app.ApplicationNo,app.FirstName, app.LastName,app.OtherName, app.Address, app.Email,
     app.Occupation, app.WorkPlace, app.Telephone, app.Country, app.State, app.Constituency, app.City,
    app.Street, app.Village, app.ZipCode, app.Division, app.IdNumber, app.IdType, app.CustomerType,
-    app.ConnectionType, app.OptionId, app.ServiceId, app.CategoryId, app.StatusId, app.CapturedBy, app.ApplicationDate,app.Area,app.Branch);
+    app.ConnectionType, app.OptionId, app.ServiceId, app.CategoryId, app.StatusId, app.CapturedBy, app.ApplicationDate,app.Area,app.Branch,app.OperationId,app.Territory,app.SubTerritory);
             }
             catch (Exception ex)
             {
@@ -303,7 +303,7 @@ namespace TraceBilling.ControlObjects
             {
 
                 dt = ExecuteDataSet("Sp_SaveUser", user.UserCode, user.UserName, user.Password, user.FirstName, user.LastName,user.OtherName, user.Designation, user.Contact1,user.Contact2, user.EmailAddress,
-                    user.Role, user.Country, user.Area,user.Branch, user.IsActive, user.CreatedBy, user.UserID);
+                    user.Role, user.Country, user.Area,user.Branch, user.IsActive, user.CreatedBy, user.UserID,user.OperationArea,user.Status);
             }
             catch (Exception ex)
             {
@@ -380,12 +380,12 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable GetBranchList(int areaid)
+        internal DataTable GetBranchList(int areaid, int operationid)
         {
             DataTable dt = new DataTable();
             try
             {
-                dt = ExecuteDataSet("Sp_GetBranchList", areaid);
+                dt = ExecuteDataSet("Sp_GetBranchList", areaid,operationid);
             }
             catch (Exception ex)
             {
@@ -821,7 +821,7 @@ namespace TraceBilling.ControlObjects
             DataTable dt = new DataTable();
             try
             {
-                dt = ExecuteDataSet("Sp_SavePaymentTransaction", trans.CustRef, trans.Contact, trans.PaymentDate, trans.Amount, trans.PaymentMethod,
+                dt = ExecuteDataSet("Sp_SavePaymentTransaction", trans.CustRef, trans.Contact, trans.PayDate, trans.Amount, trans.PaymentMethod,
                     trans.VendorTransRef, trans.VendorCode, trans.PaymentCode, trans.Narration, trans.CreatedBy);
             }
             catch (Exception ex)
@@ -2020,6 +2020,144 @@ namespace TraceBilling.ControlObjects
             }
             return output;
         }
+        public DataTable GetAllUsers_filtered(string search,string roleid,string branch)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetAllSystemUsers_filtered", search,roleid,branch);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        public void ResetPassword(int userID, string password, bool reset, string changedBy, string userName, string action)
+        {
+            try
+            {
+                ExecuteCommand("Sp_ResetUserPassword", userID, password, reset, changedBy, userName, action);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        internal DataTable GetUserStatus()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetUserStatus");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetOperationAreaList(int area)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetOperationAreaList", area);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetTerritoryList(int opid,int branch)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetTerritoryList", opid,branch);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetSubTerritoryList(int territoryid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetSubTerritoryList", territoryid);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
 
+        internal string GetSettingAlias(string mycode, string flag)
+        {
+            string output = "00";
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_GetSettingAlias", mycode,flag);
+                if (dt.Rows.Count > 0)
+                {
+                    output = dt.Rows[0]["alias"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+        internal int GetIncrementNumberByArea(int areaid, int branchid)
+        {
+            int output = 0;
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_GetIncrementNumber", areaid, branchid);
+                if (dt.Rows.Count > 0)
+                {
+                    output = Convert.ToInt16(dt.Rows[0]["incrementNo"].ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return output;
+        }
+        internal DataTable GetPaymentTransactionsByDate(int countryid, int areaid,DateTime startdate,DateTime enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetPaymentTransactionsByDate", countryid, areaid, startdate,enddate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetApplicationByStatusFiltered(string area,string branch, string status,string search,DateTime start,DateTime end)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetApplicationByStatusFiltered", area, branch,int.Parse(status),search,start,end);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

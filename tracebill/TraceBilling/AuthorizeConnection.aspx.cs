@@ -22,9 +22,9 @@ namespace TraceBilling
                 if (IsPostBack == false)
                 {
 
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
+                    //LoadCountryList();
+                    //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+                    //LoadAreaList(countryid);
                     LoadApplicationByStatus();
                     bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Authorize New Connection page");
                 }
@@ -34,44 +34,26 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        private void LoadCountryList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
+       
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
-
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -85,29 +67,15 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
-        }
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
-        protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                LoadAreaList(countryid);
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
+        //}
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
+       
 
         protected void Button3_Click(object sender, EventArgs e)
         {
@@ -125,9 +93,9 @@ namespace TraceBilling
         {
             try
             {
-                string applicationame = txtapplicationname.Text.Trim();
-                string country = country_list.SelectedValue.ToString();
-                string area = area_list.SelectedValue.ToString();
+                string applicationame = "";
+                string country = "2";
+                string area = "10";
                 string status = "10";
                 DataTable dataTable = bll.GetApplicationByStatus(applicationame, country, area, status);
                 if (dataTable.Rows.Count > 0)
@@ -203,7 +171,7 @@ namespace TraceBilling
                     txtname.Text = dt.Rows[0]["fullName"].ToString();
                     lblApplicationCode.Text = dt.Rows[0]["applicationID"].ToString();
                     int country = Convert.ToInt32(dt.Rows[0]["countryId"].ToString());
-                    txtcountry.Text = dt.Rows[0]["countryName"].ToString();
+                    //txtcountry.Text = dt.Rows[0]["countryName"].ToString();
                     txtarea.Text = dt.Rows[0]["areaName"].ToString();
                     txttype.Text = dt.Rows[0]["typeName"].ToString();
                     txtcategory.Text = dt.Rows[0]["className"].ToString();
@@ -287,28 +255,37 @@ namespace TraceBilling
                 string createdby = Session["UserID"].ToString();
                 string action = lblaction.Text;
                 string comment = txtremark.Text.Trim();
-                bll.SaveApplicationComment(applicationid, action, comment, createdby);
-                //log change status
-                int statusid = 0;
-                string output = "";
-                if (action.Contains("Approve"))
+                if (comment.Equals("") || comment.Length < 5)
                 {
-                    statusid = 7;
-                    output = "ACTION SAVED SUCCESSFULLY AND FORWARDED TO COMMERCIAL FOR PAYMENT INVOICING";
+                    DisplayMessage("Please enter valid comment", true);
+
                 }
-                else if (action.Contains("Terminate"))
+                else
                 {
-                    statusid = 16;
-                    output = "Action logged successfully as " + action;
+
+                    bll.SaveApplicationComment(applicationid, action, comment, createdby);
+                    //log change status
+                    int statusid = 0;
+                    string output = "";
+                    if (action.Contains("Approve"))
+                    {
+                        statusid = 7;
+                        output = "ACTION SAVED SUCCESSFULLY AND FORWARDED TO COMMERCIAL FOR PAYMENT INVOICING";
+                    }
+                    else if (action.Contains("Terminate"))
+                    {
+                        statusid = 16;
+                        output = "Action logged successfully as " + action;
+                    }
+                    else if (action.Contains("hold"))
+                    {
+                        statusid = 14;
+                        output = "Action logged successfully as " + action;
+                    }
+                    bll.LogApplicationTransactions(int.Parse(applicationid), statusid, int.Parse(createdby));
+                    DisplayMessage(output, false);
+                    ClearControls();
                 }
-                else if (action.Contains("hold"))
-                {
-                    statusid = 14;
-                    output = "Action logged successfully as " + action;
-                }
-                bll.LogApplicationTransactions(int.Parse(applicationid), statusid, int.Parse(createdby));                
-                DisplayMessage(output, false);
-                ClearControls();
             }
             catch (Exception ex)
             {

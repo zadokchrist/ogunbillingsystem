@@ -1,45 +1,31 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="ViewApplications.aspx.cs" Inherits="TraceBilling.ViewApplications" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
+           <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
           <br />
           <div><h3>VIEW APPLICATIONS INITIATED</h3></div>
     
-          <center>
-                <asp:Label runat="server" ID="lblmsg" Visible="false" ></asp:Label>
-            </center>
-
-        <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+        
+       <%-- <div class="form-group col-sm-12">
+       
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
            <th class="modal-sm" style="width: 250px">Application Name</th>
-<%--        <th class="modal-sm" style="width: 236px">Country</th>--%>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+     
            <td class="modal-sm" style="width: 250px">
                            <asp:TextBox ID="txtapplicationname" runat="server" CssClass="form-control" Width="217px" ></asp:TextBox>
                      
                           </td> 
-                         <%-- <td class="modal-sm" style="width: 236px" >
-                      
-            <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="country_list_SelectedIndexChanged" Width="235px">
-                </asp:DropDownList>
-                    </td>--%>
-             
+                    
                            
              <td class="datepicker-inline" style="width: 226px" >
                       
@@ -58,9 +44,54 @@
                                                  
                           </tr>
                           </table>
-                          </div>
-          <hr />
-          <div id="returnbtn" runat="server">
+                          </div>--%>
+          <div class=" col-sm-12">
+                <div class="col-sm-12"> <asp:Label runat="server" ID="lblmsg" Visible="false" ></asp:Label>
+          
+             </div>     
+             
+  
+         <div class="col-sm-3">
+             Search (applicationno,name)
+              <asp:TextBox ID="txtsearch" 
+                               runat="server" CssClass="form-control" ></asp:TextBox>
+         </div>
+          <div class="col-sm-3">Operation Area
+               <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea_DataBound" Visible="true"
+                             >
+                        </asp:DropDownList>
+          </div>
+              <div class="col-sm-3">Branch
+               <asp:DropDownList ID="ddlbranch" 
+                                    DataTextField="BranchName"
+                                     DataValueField="BranchId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlbranch_DataBound" Visible="true">
+                        </asp:DropDownList>
+          </div>
+            <div class="col-sm-3">From Date
+                  <asp:TextBox ID="txtfromdatesrc" runat="server" CssClass="form-control"></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="txtfromdatesrc_CalendarExtender" runat="server" TargetControlID="txtfromdatesrc" Format="yyyy-MM-dd"/>
+                      
+
+            </div>
+         <div class="col-sm-3">To Date
+               <asp:TextBox ID="txttodatesrc" runat="server" CssClass="form-control"></asp:TextBox>
+                     <ajaxToolkit:CalendarExtender ID="txttodatesrc_CalendarExtender" runat="server" TargetControlID="txttodatesrc" Format="yyyy-MM-dd"/>
+                         
+         </div>
+         
+        <div class="col-sm-3">  
+        
+                          <asp:Button ID="Button3" Width="150" Height="40" CssClass="btn-primary round_btn form-control"
+                                    runat="server" Text="Search" onclick="Button3_Click"  />
+                           
+           </div>
+         <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="253px" Height="40px" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to application view list" onclick="btnReturn_Click" />
           </div>
