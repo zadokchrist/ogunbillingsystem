@@ -32,21 +32,21 @@ namespace TraceBilling
                     else
                     {
                         string sessioncountryid = Session["countryId"].ToString();
-
+                        LoadFilters(10);
                         if (!sessioncountryid.Equals("1"))
                         {
 
-                            LoadAreaList(int.Parse(sessioncountryid));
-                            area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                            //LoadAreaList(int.Parse(sessioncountryid));
+                            //area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                            //area_list.Enabled = false;
+                            //int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
                             // LoadBranchList(operationid);
                         }
                         else
                         {
                             //int countryid = int.Parse(country_list.SelectedValue.ToString());
-                            int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList(countryid);
+                            //int countryid = int.Parse(sessioncountryid);
+                            //LoadAreaList(countryid);
                         }
                         LoadApplicationByStatus();
                         bll.RecordAudittrail(Session["userName"].ToString(), "Accessed View Applications page");
@@ -58,6 +58,14 @@ namespace TraceBilling
             {
                 throw ex;
             }
+        }
+        private void LoadFilters(int areaid)
+        {
+            ddloperationarea.DataSource = bll.GetOperationAreaList(areaid);
+            ddloperationarea.DataBind();
+            ddlbranch.DataSource = bll.GetBranchList(areaid,0);
+            ddlbranch.DataBind();
+         
         }
         //private void LoadCountryList()
         //{
@@ -78,30 +86,30 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
+
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -115,10 +123,10 @@ namespace TraceBilling
         //{
         //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
         //}
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
        
         //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -141,7 +149,61 @@ namespace TraceBilling
             try
             {
 
-                LoadApplicationByStatus();
+                LoadApplicationByStatusFilter();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private void LoadApplicationByStatusFilter()
+        {
+            try
+            {
+                DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+                DateTime end = DateTime.Now;
+
+
+
+                String from = txtfromdatesrc.Text.Trim();
+                String to = txttodatesrc.Text.Trim();
+
+                if (!from.Equals(""))
+                {
+                    start = DateTime.Parse(from);
+                }
+                if (!to.Equals(""))
+                {
+                    end = DateTime.Parse(to);
+                }
+
+                if (ddloperationarea.SelectedValue.Equals("0") || ddlbranch.SelectedValue.Equals("0"))                    
+                {
+                    start = DateTime.Parse("2020-01-01");
+                }
+                string applicationame = "";
+                string country = "2";
+                string area = ddloperationarea.SelectedValue.ToString();
+                string status = "0";
+                string search = txtsearch.Text.Trim();
+                string branch = ddlbranch.SelectedValue.ToString();
+                DataTable dataTable = bll.GetApplicationByStatusFiltered( area,branch, status,search,start,end);
+                if (dataTable.Rows.Count > 0)
+                {
+                    gv_applicationview.DataSource = dataTable;
+                    gv_applicationview.DataBind();
+                    DisplayMessage(".", true);
+                    maindisplay.Visible = true;
+                }
+                else
+                {
+                    string error = "100: " + "No records found";
+                    bll.Log("GetApplication", error);
+                    DisplayMessage(error, true);
+                    maindisplay.Visible = false;
+                }
+
             }
             catch (Exception ex)
             {
@@ -153,9 +215,9 @@ namespace TraceBilling
         {
             try
             {
-                string applicationame = txtapplicationname.Text.Trim();
+                string applicationame = "";
                 string country = "2";
-                string area = area_list.SelectedValue.ToString();
+                string area = "10";
                 string status = "0";
                 DataTable dataTable = bll.GetApplicationByStatus(applicationame, country, area, status);
                 if (dataTable.Rows.Count > 0)
@@ -435,6 +497,14 @@ namespace TraceBilling
             statuslogdisplay.Visible = false;
             paneldisplay.Visible = false;
             LoadApplicationByStatus();
+        }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("all", "0"));
+        }
+        protected void ddlbranch_DataBound(object sender, EventArgs e)
+        {
+            ddlbranch.Items.Insert(0, new ListItem("all", "0"));
         }
     }
 }

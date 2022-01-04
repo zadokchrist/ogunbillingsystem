@@ -31,7 +31,9 @@ namespace TraceBilling
                     {
                         string sessioncountryid = Session["countryId"].ToString();
                         int areaid = 10;
-                        ddlbranch.DataSource = bll.GetBranchList(areaid);
+                        ddloperationarea.DataSource = bll.GetOperationAreaList(areaid);
+                        ddloperationarea.DataBind();
+                        ddlbranch.DataSource = bll.GetBranchList(areaid, 0);
                         ddlbranch.DataBind();
                         ddtranscode.DataSource = bll.GetTransactionCodes("2");//flag 2 for all transactions
                         ddtranscode.DataBind();
@@ -173,6 +175,28 @@ namespace TraceBilling
         protected void Imageexcel_Click(object sender, ImageClickEventArgs e)
         {
             ex(Session["dtall"] as DataTable);
+        }
+        protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(ddlbranch.SelectedValue.ToString());
+
+                //LoadBranchList(10, operationid);
+                ddlbranch.DataSource = bll.GetBranchList(10, operationid);
+                ddlbranch.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("select area", "0"));
         }
     }
 }

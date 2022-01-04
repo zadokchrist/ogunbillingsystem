@@ -85,21 +85,21 @@ namespace TraceBilling
             if (rtnpaymethod.SelectedValue == "CASH")
             {
                 //cboBank.Enabled = false;
-                txtcheque.Enabled = false;
+                txtcheque.ReadOnly = false;
                 //cboBank.SelectedIndex = -1;
                 txtcheque.Text = "";
             }
             else if (rtnpaymethod.SelectedValue == "EFT")
             {
                 //cboBank.Enabled = false;
-                txtcheque.Enabled = false;
+                txtcheque.ReadOnly = false;
                 //cboBank.SelectedIndex = -1;
                 txtcheque.Text = "";
             }
             else
             {
                 //cboBank.Enabled = true;
-                txtcheque.Enabled = true;
+                txtcheque.ReadOnly = true;
             }
         }
         protected void txtcustrefNo_TextChanged(object sender, EventArgs e)
@@ -115,6 +115,7 @@ namespace TraceBilling
                     txtarea.Text = dt.Rows[0]["area"].ToString();
                    // txtcounry.Text = dt.Rows[0]["country"].ToString();
                     txtcontact.Text = dt.Rows[0]["contact"].ToString();
+                    txtamount.Text = dt.Rows[0]["outstanding"].ToString();
                     DisplayMessage(".", false);
                 }
                 else
@@ -126,6 +127,7 @@ namespace TraceBilling
                         txtarea.Text = dt.Rows[0]["area"].ToString();
                        // txtcounry.Text = dt.Rows[0]["country"].ToString();
                         txtcontact.Text = dt.Rows[0]["contact"].ToString();
+                        txtamount.Text = dt.Rows[0]["outstanding"].ToString();
                         DisplayMessage(".", false);
                     }
                     else
@@ -134,6 +136,7 @@ namespace TraceBilling
                         txtarea.Text = "";
                         //txtcounry.Text = "";
                         txtcontact.Text = "";
+                        txtamount.Text = "";
                         str = "CustomerRef-" + custref + " not existing.";
                         DisplayMessage(str, true);
                     }
@@ -179,6 +182,8 @@ namespace TraceBilling
                 resp = bll.ValidateTransaction(trans);
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
+                    trans.PayDate = Convert.ToDateTime(trans.PaymentDate);
+
                     if (trans.VendorCode.Equals("0"))
                     {
                         str = "Please select Bank/Vendor";

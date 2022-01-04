@@ -23,9 +23,9 @@ namespace TraceBilling
                 if (IsPostBack == false)
                 {
 
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
+                    //LoadCountryList();
+                    //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+                    //LoadAreaList(countryid);
                     LoadConnectionDetails();
                     bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Field Connection page");
                 }
@@ -35,44 +35,26 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        private void LoadCountryList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
+       
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
-
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void LoadBlockMaps(string areaid, string branchid)
         {
             DataTable dt = new DataTable();
@@ -107,30 +89,16 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
-        }
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
+        //}
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
 
-        protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                LoadAreaList(countryid);
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-        }
+       
 
         protected void Button3_Click(object sender, EventArgs e)
         {
@@ -149,9 +117,9 @@ namespace TraceBilling
         {
             try
             {
-                string jobnumber = txtjobnumber.Text.Trim();
-                string country = country_list.SelectedValue.ToString();
-                string area = area_list.SelectedValue.ToString();
+                string jobnumber = "";
+                string country = "2";
+                string area = "10";
                 string status = "11";//field connection
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
                 if (dataTable.Rows.Count > 0)
@@ -232,11 +200,7 @@ namespace TraceBilling
 
         private void ShowMaterialDetails(string jobnumber)
         {
-            //throw new NotImplementedException();
-            //btnlinks.Visible = true;
-            //connectioninvoice.Visible = true;
-            //docketdisplay.Visible = false;
-           // connectioninvoice.Visible = true;
+         
             try
             {
                 DataTable dt = bll.GetSurveyReportDetails(jobnumber, 0, 0, 11);
@@ -641,7 +605,7 @@ namespace TraceBilling
             cboType.SelectedValue = "0";
             lblestimateid.Text = "0";
             txtcomment.Text = "";
-            txtMeterRef.Text = "";
+            //txtMeterRef.Text = "";
             cboBlock.SelectedValue = "0";
             txtConnectionNo.Text = "";
             txtNumber.Text = "";
@@ -651,7 +615,7 @@ namespace TraceBilling
             txtInstalledby.Text = "";
             txtlattitude.Text = "";
             txtlongitude.Text = "";
-            txtMeterLife.Text = "";
+           // txtMeterLife.Text = "";
             txtManufacturedDate.Text = "";
             txtReading.Text = "";
             txtcusttype.Text = "";
@@ -700,9 +664,9 @@ namespace TraceBilling
                 if(dtapp.Rows.Count > 0)
                 {
                     lblConnectionCode.Text = dtapp.Rows[0]["connectionId"].ToString();
-                    txtMeterRef.Text = dtapp.Rows[0]["meterRef"].ToString();
+                    //txtMeterRef.Text = dtapp.Rows[0]["meterRef"].ToString();
                     txtDials.Text = dtapp.Rows[0]["dials"].ToString();
-                    txtMeterLife.Text = dtapp.Rows[0]["meterLife"].ToString();
+                    //txtMeterLife.Text = dtapp.Rows[0]["meterLife"].ToString();
                     txtNumber.Text = dtapp.Rows[0]["meterNumber"].ToString();
                     txtReading.Text = dtapp.Rows[0]["initialReading"].ToString();
                     txtConnectionNo.Text = dtapp.Rows[0]["plotNumber"].ToString();
@@ -804,9 +768,10 @@ namespace TraceBilling
                 DateTime installdt = Convert.ToDateTime(installdate);
                 if (customertype.ToLower().Contains("paid"))
                 {
-                    
-                    string meterref = txtMeterRef.Text.Trim();
-                   
+
+                    // string meterref = txtMeterRef.Text.Trim();
+                    string areacode = lblareacode.Text;
+                    string meterref = bll.GetMeterReference(areacode, blocknumber, connectionno);
                     string pipediameter = cboMeterSize.SelectedValue.ToString();
                     string metertype = cboType.SelectedValue.ToString();
                     string meternumber = txtNumber.Text.Trim();
@@ -815,7 +780,7 @@ namespace TraceBilling
          
                     string reading = txtReading.Text.Trim();
                     string dials = txtDials.Text.Trim();
-                    string meterlife = txtMeterLife.Text.Trim();
+                    string meterlife = "0";// txtMeterLife.Text.Trim();
                     string manufacturedate = txtManufacturedDate.Text.Trim();
                 
                    
@@ -968,7 +933,7 @@ namespace TraceBilling
             }
         }
 
-        protected void btnGetMeterRef_Click(object sender, EventArgs e)
+        /*protected void btnGetMeterRef_Click(object sender, EventArgs e)
         {
             try
             {
@@ -994,29 +959,29 @@ namespace TraceBilling
             {
                 DisplayMessage(ex.Message, true);
             }
-        }
+        }*/
         private void ManageFieldControls(string customertype)
         {
             if (customertype.ToLower().Contains("flat"))
             {
-                btnGetMeterRef.Enabled = false;
+                //btnGetMeterRef.Enabled = false;
                 cboType.Enabled = false;
                 txtNumber.Enabled = false;
                 cboMeterSize.Enabled = false;
                 txtReading.Enabled = false;
                 txtDials.Enabled = false;
-                txtMeterLife.Enabled = false;
+                //txtMeterLife.Enabled = false;
                 txtManufacturedDate.Enabled = false;
             }
             else
             {
-                btnGetMeterRef.Enabled = true;
+                //btnGetMeterRef.Enabled = true;
                 cboType.Enabled = true;
                 txtNumber.Enabled = true;
                 cboMeterSize.Enabled = true;
                 txtReading.Enabled = true;
                 txtDials.Enabled = true;
-                txtMeterLife.Enabled = true;
+                //txtMeterLife.Enabled = true;
                 txtManufacturedDate.Enabled = true;
             }
         }

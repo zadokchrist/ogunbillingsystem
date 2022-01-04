@@ -8,7 +8,7 @@ namespace TraceBilling.EntityObjects
     public class ApplicationObj
     {
         private string applicationno, applicationid, firstname, othername,lastname,address,email,occupation,workplace,telephone,country,state,constituency,city,village,zipcode,division,plotnumber,street;
-        private string idnumber, idtype, connectiontype, optionid, serviceid, categoryid, statusid, capturedby,customertype,areaid,branchid,territory,subterritory;
+        private string idnumber, idtype, connectiontype, optionid, serviceid, categoryid, statusid, capturedby,customertype,areaid,branchid,territory,subterritory,operationid;
         private DateTime applicationDate;
         private bool cancelled;
 
@@ -181,6 +181,11 @@ namespace TraceBilling.EntityObjects
         {
             get { return subterritory; }
             set { subterritory = value; }
+        }
+        public String OperationId
+        {
+            get { return operationid; }
+            set { operationid = value; }
         }
 
     }

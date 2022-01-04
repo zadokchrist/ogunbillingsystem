@@ -41,17 +41,17 @@ namespace TraceBilling
                         if (!sessioncountryid.Equals("1"))
                         {
 
-                            LoadAreaList(int.Parse(sessioncountryid));
-                            area_list.SelectedIndex = area_list.Items.IndexOf(new System.Web.UI.WebControls.ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                            //LoadAreaList(int.Parse(sessioncountryid));
+                            //area_list.SelectedIndex = area_list.Items.IndexOf(new System.Web.UI.WebControls.ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                            //area_list.Enabled = false;
+                            //int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
                             // LoadBranchList(operationid);
                         }
                         else
                         {
                             //int countryid = int.Parse(country_list.SelectedValue.ToString());
                             int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList(countryid);
+                           // LoadAreaList(countryid);
                         }
                         LoadSurveyReportDetails();
                         bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Approve Survey page");
@@ -83,25 +83,25 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         private void LoadSurveyQnList()
         {
             DataTable dt = new DataTable();
@@ -139,10 +139,10 @@ namespace TraceBilling
         //{
         //    country_list.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- - select country - -", "0"));
         //}
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- - select area - -", "0"));
-        }
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new System.Web.UI.WebControls.ListItem("- - select area - -", "0"));
+        //}
 
         //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -177,9 +177,9 @@ namespace TraceBilling
         {
             try
             {
-                string jobnumber = txtjobnumber.Text.Trim();
+                string jobnumber = "";
                 string country = "2";
-                string area = area_list.SelectedValue.ToString();
+                string area = "10";
                 string status = "4";//approve survey report
                 lblstatus.Text = status;
                 DataTable dataTable = bll.GetSurveyReportDetails(jobnumber, int.Parse(country), int.Parse(area), int.Parse(status));
@@ -371,7 +371,13 @@ namespace TraceBilling
                 bll.LogApplicationTransactions(int.Parse(appid), 3, int.Parse(createdby));//send to 5
                 //new implementation
                 string str_todump = GetRecordsToDump();
-                string surveydate = txtsurveyDate.Text.Trim();
+                DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+                String from = txtsurveyDate.Text.Trim();
+                if (!from.Equals(""))
+                {
+                    start = DateTime.Parse(from);
+                }
+               // string surveydate = txtsurveyDate.Text.Trim();
                 if (str_todump.Equals(""))
                 {
                     str = "Please Select at least one survey question";
@@ -379,7 +385,7 @@ namespace TraceBilling
                 }
                 else
                 {
-                    LoadConfirmations(str_todump, surveydate);
+                    LoadConfirmations(str_todump, start);
                     if (al.Count > 0)
                     {
 
@@ -401,7 +407,7 @@ namespace TraceBilling
 
         }
 
-        private void LoadConfirmations(string str_todump, string surveydate)
+        private void LoadConfirmations(string str_todump, DateTime surveydate)
         {
             try
             {
@@ -409,7 +415,9 @@ namespace TraceBilling
                 string[] arr = str.Split(',');
                 string createdby = Session["userId"].ToString();
                 string appid = lblApplicationCode.Text;
-                DateTime Surveydt = Convert.ToDateTime(surveydate);
+               // DateTime Surveydt = Convert.ToDateTime(surveydate);
+                DateTime Surveydt = surveydate;
+
                 foreach (string s in arr)
                 {
                     string[] separators = { "+" };

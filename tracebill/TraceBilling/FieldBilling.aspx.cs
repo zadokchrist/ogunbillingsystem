@@ -158,7 +158,7 @@ namespace TraceBilling
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetBranchList(areaid);
+                dt = bll.GetBranchList(areaid,0);
                 branch_list.DataSource = dt;
                 branch_list.DataTextField = "branchName";
                 branch_list.DataValueField = "branchId";
@@ -198,7 +198,7 @@ namespace TraceBilling
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetBranchList(areaid);
+                dt = bll.GetBranchList(areaid,0);
                 branch_list1.DataSource = dt;
                 branch_list1.DataTextField = "branchName";
                 branch_list1.DataValueField = "branchId";
@@ -719,7 +719,7 @@ namespace TraceBilling
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetBranchList(areaid);
+                dt = bll.GetBranchList(areaid,0);
                 cboBranchesCredentials.DataSource = dt;
                 cboBranchesCredentials.DataTextField = "branchName";
                 cboBranchesCredentials.DataValueField = "branchId";

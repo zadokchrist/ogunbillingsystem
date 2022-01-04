@@ -17,13 +17,17 @@ namespace TraceBilling
         
         protected void Page_Load(object sender, EventArgs e)
         {
+            string url = HttpContext.Current.Request.Url.AbsoluteUri;
+            if ((Session["RoleID"] == null))
+            {
+                Response.Redirect("Default.aspx?redirect_url=" + url);
+            }
             try
             {
                 if (IsPostBack == false)
                 {
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadUsers(countryid);
+                    loadFilters();
+                    LoadUsers();
                     bll.RecordAudittrail(Session["userName"].ToString(), "Accessed View Users page");
                 }
             }
@@ -32,31 +36,42 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        private void LoadCountryList()
+        protected void loadFilters()
         {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
+        
+            ddlrole.DataSource = bll.GetRoleList();
+            ddlrole.DataBind();
+            ddlbranch.DataSource = bll.GetBranchList(10,0);
+            ddlbranch.DataBind();
 
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
+
         }
+        //private void LoadCountryList()
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetCountryList();
+        //        country_list.DataSource = dt;
 
-        private void LoadUsers(int countryid)
+        //        country_list.DataTextField = "countryName";
+        //        country_list.DataValueField = "countryId";
+        //        country_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayCountryList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
+
+        private void LoadUsers()
         {
             try
             {
-                DataTable dataTable = bll.GetAllUsers(countryid);
+                DataTable dataTable = bll.GetAllUsers_filtered(txtsearch.Text.Trim(),ddlrole.SelectedValue.ToString(),ddlbranch.SelectedValue.ToString());
+                Session["dtusr"] = dataTable;
                 if (dataTable.Rows.Count > 0)
                 {
                     GridViewUser.DataSource = dataTable;
@@ -66,7 +81,7 @@ namespace TraceBilling
                 else
                 {
                     string error = "100: " + "No records found";
-                    bll.Log("GetAllUsers", error);
+                    bll.Log("GetAllUsers_filtered", error);
                     DisplayMessage(error, true);
                 }
 
@@ -81,9 +96,8 @@ namespace TraceBilling
         {
             try
             {
-                int countryid = int.Parse(country_list.SelectedValue.ToString());
                
-                LoadUsers(countryid);
+                LoadUsers();
             }
             catch (Exception ex)
             {
@@ -92,17 +106,17 @@ namespace TraceBilling
         }
 
         
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new ListItem("- - All countries - -", "0"));
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new ListItem("- - All countries - -", "0"));
+        //}
 
 
 
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -161,8 +175,23 @@ namespace TraceBilling
                 }
                 string returned = "";
                 returned = bll.ChangeUserAccess(userid, username, status, action);
-                LoadUsers(0);
+                LoadUsers();
                 DisplayMessage(returned, true);
+            }
+            else if (e.CommandName == "RowReset")
+            {
+                //string UserID = e.Item.Cells[0].Text;
+                string[] arg = new string[3];
+                arg = e.CommandArgument.ToString().Split(';');
+                string userid = arg[0];
+                string username = arg[1];
+                string fullname = arg[2];
+                string email = arg[3];
+                string changedBy = Session["userID"].ToString();
+                string action = "RESET PASSWORD";
+                string returned = bll.ResetUserPassword(userid, username, fullname, changedBy, action,email);
+                DisplayMessage(returned, false);
+
             }
         }
         /*protected void GridViewIssue_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -195,6 +224,20 @@ namespace TraceBilling
 
             }
         }
-        
+        protected void ddlrole_DataBound(object sender, EventArgs e)
+        {
+            ddlrole.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void ddlbranch_DataBound(object sender, EventArgs e)
+        {
+            ddlbranch.Items.Insert(0, new ListItem("All", "0"));
+        }
+        protected void GridViewUser_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            GridViewUser.PageIndex = e.NewPageIndex;
+            GridViewUser.DataSource = Session["dtusr"] as DataTable;
+            GridViewUser.DataBind();
+        }
+
     }
 }

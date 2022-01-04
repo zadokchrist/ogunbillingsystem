@@ -24,10 +24,15 @@ namespace TraceBilling
 
                 if (IsPostBack == false)
                 {
+                    if (Session["RoleID"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
                     //LoadCountryList();
-                    LoadBranchList(0);
+                    LoadBranchList(0,0);
                     string sessioncountryid = Session["countryId"].ToString();
-                    
+                    ddloperationarea.DataSource = bll.GetOperationAreaList(10);
+                    ddloperationarea.DataBind();
                     if (!sessioncountryid.Equals("1"))
                     {
                         //country_list.SelectedIndex = country_list.Items.IndexOf(new ListItem(Session["country"].ToString(), Session["countryId"].ToString()));
@@ -36,8 +41,10 @@ namespace TraceBilling
                         LoadAreaList(countryid);
                         area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString() ));
                         area_list.Enabled = false;
-                        int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                        LoadBranchList(operationid);
+                        int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                        int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                        LoadBranchList(areaid,operationid);
+                        LoadStatus();
                     }
                     else
                     {
@@ -63,6 +70,12 @@ namespace TraceBilling
             }
         }
 
+        private void LoadStatus()
+        {
+            ddlstatus.DataSource = bll.GetUserStatus();
+            ddlstatus.DataBind();
+        }
+
         private void LoadControls(string userCode)
         {
             try
@@ -78,7 +91,7 @@ namespace TraceBilling
                     txtphone.Text = dt.Rows[0]["contactNo1"].ToString();
                     txtphone2.Text = dt.Rows[0]["contactNo2"].ToString();
                     txtemail.Text = dt.Rows[0]["emailAddress"].ToString();
-                    txtdesignation.Text = dt.Rows[0]["designation"].ToString();
+                    //txtdesignation.Text = dt.Rows[0]["designation"].ToString();
                     txtusername.Text = dt.Rows[0]["userName"].ToString();
                     string roleid = dt.Rows[0]["roleId"].ToString();
                     string countryid = dt.Rows[0]["countryId"].ToString();
@@ -143,12 +156,12 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
-        private void LoadBranchList(int areaid)
+        private void LoadBranchList(int areaid,int operationid)
         {
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetBranchList(areaid);
+                dt = bll.GetBranchList(areaid,operationid);
                 branch_list.DataSource = dt;
                 branch_list.DataTextField = "branchName";
                 branch_list.DataValueField = "branchId";
@@ -230,8 +243,10 @@ namespace TraceBilling
             try
             {
                 //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                LoadBranchList(operationid);
+                int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+
+                LoadBranchList(areaid,operationid);
                 //load session data
             }
             catch (Exception ex)
@@ -255,11 +270,13 @@ namespace TraceBilling
                 user.Contact1 = txtphone.Text.Trim();
                 user.Contact2 = txtphone2.Text.Trim();
                 user.EmailAddress = txtemail.Text.Trim();
-                user.Designation = txtdesignation.Text.Trim();
+                user.Designation = "";// txtdesignation.Text.Trim();
                 user.Country = "2";
                 user.Area = area_list.SelectedValue.ToString();
                 user.Role = role_list.SelectedValue.ToString();
                 user.Branch = branch_list.SelectedValue.ToString();
+                user.OperationArea = ddloperationarea.SelectedValue.ToString();
+                user.Status = ddlstatus.SelectedValue.ToString();
                 
                 user.IsActive = chkactive.Checked;
                 user.Reason = txtreason.Text.Trim();
@@ -316,7 +333,7 @@ namespace TraceBilling
             txtlastname.Text = "";
             txtphone.Text = "";
             txtemail.Text = "";
-            txtdesignation.Text = "";
+            //txtdesignation.Text = "";
             txtreason.Text = "";
             txtusername.Text = "";
            // country_list.SelectedValue = "0";
@@ -360,6 +377,30 @@ namespace TraceBilling
         {
             string StartPage = "ViewUsers.aspx";
             Response.Redirect(StartPage, true);
+        }
+        protected void ddlstatus_DataBound(object sender, EventArgs e)
+        {
+            ddlstatus.Items.Insert(0, new ListItem("select", "0"));
+        }
+        protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(branch_list.SelectedValue.ToString());
+
+                 LoadBranchList(10,operationid);
+              
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("select area", "0"));
         }
     }
 }

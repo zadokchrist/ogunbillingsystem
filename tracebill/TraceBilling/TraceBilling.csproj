@@ -47,6 +47,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\..\..\..\..\HP PC backup\TONY\PC backup\Consultancy\TRACEBILL\recent docs\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="itextsharp">
       <HintPath>..\..\..\..\Users\HP\Desktop\TRACECORP\itextsharp.dll</HintPath>
     </Reference>
@@ -235,6 +238,7 @@
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.css" />
     <Content Include="assets\dist\css\alt\AdminLTE-without-plugins.min.css" />
     <Content Include="BillingPeriods.aspx" />
+    <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="BlockSetting.aspx" />
     <Content Include="CloseAccount.aspx" />

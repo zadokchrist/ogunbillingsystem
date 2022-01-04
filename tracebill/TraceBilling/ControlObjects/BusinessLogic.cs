@@ -134,13 +134,13 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-        internal DataTable GetBranchList(int areaid)
+        internal DataTable GetBranchList(int areaid, int operationid)
         {
             dt = new DataTable();
             try
             {
 
-                dt = dh.GetBranchList(areaid);
+                dt = dh.GetBranchList(areaid,operationid);
 
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace TraceBilling.ControlObjects
             try
             {
 
-                dt = dh.GetUserList(countryid, roleid);
+                dt = dh.GetUserList(10, roleid);
 
             }
             catch (Exception ex)
@@ -842,6 +842,11 @@ namespace TraceBilling.ControlObjects
                 {
                     message.Response_Code = "102";
                     message.Response_Message = "INSTRUCTION DATE CANNOT BE EMPTY!";
+                }
+                else if (authorizedby == "0")
+                {
+                    message.Response_Code = "102";
+                    message.Response_Message = "PLEASE SELECT SURVEY AUTHORIZER!";
                 }
                 else if (String.IsNullOrEmpty(authorizedby))
                 {
@@ -2896,21 +2901,29 @@ namespace TraceBilling.ControlObjects
             output = dh.GetSystemParameter(param);
             return output;
         }
-        internal bool CheckJobAssigned(string appid)
+        internal bool CheckJobAssigned(string appid,string flag)
         {
             bool value = false;
             DataTable dt = dh.GetSurveyData(int.Parse(appid));
             if(dt.Rows.Count > 0)
             {
-                foreach(DataRow dr in dt.Rows)
+                if(flag.Equals("1"))//job generated
                 {
-                    string assign = dr["assignedTo"].ToString();
-                    if(!assign.Equals(""))
+                    value = true;
+                }
+                else if(flag.Equals("2"))//job assigned
+                {
+                    foreach (DataRow dr in dt.Rows)
                     {
-                        value = true;
-                        break;
+                        string assign = dr["assignedTo"].ToString();
+                        if (!assign.Equals(""))
+                        {
+                            value = true;
+                            break;
+                        }
                     }
                 }
+                
             }
             return value;
         }
@@ -3693,6 +3706,163 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        public DataTable GetAllUsers_filtered(string search,string role,string branch)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
 
+                dt = dh.GetAllUsers_filtered(search,role,branch);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetAllUsers_filtered", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public string ResetUserPassword(string UserCode, string UserName, string fullName, string changedBy, string action,string email)
+        {
+            //string output = "";
+            string Password = EncryptString(UserName);
+            int UserID = Convert.ToInt32(UserCode);
+
+            dh.ResetPassword(UserID, Password, true, changedBy, UserName, action);
+            //data.UpdatePassword(UserID, Password, true);
+            string application_link = dh.GetSystemParameter("6");
+            string message = "  Hello " + fullName;
+            string message1 = "  New Billing System Logins have been reset";
+            string message2 = "  UserName : " + UserName;
+            string message3 = "  Password : " + UserName;
+            string message4 = "  Please do not even share your logins with anyone";
+            string Actuallink = "<a href= " + application_link + " > Click To Access </a>";
+            string message5 = "LINK: " + Actuallink;
+            string body = string.Format("<html>" + message + ",<BR>" +
+            message1 + ",<BR>" + message2 + "<BR>" + message3 + "<BR>" + message4 + "<BR>" + message5 + "</body>");
+            string Subject = "LOGIN CREDENTIAL";
+            //Notify_(body, Email, Subject);
+            if(!email.Equals(""))
+            {
+                SendEmail(email, Subject, message1);
+            }
+
+            return "Password for " + UserName + " has been reset successfully";
+        }
+        internal DataTable GetUserStatus()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetUserStatus();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetUserStatus", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetOperationAreaList(int area)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetOperationAreaList(area);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetOperationAreaList", "101 " + ex.Message);
+            }
+            return dt;
+        }
+
+        internal DataTable GetTerritoryList(int opid,int branchid)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTerritoryList(opid,branchid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTerritoryList", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetSubTerritoryList(int territory)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetSubTerritoryList(territory);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetSubTerritoryList", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        //added 29/12/2021
+        public string GetNewApplicationNumber(string Code, string AreaCode, string BranchCode)
+        {
+            string output = "";
+            if (Code.Equals("0"))
+            {
+                string SerialCode = "WAPN";
+                string Date = DateTime.Now.ToString("ddMMyyyy");
+                string areaalias = dh.GetSettingAlias(AreaCode, "1");
+                string branchlias = dh.GetSettingAlias(BranchCode, "2");
+                int RunningNumber = dh.GetIncrementNumberByArea( int.Parse(AreaCode), int.Parse(BranchCode));
+                //int NewNumber = RunningNumber + 1;
+                int NewNumber = RunningNumber;
+                output = areaalias + "/" + branchlias + "/" + Date + "/" + NewNumber;
+            }
+            return output;
+        }
+        internal DataTable GetPaymentTransactionsByDate(int countryid, int areaid, DateTime startdate,DateTime enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = dh.GetPaymentTransactionsByDate(countryid, areaid,startdate,enddate);
+                if (dt.Rows.Count > 0)
+                {
+                    return dt;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetPaymentTransactions", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetApplicationByStatusFiltered(string area,string branch, string status,string search,DateTime start, DateTime end)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = dh.GetApplicationByStatusFiltered( area, branch,status,search,start,end);
+                if (dt.Rows.Count > 0)
+                {
+                    return dt;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetApplicationByStatus", "101 " + ex.Message);
+            }
+            return dt;
+        }
     }
 }

@@ -22,42 +22,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// txtjobnumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtjobnumber;
-        
-        /// <summary>
-        /// country_list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList country_list;
-        
-        /// <summary>
-        /// area_list control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list;
-        
-        /// <summary>
-        /// Button3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
-        
-        /// <summary>
         /// returnbtn control.
         /// </summary>
         /// <remarks>
@@ -139,15 +103,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtappdate;
         
         /// <summary>
-        /// txtcustref control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtcustref;
-        
-        /// <summary>
         /// txtMeterRef control.
         /// </summary>
         /// <remarks>
@@ -164,15 +119,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtfullname;
-        
-        /// <summary>
-        /// txttitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txttitle;
         
         /// <summary>
         /// txtoccupation control.
@@ -265,15 +211,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtlongitude;
         
         /// <summary>
-        /// txtterritory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtterritory;
-        
-        /// <summary>
         /// lblcustbilling control.
         /// </summary>
         /// <remarks>
@@ -301,13 +238,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtarea;
         
         /// <summary>
-        /// txtzone control.
+        /// branch_list control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtzone;
+        protected global::System.Web.UI.WebControls.DropDownList branch_list;
         
         /// <summary>
         /// txtproperty control.
@@ -389,15 +326,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkactive;
-        
-        /// <summary>
-        /// chksewer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chksewer;
         
         /// <summary>
         /// btnSave control.
