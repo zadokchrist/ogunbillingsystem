@@ -18,7 +18,7 @@
     <tr>
     <%--<th>New</th>--%>
            <th class="modal-sm" style="width: 250px">Application Name</th>
-        <th class="modal-sm" style="width: 236px">Country</th>
+<%--        <th class="modal-sm" style="width: 236px">Country</th>--%>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
@@ -33,12 +33,12 @@
                            <asp:TextBox ID="txtapplicationname" runat="server" CssClass="form-control" Width="217px" ></asp:TextBox>
                      
                           </td> 
-                          <td class="modal-sm" style="width: 236px" >
+                         <%-- <td class="modal-sm" style="width: 236px" >
                       
             <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
                  OnSelectedIndexChanged="country_list_SelectedIndexChanged" Width="235px">
                 </asp:DropDownList>
-                    </td>
+                    </td>--%>
              
                            
              <td class="datepicker-inline" style="width: 226px" >

@@ -7395,6 +7395,7 @@
     <Content Include="assets\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="bin\reports\Applicationform.rpt" />
     <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\tracebill.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="plugins\bootstrap-slider\bootstrap-slider.js" />

@@ -13,7 +13,7 @@
                    <table width="100%">
     <tr>
     <%--<th>New</th>--%>
-        <th class="modal-sm" style="width: 236px">Country</th>
+<%--        <th class="modal-sm" style="width: 236px">Country</th>--%>
          <th class="datepicker-inline" style="width: 226px"> Area</th>
         <th class="modal-sm" style="width: 236px">CustRef</th>
         <th></th>
@@ -26,12 +26,12 @@
          CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
         </td>--%>
           
-                          <td class="modal-sm" style="width: 236px" >
+                       <%--   <td class="modal-sm" style="width: 236px" >
                       
             <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
                  OnSelectedIndexChanged="country_list_SelectedIndexChanged" Width="235px">
                 </asp:DropDownList>
-                    </td>
+                    </td>--%>
              
                            
              <td class="datepicker-inline" style="width: 226px" >

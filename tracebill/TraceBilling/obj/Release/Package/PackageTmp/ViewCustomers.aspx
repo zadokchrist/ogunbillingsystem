@@ -13,7 +13,7 @@
                    <table width="100%">
     <tr>
     <%--<th>New</th>--%>
-        <th class="modal-sm" style="width: 236px">Country</th>
+        <%--<th class="modal-sm" style="width: 236px">Country</th>--%>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th class="modal-sm" style="width: 236px">CustRef</th>
         <th></th>
@@ -26,12 +26,12 @@
          CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
         </td>--%>
           
-                          <td class="modal-sm" style="width: 236px" >
+                        <%--  <td class="modal-sm" style="width: 236px" >
                       
             <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
                  OnSelectedIndexChanged="country_list_SelectedIndexChanged" Width="235px">
                 </asp:DropDownList>
-                    </td>
+                    </td>--%>
              
                            
              <td class="datepicker-inline" style="width: 226px" >
@@ -89,7 +89,7 @@
                                     runat="server" Text="Return to customer list" onclick="btnReturn_Click" />
           </div>
        <div id="customerdisplay" runat="server" visible="false">
-                     <div class="col-sm-12 home card" id="maindisplay" runat="server" style="left: 9px; top: 0px; width: 786px" >
+                     <div class="col-sm-12 home card" id="maindisplay" runat="server">
 
                    <h5 class="inline">View customer Logs</h5>
              
@@ -110,7 +110,7 @@
                <asp:BoundField DataField="applicationId" HeaderText="Application#" NullDisplayText="-"/> 
 
              <asp:BoundField DataField="name" HeaderText="CustName" NullDisplayText="-" /> 
-              <asp:BoundField DataField="country" HeaderText="Country" NullDisplayText="-" /> 
+<%--              <asp:BoundField DataField="country" HeaderText="Country" NullDisplayText="-" /> --%>
                   <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" /> 
             
        
