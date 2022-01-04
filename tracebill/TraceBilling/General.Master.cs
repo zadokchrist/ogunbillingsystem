@@ -13,6 +13,10 @@ namespace TraceBilling
         {
             try
             {
+                if (Session["RoleID"] == null)
+                {
+                    Response.Redirect("Default.aspx");
+                }
                 string fullname = Session["FullName"].ToString();
                 string title = Session["Designation"].ToString();
                 userName.InnerHtml = "" + fullname;

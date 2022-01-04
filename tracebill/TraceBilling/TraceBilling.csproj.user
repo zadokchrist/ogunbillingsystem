@@ -32,7 +32,11 @@
           <StartWorkingDirectory>
           </StartWorkingDirectory>
           <EnableENC>True</EnableENC>
+<<<<<<< HEAD
           <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+=======
+          <AlwaysStartWebServerOnDebug>True</AlwaysStartWebServerOnDebug>
+>>>>>>> 5b8a809d2bce7de6cbe571eec9f99db6710f4f6c
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
