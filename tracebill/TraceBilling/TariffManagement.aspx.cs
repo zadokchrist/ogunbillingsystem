@@ -31,9 +31,9 @@ namespace TraceBilling
                     {
                         Response.Redirect("Default.aspx");
                     }
-                    LoadCountryList();
-                    int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                    LoadAreaList(countryid);
+                    //LoadCountryList();
+                    //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+                    //LoadAreaList(countryid);
                     LoadDisplay();
                 }
             }
@@ -42,45 +42,45 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        private void LoadCountryList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                string countryid = Session["countryId"].ToString();
-                dt = bll.GetCountryList();
-                country_list.DataSource = dt;
-                country_list.SelectedValue = countryid;
-                country_list.DataTextField = "countryName";
-                country_list.DataValueField = "countryId";
-                country_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayCountryList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
+        //private void LoadCountryList()
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        string countryid = Session["countryId"].ToString();
+        //        dt = bll.GetCountryList();
+        //        country_list.DataSource = dt;
+        //        country_list.SelectedValue = countryid;
+        //        country_list.DataTextField = "countryName";
+        //        country_list.DataValueField = "countryId";
+        //        country_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayCountryList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
        
     
 
@@ -98,36 +98,36 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        protected void country_list_DataBound(object sender, EventArgs e)
-        {
-            country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
-        }
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void country_list_DataBound(object sender, EventArgs e)
+        //{
+        //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
+        //}
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
     
       
 
       
       
 
-        protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-                LoadAreaList(countryid);
+        //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //int deptid = int.Parse(department_list.SelectedValue.ToString());
+        //        int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
+        //        LoadAreaList(countryid);
               
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        //load session data
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
         private void LoadDisplay()
         {
@@ -136,7 +136,7 @@ namespace TraceBilling
             try
             {
                 
-                string areaid = area_list.SelectedValue.ToString();
+                string areaid = "10";
                 DataTable dataTable = bll.GetTariffSettings(areaid);
                 if (dataTable.Rows.Count > 0)
                 {
@@ -181,21 +181,21 @@ namespace TraceBilling
         
 
         
-        protected void area_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
+        //protected void area_list_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
 
-                string areaid = area_list.SelectedValue.ToString();
-                LoadDisplay();
-                //load session data
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        string areaid = area_list.SelectedValue.ToString();
+        //        LoadDisplay();
+        //        //load session data
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
         protected void gv_tariffview_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             

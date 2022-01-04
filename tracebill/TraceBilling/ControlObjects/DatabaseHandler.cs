@@ -2159,5 +2159,104 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable SaveArea(string areaid, string areaname, string code, string alias, bool ckarea)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveArea", areaid, areaname, code, alias, ckarea);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        public DataTable GetSettingsDetails(string flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetSettingsDetails", int.Parse(flag));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        public void DeleteSettingItem(string recordid, int flag, string deletedby)
+        {
+            try
+            {
+                ExecuteCommand("Sp_DeleteSettingItem", recordid, flag, int.Parse(deletedby));
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        internal DataTable GetSettingsDetailsByID(string flag, string recordid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetSettingsDetailsByID", int.Parse(flag), int.Parse(recordid));
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable SaveBranch(string branchid, string branchname, string code, string alias,string area, bool ckbranch)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveBranch", branchid, branchname, code, alias, area, ckbranch);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable SaveTerritory(string territoryid, string territory, string area, string branch,  bool ckterritory)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveTerritory", territoryid, territory, area, branch, ckterritory);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable SaveSubTerritory(string subterritoryid, string subterritory, string territoryid,  bool cksubter)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveSubTerritory", subterritoryid, subterritory, territoryid,  cksubter);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

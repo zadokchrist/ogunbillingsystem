@@ -7380,6 +7380,10 @@
     <Content Include="bower_components\select2\src\scss\_single.scss" />
     <Content Include="dist\css\adminlte.css.map" />
     <Content Include="dist\css\adminlte.min.css.map" />
+    <Content Include="ManageAreas.aspx" />
+    <Content Include="ManageBranches.aspx" />
+    <Content Include="ManageSubTerritory.aspx" />
+    <Content Include="ManageTerritory.aspx" />
     <Content Include="MeterManagement.aspx" />
     <Content Include="PaymentInvoice.aspx" />
     <Content Include="plugins\input-mask\phone-codes\phone-be.json" />
@@ -7798,6 +7802,34 @@
     <Compile Include="MainPage.Master.designer.cs">
       <DependentUpon>MainPage.Master</DependentUpon>
     </Compile>
+    <Compile Include="ManageAreas.aspx.cs">
+      <DependentUpon>ManageAreas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageAreas.aspx.designer.cs">
+      <DependentUpon>ManageAreas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageBranches.aspx.cs">
+      <DependentUpon>ManageBranches.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageBranches.aspx.designer.cs">
+      <DependentUpon>ManageBranches.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageSubTerritory.aspx.cs">
+      <DependentUpon>ManageSubTerritory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageSubTerritory.aspx.designer.cs">
+      <DependentUpon>ManageSubTerritory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageTerritory.aspx.cs">
+      <DependentUpon>ManageTerritory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageTerritory.aspx.designer.cs">
+      <DependentUpon>ManageTerritory.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MeterManagement.aspx.cs">
       <DependentUpon>MeterManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7970,7 +8002,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2992</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

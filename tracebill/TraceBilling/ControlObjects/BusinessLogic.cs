@@ -3864,5 +3864,126 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        public ResponseMessage SaveArea(string areaid, string areaname, string code, string alias, bool ckarea)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveArea(areaid, areaname, code, alias, ckarea);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveArea", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
+        internal DataTable GetSettingsDetails(string flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = dh.GetSettingsDetails(flag);
+                if (dt.Rows.Count > 0)
+                {
+                    return dt;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetSettingsDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public void DeleteSettingItem(string recordid, int flag, string deletedby)
+        {
+            try
+            {
+                dh.DeleteSettingItem(recordid, flag, deletedby);
+            }
+            catch (Exception ex)
+            {
+
+                //throw ex;
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("DeleteSettingItem", resp.Response_Code + " " + resp.Response_Message);
+            }
+        }
+        public DataTable GetSettingsDetailsByID(string flag, string recordid)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetSettingsDetailsByID(flag, recordid);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetSettingsDetailsByID", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public ResponseMessage SaveBranch(string branchid, string branchname, string code, string alias, string area, bool ckbranch)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveBranch(branchid, branchname, code, alias, area, ckbranch);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveBranch", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
+        public ResponseMessage SaveTerritory(string territoryid, string territory, string area, string branch, bool ckterritory)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveTerritory(territoryid, territory, area, branch, ckterritory);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveTerritory", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
+        public ResponseMessage SaveSubterritory(string subterritoryid, string subterritory, string territoryid, bool cksubter)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveSubTerritory(subterritoryid, subterritory, territoryid, cksubter);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveSubterritory", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
+        }
     }
 }

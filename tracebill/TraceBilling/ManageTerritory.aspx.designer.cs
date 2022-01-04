@@ -10,7 +10,7 @@
 namespace TraceBilling {
     
     
-    public partial class TariffManagement {
+    public partial class ManageTerritory {
         
         /// <summary>
         /// lblmsg control.
@@ -22,57 +22,84 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// tariffschedule control.
+        /// areadisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tariffschedule;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl areadisplay;
         
         /// <summary>
-        /// tariffdisplay control.
+        /// txtterritory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tariffdisplay;
+        protected global::System.Web.UI.WebControls.TextBox txtterritory;
         
         /// <summary>
-        /// gv_tariffview control.
+        /// ddloperationarea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gv_tariffview;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea;
         
         /// <summary>
-        /// generaltariffschedule control.
+        /// ddlbranch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl generaltariffschedule;
+        protected global::System.Web.UI.WebControls.DropDownList ddlbranch;
         
         /// <summary>
-        /// generaltariffdisplay control.
+        /// chkterritory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl generaltariffdisplay;
+        protected global::System.Web.UI.WebControls.CheckBox chkterritory;
         
         /// <summary>
-        /// gv_tariffviewgn control.
+        /// btnAddTerritory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gv_tariffviewgn;
+        protected global::System.Web.UI.WebControls.Button btnAddTerritory;
+        
+        /// <summary>
+        /// P4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl P4;
+        
+        /// <summary>
+        /// GridViewIssue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIssue;
+        
+        /// <summary>
+        /// lblterritory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblterritory;
     }
 }

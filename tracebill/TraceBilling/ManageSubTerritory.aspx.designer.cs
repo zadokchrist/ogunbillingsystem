@@ -10,7 +10,7 @@
 namespace TraceBilling {
     
     
-    public partial class TariffManagement {
+    public partial class ManageSubTerritory {
         
         /// <summary>
         /// lblmsg control.
@@ -22,57 +22,75 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// tariffschedule control.
+        /// subterrdisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tariffschedule;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl subterrdisplay;
         
         /// <summary>
-        /// tariffdisplay control.
+        /// txtsubterritory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl tariffdisplay;
+        protected global::System.Web.UI.WebControls.TextBox txtsubterritory;
         
         /// <summary>
-        /// gv_tariffview control.
+        /// ddlterritory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gv_tariffview;
+        protected global::System.Web.UI.WebControls.DropDownList ddlterritory;
         
         /// <summary>
-        /// generaltariffschedule control.
+        /// chksubterritory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl generaltariffschedule;
+        protected global::System.Web.UI.WebControls.CheckBox chksubterritory;
         
         /// <summary>
-        /// generaltariffdisplay control.
+        /// btnAddSubTerritory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl generaltariffdisplay;
+        protected global::System.Web.UI.WebControls.Button btnAddSubTerritory;
         
         /// <summary>
-        /// gv_tariffviewgn control.
+        /// P4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gv_tariffviewgn;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl P4;
+        
+        /// <summary>
+        /// GridViewIssue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIssue;
+        
+        /// <summary>
+        /// lblsubterritory control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblsubterritory;
     }
 }
