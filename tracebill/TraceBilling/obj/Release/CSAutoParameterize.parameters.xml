@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="DatabaseConnectionString-Web.config Connection String" description="DatabaseConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=3.130.127.128;Initial Catalog=tracebii;user id=yassako;password=T3rr1613;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\working\ directory\\tracebilldashboardlatest\\tracebill\\TraceBilling\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DatabaseConnectionString']/@connectionString" />
+  <parameter name="DatabaseConnectionString-Web.config Connection String" description="DatabaseConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=oguncrmdb.cdzgyilazyin.us-east-2.rds.amazonaws.com;Initial Catalog=OgunbillingDb;user id=oguncrm;password=T3rr1613;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\working\ directory\\tracebilldashboardlatest\\tracebill\\TraceBilling\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DatabaseConnectionString']/@connectionString" />
   </parameter>
-  <parameter name="DatabaseConnectionString_x-Web.config Connection String" description="DatabaseConnectionString_x Connection String used in web.config by the application to access the database." defaultValue="Data Source=DESKTOP-S7LSH5L\TONYSVR;Initial Catalog=TRACEBILL_DB;user id=appuser;password=T3rr1613;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\working\ directory\\tracebilldashboardlatest\\tracebill\\TraceBilling\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DatabaseConnectionString_x']/@connectionString" />
+  <parameter name="DatabaseConnectionString_x-Web.config Connection String" description="DatabaseConnectionString_x Connection String used in web.config by the application to access the database." defaultValue="Data Source=DESKTOP-MM4VPEU\TONYSVR_SQL2014;Initial Catalog=TRACEBILL_DB;user id=appuser;password=T3rr1613;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="D:\\working\ directory\\tracebilldashboardlatest\\tracebill\\TraceBilling\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DatabaseConnectionString_x']/@connectionString" />
   </parameter>
 </parameters>

@@ -8,22 +8,16 @@
     
           <center>
                 <asp:Label runat="server" ID="lblmsg" Visible="false" ></asp:Label>
-               <div>
+<%--               <div>
                  
                    <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
         <th class="modal-sm" style="width: 236px">Country</th>
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+
           
                           <td class="modal-sm" style="width: 236px" >
                       
@@ -50,7 +44,7 @@
                                                  
                           </tr>
                           </table>
-          </div>
+          </div>--%>
             </center>
 
         <br />
@@ -104,7 +98,7 @@
                         <table width="100%">
     <tr>
     <%--<th>New</th>--%>
-        <th class="modal-sm" style="width: 207px">Country</th>
+<%--        <th class="modal-sm" style="width: 207px">Country</th>--%>
          <th class="modal-sm" style="width: 226px">Operation Area</th>
         <th class="modal-sm" style="width: 226px">Branch/Zone</th>
         <th class="modal-sm" style="width: 226px">Book</th>
@@ -114,12 +108,12 @@
         <tr>
   
           
-                          <td class="modal-sm" style="width: 207px" >
+                        <%--  <td class="modal-sm" style="width: 207px" >
                       
             <asp:DropDownList ID="country_list2" CssClass="form-control" runat="server"  OnDataBound="country_list2_DataBound" Visible="true" AutoPostBack="True"
                  OnSelectedIndexChanged="country_list2_SelectedIndexChanged"  >
                 </asp:DropDownList>
-                    </td>
+                    </td>--%>
              
                            
              <td class="modal-sm" style="width: 226px" >

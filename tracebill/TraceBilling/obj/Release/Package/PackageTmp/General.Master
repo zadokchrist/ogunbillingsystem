@@ -66,9 +66,11 @@
       </a>
         <a href="#">
 <%--            <img src="images/tracelogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:160px;max-width:160px;height:auto;width:auto;">--%>
-            <img src="images/tracebilllogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:100px;max-width:100px;height:auto;width:auto;">
+<%--            <img src="images/tracebilllogo.png" alt="tracecorp Logo" class="logo-lg" style="max-height:100px;max-width:100px;height:auto;width:auto;">--%>
+                    <img src="images/ogunwater.png" alt="ogun Logo" class="logo-lg" style="max-height:100px;max-width:100px;height:82px; width:114px;">
+
         </a>
-         <font size = 6> <font color = white>TRACE BILLING SYSTEM</font></font>
+         <font size = 6> <font color = white>OGUN STATE WATER BILLING SYSTEM</font></font>
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
@@ -305,7 +307,7 @@
               <li><a href="CustomerCreation.aspx"><i class="fa fa-circle-o"></i> Customer Creation (S10)</a></li>
                <%} %>
               <li><a href="ViewApplications.aspx"><i class="fa fa-circle-o"></i> View Application Details</a></li>
-           
+           </li>
           </ul>
         </li>
            <li class="treeview">
@@ -347,7 +349,7 @@
                 <li><a href="FieldBilling.aspx"><i class="fa fa-circle-o"></i> Onspot Billing</a></li>
                <li><a href="MeterManagement.aspx"><i class="fa fa-circle-o"></i> Meter Handling</a></li>
 <%--            <li><a href="#"><i class="fa fa-circle-o"></i> Route Definition</a></li>--%>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Exceptions & Variance</a></li>
+            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Exceptions & Variance</a></li>--%>
 <%--            <li><a href="#"><i class="fa fa-circle-o"></i> Meter repairs & Replacement</a></li>--%>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Meter History Log</a></li>--%>
           </ul>
@@ -383,7 +385,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="TariffManagement"><i class="fa fa-circle-o"></i>Add Territories</a></li>
+            <li><a href="AddTerritory.aspx"><i class="fa fa-circle-o"></i>Add Territories</a></li>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Categorization </a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Taxation Setting</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Indexation</a></li>--%>
@@ -404,6 +406,7 @@
           <ul class="treeview-menu">
       <li><a href="BillingCycle.aspx"><i class="fa fa-circle-o"></i> Billing Cycles Management</a></li>
        <li><a href="Adjustments.aspx"><i class="fa fa-circle-o"></i> Adjustment options</a></li>
+       <li><a href="BillingPeriods.aspx"><i class="fa fa-circle-o"></i> Period Management</a></li>
 
 <%--           <li><a href="#"><i class="fa fa-circle-o"></i> Service Definition</a></li>--%>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Consumption & Non-Consumption charges </a></li>--%>
@@ -491,9 +494,15 @@
           <ul class="treeview-menu">
 
               <li><a href="ViewTransactions.aspx"><i class="fa fa-circle-o"></i> Payment Reports</a></li>
-            <%--<li><a href="#"><i class="fa fa-circle-o"></i> General Reports</a></li>--%>
-              <%--<li><a href="#"><i class="fa fa-circle-o"></i> Management Reports</a></li>--%>
-            <%--<li><a href="#"><i class="fa fa-circle-o"></i> Historical Data Migration</a></li>--%>
+<%--            <li><a href="Reports.aspx"><i class="fa fa-circle-o"></i> General Reports</a></li>--%>
+              <li><a href="RPT_BalanceOutstanding.aspx"><i class="fa fa-circle-o"></i> Balance Outstanding</a></li>
+            <li><a href="RPT_MeterAudit.aspx"><i class="fa fa-circle-o"></i> Meter Reading Audit</a></li>
+              <li><a href="RPT_TransactionAudit.aspx"><i class="fa fa-circle-o"></i> Transaction Audit</a></li>
+              <li><a href="RPT_CustomerCount.aspx"><i class="fa fa-circle-o"></i> Customer count</a></li>
+              <li><a href="RPT_Statement.aspx"><i class="fa fa-circle-o"></i> Statement</a></li>
+          <%--    <li><a href="#"><i class="fa fa-circle-o"></i> Water Sales</a></li>
+              <li><a href="#"><i class="fa fa-circle-o"></i> Total New Connections</a></li>
+              <li><a href="#"><i class="fa fa-circle-o"></i> Billing Summary</a></li>--%>
             <li><a href="GetAuditReport.aspx"><i class="fa fa-circle-o"></i> Audit trails</a></li>
               <%--<li><a href="#"><i class="fa fa-circle-o"></i> Data Import and Export</a></li>--%>
               <%--<li><a href="#"><i class="fa fa-circle-o"></i> Bill re-generation</a></li>--%>
