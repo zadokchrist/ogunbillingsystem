@@ -35,7 +35,6 @@ D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bi
 D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll
 D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.pdb
 D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CoreCompileInputs.cache
-D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CopyComplete
 D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
 C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\ApplicationInsights.config
@@ -59,7 +58,6 @@ C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\T
 C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CopyComplete
 C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 C:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
-D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojAssemblyReference.cache
 D:\Projects\Traceworkingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\ApplicationInsights.config
 D:\Projects\Traceworkingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\csc.exe
 D:\Projects\Traceworkingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -79,3 +77,4 @@ D:\Projects\Traceworkingdirectory\tracebilldashboardlatest\tracebill\TraceBillin
 D:\Projects\Traceworkingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csprojResolveAssemblyReference.cache
 D:\Projects\Traceworkingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 D:\Projects\Traceworkingdirectory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
+D:\Projects\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.AssemblyReference.cache
