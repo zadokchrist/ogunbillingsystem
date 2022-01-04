@@ -400,7 +400,7 @@ namespace TraceBilling
             cboID.SelectedValue = "0";
             txtidnumber.Text = "";
             //country_list.SelectedValue = "0";
-            area_list.SelectedValue = "0";
+            //area_list.SelectedValue = "0";
            // txtdivision.Text = "";
            // txtvillage.Text = "";
             txtplot.Text = "";

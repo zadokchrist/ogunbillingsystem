@@ -406,7 +406,7 @@
               
               <li><a href="ViewUsers.aspx"><i class="fa fa-circle-o"></i> View Users</a></li>
               <%} %>
-            <li><a href="#"><i class="fa fa-circle-o"></i> User Delegation</a></li>
+<%--            <li><a href="#"><i class="fa fa-circle-o"></i> User Delegation</a></li>--%>
             
           </ul>
         </li>

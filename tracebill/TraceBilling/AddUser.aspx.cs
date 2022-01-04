@@ -97,15 +97,26 @@ namespace TraceBilling
                     string countryid = dt.Rows[0]["countryId"].ToString();
                     string areaid = dt.Rows[0]["area"].ToString();                  
                     bool isactive = bool.Parse(dt.Rows[0]["AccStatus"].ToString());
+                    string oparea = dt.Rows[0]["operationAreaName"].ToString();
+                    string branch = dt.Rows[0]["branchName"].ToString();
+                    string opareaid = dt.Rows[0]["operationId"].ToString();
+                    string branchid = dt.Rows[0]["branchId"].ToString();
+                    string status = dt.Rows[0]["recordId"].ToString();
+
                     if (isactive)
                     {
                         chkactive.Checked = true;
                     }
                     role_list.SelectedIndex = role_list.Items.IndexOf(role_list.Items.FindByValue(roleid));
+                    ddlstatus.SelectedIndex = ddlstatus.Items.IndexOf(ddlstatus.Items.FindByValue(status));
+
                     //country_list.SelectedIndex = country_list.Items.IndexOf(country_list.Items.FindByValue(countryid));
-                    area_list.SelectedIndex = area_list.Items.IndexOf(area_list.Items.FindByValue(areaid));
-                   
-                    LoadAreaList(int.Parse(countryid));
+                    //area_list.SelectedIndex = area_list.Items.IndexOf(area_list.Items.FindByValue(areaid));
+                    branch_list.SelectedIndex = branch_list.Items.IndexOf(branch_list.Items.FindByValue(branchid));
+                    ddloperationarea.SelectedIndex = ddloperationarea.Items.IndexOf(ddloperationarea.Items.FindByValue(opareaid));
+                    area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                    area_list.Enabled = false;
+                    
                     btnSave.Text = "Update User";
                     lbluser.Text = "EDIT USER DETAILS";
                     btnreturn.Visible = true;
@@ -315,12 +326,13 @@ namespace TraceBilling
                     {
                         DisplayMessage(resp.Response_Message, true);
                     }
+                    RefreshControls();
                 }
                 else
                 {
                     DisplayMessage(resp.Response_Message, true);
                 }
-                RefreshControls();
+                
             }
             catch (Exception ex)
             {
@@ -337,9 +349,10 @@ namespace TraceBilling
             txtreason.Text = "";
             txtusername.Text = "";
            // country_list.SelectedValue = "0";
-            area_list.SelectedValue = "0";
+            //area_list.SelectedValue = "0";
             role_list.SelectedValue = "0";
-            branch_list.SelectedValue = "0";            
+            branch_list.SelectedValue = "0";
+            ddloperationarea.SelectedValue = "0";
             chkactive.Checked = false;
         }
         protected void chkuserChanged(object sender, EventArgs e)
