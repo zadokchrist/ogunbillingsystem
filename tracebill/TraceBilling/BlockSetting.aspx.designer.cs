@@ -31,31 +31,40 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl countrysetting;
         
         /// <summary>
-        /// country_list control.
+        /// Label1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList country_list;
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// area_list control.
+        /// l9x control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list;
+        protected global::System.Web.UI.WebControls.Label l9x;
         
         /// <summary>
-        /// branch_list1 control.
+        /// ddloperationarea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList branch_list1;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea;
+        
+        /// <summary>
+        /// branch_list control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList branch_list;
         
         /// <summary>
         /// txtblock control.

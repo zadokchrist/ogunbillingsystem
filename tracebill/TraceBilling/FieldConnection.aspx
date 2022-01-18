@@ -1,9 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="FieldConnection.aspx.cs" Inherits="TraceBilling.FieldConnection" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
-          <br />
+          <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
+  
           <div><h3>FIELD INSTALLATION MANAGEMENT</h3></div>
     
           <center>
@@ -153,13 +157,13 @@
                                </center>
             <table>
                 <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                        
                  
                     </td>
                 </tr>
                    <tr>
-                    <td style="width: 502px"><label for="materialoptions">Material Options</label>
+                    <td style="width: 50%"><label for="materialoptions">Material Options</label>
             <asp:RadioButtonList ID="materialoptions" runat="server" AutoPostBack="True"
                                                                     OnSelectedIndexChanged="materialoptions_SelectedIndexChanged" RepeatDirection="vertical"
                                                                     Width="95%">
@@ -168,27 +172,37 @@
                     </td>
                 </tr>
                    <tr>
-                    <td style="width: 502px"><label for="material">Select Material</label>
+                    <td style="width: 50%"><label for="material">Select Material</label>
            <asp:DropDownList ID="material_list" runat="server" AutoPostBack="true" OnDataBound="material_list_DataBound" 
                                       OnSelectedIndexChanged="material_list_SelectedIndexChanged" Width="95%">
                                                                 </asp:DropDownList></td>
                 </tr>
                   <tr>
-                      <td style="width: 502px"><label for="size">Size</label>
+                      <%--<td style="width: 50%"><label for="size">Size</label>
                       <asp:TextBox ID="txtsize" runat="server"></asp:TextBox>
-                    </td>
-                      <td style="width: 502px"><label for="quantity">Quantity</label>
+                    </td>--%>
+                      <td style="width: 50%"><label for="quantity">Quantity</label>
                       <asp:TextBox ID="txtquantity" runat="server"></asp:TextBox>
                     </td>
-                      <td style="width: 502px"><label for="rate">Rate</label>
+                      <td style="width: 50%"><label for="rate">Rate</label>
                       <asp:TextBox ID="txtrate" runat="server"></asp:TextBox>
                     </td>
                 </tr>
-                 <tr>
-                    <td style="width: 502px">
-                       
-                 
-                    </td>
+                                     <tr>
+                    <td style="width: 50%"><label for="material">Total Pipe Length laid(mtrs)</label>
+<asp:TextBox ID="txtpipelength" runat="server"  Width="50%"></asp:TextBox>
+          </td>
+                </tr>
+                                        <tr>
+                    <td style="width: 50%"><label for="material">Excavated Length</label>
+<asp:TextBox ID="txtexcavation" runat="server"  Width="50%"></asp:TextBox>
+          </td>
+                </tr>
+                                       <tr> <td style="width: 50%">
+                        <label for="naration">General Comment</label>
+            <asp:TextBox ID="txtcomment" runat="server" Height="53px" TextMode="MultiLine" Width="50%" BackColor="LightGreen" Font-Bold="True" ForeColor="Maroon"></asp:TextBox>
+
+                          </td>
                 </tr>
                 </table>
                                <br />
@@ -252,41 +266,9 @@
                                                         Text="0" Visible="False"></asp:Label>
                                    </div>
                                    <br />
-                                  <div id="pipedetails" runat="server" >
-                                   <asp:Label runat="server" Text="Details of Used pipe" Font-Bold="true" ></asp:Label>
-                               
-                                   <table style="margin-right:auto;margin-left:0px">
-                 <tr>
-                    <td style="width: 502px"><label for="material">Pipe Diameter</label>
-           <asp:DropDownList ID="pipediameter_list" runat="server"  OnDataBound="pipediameter_list_DataBound" 
-                                      Width="50%">
-                                                                </asp:DropDownList></td>
-                </tr>
-                                         <tr>
-                    <td style="width: 502px"><label for="material">Pipe Material</label>
-           <asp:DropDownList ID="pipematerial_list" runat="server" OnDataBound="pipematerial_list_DataBound" 
-                                      Width="50%">
-                                                                </asp:DropDownList></td>
-                </tr>
-                                         <tr>
-                    <td style="width: 502px"><label for="material">Total Pipe Length (mtrs)</label>
-<asp:TextBox ID="txtpipelength" runat="server"  Width="50%"></asp:TextBox>
-          </td>
-                </tr>
-                                        <tr>
-                    <td style="width: 502px"><label for="material">Excavation Length</label>
-<asp:TextBox ID="txtexcavation" runat="server"  Width="50%"></asp:TextBox>
-          </td>
-                </tr>
-                                        <td style="width: 502px">
-                        <label for="naration">General Comment</label>
-            <asp:TextBox ID="txtcomment" runat="server" Height="53px" TextMode="MultiLine" Width="50%" BackColor="LightGreen" Font-Bold="True" ForeColor="Maroon"></asp:TextBox>
-
-                          </td>
-                </tr>
-                                   </table></div>
-                                   <br /><br />
-                                   <asp:Button ID="btnsavematerials" runat="server" Text="Save Material Details" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
+              
+                                
+                                   <asp:Button ID="btnsavematerials" runat="server" Text="Save Expenditure" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
                                    <%--<asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />--%>
                                </center>
                    </div></div>
@@ -310,7 +292,10 @@
          <table style="width: 50%">
              <tr>
                                                                             <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                Customer Type</td>
+                                                                                Customer Type
+                                                                                       <asp:Label ID="l1" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                                                                            </td>
                                                                             <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                                                 &nbsp;</td>
                                                                             <td class="InterFaceTableRightRow" style="height: 10px">
@@ -319,7 +304,10 @@
                                                                             </td>
                                                                         </tr>
              <tr>                                                <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                                                                Block No</td>
+                                                                                Block No
+                        <asp:Label ID="l2" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                                                                 </td>
                                                                             <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                                             </td>
                                                                             <td class="InterFaceTableRightRowUp" style="height: 10px">
@@ -330,7 +318,10 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                Connection Number</td>
+                                                                                Connection Number
+                                                                                       <asp:Label ID="l3" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                                                                            </td>
                                                                             <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                                                 &nbsp;</td>
                                                                             <td class="InterFaceTableRightRow" style="height: 10px">
@@ -371,7 +362,10 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Meter Size</td>
+                                                                                    Meter Size
+                                                                                           <asp:Label ID="l4" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                                                                                </td>
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                                                     &nbsp;</td>
                                                                                 <td class="InterFaceTableRightRow" style="height: 10px"><asp:DropDownList ID="cboMeterSize" runat="server" OnDataBound="cboMeterSize_DataBound"
@@ -382,7 +376,10 @@
                                                                            
              <tr>
                                                                                 <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                                                                    Remark</td>
+                                                                                    Remark
+                                                                                           <asp:Label ID="l5" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                                                                                </td>
                                                                                 <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                                                 </td>
                                                                                 <td class="InterFaceTableRightRowUp" style="height: 10px">
@@ -459,16 +456,26 @@
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                                                 </td>
                                                                                 <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtManufacturedDate" runat="server" CssClass="manufacturedDate" Width="80%"></asp:TextBox></td>
+<%--                                                                                    <asp:TextBox ID="txtManufacturedDate" runat="server" CssClass="manufacturedDate" Width="80%"></asp:TextBox>--%>
+                                                                                    <asp:TextBox ID="txtManufacturedDate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px"></asp:TextBox>
+                                              <ajaxToolkit:CalendarExtender ID="txtManufacturedDate_CalendarExtender" runat="server" TargetControlID="txtManufacturedDate" Format="dd/MM/yyyy" />
+                                                                                </td>
+                                                                                    
                                                                             </tr>
             <tr>
                                                                                 <td class="InterFaceTableLeftRowUp" style="height: 10px">
-                                                                                    Installed By</td>
+                                                                                    Installed By
+                                                                                           <asp:Label ID="l6" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
+                                                                                </td>
                                                                                 <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                                                 </td>
                                                                                 <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtInstalledby" runat="server" CssClass="InterfaceTextboxLongReadOnly"
-                                                                                        Width="80%"></asp:TextBox>
+                                                                                   <%-- <asp:TextBox ID="txtInstalledby" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                                                                        Width="80%"></asp:TextBox>--%>
+                                                                                    <asp:DropDownList ID="plumber_list" CssClass="form-control" runat="server" Width="80%" AutoPostBack="false" OnDataBound="plumber_list_DataBound"
+                           Visible="true">
+                       </asp:DropDownList>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -477,8 +484,10 @@
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                                                     &nbsp;</td>
                                                                                 <td class="InterFaceTableRightRow" style="height: 10px">
-                                                                                    <asp:TextBox ID="txtInstallationDate" runat="server" CssClass="InstallationDate"
-                                                                                        Width="80%"></asp:TextBox>
+                                                                                   <%-- <asp:TextBox ID="txtInstallationDate" runat="server" CssClass="InstallationDate"
+                                                                                        Width="80%"></asp:TextBox>--%>
+                                                                                     <asp:TextBox ID="txtInstallationDate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px"></asp:TextBox>
+                                              <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtInstallationDate" Format="dd/MM/yyyy" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

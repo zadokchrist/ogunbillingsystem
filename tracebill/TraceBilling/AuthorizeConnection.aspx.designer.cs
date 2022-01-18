@@ -139,24 +139,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtarea;
         
         /// <summary>
-        /// txtdivision control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtdivision;
-        
-        /// <summary>
-        /// txtvillage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtvillage;
-        
-        /// <summary>
         /// txtaddress control.
         /// </summary>
         /// <remarks>
@@ -182,33 +164,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl connectionapps;
-        
-        /// <summary>
-        /// txtdiameter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtdiameter;
-        
-        /// <summary>
-        /// txtmaterial control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtmaterial;
-        
-        /// <summary>
-        /// txtlength control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtlength;
         
         /// <summary>
         /// txtnewcon control.
@@ -238,31 +193,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txttotal;
         
         /// <summary>
-        /// btnapprove control.
+        /// rtnAction control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnapprove;
-        
-        /// <summary>
-        /// btnterminate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnterminate;
-        
-        /// <summary>
-        /// btnhold control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnhold;
+        protected global::System.Web.UI.WebControls.RadioButtonList rtnAction;
         
         /// <summary>
         /// approvecon control.

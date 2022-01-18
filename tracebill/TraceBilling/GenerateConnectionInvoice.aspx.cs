@@ -22,6 +22,10 @@ namespace TraceBilling
             {
                 if (IsPostBack == false)
                 {
+                    if (Session["RoleID"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
 
                     //LoadCountryList();
                     //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
@@ -115,7 +119,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -268,7 +272,7 @@ namespace TraceBilling
                         surverdate = Convert.ToDateTime(dt.Rows[0]["surveyDate"].ToString());
                     }
                     DateTime surveydt = surverdate;
-                    txtsurveydate.Text = surveydt.ToString("yyyy-MM-dd");//
+                    txtsurveydate.Text = surveydt.ToString("dd/MM/yyyy");//
                     txtsurvey.Text= dt.Rows[0]["AssignedTo"].ToString();
                     lblarea.Text = dt.Rows[0]["areaId"].ToString();
                     string customertype = dt.Rows[0]["typeName"].ToString();
@@ -356,8 +360,8 @@ namespace TraceBilling
 
                 LoadCostingMaterials(int.Parse(appid));
                 LoadCostingItems(int.Parse(appid));
-                LoadPipeDiameterList();
-                LoadPipeTypeList();
+                //LoadPipeDiameterList();
+               // LoadPipeTypeList();
                 DisplayMessage(".", false);
             }
             else
@@ -426,21 +430,21 @@ namespace TraceBilling
             {
                 string estimateid = lblestimateid.Text.Trim();
                 string applicationid = lblApplicationCode.Text.Trim();
-                string pipediameter = pipediameter_list.SelectedValue.ToString();
-                string pipetype = pipematerial_list.SelectedValue.ToString();
+                string pipediameter = "0";
+                string pipetype = "0";
                 string pipelength = txtpipelength.Text.Trim();
                 string excavationlength = txtexcavation.Text.Trim();
                 string createdby = Session["UserID"].ToString();
                 string applicant = lblapplicant.Text.Trim();
-                if (pipediameter == "0")
-                {
-                    DisplayMessage("Please select pipe diameter", true);
-                }
-                else if (pipediameter == "0")
-                {
-                    DisplayMessage("Please select pipe type", true);
-                }
-                else if (pipelength == "")
+                //if (pipediameter == "0")
+                //{
+                //    DisplayMessage("Please select pipe diameter", true);
+                //}
+                //else if (pipediameter == "0")
+                //{
+                //    DisplayMessage("Please select pipe type", true);
+                //}
+                if (pipelength == "")
                 {
                     DisplayMessage("Please enter length of pipe", true);
                 }
@@ -710,58 +714,58 @@ namespace TraceBilling
 
         }
         //new code on pipe materials 20/12/2020
-        private void LoadPipeDiameterList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetPipeDiameterList();
-                pipediameter_list.DataSource = dt;
+        //private void LoadPipeDiameterList()
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetPipeDiameterList();
+        //        pipediameter_list.DataSource = dt;
 
-                pipediameter_list.DataTextField = "diameter";
-                pipediameter_list.DataValueField = "diameterId";
-                pipediameter_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("LoadPipeDiameterList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        private void LoadPipeTypeList()
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetPipeTypeList();
-                pipematerial_list.DataSource = dt;
+        //        pipediameter_list.DataTextField = "diameter";
+        //        pipediameter_list.DataValueField = "diameterId";
+        //        pipediameter_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("LoadPipeDiameterList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
+        //private void LoadPipeTypeList()
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetPipeTypeList();
+        //        pipematerial_list.DataSource = dt;
 
-                pipematerial_list.DataTextField = "pipeDesc";
-                pipematerial_list.DataValueField = "pipeTypeId";
-                pipematerial_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("LoadPipeTypeList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        protected void pipediameter_list_DataBound(object sender, EventArgs e)
-        {
-            pipediameter_list.Items.Insert(0, new ListItem("- - select Diameter - -", "0"));
-        }
-        protected void pipematerial_list_DataBound(object sender, EventArgs e)
-        {
-            pipematerial_list.Items.Insert(0, new ListItem("- - select pipe material - -", "0"));
-        }
+        //        pipematerial_list.DataTextField = "pipeDesc";
+        //        pipematerial_list.DataValueField = "pipeTypeId";
+        //        pipematerial_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("LoadPipeTypeList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
+        //protected void pipediameter_list_DataBound(object sender, EventArgs e)
+        //{
+        //    pipediameter_list.Items.Insert(0, new ListItem("- - select Diameter - -", "0"));
+        //}
+        //protected void pipematerial_list_DataBound(object sender, EventArgs e)
+        //{
+        //    pipematerial_list.Items.Insert(0, new ListItem("- - select pipe material - -", "0"));
+        //}
         private void ClearEstimatesControls()
         {
             txtpipelength.Text = "";
             txtexcavation.Text = "";
-            pipediameter_list.SelectedValue = "0";
-            pipematerial_list.SelectedValue = "0";
+            //pipediameter_list.SelectedValue = "0";
+           // pipematerial_list.SelectedValue = "0";
             lblestimateid.Text = "0";
 
         }
@@ -771,7 +775,7 @@ namespace TraceBilling
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetUserList(countryid, 6);//technical
+                dt = bll.GetUserListByID(countryid, 6,2);//technical
                 authorizer_list.DataSource = dt;
 
                 authorizer_list.DataTextField = "fullname";
@@ -787,7 +791,7 @@ namespace TraceBilling
         }
         protected void authorizer_list_DataBound(object sender, EventArgs e)
         {
-            authorizer_list.Items.Insert(0, new ListItem("- - select Authorizer - -", "0"));
+            authorizer_list.Items.Insert(0, new ListItem("- - select - -", "0"));
         }
     }
 }

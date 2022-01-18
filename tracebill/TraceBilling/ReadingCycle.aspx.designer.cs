@@ -76,13 +76,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl scheduledisplay;
         
         /// <summary>
-        /// area_listsheet control.
+        /// ddloperationarea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_listsheet;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea;
         
         /// <summary>
         /// branch_listsheet control.
@@ -166,13 +166,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.RadioButtonList rdgoptions;
         
         /// <summary>
-        /// area_list3 control.
+        /// ddloperationarea1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list3;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea1;
         
         /// <summary>
         /// txtcurrentperiod control.

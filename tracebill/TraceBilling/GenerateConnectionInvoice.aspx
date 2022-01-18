@@ -150,27 +150,27 @@
                  
             <table>
                 <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                         <asp:Label runat="server" Text="Customer Details" Font-Bold="true" ></asp:Label>
                  
                     </td>
                 </tr>
                  <tr>
-                    <td style="width: 502px"><label for="ApplicationNumber">Application Number</label>
+                    <td style="width: 50%"><label for="ApplicationNumber">Application Number</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtappNo" ReadOnly="true"/></td>
                 </tr>
                  <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                          <label>Applicant Name</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtname" placeholder="Enter name" ReadOnly="true"/>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 502px"><label for="JobNumber">Job Number</label>
+                    <td style="width: 50%"><label for="JobNumber">Job Number</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtjobNo" ReadOnly="true"/></td>
                 </tr>
                  <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                         <label for="service">Connection Type</label>
            <asp:RadioButtonList ID="customertype_list" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="true">                       
                    </asp:RadioButtonList>
@@ -178,7 +178,7 @@
                     </td>
                 </tr>
                  <tr>
-                    <td style="width: 502px"><label for="AuthorizedBy">Authorized By</label>
+                    <td style="width: 50%"><label for="AuthorizedBy">Authorized By</label>
 <%--            <asp:TextBox runat="server" CssClass="form-control" ID="txtauthorizedby" ReadOnly="false"/></td>--%>
                 <asp:DropDownList ID="authorizer_list" CssClass="form-control" runat="server" AutoPostBack="false" OnDataBound="authorizer_list_DataBound"
                            Visible="true">
@@ -191,7 +191,7 @@
                
               
                   <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                         <label for="category">Proposed Category</label>
           
                          <asp:RadioButtonList ID="category_list" runat="server" RepeatDirection="Vertical" Width="80%" >                       
@@ -199,15 +199,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 502px"><label for="surveydate">Survey Date</label>
+                    <td style="width: 50%"><label for="surveydate">Survey Date</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtsurveydate" ReadOnly="true"/></td>
                 </tr>
                    <tr>
-                    <td style="width: 502px"><label for="SurveyedBy">Surveyed By</label>
+                    <td style="width: 50%"><label for="SurveyedBy">Surveyed By</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtsurvey" ReadOnly="true"/></td>
                 </tr>
               <%--   <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                           <label>Date Of Instruction:</label>
 
                 <div class="input-group date">
@@ -247,13 +247,13 @@
                                </center>
             <table>
                 <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                        
                  
                     </td>
                 </tr>
                    <tr>
-                    <td style="width: 502px"><label for="materialoptions">Material Options</label>
+                    <td style="width: 50%"><label for="materialoptions">Material Options</label>
             <asp:RadioButtonList ID="materialoptions" runat="server" AutoPostBack="True"
                                                                     OnSelectedIndexChanged="materialoptions_SelectedIndexChanged" RepeatDirection="vertical"
                                                                     Width="95%">
@@ -262,27 +262,31 @@
                     </td>
                 </tr>
                    <tr>
-                    <td style="width: 502px"><label for="material">Select Material</label>
+                    <td style="width: 50%"><label for="material">Select Material</label>
            <asp:DropDownList ID="material_list" runat="server" AutoPostBack="true" OnDataBound="material_list_DataBound" 
                                       OnSelectedIndexChanged="material_list_SelectedIndexChanged" Width="95%">
                                                                 </asp:DropDownList></td>
                 </tr>
                   <tr>
-                      <%--<td style="width: 502px"><label for="size">Size</label>
+                      <%--<td style="width: 50%"><label for="size">Size</label>
                       <asp:TextBox ID="txtsize" runat="server"></asp:TextBox>
                     </td>--%>
-                      <td style="width: 502px"><label for="quantity">Quantity</label>
+                      <td style="width: 50%"><label for="quantity">Quantity</label>
                       <asp:TextBox ID="txtquantity" runat="server"></asp:TextBox>
                     </td>
-                      <td style="width: 502px"><label for="rate">Rate</label>
+                      <td style="width: 50%"><label for="rate">Rate</label>
                       <asp:TextBox ID="txtrate" runat="server"></asp:TextBox>
                     </td>
                 </tr>
                  <tr>
-                    <td style="width: 502px">
-                       
-                 
-                    </td>
+                    <td style="width: 50%"><label for="material">Total Pipe Length (mtrs)</label>
+<asp:TextBox ID="txtpipelength" runat="server"  Width="50%"></asp:TextBox>
+          </td>
+                </tr>
+                                        <tr>
+                    <td style="width: 50%"><label for="material">Excavation Length</label>
+<asp:TextBox ID="txtexcavation" runat="server"  Width="50%"></asp:TextBox>
+          </td>
                 </tr>
                 </table>
                                <br />
@@ -348,34 +352,13 @@
                                                         Text="0" Visible="False"></asp:Label>
                                    </div>
                                    <br />
-                                  <div id="pipedetails" runat="server" >
+                                 <%-- <div id="pipedetails" runat="server" >
                                    <asp:Label runat="server" Text="Pipe length and Trench depth" Font-Bold="true" ></asp:Label>
                                
                                    <table style="margin-right:auto;margin-left:0px">
-                 <tr>
-                    <td style="width: 502px"><label for="material">Pipe Diameter</label>
-           <asp:DropDownList ID="pipediameter_list" runat="server"  OnDataBound="pipediameter_list_DataBound" 
-                                      Width="50%">
-                                                                </asp:DropDownList></td>
-                </tr>
-                                         <tr>
-                    <td style="width: 502px"><label for="material">Pipe Material</label>
-           <asp:DropDownList ID="pipematerial_list" runat="server" OnDataBound="pipematerial_list_DataBound" 
-                                      Width="50%">
-                                                                </asp:DropDownList></td>
-                </tr>
-                                         <tr>
-                    <td style="width: 502px"><label for="material">Total Pipe Length (mtrs)</label>
-<asp:TextBox ID="txtpipelength" runat="server"  Width="50%"></asp:TextBox>
-          </td>
-                </tr>
-                                        <tr>
-                    <td style="width: 502px"><label for="material">Excavation Length</label>
-<asp:TextBox ID="txtexcavation" runat="server"  Width="50%"></asp:TextBox>
-          </td>
-                </tr>
-                                   </table></div>
-                                   <br /><br />
+                 <
+                                         
+                                   </table></div>--%>
                                    <asp:Button ID="btnsavematerials" runat="server" Text="Save Details" cssclass ="btn-primary" OnClick="btnsavematerials_Click" />&nbsp;&nbsp;&nbsp;&nbsp;
 <%--                                   <asp:Button ID="btnPrintInvoice" runat="server" Text="Print Invoice" cssclass ="btn-primary" OnClick="btnPrintInvoice_Click" />--%>
                                </center>

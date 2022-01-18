@@ -1,8 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="AddTransaction.aspx.cs" Inherits="TraceBilling.AddTransaction" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
+<ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
       <div id="transactiondisplay" runat="server">
             <div><h3>New Transaction Processing</h3></div>
             
@@ -125,7 +129,9 @@
                   </div>--%>
                     <%--<asp:TextBox runat="server" class="form-control pull-right" id="datepicker" ReadOnly="true" />--%>
                     <asp:TextBox ID="txtpaymentDate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px"></asp:TextBox>
-                           <%-- <asp:TextBox ID="datepicker" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                              <ajaxToolkit:CalendarExtender ID="txtpaymentDate_CalendarExtender" runat="server" TargetControlID="txtpaymentDate" Format="dd/MM/yyyy"/>
+
+                         <%-- <asp:TextBox ID="datepicker" runat="server" CssClass="InterfaceTextboxLongReadOnly"
                                         Font-Bold="True" ForeColor="DarkRed" Width="80%"></asp:TextBox>
 
                                         <ajaxToolkit:CalendarExtender ID="datepicker_CalendarExtender" runat="server" TargetControlID="datepicker" Format="yyyy-MM-dd"/>--%>

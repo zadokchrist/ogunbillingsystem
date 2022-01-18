@@ -9,7 +9,7 @@ using TraceBilling.ControlObjects;
 using TraceBilling.EntityObjects;
 namespace TraceBilling
 {
-    public partial class AuthorizeConnection : System.Web.UI.Page
+    public partial class RestoreConnection : System.Web.UI.Page
     {
         public DataTable dt;
         BusinessLogic bll = new BusinessLogic();
@@ -26,7 +26,7 @@ namespace TraceBilling
                     //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     //LoadAreaList(countryid);
                     LoadApplicationByStatus();
-                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Authorize New Connection page");
+                    bll.RecordAudittrail(Session["userName"].ToString(), "Accessed restore New Connection page");
                 }
             }
             catch (Exception ex)
@@ -34,7 +34,7 @@ namespace TraceBilling
                 throw ex;
             }
         }
-       
+
         //private void LoadAreaList(int countryid)
         //{
         //    DataTable dt = new DataTable();
@@ -57,7 +57,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text =  message + ".";
+            lblmsg.Text = message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -75,7 +75,7 @@ namespace TraceBilling
         //{
         //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
         //}
-       
+
 
         protected void Button3_Click(object sender, EventArgs e)
         {
@@ -96,7 +96,7 @@ namespace TraceBilling
                 string applicationame = "";
                 string country = "2";
                 string area = "10";
-                string status = "10";
+                string status = "14";
                 DataTable dataTable = bll.GetApplicationByStatus(applicationame, country, area, status);
                 if (dataTable.Rows.Count > 0)
                 {
@@ -156,7 +156,7 @@ namespace TraceBilling
                     ShowApplicationDetails(appnumber);
                 }
             }
-           
+
         }
 
         private void ShowApplicationDetails(string appnumber)
@@ -184,7 +184,7 @@ namespace TraceBilling
                     //txtlength.Text = dt.Rows[0]["Pipelength"].ToString();
                     //txtdivision.Text = dt.Rows[0]["excavationlength"].ToString();
                     //txtdiameter.Text = dt.Rows[0]["diameter"].ToString();
-                   // txtmaterial.Text = dt.Rows[0]["pipeDesc"].ToString();
+                    // txtmaterial.Text = dt.Rows[0]["pipeDesc"].ToString();
                     txtnewcon.Text = dt.Rows[0]["NetAmount"].ToString();
                     txtvat.Text = dt.Rows[0]["Vat"].ToString();
                     double fee = double.Parse(txtnewcon.Text);
@@ -267,22 +267,21 @@ namespace TraceBilling
                     //log change status
                     int statusid = 0;
                     string output = "";
-                    if (action.Contains("Approve"))
+                    if (action.Contains("Restore"))
                     {
-                        statusid = 7;
-                        output = "ACTION SAVED SUCCESSFULLY AND FORWARDED TO COMMERCIAL FOR PAYMENT INVOICING";
+                        statusid = 15;
+                        output = "APPLICATION RESTORED BACK TO AUTHORIZATION";
+                        bll.LogApplicationTransactions(int.Parse(applicationid), statusid, int.Parse(createdby));
+                        //authorization
+                        bll.LogApplicationTransactions(int.Parse(applicationid), 10, int.Parse(createdby));
+
                     }
                     //else if (action.Contains("Terminate"))
                     //{
                     //    statusid = 16;
                     //    output = "Action logged successfully as " + action;
                     //}
-                    else if (action.Contains("hold"))
-                    {
-                        statusid = 14;
-                        output = "Action logged successfully as " + action;
-                    }
-                    bll.LogApplicationTransactions(int.Parse(applicationid), statusid, int.Parse(createdby));
+                   
                     DisplayMessage(output, false);
                     ClearControls();
                 }
@@ -325,14 +324,14 @@ namespace TraceBilling
                 approvecon.Visible = true;
                 if (rtnAction.SelectedValue == "1")
                 {
-                    lblaction.Text = "Approve Connection";
+                    lblaction.Text = "Restore Connection";
 
                 }
-                else if (rtnAction.SelectedValue == "2")
-                {
-                    lblaction.Text = "Put on hold Connection";
+                //else if (rtnAction.SelectedValue == "2")
+                //{
+                //    lblaction.Text = "Put on hold Connection";
 
-                }
+                //}
             }
             catch (Exception ex)
             {

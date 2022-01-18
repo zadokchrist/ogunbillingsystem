@@ -22,7 +22,10 @@ namespace TraceBilling
             {
                 if (IsPostBack == false)
                 {
-
+                    if (Session["RoleID"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
                     //LoadCountryList();
                     //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
                     //LoadAreaList(countryid);
@@ -172,7 +175,8 @@ namespace TraceBilling
                     txtaddress.Text = dt.Rows[0]["address"].ToString();
                     txtphone1.Text = dt.Rows[0]["contact"].ToString();
                     txtoccupation.Text = dt.Rows[0]["ocupation"].ToString();
-                    txtarea.Text = dt.Rows[0]["areaName"].ToString();
+                    //txtarea.Text = dt.Rows[0]["areaName"].ToString();
+                    txtarea.Text = dt.Rows[0]["operationAreaName"].ToString();
                     string custtype = dt.Rows[0]["typeName"].ToString();
                     string classtype = dt.Rows[0]["className"].ToString();
                     txtmeterNumber.Text = dt.Rows[0]["meterNumber"].ToString();
@@ -193,8 +197,16 @@ namespace TraceBilling
                     lblbranch.Text = branch;
                     lblApplicationCode.Text = appid;
                     string block = txtblock.Text;
-                    string book = block.Substring(0, 3);
-                    string walk = block.Substring(0, 1);
+                    if (block.StartsWith("0"))
+                    {
+                        block = block.Remove(0, 1);
+                    }
+                    string book = block.Substring(0, 2);
+                    string walk = block.Substring(2);
+                    if (walk.StartsWith("0"))
+                    {
+                        walk = walk.Remove(0, 1);
+                    }
                     string newblock = book + "/" + walk;
                     // string property = areacode+ "/" + txtblock.Text + "/" + txtconnectionno.Text;
                     string property = areacode + "/" + newblock + "/" + txtconnectionno.Text;
@@ -294,7 +306,8 @@ namespace TraceBilling
                 cust.Block = txtblock.Text.Trim();
                 cust.CustRef = lblCustomerCode.Text;
                 cust.MeterNumber = txtmeterNumber.Text.Trim();
-               // cust.Territory = txtterritory.Text.Trim();
+                cust.OperationId = Session["operationId"].ToString();
+                // cust.Territory = txtterritory.Text.Trim();
 
                 string str = ""; string res = "";
 
@@ -501,27 +514,27 @@ namespace TraceBilling
         }
         protected void cboType_DataBound(object sender, EventArgs e)
         {
-            cboType.Items.Insert(0, new ListItem("- - select meter Type - -", "0"));
+            cboType.Items.Insert(0, new ListItem("- - select - -", "0"));
         }
         protected void cboMeterSize_DataBound(object sender, EventArgs e)
         {
-            cboMeterSize.Items.Insert(0, new ListItem("- - select meter size - -", "0"));
+            cboMeterSize.Items.Insert(0, new ListItem("- - select  - -", "0"));
         }
         protected void cbotariff_DataBound(object sender, EventArgs e)
         {
-            cbotariff.Items.Insert(0, new ListItem("- - select tariff - -", "0"));
+            cbotariff.Items.Insert(0, new ListItem("- - select  - -", "0"));
         }
         protected void cbocategory_DataBound(object sender, EventArgs e)
         {
-            cbocategory.Items.Insert(0, new ListItem("- - select category - -", "0"));
+            cbocategory.Items.Insert(0, new ListItem("- - select  - -", "0"));
         }
         protected void cboclass_DataBound(object sender, EventArgs e)
         {
-            cboclass.Items.Insert(0, new ListItem("- - select classification - -", "0"));
+            cboclass.Items.Insert(0, new ListItem("- - select  - -", "0"));
         }
         protected void customertype_list_DataBound(object sender, EventArgs e)
         {
-            customertype_list.Items.Insert(0, new ListItem("- - select customer type - -", "0"));
+            customertype_list.Items.Insert(0, new ListItem("- - select- -", "0"));
         }
         private void LoadCustomerTypeList()
         {
@@ -614,6 +627,20 @@ namespace TraceBilling
                 bll.Log("DisplayBranchList", error);
                 DisplayMessage(error, true);
             }
+        }
+        protected void customertype_list_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string custytype = customertype_list.SelectedItem.ToString();
+
+                ManageCreationControls(custytype);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
     }

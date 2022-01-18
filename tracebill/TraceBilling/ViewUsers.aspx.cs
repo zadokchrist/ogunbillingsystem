@@ -39,10 +39,11 @@ namespace TraceBilling
         protected void loadFilters()
         {
         
-            ddlrole.DataSource = bll.GetRoleList();
-            ddlrole.DataBind();
+          
             ddlbranch.DataSource = bll.GetBranchList(10,0);
             ddlbranch.DataBind();
+            ddloperationarea.DataSource = bll.GetOperationAreaList(10);
+            ddloperationarea.DataBind();
 
 
         }
@@ -70,7 +71,7 @@ namespace TraceBilling
         {
             try
             {
-                DataTable dataTable = bll.GetAllUsers_filtered(txtsearch.Text.Trim(),ddlrole.SelectedValue.ToString(),ddlbranch.SelectedValue.ToString());
+                DataTable dataTable = bll.GetAllUsers_filtered(txtsearch.Text.Trim(), ddloperationarea.SelectedValue.ToString(),ddlbranch.SelectedValue.ToString());
                 Session["dtusr"] = dataTable;
                 if (dataTable.Rows.Count > 0)
                 {
@@ -224,10 +225,10 @@ namespace TraceBilling
 
             }
         }
-        protected void ddlrole_DataBound(object sender, EventArgs e)
-        {
-            ddlrole.Items.Insert(0, new ListItem("All", "0"));
-        }
+        //protected void ddlrole_DataBound(object sender, EventArgs e)
+        //{
+        //    ddlrole.Items.Insert(0, new ListItem("All", "0"));
+        //}
         protected void ddlbranch_DataBound(object sender, EventArgs e)
         {
             ddlbranch.Items.Insert(0, new ListItem("All", "0"));

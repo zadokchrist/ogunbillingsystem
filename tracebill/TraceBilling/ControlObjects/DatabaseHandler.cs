@@ -303,7 +303,7 @@ namespace TraceBilling.ControlObjects
             {
 
                 dt = ExecuteDataSet("Sp_SaveUser", user.UserCode, user.UserName, user.Password, user.FirstName, user.LastName,user.OtherName, user.Designation, user.Contact1,user.Contact2, user.EmailAddress,
-                    user.Role, user.Country, user.Area,user.Branch, user.IsActive, user.CreatedBy, user.UserID,user.OperationArea,user.Status);
+                    user.Role, user.Country, user.Area,user.Branch, user.IsActive, user.CreatedBy, user.UserID,user.OperationArea,user.Status,user.Territory);
             }
             catch (Exception ex)
             {
@@ -736,7 +736,7 @@ namespace TraceBilling.ControlObjects
             }
         }
         
-        internal DataTable GetAllTransactionsByDate(int countryid, int areaid,string startdate,string enddate)
+        internal DataTable GetAllTransactionsByDate(int countryid, int areaid,DateTime startdate,DateTime enddate)
         {
             DataTable dt = new DataTable();
             try
@@ -1071,7 +1071,7 @@ namespace TraceBilling.ControlObjects
                 dt = ExecuteDataSet("Sp_SaveCustomerDetails", cust.CustRef,cust.PropertyRef,cust.MeterRef,cust.ApplicationId,cust.CustName,cust.Title,
                     cust.Occupation,cust.Contact1,cust.Contact2,cust.Email,cust.Address,cust.Territory,int.Parse(cust.MeterMake),cust.MeterNumber,int.Parse(cust.MeterSize),
                     cust.Longitude,cust.Latitude,int.Parse(cust.Area),int.Parse(cust.Branch),int.Parse(cust.ConnectionNumber),int.Parse(cust.Classification),int.Parse(cust.Tariff), int.Parse(cust.Category),
-                    int.Parse(cust.CustomerType), int.Parse(cust.SupplyStatus),cust.IsActive,cust.HasSewer,int.Parse(cust.CreatedBy),cust.Block,int.Parse(cust.Status));
+                    int.Parse(cust.CustomerType), int.Parse(cust.SupplyStatus),cust.IsActive,cust.HasSewer,int.Parse(cust.CreatedBy),cust.Block,int.Parse(cust.Status),int.Parse(cust.OperationId));
             }
             catch (Exception ex)
             {
@@ -1761,11 +1761,12 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-        internal void SaveBlockDetails(string code, string country, string area, string branch, string block, string connection, string createdby, bool isactive, string status)
+        internal void SaveBlockDetails(string code, string country, string area, string branch, string block, string connection, 
+            string createdby, bool isactive, string status,string oparea)
         {
             try
             {
-                ExecuteCommand("Sp_SaveBlockDetails", code,int.Parse(area),int.Parse(branch),block,connection,int.Parse(createdby),isactive,status);
+                ExecuteCommand("Sp_SaveBlockDetails", code,int.Parse(area),int.Parse(branch),block,connection,int.Parse(createdby),isactive,status, int.Parse(oparea));
 
             }
             catch (Exception ex)
@@ -2020,12 +2021,12 @@ namespace TraceBilling.ControlObjects
             }
             return output;
         }
-        public DataTable GetAllUsers_filtered(string search,string roleid,string branch)
+        public DataTable GetAllUsers_filtered(string search,string area,string branch)
         {
             DataTable dt = new DataTable();
             try
             {
-                dt = ExecuteDataSet("Sp_GetAllSystemUsers_filtered", search,roleid,branch);
+                dt = ExecuteDataSet("Sp_GetAllSystemUsers_filtered", search,area,branch);
             }
             catch (Exception ex)
             {
@@ -2251,6 +2252,19 @@ namespace TraceBilling.ControlObjects
 
                 dt = ExecuteDataSet("Sp_SaveSubTerritory", subterritoryid, subterritory, territoryid,  cksubter);
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetUserListByID(int areaid, int roleid, int flag)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetUserListByID", areaid, roleid, flag);
             }
             catch (Exception ex)
             {

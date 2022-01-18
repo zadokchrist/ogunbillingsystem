@@ -19,11 +19,21 @@ namespace TraceBilling
                 }
                 string fullname = Session["FullName"].ToString();
                 string title = Session["Designation"].ToString();
+                string role = Session["roleName"].ToString();
+                string str = "";
+                if(!title.Equals(""))
+                {
+                    str = role + "(" + title + ")";
+                }
+                else
+                {
+                    str = role;
+                }
                 userName.InnerHtml = "" + fullname;
-                jtitle.InnerText = title;
+                jtitle.InnerText = str;
                 username2.InnerHtml = "" + fullname;
                 username3.InnerHtml = "" + fullname;
-                jtitle2.InnerText = title;
+                jtitle2.InnerText = str;
             }
             catch(Exception ex)
             {

@@ -76,18 +76,16 @@
               </div>
           </div>
           <br />
-       <div id="generateschedule" runat="server" visible="false">
+    <div id="generateschedule" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
                <fieldset class="panel panel-primary" runat="server">
     <legend class="w-auto">&nbsp;Generate Reading Schedule</legend>
                  
                    <br< />
                    <div id="scheduledisplay" runat="server" visible="true">
-                 <%--<p>This is reading schedule</p>--%>
                    <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
-<%--        <th class="modal-sm" style="width: 207px">Country</th>--%>
+
          <th class="modal-sm" style="width: 226px">Operation Area</th>
         <th class="modal-sm" style="width: 226px">Branch/Zone</th>
         <th class="modal-sm" style="width: 226px">Block</th>
@@ -97,20 +95,18 @@
         <tr>
   
           
-                          <%--<td class="modal-sm" style="width: 207px" >
-                      
-            <asp:DropDownList ID="country_list2" CssClass="form-control" runat="server"  OnDataBound="country_list2_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="country_list2_SelectedIndexChanged"  >
-                </asp:DropDownList>
-                    </td>--%>
-             
+                         
                            
              <td class="modal-sm" style="width: 226px" >
                       
-            <asp:DropDownList ID="area_listsheet" CssClass="form-control" runat="server"  OnDataBound="area_listsheet_DataBound" AutoPostBack="True"
-                 OnSelectedIndexChanged="area_listsheet_SelectedIndexChanged" >
-                
-                </asp:DropDownList>
+        
+                 <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddloperationarea_DataBound" Visible="true" AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged">
+                        </asp:DropDownList>
                     </td>
                 <td class="modal-sm" style="width: 226px" >
                       
@@ -210,10 +206,17 @@
                    <tr>
                     <td style="width: 400px">
                         <label>Area</label>
-            <asp:DropDownList ID="area_list3" CssClass="form-control" runat="server"  OnDataBound="area_list3_DataBound" Visible="true"
-                OnSelectedIndexChanged="area_list3_SelectedIndexChanged" AutoPostBack="true" >
+           <%-- <asp:DropDownList ID="area_list3" CssClass="form-control" runat="server"  OnDataBound="area_list3_DataBound" Visible="true"
+                OnSelectedIndexChanged="area_list3_SelectedIndexChanged"  >
                 
-                </asp:DropDownList>
+                </asp:DropDownList>--%>
+                        <asp:DropDownList ID="ddloperationarea1" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddloperationarea1_DataBound" Visible="true" AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea1_SelectedIndexChanged">
+                        </asp:DropDownList>
                     </td>
                 </tr>
                 <tr>

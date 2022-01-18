@@ -22,13 +22,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// txtsearch control.
+        /// ddloperationarea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtsearch;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea;
         
         /// <summary>
         /// ddlbranch control.
@@ -40,22 +40,22 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.DropDownList ddlbranch;
         
         /// <summary>
-        /// ddlrole control.
+        /// txtsearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlrole;
+        protected global::System.Web.UI.WebControls.TextBox txtsearch;
         
         /// <summary>
-        /// Button1 control.
+        /// Button3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
         /// maindisplay control.

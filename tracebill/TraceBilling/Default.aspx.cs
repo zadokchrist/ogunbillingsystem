@@ -103,6 +103,7 @@ namespace TraceBilling
             Session["branchId"] = dt.Rows[0]["branchId"].ToString();
             Session["branchName"] = dt.Rows[0]["branchName"].ToString();
             Session["areaCode"] = dt.Rows[0]["areaCode"].ToString();
+            Session["operationId"] = dt.Rows[0]["operationId"].ToString();
         }
 
         private void DisplayMessage(string message, Boolean isError)
