@@ -731,8 +731,8 @@ namespace TraceBilling.ControlObjects
                             int countryid = Convert.ToInt16(dt.Rows[0]["countryId"].ToString());
                             int areaid = Convert.ToInt16(dt.Rows[0]["areaId"].ToString());
                             int branchid = Convert.ToInt16(dt.Rows[0]["branchid"].ToString());
-                            string JobNumber = GetJobNumber(countryid, areaid, branchid, CreatedBy);
-
+                            //string JobNumber = GetJobNumber(countryid, areaid, branchid, CreatedBy);
+                            string JobNumber = "JCN/"+ApplicationCode;
                             dh.SaveSurveyJobNumber(appID, JobNumber, countryid, areaid, branchid, CreatedBy);
                             //auto Assigning
                             //Assignjob(appID, CreatedBy, countryid);
@@ -1319,7 +1319,7 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable GetAllTransactionsByDate(int countryid, int areaid,string startdate,string enddate)
+        internal DataTable GetAllTransactionsByDate(int countryid, int areaid,DateTime startdate,DateTime enddate)
         {
             DataTable dt = new DataTable();
             try
@@ -1738,6 +1738,10 @@ namespace TraceBilling.ControlObjects
 
             int connLen = connectionNumber.Length;
             int zeros = 0;
+            if(block.StartsWith("0"))
+            {
+                block = block.Remove(0, 1);
+            }
 
             if (connLen == 1)
             {
@@ -2108,7 +2112,6 @@ namespace TraceBilling.ControlObjects
                     if (date.Contains("/"))
                     {
                         string[] sDate = date.Split('/');
-                        //new imp efris apk date conversion mm/dd/yyyy 4/2/2021
                         //new date format dd/mm/yyyy e.g 09/02/2021
                         int day = int.Parse(sDate[0].Trim());//reverted 02/03/2021 with format dd/mm/yyyy
                         int month = int.Parse(sDate[1].Trim());
@@ -2181,7 +2184,7 @@ namespace TraceBilling.ControlObjects
                 }
                 else
                 {
-                    dt = new DateTime(1900, 1, 1);
+                    dt = new DateTime(2000, 1, 1);
                 }
                 return dt;
             }
@@ -3087,11 +3090,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal void SaveBlockDetails(string code, string country, string area, string branch, string block, string connection, string createdby, bool isactive, string status)
+        internal void SaveBlockDetails(string code, string country, string area, string branch, string block, string connection, string createdby,
+            bool isactive, string status,string oparea)
         {
             try
             {
-                dh.SaveBlockDetails(code, country,area,branch,block,connection,createdby,isactive,status);
+                dh.SaveBlockDetails(code, country,area,branch,block,connection,createdby,
+                    isactive,status,oparea);
             }
             catch (Exception ex)
             {
@@ -3706,13 +3711,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        public DataTable GetAllUsers_filtered(string search,string role,string branch)
+        public DataTable GetAllUsers_filtered(string search,string area,string branch)
         {
             DataTable dt = new DataTable();
             try
             {
 
-                dt = dh.GetAllUsers_filtered(search,role,branch);
+                dt = dh.GetAllUsers_filtered(search,area,branch);
 
             }
             catch (Exception ex)
@@ -3984,6 +3989,21 @@ namespace TraceBilling.ControlObjects
                 Log("SaveSubterritory", resp.Response_Code + " " + resp.Response_Message);
             }
             return resp;
+        }
+        internal DataTable GetUserListByID(int countryid, int roleid, int flag)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetUserListByID(10, roleid, flag);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetUserListByID", "101 " + ex.Message);
+            }
+            return dt;
         }
     }
 }

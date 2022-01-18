@@ -7551,6 +7551,7 @@
     <Content Include="ReadingCycle.aspx" />
     <Content Include="ReconcileTransactions.aspx" />
     <Content Include="Reports.aspx" />
+    <Content Include="RestoreConnection.aspx" />
     <Content Include="RPT_BalanceOutstanding.aspx" />
     <Content Include="RPT_CustomerCount.aspx" />
     <Content Include="RPT_MeterAudit.aspx" />
@@ -7866,6 +7867,13 @@
     </Compile>
     <Compile Include="Reports.aspx.designer.cs">
       <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RestoreConnection.aspx.cs">
+      <DependentUpon>RestoreConnection.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RestoreConnection.aspx.designer.cs">
+      <DependentUpon>RestoreConnection.aspx</DependentUpon>
     </Compile>
     <Compile Include="RPT_BalanceOutstanding.aspx.cs">
       <DependentUpon>RPT_BalanceOutstanding.aspx</DependentUpon>

@@ -36,21 +36,23 @@ namespace TraceBilling
                     {
                         string sessioncountryid = Session["countryId"].ToString();
 
-                        if (!sessioncountryid.Equals("1"))
-                        {
+                        //if (!sessioncountryid.Equals("1"))
+                        //{
 
-                            LoadAreaList3(int.Parse(sessioncountryid));
-                            area_list3.SelectedIndex = area_list3.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list3.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list3.SelectedValue.ToString());
-                            // LoadBranchList(operationid);
-                        }
-                        else
-                        {
-                            //int countryid = int.Parse(country_list.SelectedValue.ToString());
-                            int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList3(countryid);
-                        }
+                        //    LoadAreaList3(int.Parse(sessioncountryid));
+                        //    area_list3.SelectedIndex = area_list3.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
+                        //    area_list3.Enabled = false;
+                        //    int operationid = Convert.ToInt16(area_list3.SelectedValue.ToString());
+                        //    // LoadBranchList(operationid);
+                        //}
+                        //else
+                        //{
+                        //    //int countryid = int.Parse(country_list.SelectedValue.ToString());
+                        //    int countryid = int.Parse(sessioncountryid);
+                        //    LoadAreaList3(countryid);
+                        //}
+                        LoadBranchList1(0, 0);
+                        LoadFilters(10);
                         LoadDisplay();
                         bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Reading Cycle page");
 
@@ -62,6 +64,15 @@ namespace TraceBilling
                 throw ex;
             }
         }
+
+        private void LoadFilters(int areaid)
+        {
+            ddloperationarea.DataSource = bll.GetOperationAreaList(areaid);
+            ddloperationarea.DataBind();
+            ddloperationarea1.DataSource = bll.GetOperationAreaList(areaid);
+            ddloperationarea.DataBind();
+        }
+
         //private void LoadCountryList()
         //{
         //    DataTable dt = new DataTable();
@@ -101,33 +112,33 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList3(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list3.DataSource = dt;
+        //private void LoadAreaList3(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list3.DataSource = dt;
 
-                area_list3.DataTextField = "areaName";
-                area_list3.DataValueField = "areaId";
-                area_list3.DataBind();
-               // area_list3.SelectedValue = "10";
-                //area_list3.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
-        private void LoadBranchList1(int areaid)
+        //        area_list3.DataTextField = "areaName";
+        //        area_list3.DataValueField = "areaId";
+        //        area_list3.DataBind();
+        //       // area_list3.SelectedValue = "10";
+        //        //area_list3.Enabled = false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
+        private void LoadBranchList1(int areaid, int operationid)
         {
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetBranchList(areaid,0);
+                dt = bll.GetBranchList(areaid, operationid);
                 branch_list1.DataSource = dt;
                 branch_list1.DataTextField = "branchName";
                 branch_list1.DataValueField = "branchId";
@@ -201,10 +212,7 @@ namespace TraceBilling
         //}
        
      
-        protected void area_list3_DataBound(object sender, EventArgs e)
-        {
-            area_list3.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+       
         protected void branch_list1_DataBound(object sender, EventArgs e)
         {
             branch_list1.Items.Insert(0, new ListItem("- - None - -", "0"));
@@ -251,7 +259,7 @@ namespace TraceBilling
             txtuser.Text = user;
             //int countryid = 2;
             //LoadAreaList3(countryid);
-            LoadBranchList1(int.Parse(areaid));
+            LoadBranchList1(int.Parse(areaid),0);
             capturereading.Visible = true;
             //confirminvoice.Visible = false;
             //lblapplicant.Visible = false;
@@ -270,9 +278,9 @@ namespace TraceBilling
             handleexeptions.Visible = false;
             int countryid = 2;
             int area = 10;
-            LoadAreaListSheet(countryid);
+           
             LoadBranchListSheet(area);
-            string areaid = area_listsheet.SelectedValue.ToString();
+            string areaid = "10";
             string branchid = branch_listsheet.SelectedValue.ToString();
             LoadBlockMaps(areaid, branchid);
             LoadReadingSchedule();
@@ -319,12 +327,12 @@ namespace TraceBilling
             try
             {
                 //string countryid = country_list.SelectedValue.ToString();//Session["countryId"].ToString();
-                string areaid = area_list3.SelectedValue.ToString();//Session["areaId"].ToString();
+                string areaid = "10";//Session["areaId"].ToString();
                 if (rdgoptions.SelectedValue.ToString() == "1")//one by one
                 {
                  
                     //LoadAreaList3(int.Parse(countryid));
-                    LoadBranchList1(int.Parse(areaid));
+                    LoadBranchList1(int.Parse(areaid),0);
                     onebyonedisplay.Visible = true;
                     bulkdisplay.Visible = false;
                 }
@@ -353,16 +361,16 @@ namespace TraceBilling
             //{
             //    DisplayMessage("Please Select a Country", true);
             //}
-             if (area_list3.SelectedValue.ToString() == "0")
-            {
-                DisplayMessage("Please Select an Area", true);
-            }
-            else
-            {
+            // if (area_list3.SelectedValue.ToString() == "0")
+            //{
+            //    DisplayMessage("Please Select an Area", true);
+            //}
+            //else
+            //{
                 string custref = txtInquireCustRef.Text.Trim();
                 string propertyref = txtInquirePropRef.Text;
                 string period = txtcurrentperiod.Text;
-                string areaid = area_list3.SelectedValue.ToString();
+                string areaid = "10";
                 string branchid = branch_list1.SelectedValue.ToString();
                 resp = bll.ValidateReadingInquiry(custref, propertyref,areaid);
                 if (resp.Response_Code.ToString().Equals("0"))
@@ -405,7 +413,7 @@ namespace TraceBilling
                 {
                     DisplayMessage(resp.Response_Message, true);
                 }
-            }
+           // }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -464,7 +472,7 @@ namespace TraceBilling
                     read.Comment = comment;
                     read.Billed = false;
                     read.Period = txtcurrentperiod.Text;
-                    read.Area = area_list3.SelectedValue.ToString();
+                    read.Area = "10";
                     read.Branch = branch_list1.SelectedValue.ToString();
                     read.CreatedBy = int.Parse(createdby);
                     read.Latitude = "0";
@@ -520,10 +528,10 @@ namespace TraceBilling
             try
             {
             
-                string areaid = area_list3.SelectedValue.ToString();
+                string areaid = "10";
                 txtcurrentperiod.Text = bll.GetBillingPeriod(areaid);
                 LoadMeterReaders(areaid, "11");
-                LoadBranchList1(int.Parse(areaid));
+                LoadBranchList1(int.Parse(areaid),0);
                 //load session data
             }
             catch (Exception ex)
@@ -566,7 +574,7 @@ namespace TraceBilling
         {
             string Reader = cboReader1.SelectedValue.ToString();
             string ReadingDate = txtReadingDate1.Text.Trim();
-            string Area = area_list3.SelectedValue.ToString();
+            string Area = "10";
             string BllPeriod = bll.GetBillingPeriod(Area);
             bool HasHeader = chkHeader.Checked;
 
@@ -596,9 +604,9 @@ namespace TraceBilling
             {
                 string ReaderI = cboReader1.SelectedValue.ToString();
                 string ReadingDateI = txtReadingDate1.Text.Trim();
-                string AreaI = area_list3.SelectedValue.ToString();
+                string AreaI = "10";
                 string BranchI = branch_list1.SelectedValue.ToString();
-                string area = area_list3.SelectedItem.ToString();
+                string area = "Ogun";
                 string branch = branch_list1.SelectedItem.ToString();
                 if(branch.Contains("None"))
                 {
@@ -774,13 +782,13 @@ namespace TraceBilling
         {
             cboBlock.Items.Insert(0, new ListItem("- - Select - -", "0"));
         }
-        protected void area_listsheet_DataBound(object sender, EventArgs e)
-        {
-            area_listsheet.Items.Insert(0, new ListItem("- - Select Area - -", "0"));
-        }
+        //protected void area_listsheet_DataBound(object sender, EventArgs e)
+        //{
+        //    area_listsheet.Items.Insert(0, new ListItem("- - Select Area - -", "0"));
+        //}
         protected void branch_listsheet_DataBound(object sender, EventArgs e)
         {
-            branch_listsheet.Items.Insert(0, new ListItem("- - All branches- -", "0"));
+            branch_listsheet.Items.Insert(0, new ListItem("- - All -", "0"));
         }
         private void LoadBlockMaps(string areaid, string branchid)
         {
@@ -819,27 +827,27 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
-        private void LoadAreaListSheet(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_listsheet.DataSource = dt;
+        //private void LoadAreaListSheet(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_listsheet.DataSource = dt;
 
-                area_listsheet.DataTextField = "areaName";
-                area_listsheet.DataValueField = "areaId";
-                area_listsheet.DataBind();
-                //area_listsheet.SelectedValue = "10";
-                //area_listsheet.Enabled = false;
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_listsheet.DataTextField = "areaName";
+        //        area_listsheet.DataValueField = "areaId";
+        //        area_listsheet.DataBind();
+        //        //area_listsheet.SelectedValue = "10";
+        //        //area_listsheet.Enabled = false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
         protected void Button4_Click(object sender, EventArgs e)
         {
             try
@@ -855,7 +863,7 @@ namespace TraceBilling
 
         private void LoadReadingSchedule()
         {
-            string areaid = area_listsheet.SelectedValue.ToString();
+            string areaid = "10";
             string branchid = branch_listsheet.SelectedValue.ToString();
             //LoadBlockMaps(areaid, branchid);
             string block = cboBlock.SelectedValue.ToString();
@@ -893,22 +901,22 @@ namespace TraceBilling
         {
 
         }
-        protected void area_listsheet_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                string areaid = area_listsheet.SelectedValue.ToString();
-                LoadBlockMaps(areaid, "0");
+        //protected void area_listsheet_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        //int deptid = int.Parse(department_list.SelectedValue.ToString());
+        //        string areaid = area_listsheet.SelectedValue.ToString();
+        //        LoadBlockMaps(areaid, "0");
 
              
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
         protected void btnexportsheet_Click(object sender, EventArgs e)
         {
@@ -938,6 +946,44 @@ namespace TraceBilling
             Response.WriteFile(path);
             Response.End();
             bll.RemoveFile(path);
+        }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("--select--", "0"));
+        }
+        protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(branch_listsheet.SelectedValue.ToString());
+                LoadBranchList1(10, operationid);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        protected void ddloperationarea1_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea1.Items.Insert(0, new ListItem("--select--", "0"));
+        }
+        protected void ddloperationarea1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea1.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(branch_list1.SelectedValue.ToString());
+                LoadBranchList1(10, operationid);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

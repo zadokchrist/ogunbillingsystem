@@ -78,11 +78,8 @@
              <asp:BoundField DataField="ApplicationNumber" HeaderText="Application#" NullDisplayText="-"/> 
              
              <asp:BoundField DataField="ApplicantName" HeaderText="Name" NullDisplayText="-" /> 
-             <asp:BoundField DataField="Location" HeaderText="Address" NullDisplayText="-" /> 
+<%--             <asp:BoundField DataField="Location" HeaderText="Address" NullDisplayText="-" /> --%>
             
-             
-                
-      
                   <asp:BoundField DataField="Area" HeaderText="Area" NullDisplayText="-" /> 
               <%--   <asp:BoundField DataField="countryId" HeaderText="CountryID" NullDisplayText="-"  Visible="false"/> 
                   <asp:BoundField DataField="areaId" HeaderText="AreaID" NullDisplayText="-" Visible="false" /> --%>
@@ -118,35 +115,47 @@
           <br />
        <div id="approvesurvey" runat="server" visible="false">
            <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
-               <fieldset class="panel panel-primary">
-    <legend class="w-auto">&nbsp;Survey Question Checks</legend>
+<%--    <legend class="w-auto">&nbsp;Survey Question Checks</legend>--%>
             <table>
                    <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                         <label>Application Number</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtappcode" placeholder="Enter Code" ReadOnly="true"/>
                     </td>
                 </tr>
                   <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                         <label>Job Number</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtjobno" placeholder="Enter jobnumber" ReadOnly="true"/>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                          <label>Application Name</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtname" placeholder="Enter name" ReadOnly="true"/>
                     </td>
                 </tr>
-             <tr>
-                    <td style="width: 502px">
+            
+               
+            </table>
+                   
+               <br />
+                             
+                 <asp:Label ID="lblApplicationCode" runat="server" Text="." Visible="False"></asp:Label>
+               <asp:Label ID="lblstatus" runat="server" Text="0" Visible="False"></asp:Label>
+               <asp:Label ID="lblappcode" runat="server" Text="." Visible="False"></asp:Label>
+          
+            </div>
+           <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+               <table>
+                    <tr>
+                    <td style="width: 50%">
                          <label>Operation Area</label>
             <asp:TextBox runat="server" CssClass="form-control" ID="txtarea" placeholder="Enter area" ReadOnly="true"/>
                     </td>
                 </tr>
                    <tr>
-                    <td style="width: 502px; height: 91px;">
+                    <td style="width: 50%; height: 91px;">
                           <label>Date Of Survey:</label>
 
                <%-- <div class="input-group date">
@@ -156,11 +165,11 @@
                     <asp:TextBox ID="txtsurveyDate" CssClass="surveydate"  runat="server"></asp:TextBox>
                     </div>--%>
  <asp:TextBox ID="txtsurveyDate" runat="server" CssClass="form-control"></asp:TextBox>
-                    <ajaxToolkit:CalendarExtender ID="txtsurveyDate_CalendarExtender" runat="server" TargetControlID="txtsurveyDate" Format="yyyy-MM-dd"/>
+                    <ajaxToolkit:CalendarExtender ID="txtsurveyDate_CalendarExtender" runat="server" TargetControlID="txtsurveyDate" Format="dd/MM/yyyy" PopupPosition="TopLeft"/>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 502px">
+                    <td style="width: 50%">
                                    <asp:Label runat="server" Text="Survey Question Check List" ID="surveyqns" Visible="false"></asp:Label>
                            <asp:CheckBoxList ID="chkBoxRequired" runat="server" Font-Bold="True" RepeatDirection="Vertical" Visible="false"
                                                     Width="98%" style="font: menu" Font-Names="Arial Narrow">
@@ -168,20 +177,12 @@
                     </td>
                 </tr>
             
-               
-            </table>
-                   
-                   </fieldset>
-               <br />
-                             
-                 <asp:Label ID="lblApplicationCode" runat="server" Text="." Visible="False"></asp:Label>
-               <asp:Label ID="lblstatus" runat="server" Text="0" Visible="False"></asp:Label>
-               <asp:Label ID="lblappcode" runat="server" Text="." Visible="False"></asp:Label>
-          
-            </div>
+               </table>
+               </div>
              <div class="form-group col-sm-12 col-md-12 col-lg-12">
+     <asp:Button ID="btnjobcard" runat="server" Text="Export JobCard" cssclass ="btn-primary" OnClick="btnjobcard_Click" />
+
                   <center>
-                                       <asp:Button ID="btnjobcard" runat="server" Text="Export JobCard" cssclass ="btn-primary" OnClick="btnjobcard_Click" />
 
                       <div id="surveydisplay" runat="server">
                            <asp:Label runat="server" Text="Survey Question Check List" ID="lblQnLst" Font-Bold="true" Visible="true"></asp:Label><br />
@@ -192,7 +193,7 @@
                                         Font-Overline="False" Font-Strikeout="False" Font-Underline="False" ForeColor="#333333"
                                         GridLines="Horizontal" HorizontalAlign="Center" 
                                          PageSize="30" Style="font: menu;
-                                        text-align: justify" Width="94%">
+                                        text-align: justify" Width="80%">
                                         <FooterStyle BackColor="InactiveCaption" Font-Bold="False" ForeColor="White" />
                                         <EditItemStyle BackColor="#999999" />
                                         <SelectedItemStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
@@ -207,7 +208,7 @@
                                             </asp:BoundColumn>
                                             
                                             <asp:BoundColumn DataField="question" HeaderText="Question">
-                                                <HeaderStyle Width="50%" />
+                                                <HeaderStyle Width="30%" />
                                             </asp:BoundColumn>
                                             
                                              <asp:BoundColumn DataField="answer" HeaderText="Answer" Visible="false">
@@ -215,7 +216,7 @@
                                              </asp:BoundColumn>
                                             <asp:TemplateColumn HeaderText="Field Answer"> 
                                             <ItemTemplate> <asp:TextBox ID="txtanswer"  runat="server" BackColor="Khaki" CssClass="InterfaceTextboxLongReadOnly"
-                                            Font-Bold="True" ForeColor="Maroon" Width="60%" AutoPostBack="false" Text='<%# Eval("answer") %>'></asp:TextBox></ItemTemplate> 
+                                            Font-Bold="True" ForeColor="Maroon" Width="40%" AutoPostBack="false" Text='<%# Eval("answer") %>'></asp:TextBox></ItemTemplate> 
                                             </asp:TemplateColumn> 
                                              <asp:TemplateColumn HeaderText="Select">
                                     <ItemTemplate>
@@ -229,16 +230,49 @@
                                     </asp:DataGrid>
                    </div>
                       <br />
-               <asp:Button ID="btnreturn2" runat="server" Text="Return" cssclass ="btn-primary" OnClick="btnreturn2_Click" />
-              &nbsp;&nbsp;&nbsp;&nbsp;
+                      <div class="col-sm-3">
+                          <asp:RadioButtonList ID="rtnAction" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="true" OnSelectedIndexChanged="rtnAction_SelectedIndexChanged">
+                        <asp:ListItem Value="1">Approve</asp:ListItem>
+                        <asp:ListItem Value="2">Reject</asp:ListItem>
+                   </asp:RadioButtonList>
+                      </div>
+<%--               <asp:Button ID="btnreturn2" runat="server" Text="Return" cssclass ="btn-primary" OnClick="btnreturn2_Click" />--%>
+              <%--&nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnApprove" runat="server" Text="Approve" cssclass ="btn-primary" OnClick="btnApprove_Click" style="height: 26px" />
               &nbsp;&nbsp;&nbsp;&nbsp;  
                 <asp:Button ID="btnreject" runat="server" Text="Reject" cssclass ="btn-primary" OnClick="btnreject_Click" />
-              &nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;--%>
           </center>
                   </div>
        </div>
-        
+                   <div id="approvecon" runat="server" visible="false">
+           <div class="form-group col-xs-10 col-sm-6 col-md-6 col-lg-6">
+               <fieldset class="panel panel-primary">
+    <legend class="w-auto">&nbsp;Action required</legend>
+            <table>
+           
+                <tr>
+                    <td style="width: 502px">                        
+                        <asp:Label ID="lblaction" runat="server" Text="." Font-Bold="true" ForeColor="Red"></asp:Label>
+                    </td>
+                </tr>
+                   <tr>
+                    <td style="width: 502px">
+                         <label>Remark/Comment</label>
+            <asp:TextBox runat="server" CssClass="form-control" ID="txtremark" placeholder="Enter remark" TextMode="MultiLine" Height="51px" Width="385px" BackColor="LightGreen" ForeColor="Maroon"/>
+                    </td>
+                </tr>
+                           
+            </table>
+                    <br />
+              <asp:Button ID="btnsubmit" runat="server" Text="Submit" cssclass ="btn-primary" OnClick="btnsubmit_Click" />
+              &nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="btnapprovecancel" runat="server" Text="Cancel" cssclass ="btn-primary" OnClick="btnapprovecancel_Click" />
+                   </fieldset>
+                       
+            </div>
+               </div>
+
     </form>
 
     <br /><br />

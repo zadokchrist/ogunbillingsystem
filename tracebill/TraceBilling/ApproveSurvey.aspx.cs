@@ -125,7 +125,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -293,55 +293,29 @@ namespace TraceBilling
 
         protected void gv_surveyjobs_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            /*if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //
-                // dispatchdisplay.Visible = true;
-                TableCell link = (TableCell)e.Row.Cells[1];
-                string status = e.Row.Cells[1].Text;
-                if ((status.Equals("Emergency")))
-                {
-
-                    link.ForeColor = Color.Red;
-                    //e.Row.BackColor = Color.Red;
-                    //e.Row.ForeColor = Color.White;
-                }
-                else if ((status.Equals("General")))
-                {
-
-                    link.ForeColor = Color.Green;
-                    // e.Row.BackColor = Color.Green;
-                    // e.Row.ForeColor = Color.White;
-                }
-                else if ((status.Equals("Others")))
-                {
-
-                    link.ForeColor = Color.Blue;
-                    // e.Row.BackColor = Color.Blue;
-                    //e.Row.ForeColor = Color.White;
-                }
-            }*/
+            
         }
 
-        protected void btnreturn2_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                maindisplay.Visible = true;
-                btnreturn.Visible = true;
-                approvesurvey.Visible = false;
-                surveydisplay.Visible = false;
-                LoadSurveyReportDetails();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //protected void btnreturn2_Click(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        maindisplay.Visible = true;
+        //        btnreturn.Visible = true;
+        //        approvesurvey.Visible = false;
+        //        surveydisplay.Visible = false;
+        //        LoadSurveyReportDetails();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
-        protected void btnApprove_Click(object sender, EventArgs e)
+        public string Approve()
         {
+            string output = "";
             try
             {
                 //save checklist item by id
@@ -363,7 +337,7 @@ namespace TraceBilling
                 }
                 string res = a.Count.ToString() + " survey questions saved and report successfully approved";
 
-                DisplayMessage(res, false);
+                //DisplayMessage(res, false);
 
                 //send to next status 3
                 string createdby = Session["userId"].ToString();
@@ -375,13 +349,15 @@ namespace TraceBilling
                 String from = txtsurveyDate.Text.Trim();
                 if (!from.Equals(""))
                 {
-                    start = DateTime.Parse(from);
+                    //start = DateTime.Parse(from);
+                    start = bll.GetDate(from);//european style dd/mm/yyyy
                 }
                // string surveydate = txtsurveyDate.Text.Trim();
                 if (str_todump.Equals(""))
                 {
                     str = "Please Select at least one survey question";
-                    DisplayMessage(str, true);
+                    //(str, true);
+                    output = str;
                 }
                 else
                 {
@@ -389,21 +365,24 @@ namespace TraceBilling
                     if (al.Count > 0)
                     {
 
-                        DisplayMessage(al.Count.ToString() + " survey questions selected and successfully approved.", true);
+                        //DisplayMessage(al.Count.ToString() + " survey questions selected and successfully approved.", true);
+                        output = al.Count.ToString() + " survey questions selected and successfully approved.";
                     }
                 }
                 ClearApproveControls();
             }
             catch (Exception ex)
             {
-                DisplayMessage(ex.Message, true);
-
+                // DisplayMessage(ex.Message, true);
+                output = ex.Message;
             }
+            return output;
         }
         private void ClearApproveControls()
         {
             txtsurveyDate.Text = "";
             chkBoxRequired.ClearSelection();
+            
 
         }
 
@@ -539,40 +518,110 @@ namespace TraceBilling
                 throw ex;
             }
         }
-        //private void button1_Click_1(object sender, EventArgs e)
-        //{
-        //    DataTable dt = bll.GetSurveyQnList();
-        //    // creating Excel Application  
-        //    Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-        //    // creating new WorkBook within Excel application  
-        //    Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-        //    // creating new Excelsheet in workbook  
-        //    Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-        //    // see the excel sheet behind the program  
-        //    app.Visible = true;
-        //    // get the reference of first sheet. By default its name is Sheet1.  
-        //    // store its reference to worksheet  
-        //    worksheet = workbook.Sheets["Sheet1"];
-        //    worksheet = workbook.ActiveSheet;
-        //    // changing the name of active sheet  
-        //    worksheet.Name = "Exported from gridview";
-        //    // storing header part in Excel  
-        //    for (int i = 1; i < dt.Columns.Count + 1; i++)
-        //    {
-        //        worksheet.Cells[1, i] = dt.Columns[i - 1].HeaderText;
-        //    }
-        //    // storing Each row and column value to excel sheet  
-        //    for (int i = 0; i < dt.Rows.Count - 1; i++)
-        //    {
-        //        for (int j = 0; j < dt.Columns.Count; j++)
-        //        {
-        //            worksheet.Cells[i + 2, j + 1] = dt.Rows[i].Cells[j].Value.ToString();
-        //        }
-        //    }
-        //    // save the application  
-        //    workbook.SaveAs("c:\\output.xls", Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-        //    // Exit from the application  
-        //    app.Quit();
-        //}
+
+        protected void btnsubmit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string applicationid = lblApplicationCode.Text;
+                string createdby = Session["UserID"].ToString();
+                string action = lblaction.Text;
+                string comment = txtremark.Text.Trim();
+                if (comment.Equals("") || comment.Length < 5)
+                {
+                    DisplayMessage("Please enter valid comment", true);
+
+                }
+                else
+                {
+
+                    //log change status
+                    int statusid = 0;
+                    string output = "";
+                    if (action.Contains("Approve"))
+                    {
+                        output = Approve();
+                        if(output.Contains("success"))
+                        {
+                            bll.SaveApplicationComment(applicationid, action, comment, createdby);
+                            DisplayMessage(output, false);
+                        }
+                        else
+                        {
+                            DisplayMessage(output, true);
+                        }
+
+                    }
+                    else if (action.Contains("Reject"))
+                    {
+                        bll.SaveApplicationComment(applicationid, action, comment, createdby);
+                        statusid = 18;
+                        output = "Action logged successfully as " + action;
+                        bll.LogApplicationTransactions(int.Parse(applicationid), statusid, int.Parse(createdby));
+                        DisplayMessage(output, false);
+                    }                  
+                    
+                    ClearControls();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        private void ClearControls()
+        {
+            try
+            {
+                approvecon.Visible = false;
+                lblaction.Text = ".";
+                rtnAction.ClearSelection();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
+        protected void btnapprovecancel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                maindisplay.Visible = true;
+                btnreturn.Visible = true;
+                approvesurvey.Visible = false;
+                surveydisplay.Visible = false;
+                approvecon.Visible = false;
+                LoadSurveyReportDetails();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+        protected void rtnAction_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                approvecon.Visible = true;
+                if(rtnAction.SelectedValue=="1")
+                {
+                    lblaction.Text = "Approve Survey";
+
+                }
+                else if (rtnAction.SelectedValue == "2")
+                {
+                    lblaction.Text = "Reject Survey";
+
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+        
     }
 }

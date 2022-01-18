@@ -8,6 +8,7 @@ using System.Data;
 using TraceBilling.ControlObjects;
 using TraceBilling.EntityObjects;
 using System.Drawing;
+using RKLib.ExportData;
 
 namespace TraceBilling
 {
@@ -307,10 +308,33 @@ namespace TraceBilling
             {
                 //
                 // dispatchdisplay.Visible = true;
-                TableCell link = (TableCell)e.Row.Cells[2];
-                string type = e.Row.Cells[6].Text;
-               // e.Row.BackColor = Color.Blue;
-                e.Row.ForeColor = Color.Green;
+                TableCell link = (TableCell)e.Row.Cells[5];
+                string type = e.Row.Cells[5].Text;
+                type = type.ToLower();
+                // e.Row.BackColor = Color.Blue;
+                //e.Row.ForeColor = Color.Green;
+                if ((type.Contains("flat")))
+                {
+
+                    // link.ForeColor = Color.Red;
+                    e.Row.Cells[5].BackColor = Color.Red;
+                    e.Row.Cells[5].ForeColor = Color.White;
+                    e.Row.Cells[5].Font.Bold = true;
+                }
+                else if ((type.Contains("post")))
+                {
+
+                    e.Row.Cells[5].BackColor = Color.Blue;
+                    e.Row.Cells[5].ForeColor = Color.White;
+                    e.Row.Cells[5].Font.Bold = true;
+                }
+                else if ((type.Contains("pre")))
+                {
+
+                    e.Row.Cells[5].BackColor = Color.Green;
+                    e.Row.Cells[5].ForeColor = Color.White;
+                    e.Row.Cells[5].Font.Bold = true;
+                }
 
             }
         }
@@ -351,6 +375,8 @@ namespace TraceBilling
                 string appnumber = arg[0];
                 string name = arg[1];
                 string appid = arg[2];
+                lblApplicationCode.Text = appnumber;
+                lblApplicationId.Text = appid;
                 LoadApplicationPanel(appnumber,name,appid);
             }
         }
@@ -361,6 +387,7 @@ namespace TraceBilling
             paneldisplay.Visible = true;
             maindisplay.Visible = false;
             statuslogdisplay.Visible = false;
+            documentdisplay.Visible = false;
         }
 
         public void PrintFoam(string appnumber, string areaid)
@@ -448,17 +475,85 @@ namespace TraceBilling
 
         protected void btnAppDetails_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string application_code = lblApplicationCode.Text.Trim();
+                //lblReport.Text = "1";
+                LoadForm(application_code);
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+        }
 
+        private void LoadForm(string application_code)
+        {
+            try
+            {
+                PrintFoam(application_code, "10");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected void btnDocuments_Click(object sender, EventArgs e)
         {
+            try
+            {
+                LoadDocuments();
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+        }
 
+        private void LoadDocuments()
+        {
+            documentdisplay.Visible = true;
+            string appid = lblApplicationId.Text;
+            LoadAttachments(appid);
         }
 
         protected void btnJobCard_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string ApplicationCode = lblApplicationCode.Text.Trim();
+                //lblReport.Text = "2";
+                LoadJobCard(ApplicationCode);
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+        }
 
+        private void LoadJobCard(string applicationCode)
+        {
+            DataTable dt = bll.GetSurveyQnList();
+       
+            ExcelReport(dt);
+        }
+
+        private void ExcelReport(DataTable dataTable)
+        {
+            try
+            {
+                int[] iColumns = { 0, 1, 2 };
+                string appcode = lblApplicationCode.Text;
+                string filename = "JobCard-" + appcode + "-" + DateTime.Now;
+                //Export the details of specified columns to Excel
+                RKLib.ExportData.Export objExport = new RKLib.ExportData.Export();
+                objExport.ExportDetails(dataTable, iColumns, Export.ExportFormat.Excel, filename + ".xls");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
@@ -468,12 +563,34 @@ namespace TraceBilling
 
         protected void btnAudit_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                statuslogdisplay.Visible = true;
+                string appid = lblApplicationId.Text.Trim();
+              
+                LoadApplicationStatusLogs(appid);
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
         }
 
         protected void btnSlips_Click(object sender, EventArgs e)
         {
+            try
+            {
+                LoadPaySlips();
+            }
+            catch (Exception ex)
+            {
+                DisplayMessage(ex.Message, true);
+            }
+        }
 
+        private void LoadPaySlips()
+        {
+            
         }
 
         protected void btnExpense_Click(object sender, EventArgs e)
@@ -496,6 +613,7 @@ namespace TraceBilling
             maindisplay.Visible = true;
             statuslogdisplay.Visible = false;
             paneldisplay.Visible = false;
+            documentdisplay.Visible = false;
             LoadApplicationByStatus();
         }
         protected void ddloperationarea_DataBound(object sender, EventArgs e)
@@ -505,6 +623,45 @@ namespace TraceBilling
         protected void ddlbranch_DataBound(object sender, EventArgs e)
         {
             ddlbranch.Items.Insert(0, new ListItem("all", "0"));
+        }
+        protected void gvdocuments_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+        {
+
+        }
+        protected void gvdocuments_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+
+            if (e.CommandName == "RowDelete")
+            {
+                //string UserID = e.Item.Cells[0].Text;
+                string ItemId = "0";
+
+                //ItemId = e.Item.Cells[1].Text;
+                ItemId = Convert.ToString(e.CommandArgument.ToString());
+                //delete record              
+                string appno = lblApplicationId.Text;
+                string deletedby = Session["UserID"].ToString();
+                bll.DeleteApplicationItem(appno, int.Parse(ItemId), deletedby);
+                LoadAttachments(appno);
+            }
+
+
+        }
+
+        private void LoadAttachments(string appid)
+        {
+            DataTable dt = bll.GetFileAttachments(appid);
+            gvdocuments.DataSource = dt;
+            gvdocuments.DataBind();
+        }
+
+        protected void gvdocuments_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+        protected void gvdocuments_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+
         }
     }
 }

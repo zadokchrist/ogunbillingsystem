@@ -103,7 +103,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -732,7 +732,7 @@ namespace TraceBilling
             string newconvat = "0";//txtgross.Text;
             string deposit = txtDeposit.Text;
 
-            double totalCharge = double.Parse(newconvat) + double.Parse(deposit);
+            double totalCharge = double.Parse(newcon) + double.Parse(deposit);
             txtTotalFee.Text = totalCharge.ToString("#,##0");
         }
     }

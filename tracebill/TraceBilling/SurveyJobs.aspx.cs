@@ -63,7 +63,7 @@ namespace TraceBilling
             DataTable dt = new DataTable();
             try
             {
-                dt = bll.GetUserList(countryid,5);
+                dt = bll.GetUserListByID(countryid,5,1);
                 survey_list.DataSource = dt;
 
                 survey_list.DataTextField = "fullname";
@@ -80,7 +80,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -100,7 +100,7 @@ namespace TraceBilling
         //}
         protected void survey_list_DataBound(object sender, EventArgs e)
         {
-            survey_list.Items.Insert(0, new ListItem("- - select survey - -", "0"));
+            survey_list.Items.Insert(0, new ListItem("- - select - -", "0"));
         }
         
 
@@ -190,15 +190,15 @@ namespace TraceBilling
 
 
             }
-            else if (commandName == "btnJobCard")//routecard
-            {
-                string[] arg = new string[2];
-                arg = e.CommandArgument.ToString().Split(';');
-                string appnumber = arg[0];
-                string appid = arg[1];
-                string str = "Sorry, Job card details not ready for printing!!!";
-                DisplayMessage(str, true);
-            }
+            //else if (commandName == "btnJobCard")//routecard
+            //{
+            //    string[] arg = new string[2];
+            //    arg = e.CommandArgument.ToString().Split(';');
+            //    string appnumber = arg[0];
+            //    string appid = arg[1];
+            //    string str = "Sorry, Job card details not ready for printing!!!";
+            //    DisplayMessage(str, true);
+            //}
            else  if (commandName == "btnSubmit")//details
             {
 

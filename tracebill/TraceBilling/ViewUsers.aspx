@@ -10,7 +10,7 @@
             </center>
 
         
-        <div class="form-group col-sm-12">
+<%--        <div class="form-group col-sm-12">
          
 
                            <table width="100%">
@@ -51,7 +51,37 @@
                           </tr>
                           </table>
              
-                          </div>
+                          </div>--%>
+          
+          <div class="col-sm-3">Operation Area
+               <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea_DataBound" Visible="true"
+                             >
+                        </asp:DropDownList>
+          </div>
+              <div class="col-sm-3">Branch
+               <asp:DropDownList ID="ddlbranch" 
+                                    DataTextField="BranchName"
+                                     DataValueField="BranchId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlbranch_DataBound" Visible="true">
+                        </asp:DropDownList>
+          </div>
+           <div class="col-sm-3">
+             Search (name..)
+              <asp:TextBox ID="txtsearch" 
+                               runat="server" CssClass="form-control" ></asp:TextBox>
+         </div>
+         
+        <div class="col-sm-3">  
+        
+                          <asp:Button ID="Button3" Width="150" Height="40" CssClass="btn-primary round_btn form-control"
+                                    runat="server" Text="Search" onclick="Button3_Click"  />
+                           
+           </div>
          <%-- <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="150" Height="40" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to Job list" onclick="btnReturn_Click" />

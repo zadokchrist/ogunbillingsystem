@@ -23,6 +23,10 @@ namespace TraceBilling
             {
                 if (IsPostBack == false)
                 {
+                    if (Session["RoleID"] == null)
+                    {
+                        Response.Redirect("Default.aspx");
+                    }
                     LoadVendorList();
                 }
             }
@@ -182,8 +186,8 @@ namespace TraceBilling
                 resp = bll.ValidateTransaction(trans);
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
-                    trans.PayDate = Convert.ToDateTime(trans.PaymentDate);
-
+                    //trans.PayDate = Convert.ToDateTime(trans.PaymentDate);
+                    trans.PayDate = bll.GetDate(trans.PaymentDate);//european style dd/mm/yyyy
                     if (trans.VendorCode.Equals("0"))
                     {
                         str = "Please select Bank/Vendor";

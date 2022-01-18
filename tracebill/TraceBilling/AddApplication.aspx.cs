@@ -39,14 +39,8 @@ namespace TraceBilling
 
                     if (!sessioncountryid.Equals("1"))
                     {
-                        //country_list.SelectedIndex = country_list.Items.IndexOf(new ListItem(Session["country"].ToString(), Session["countryId"].ToString()));
-                        // country_list.Enabled = false;
-                        // int countryid = int.Parse(country_list.SelectedValue.ToString());
-                        //LoadAreaList(countryid);
-                        LoadAreaList(int.Parse(sessioncountryid));
-                        area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                        area_list.Enabled = false;
-                        int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                        
+                        int areaid = 10;
                         int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
 
                         LoadBranchList(areaid,operationid);
@@ -54,8 +48,8 @@ namespace TraceBilling
                     else
                     {
                         //int countryid = int.Parse(country_list.SelectedValue.ToString());
-                        int countryid = int.Parse(sessioncountryid);
-                        LoadAreaList(countryid);
+                        //int countryid = int.Parse(sessioncountryid);
+                        //LoadAreaList(countryid);
                     }
                     bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Adding New Applicant page");
                 }
@@ -75,6 +69,9 @@ namespace TraceBilling
             ddlterritory.DataBind();
             ddlsubterritory.DataSource = bll.GetSubTerritoryList(int.Parse(ddlterritory.SelectedValue.ToString()));
             ddlsubterritory.DataBind();
+            rtncategory.DataSource = bll.GetCustomerClass();
+            rtncategory.DataBind();
+
         }
 
         private void LoadBranchList(int areaid,int operationid)
@@ -152,25 +149,25 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
+        //private void LoadAreaList(int countryid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetAreaList(countryid);
+        //        area_list.DataSource = dt;
 
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //        area_list.DataTextField = "areaName";
+        //        area_list.DataValueField = "areaId";
+        //        area_list.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayAreaList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
 
         private void LoadIDList()
         {
@@ -194,7 +191,7 @@ namespace TraceBilling
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
-            lblmsg.Text = "MESSAGE: " + message + ".";
+            lblmsg.Text =  message + ".";
             if (isError == true)
             {
                 lblmsg.ForeColor = System.Drawing.Color.Red;
@@ -214,13 +211,13 @@ namespace TraceBilling
         //{
         //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
         //}
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+        //protected void area_list_DataBound(object sender, EventArgs e)
+        //{
+        //    area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
+        //}
         protected void cboID_DataBound(object sender, EventArgs e)
         {
-            cboID.Items.Insert(0, new ListItem("- - select ID  Type- -", "0"));
+            cboID.Items.Insert(0, new ListItem("--select--", "0"));
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -253,7 +250,7 @@ namespace TraceBilling
                 app.ApplicationId = "0";
                 //get sessiondetails from selected
                 string a = app.Country;
-                string b = area_list.SelectedValue.ToString();
+                string b = "10";
                 string c = "0";//branch
                 string userid = Session["userId"].ToString();
                 app.Country = a;
@@ -432,7 +429,7 @@ namespace TraceBilling
 
         protected void branch_list_DataBound(object sender, EventArgs e)
         {
-            branch_list.Items.Insert(0, new ListItem("- - None - -", "0"));
+            branch_list.Items.Insert(0, new ListItem("- - none - -", "0"));
         //}
         }
         
@@ -467,7 +464,7 @@ namespace TraceBilling
             try
             {
                 //int deptid = int.Parse(department_list.SelectedValue.ToString());
-                int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
+                int areaid = 10;
                 int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
 
                 LoadBranchList(areaid,operationid);
@@ -520,7 +517,7 @@ namespace TraceBilling
         }
         protected void ddloperationarea_DataBound(object sender, EventArgs e)
         {
-            ddloperationarea.Items.Insert(0, new ListItem("select area", "0"));
+            ddloperationarea.Items.Insert(0, new ListItem("--select--", "0"));
         }
         protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -59,8 +59,15 @@
           </div>
             <div class="col-sm-12 home card" id="maindisplay" runat="server" >
 
-                   <h5 class="inline">View survey Job Logs</h5>
-                   <p id='baltxt' class="inline" style="color:Green; font-size:14px;" runat="server"></p>
+                 <div class="text-left"  runat="server" style="width: 891px">
+     <asp:Label ID="lblinstructions" runat="server" Text="Brief Guidelines" ForeColor="Blue" Font-Bold="true" ></asp:Label><br />
+                     <p>step1: Select application and generate job card</p>
+                     <p>step2: Assign Surveyor/plumber</p>
+                     <p>step3: Submit application to next level </p>
+
+                </div>
+<%--                                   <h5 class="inline">View survey Job Logs</h5>--%>
+
                 <div class="text-center"  runat="server" style="width: 891px">
                       <asp:Button ID="btngenerate" runat="server" Text="Generate JobCard" cssclass ="btn-primary" OnClick="btngenerate_Click" />
                 </div>
@@ -101,7 +108,7 @@
             <asp:BoundField DataField="ApplicationID" HeaderText="ApplicationID" NullDisplayText="-" Visible="false"/> 
 
              
-                  <asp:TemplateField ShowHeader="True">
+              <%--    <asp:TemplateField ShowHeader="True">
                       <HeaderTemplate>
                         Job Card
                     </HeaderTemplate>
@@ -115,7 +122,7 @@
                  
             </ItemTemplate>
                      <ItemStyle Width="5%" />
-                 </asp:TemplateField>
+                 </asp:TemplateField>--%>
                  <asp:TemplateField ShowHeader="True">
                       <HeaderTemplate>
                         Assign

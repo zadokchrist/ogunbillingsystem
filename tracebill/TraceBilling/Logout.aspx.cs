@@ -13,6 +13,10 @@ namespace TraceBilling
         BusinessLogic bll = new BusinessLogic();
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["RoleID"] == null)
+            {
+                Response.Redirect("Default.aspx");
+            }
             bll.RecordAudittrail(Session["userName"].ToString(), "Logged out of the system");
             Session.Clear();
             Session.Abandon();

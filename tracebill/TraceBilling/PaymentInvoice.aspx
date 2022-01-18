@@ -51,7 +51,14 @@
                                     runat="server" Text="Return to invoice list" onclick="btnReturn_Click" />
           </div>
             <div class="col-sm-12 home card" id="maindisplay" runat="server" >
+                    <div class="text-left"  runat="server" style="width: 891px">
+     <asp:Label ID="lblinstructions" runat="server" Text="Brief Guidelines" ForeColor="Blue" Font-Bold="true" ></asp:Label><br />
+                     <p>step1: Select application and generate invoices</p>
+                     <p>step2: Make payment against invoice </p>
+                     <p>step3: Reconcile payment </p>
+                     <p>step4: Confirm payments and submit to next level </p>
 
+                </div>
                    <h5 class="inline">View payment invoice Logs</h5>
                    <p id='baltxt' class="inline" style="color:Green; font-size:14px;" runat="server"></p>
             
