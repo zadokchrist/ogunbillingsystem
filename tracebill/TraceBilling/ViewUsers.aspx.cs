@@ -239,6 +239,10 @@ namespace TraceBilling
             GridViewUser.DataSource = Session["dtusr"] as DataTable;
             GridViewUser.DataBind();
         }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("--select--", "0"));
+        }
 
     }
 }
