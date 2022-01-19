@@ -35,32 +35,18 @@ namespace TraceBilling
                     }
                     else
                     {
-                        string sessioncountryid = Session["countryId"].ToString();
-
-                        if (!sessioncountryid.Equals("1"))
-                        {
-
-                            LoadAreaList(int.Parse(sessioncountryid));
-                            area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                            // LoadBranchList(operationid);
-                        }
-                        else
-                        {
-                            //int countryid = int.Parse(country_list.SelectedValue.ToString());
-                            int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList(countryid);
-                        }
+                        ddloperationarea.DataSource = bll.GetOperationAreaList(10);
+                        ddloperationarea.DataBind();
                         string roleid = Session["roleId"].ToString();
-                        if (roleid.Equals("9"))//BO
-                        {
-                            LoadDisplay();
-                        }
-                        else if (roleid.Equals("4"))//BM
-                        {
-                            LoadApprovalRequests();
-                        }
+                        //if (roleid.Equals("9"))//BO
+                        //{
+                        //    LoadDisplay();
+                        //}
+                        //else if (roleid.Equals("4"))//BM
+                        //{
+                        //    LoadApprovalRequests();
+                        //}
+                       // LoadDisplay();
                         bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Meter Management page");
 
                     }
@@ -83,8 +69,8 @@ namespace TraceBilling
             btnapprove.Visible = false;
 
             int countryid = 2;
-            int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
-            string custref = txtcustref.Text.Trim();
+            int areaid = 10;
+            string custref = txtsearch.Text.Trim();
 
             DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 1);
             if (dataTable.Rows.Count > 0)
@@ -125,25 +111,7 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
-
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+       
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -157,29 +125,7 @@ namespace TraceBilling
                 lblmsg.ForeColor = System.Drawing.Color.Green;
             }
         }
-        //protected void country_list_DataBound(object sender, EventArgs e)
-        //{
-        //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
-        //}
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
-        //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        //int deptid = int.Parse(department_list.SelectedValue.ToString());
-        //        int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-        //        LoadAreaList(countryid);
-        //        //load session data
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //}
+        
         protected void btninventory_Click(object sender, EventArgs e)
         {
             meterinventory.Visible = true;
@@ -221,7 +167,7 @@ namespace TraceBilling
         protected void Button3_Click(object sender, EventArgs e)
         {
             //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-            string areaid = area_list.SelectedValue.ToString();
+            string areaid = "10";
             if(areaid.Equals("0"))
             {
                 DisplayMessage("Please select an operation area", true);
@@ -485,7 +431,7 @@ namespace TraceBilling
         {
             try
             {
-                string areaid = area_list.SelectedValue.ToString();
+                string areaid = "10";
                 string branchid = "0";
                 DataTable dTable = bll.GetLatestReadingDetails(custref, areaid, branchid);
                 if (dTable.Rows.Count > 0)
@@ -519,7 +465,7 @@ namespace TraceBilling
         {
             try
             {
-                string areaid = area_list.SelectedValue.ToString();
+                string areaid = "10";
                 string branchid = "0";
                 DataTable dTable = bll.GetLatestReadingDetails(custref, areaid, branchid);
                 if (dTable.Rows.Count > 0)
@@ -613,7 +559,7 @@ namespace TraceBilling
                 string appinitedgdt = txtInitialRdgDate.Text;
                 string createdby = Session["UserID"].ToString();
                 string requesttype = "SERVICE";//for service
-                string areaid = area_list.SelectedValue.ToString();
+                string areaid ="10";
                 string branchid = "0";
                 string servedby = txtservedby.Text;
                 string period = bll.GetBillingPeriod(areaid);
@@ -746,7 +692,7 @@ namespace TraceBilling
                  string appinitedgdt = txtNewRdgDate.Text;
                  string createdby = Session["UserID"].ToString();
                  string requesttype = "REPLACEMENT";//for replacement
-                 string areaid = area_list.SelectedValue.ToString();
+                 string areaid = "10";
                  string branchid = "0";
                  string servedby = txtInstalledBy.Text;
                  string period = bll.GetBillingPeriod(areaid);
@@ -821,8 +767,8 @@ namespace TraceBilling
             //btntransfer.Visible = false;
             btnapprove.Visible = true;
             int countryid = 2;
-            int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
-            string custref = txtcustref.Text.Trim();
+            int areaid =10;
+            string custref = txtsearch.Text.Trim();
 
             DataTable dataTable = bll.GetRequestsToApprove(countryid, areaid, custref);
             if (dataTable.Rows.Count > 0)
@@ -1163,6 +1109,10 @@ namespace TraceBilling
             searchdisplay.Visible = true;
             DisplayMessage(".", true);
             lblcustref.Text = "0";
+        }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("--all--", "0"));
         }
     }
 }

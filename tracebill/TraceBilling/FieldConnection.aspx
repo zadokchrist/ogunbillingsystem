@@ -480,7 +480,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
-                                                                                    Date of Installing</td>
+                                                                                    Date of Connecting</td>
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
                                                                                     &nbsp;</td>
                                                                                 <td class="InterFaceTableRightRow" style="height: 10px">

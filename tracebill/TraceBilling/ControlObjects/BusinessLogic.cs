@@ -4005,5 +4005,20 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable LoadCustomerDisplayFiltered(int countryid, int areaid, string custref, int flag,int opid,int custtype)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCustomerDisplayFiltered(countryid, areaid, custref, flag,opid,custtype);
+
+            }
+            catch (Exception ex)
+            {
+                Log("LoadCustomerDisplay", "101 " + ex.Message);
+            }
+            return dt;
+        }
     }
 }

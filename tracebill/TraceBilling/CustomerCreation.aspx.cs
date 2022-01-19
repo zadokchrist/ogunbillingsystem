@@ -628,20 +628,20 @@ namespace TraceBilling
                 DisplayMessage(error, true);
             }
         }
-        protected void customertype_list_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                string custytype = customertype_list.SelectedItem.ToString();
+        //protected void customertype_list_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    try
+        //    {
+        //        string custytype = customertype_list.SelectedItem.ToString();
 
-                ManageCreationControls(custytype);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+        //        ManageCreationControls(custytype);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
 
-        }
+        //}
 
     }
 }

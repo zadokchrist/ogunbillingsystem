@@ -112,13 +112,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl downloaddisplay;
         
         /// <summary>
-        /// area_list2 control.
+        /// ddloperationarea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list2;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea;
         
         /// <summary>
         /// branch_list control.
@@ -193,13 +193,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl uploaddisplay;
         
         /// <summary>
-        /// area_list3 control.
+        /// ddloperationarea2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList area_list3;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea2;
         
         /// <summary>
         /// txtReadingDate1 control.
@@ -274,13 +274,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div2;
         
         /// <summary>
-        /// cboAreasCredentials control.
+        /// ddloperationarea3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cboAreasCredentials;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea3;
         
         /// <summary>
         /// cboBranchesCredentials control.

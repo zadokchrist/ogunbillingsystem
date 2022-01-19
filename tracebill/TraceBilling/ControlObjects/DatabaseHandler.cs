@@ -2272,5 +2272,18 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        internal DataTable GetCustomerDisplayFiltered(int countryid, int areaid, string custref, int flag,int opid,int custtype)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetCustomerDetailsByID_filtered", countryid, areaid, custref, flag,opid,custtype);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
     }
 }

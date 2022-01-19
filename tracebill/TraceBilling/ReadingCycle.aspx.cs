@@ -53,6 +53,7 @@ namespace TraceBilling
                         //}
                         LoadBranchList1(0, 0);
                         LoadFilters(10);
+                        LoadAreaControls();
                         LoadDisplay();
                         bll.RecordAudittrail(Session["userName"].ToString(), "Accessed Reading Cycle page");
 
@@ -64,6 +65,14 @@ namespace TraceBilling
                 throw ex;
             }
         }
+        private void LoadAreaControls()
+        {
+            ddloperationarea.SelectedIndex = ddloperationarea.Items.IndexOf(new ListItem(Session["operationAreaName"].ToString(), Session["operationId"].ToString()));
+            ddloperationarea.Enabled = true;
+            ddloperationarea1.SelectedIndex = ddloperationarea1.Items.IndexOf(new ListItem(Session["operationAreaName"].ToString(), Session["operationId"].ToString()));
+            ddloperationarea1.Enabled = true;
+
+        }
 
         private void LoadFilters(int areaid)
         {
@@ -71,6 +80,10 @@ namespace TraceBilling
             ddloperationarea.DataBind();
             ddloperationarea1.DataSource = bll.GetOperationAreaList(areaid);
             ddloperationarea1.DataBind();
+<<<<<<< HEAD
+=======
+            LoadMeterReaders(areaid.ToString(), "11");
+>>>>>>> 107dc9b30a3daa815f85eb76e11ae0e8c513ed05
         }
 
         //private void LoadCountryList()
@@ -432,7 +445,8 @@ namespace TraceBilling
                 string prereading = txtPreReading.Text.Trim();
                 string prereadingdate = txtPreReadDate.Text.Trim();
                 string createdby = Session["UserID"].ToString();
-                DateTime readingdt = Convert.ToDateTime(readingdate);
+                //DateTime readingdt = Convert.ToDateTime(readingdate);
+                DateTime readingdt = bll.GetDate(readingdate);//european style dd/mm/yyyy
                 DateTime prereadingdt = bll.GetDate(prereadingdate);
                 if (reading == "")
                 {
