@@ -80,10 +80,8 @@ namespace TraceBilling
             ddloperationarea.DataBind();
             ddloperationarea1.DataSource = bll.GetOperationAreaList(areaid);
             ddloperationarea1.DataBind();
-<<<<<<< HEAD
-=======
+
             LoadMeterReaders(areaid.ToString(), "11");
->>>>>>> 107dc9b30a3daa815f85eb76e11ae0e8c513ed05
         }
 
         //private void LoadCountryList()
