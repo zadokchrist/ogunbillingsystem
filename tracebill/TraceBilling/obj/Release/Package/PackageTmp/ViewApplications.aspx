@@ -127,7 +127,7 @@
                  </asp:BoundField> 
    <asp:BoundField DataField="className" HeaderText="className" NullDisplayText="-" /> 
                  <%-- <asp:BoundField DataField="serviceName" HeaderText="serviceName" NullDisplayText="-" /> --%>
-               <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-" /> 
+<%--               <asp:BoundField DataField="countryName" HeaderText="Country" NullDisplayText="-" /> --%>
                   <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> 
                   <asp:BoundField DataField="areaId" HeaderText="AreaID" NullDisplayText="-" Visible="false" />
               <%--   <asp:BoundField DataField="countryId" HeaderText="CountryID" NullDisplayText="-"  Visible="false"/> 
@@ -405,7 +405,51 @@
                                     </table>
 
           </div>
+               <div id="documentdisplay" runat="server" visible="false">
+                               <asp:Label ID="lbldocumets" runat="server" Text="View Attachments" ForeColor="Blue" Font-Bold="true" ></asp:Label><br />
+
+                                            <asp:GridView ID="gvdocuments" runat="server" 
+                       CssClass="grid-text" CellPadding="5" 
+                              ForeColor="#333333" GridLines="None" Width="92%"
+                                  AutoGenerateColumns="False"
+                                  OnRowDataBound="gvdocuments_RowDataBound" 
+                                 onselectedindexchanging="gvdocuments_SelectedIndexChanging"
+                                  onselectedindexchanged="gvdocuments_SelectedIndexChanged"
+                                 OnRowCommand="gvdocuments_RowCommand">
+             <Columns>   
+                   
+           <asp:BoundField DataField="No" HeaderText="No." NullDisplayText="-"/> 
+                 <asp:BoundField DataField="FileID" HeaderText="FileID" NullDisplayText="-" Visible="false"/> 
+                 
+             <asp:BoundField DataField="FilePath" HeaderText="FilePath"  NullDisplayText="-"/>                
+                <asp:BoundField DataField="FileName" HeaderText="FileName"  NullDisplayText="-"/>   
+          
+                 <asp:TemplateField ShowHeader="True">
+                      <HeaderTemplate>
+                        Delete
+                    </HeaderTemplate>
+            <ItemTemplate>
+                <asp:LinkButton ID="DeleteButton"
+                                runat="server"
+                                CommandName="RowDelete" 
+                    CommandArgument='<%#Eval("FileID") %>'
+                               
+                                Text="Remove" />
+                 
+            </ItemTemplate>
+                     <ItemStyle Width="5%" />
+                 </asp:TemplateField>
+               
+  
+              
+             </Columns>
+            </asp:GridView>
+
+                </div>      
         </div>
+                               <asp:Label ID="lblApplicationCode" runat="server" Text="0" Visible="False"></asp:Label>
+                              <asp:Label ID="lblApplicationId" runat="server" Text="0" Visible="False"></asp:Label>
+
     </form>
 
     <br /><br />

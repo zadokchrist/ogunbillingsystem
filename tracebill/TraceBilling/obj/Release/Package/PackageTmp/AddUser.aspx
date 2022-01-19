@@ -116,7 +116,7 @@
                        </asp:DropDownList>
                     </td>
                 </tr>--%>
-                <tr>
+              <%--  <tr>
                     <td style="width: 50%">
                         <asp:Label runat="server" Text="Administrative Area" ID="lbloparea" Visible="true" Font-Bold="true"></asp:Label>
                                 <asp:Label ID="lbx" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
@@ -126,7 +126,7 @@
                          <asp:DropDownList ID="area_list" CssClass="form-control" runat="server"  OnDataBound="area_list_DataBound" OnSelectedIndexChanged="operation_area_SelectedIndexChanged" AutoPostBack="true" Visible="true" >
                 </asp:DropDownList>
                      </td>
-                </tr>
+                </tr>--%>
                                  <tr><td style="width: 50%">
                          <asp:Label runat="server" Text="Operation Area" ID="Label1" Visible="true" Font-Bold="true"></asp:Label>
                   <asp:Label ID="l9x" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
@@ -150,8 +150,24 @@
                  
                     </td>
                           <td style="width: 50%">
- <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true">
+ <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true"
+     AutoPostBack="true"  OnSelectedIndexChanged="branch_list_SelectedIndexChanged">
                 </asp:DropDownList>
+                     </td>
+                </tr>
+                 <tr>
+                    <td style="width: 50%">
+                        <label for="territory">Territory</label>
+           
+                    </td>
+                 <td style="width: 50%">
+                     <asp:DropDownList ID="ddlterritory" 
+                                    DataTextField="territory"
+                                     DataValueField="territoryId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlterritory_DataBound" Visible="true"
+                             >
+                        </asp:DropDownList>
                      </td>
                 </tr>
                <tr>
@@ -178,14 +194,14 @@
                         </asp:DropDownList>
                      </td>
                 </tr>
-                 <tr>
+                <%-- <tr>
                     <td style="width: 50%"><label for="txtactive">Active</label>
                         
                     </td>
                      <td style="width: 50%">
                          <asp:checkbox runat="server" CssClass="form-control" ID="chkactive"></asp:checkbox>
                      </td>
-                </tr>   
+                </tr>   --%>
             </table>
      
             </div>

@@ -70,7 +70,7 @@ namespace TraceBilling
             ddloperationarea.DataSource = bll.GetOperationAreaList(areaid);
             ddloperationarea.DataBind();
             ddloperationarea1.DataSource = bll.GetOperationAreaList(areaid);
-            ddloperationarea.DataBind();
+            ddloperationarea1.DataBind();
         }
 
         //private void LoadCountryList()
