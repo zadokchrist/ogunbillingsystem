@@ -25,7 +25,7 @@ namespace TraceBilling
         PDFPrints pp = new PDFPrints();
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+
             try
             {
                 if (IsPostBack == false)
@@ -33,30 +33,15 @@ namespace TraceBilling
                     if (Session["roleId"] == null)
                     {
                         Response.Redirect("Default.aspx");
-                    }              
-                   else
+                    }
+                    else
                     {
-                        string sessioncountryid = Session["countryId"].ToString();
-
-                        if (!sessioncountryid.Equals("1"))
-                        {
-
-                            LoadAreaList(int.Parse(sessioncountryid));
-                            area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                            // LoadBranchList(operationid);
-                        }
-                        else
-                        {
-                            //int countryid = int.Parse(country_list.SelectedValue.ToString());
-                            int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList(countryid);
-                        }
-                        LoadDisplay();
+                        
+                        loadFilters();
+                        //LoadDisplay();
                     }
 
-                   
+
                 }
             }
             catch (Exception ex)
@@ -64,14 +49,28 @@ namespace TraceBilling
                 DisplayMessage(ex.Message, true);
             }
         }
+        protected void loadFilters()
+        {
 
+
+            ddlcusttype.DataSource = bll.GetCustomerTypeList();
+            ddlcusttype.DataBind();
+            ddloperationarea.DataSource = bll.GetOperationAreaList(10);
+            ddloperationarea.DataBind();
+
+
+        }
         private void LoadDisplay()
         {
             int countryid = 2;// Convert.ToInt16(country_list.SelectedValue.ToString());
-            int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
-            string custref = txtcustref.Text.Trim();
-           
-            DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref,1);
+            int areaid = 10;
+            int opid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+            int custtype = Convert.ToInt16(ddlcusttype.SelectedValue.ToString());
+            string custref = txtsearch.Text.Trim();
+
+            DataTable dataTable = bll.LoadCustomerDisplayFiltered(countryid, areaid, custref, 1,opid,custtype);
+            Session["dtviewinc"] = dataTable;
+
             if (dataTable.Rows.Count > 0)
             {
                 gv_customerview.DataSource = dataTable;
@@ -89,7 +88,7 @@ namespace TraceBilling
 
 
         }
-      
+
 
         //private void LoadCountryList()
         //{
@@ -111,25 +110,7 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
-
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+       
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -147,26 +128,7 @@ namespace TraceBilling
         //{
         //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
         //}
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
-        //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    try
-        //    {
-        //        //int deptid = int.Parse(department_list.SelectedValue.ToString());
-        //        int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
-        //        LoadAreaList(countryid);
-              
-        //        //load session data
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-
-        //}
+        
 
         protected void Button3_Click(object sender, EventArgs e)
         {
@@ -192,7 +154,7 @@ namespace TraceBilling
         protected void gv_customerview_RowCommand(object sender, GridViewCommandEventArgs e)
         {
 
-           
+
             if (e.CommandName == "RowView")
             {
                 string custref = Convert.ToString(e.CommandArgument.ToString());
@@ -216,7 +178,7 @@ namespace TraceBilling
             LoadCustomerInformation(custref);
         }
 
-      
+
 
         protected void gv_customerview_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
         {
@@ -253,7 +215,7 @@ namespace TraceBilling
             paymentdisplay.Visible = false;
             customerdisplay.Visible = false;
             string custref = lblcustref.Text;
-            LoadCustomerDisplayLogs(custref,3);
+            LoadCustomerDisplayLogs(custref, 3);
         }
 
         protected void btnbilldetails_Click(object sender, EventArgs e)
@@ -323,10 +285,10 @@ namespace TraceBilling
                 txttariff.Text = dataTable.Rows[0]["tarrifName"].ToString();
                 txtterritory.Text = dataTable.Rows[0]["territory"].ToString();
                 txtzone.Text = dataTable.Rows[0]["Branch"].ToString();
-                chksewer.Checked = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
+                //chksewer.Checked = Convert.ToBoolean(dataTable.Rows[0]["IsSewer"].ToString());
                 chkclosed.Checked = Convert.ToBoolean(dataTable.Rows[0]["closed"].ToString());
                 string constatus = dataTable.Rows[0]["disconnectionId"].ToString();
-                if(constatus.Equals("0"))
+                if (constatus.Equals("0"))
                 {
                     chkactive.Checked = true;
                 }
@@ -360,10 +322,10 @@ namespace TraceBilling
             string str = "";
             try
             {
-                if(flag == 3)//reading
+                if (flag == 3)//reading
                 {
                     dt = bll.LoadCustomerDisplay(countryid, areaid, custref, flag);
-                    if(dt.Rows.Count > 0)
+                    if (dt.Rows.Count > 0)
                     {
                         gvreadingdisplay.DataSource = dt;
                         gvreadingdisplay.DataBind();
@@ -371,8 +333,8 @@ namespace TraceBilling
                     }
                     else
                     {
-                       // gvreadingdisplay.Visible = false;
-                        str = "No reading records found against Customer-"+ custref;
+                        // gvreadingdisplay.Visible = false;
+                        str = "No reading records found against Customer-" + custref;
                         DisplayMessage(str, true);
                     }
 
@@ -404,7 +366,7 @@ namespace TraceBilling
                     }
                     else
                     {
-                       // gvtransdisplay.Visible = false;
+                        // gvtransdisplay.Visible = false;
                         str = "No transaction records found against Customer-" + custref;
                         DisplayMessage(str, true);
                     }
@@ -450,19 +412,19 @@ namespace TraceBilling
                 string billno = arg[1];
                 string period = arg[2];
                 string areaid = arg[3];
-                PrintInvoice(custref,billno,period, areaid);
+                PrintInvoice(custref, billno, period, areaid);
                 //DisplayMessage(str, true);
             }
-           
+
         }
 
-        private void PrintInvoice(string custref, string billno,string period,string areaid)
+        private void PrintInvoice(string custref, string billno, string period, string areaid)
         {
             try
             {
                 string str = "";
                 string res = pp.GetPDFBillFile(int.Parse(areaid), custref, period, int.Parse(billno));
-                if(res.Contains("pdf"))
+                if (res.Contains("pdf"))
                 {
                     str = "Bill Invoice-" + res + " generated successfully.";
                     DisplayMessage(str, false);
@@ -472,11 +434,11 @@ namespace TraceBilling
                     DisplayMessage(str, true);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
-            
+
         }
         protected void gvbilldisplay_RowDataBound(object sender, GridViewRowEventArgs e)
         {
@@ -505,6 +467,25 @@ namespace TraceBilling
 
 
             }
+        }
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
+        {
+            ddloperationarea.Items.Insert(0, new ListItem("--all--", "0"));
+        }
+        protected void ddlcusttype_DataBound(object sender, EventArgs e)
+        {
+            ddlcusttype.Items.Insert(0, new ListItem("--all--", "0"));
+        }
+        protected void GridViewIssue_PageIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void gv_customerview_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            gv_customerview.PageIndex = e.NewPageIndex;
+            gv_customerview.DataSource = Session["dtviewinc"] as DataTable;
+            gv_customerview.DataBind();
         }
     }
 }

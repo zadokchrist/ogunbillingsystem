@@ -36,24 +36,8 @@ namespace TraceBilling
                     }
                     else
                     {
-                        string sessioncountryid = Session["countryId"].ToString();
-
-                        if (!sessioncountryid.Equals("1"))
-                        {
-
-                            LoadAreaList(int.Parse(sessioncountryid));
-                            area_list.SelectedIndex = area_list.Items.IndexOf(new ListItem(Session["area"].ToString(), Session["areaId"].ToString()));
-                            area_list.Enabled = false;
-                            int operationid = Convert.ToInt16(area_list.SelectedValue.ToString());
-                            // LoadBranchList(operationid);
-                            
-                        }
-                        else
-                        {
-                            //int countryid = int.Parse(country_list.SelectedValue.ToString());
-                            int countryid = int.Parse(sessioncountryid);
-                            LoadAreaList(countryid);
-                        }
+                        ddloperationarea.DataSource = bll.GetOperationAreaList(10);
+                        ddloperationarea.DataBind();
                         LoadDisplay();
                         CreateAdjustmentsDataTable();
                         dtUpdate = (DataTable)Session["dtAdjustments"];
@@ -74,8 +58,9 @@ namespace TraceBilling
             adjustmentdisplay.Visible = true;
 
             int countryid = 2;
-            int areaid = Convert.ToInt16(area_list.SelectedValue.ToString());
-            string custref = txtcustref.Text.Trim();
+            int areaid = 10;
+            int opid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+            string custref = txtsearch.Text.Trim();
 
             DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 1);
             if (dataTable.Rows.Count > 0)
@@ -117,25 +102,7 @@ namespace TraceBilling
         //        DisplayMessage(error, true);
         //    }
         //}
-        private void LoadAreaList(int countryid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetAreaList(countryid);
-                area_list.DataSource = dt;
-
-                area_list.DataTextField = "areaName";
-                area_list.DataValueField = "areaId";
-                area_list.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayAreaList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        
         private void DisplayMessage(string message, Boolean isError)
         {
             lblmsg.Visible = true;
@@ -153,10 +120,7 @@ namespace TraceBilling
         //{
         //    country_list.Items.Insert(0, new ListItem("- - select country - -", "0"));
         //}
-        protected void area_list_DataBound(object sender, EventArgs e)
-        {
-            area_list.Items.Insert(0, new ListItem("- - select area - -", "0"));
-        }
+       
         protected void cbotranscode_DataBound(object sender, EventArgs e)
         {
             cbotranscode.Items.Insert(0, new ListItem("- - select trans code - -", "0"));
@@ -187,9 +151,9 @@ namespace TraceBilling
         protected void btnadd_Click(object sender, EventArgs e)
         {
             string countryid = "2";
-            string areaid = area_list.SelectedValue.ToString();
+            string areaid = "10";
             string period= bll.GetBillingPeriod(areaid);
-            string area = area_list.SelectedItem.ToString();            
+            string area = ddloperationarea.SelectedItem.ToString();            
             string branch = "0";
             string custref = txtcustomer.Text.Trim();
             string docno = txtDocNo.Text.Trim();
@@ -666,295 +630,299 @@ namespace TraceBilling
 
             Session["dtAdjustments"] = dtAdjustments;
         }
-
-       /* protected void btnsaveapproval_Click(object sender, EventArgs e)
+        protected void ddloperationarea_DataBound(object sender, EventArgs e)
         {
-            try
-            {
-                string status = "0";
-
-
-                string action = rbAction.SelectedValue.ToString();
-                if (action.Equals("1"))
-                {
-                    status = "A";
-                }
-                else if (action.Equals("2"))
-                {
-                    status = "R";
-                }
-                string comment = txtapprovalcomment.Text.Trim();
-                if (action.Equals(""))
-                {
-                    DisplayMessage("No Action Selected",true);
-                }
-                else if (comment.Equals(""))
-                {
-                    DisplayMessage("Please enter valid reason",true);
-                }
-                else if (comment.Length < 5)
-                {
-                    DisplayMessage("Reason entered must be more than 5 characters",true);
-                }
-                else
-                {
-
-                   
-                    ProcessRecords(status, comment);
-                }
-            }
-            catch (Exception ex)
-            {
-                DisplayMessage(ex.Message, true);
-            }
+            ddloperationarea.Items.Insert(0, new ListItem("--all--", "0"));
         }
 
-        protected void btncancelapproval_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnprintapproval_Click(object sender, EventArgs e)
-        {
-
-        }
-        protected void gv_approvalview_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                //
-                // dispatchdisplay.Visible = true;
-                TableCell link = (TableCell)e.Row.Cells[2];
-                string type = e.Row.Cells[6].Text;
-                // e.Row.BackColor = Color.Blue;
-                //e.Row.ForeColor = Color.Green;
-
-            }
-        }
-        protected void gv_approvalview_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        protected void gv_approvalview_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-        {
-            int index = e.NewSelectedIndex;
-            if (index >= 0)
-            {
-                //string refnumber = GridViewIssue.Rows[index].Cells[0].Text;
-                string usercode = gv_approvalview.Rows[index].Cells[1].Text;
+        /* protected void btnsaveapproval_Click(object sender, EventArgs e)
+         {
+             try
+             {
+                 string status = "0";
 
 
-            }
-        }
-        protected void gv_approvalview_RowCommand(object sender, GridViewCommandEventArgs e)
-        {
-            DataTable dt = (DataTable)Session["dtAdjustmentsApp"];
-            string custref = "";
-            string flag = "";
-            int row = 0;
-            //if (e.CommandName == "RowRemove")
-            //{
-            //    custref = Convert.ToString(e.CommandArgument.ToString());
-
-            //}
-
-
-        }
-        private void ProcessRecords(string status, string comment)
-        {
-
-            // string arr = GetRecordsToProcess();
-            string arr = GetRecordsToDump();
-            arr = arr.TrimEnd(',');
-
-            if (arr.Equals(""))
-            {
-                DisplayMessage("SELECT TRANSACTION(S) TO PROCESS",true);
-            }
-            else
-            {
-                PostAdjustmentTransactions(arr, status, comment);
-            }
+                 string action = rbAction.SelectedValue.ToString();
+                 if (action.Equals("1"))
+                 {
+                     status = "A";
+                 }
+                 else if (action.Equals("2"))
+                 {
+                     status = "R";
+                 }
+                 string comment = txtapprovalcomment.Text.Trim();
+                 if (action.Equals(""))
+                 {
+                     DisplayMessage("No Action Selected",true);
+                 }
+                 else if (comment.Equals(""))
+                 {
+                     DisplayMessage("Please enter valid reason",true);
+                 }
+                 else if (comment.Length < 5)
+                 {
+                     DisplayMessage("Reason entered must be more than 5 characters",true);
+                 }
+                 else
+                 {
 
 
-        }
+                     ProcessRecords(status, comment);
+                 }
+             }
+             catch (Exception ex)
+             {
+                 DisplayMessage(ex.Message, true);
+             }
+         }
 
-      
-        private string GetRecordsToDump()
-        {
-            int Count = 0;
-            string ItemArr = "";
-            //up = new ArrayList();
+         protected void btncancelapproval_Click(object sender, EventArgs e)
+         {
 
-            foreach (GridViewRow Items in gv_approvalview.Rows)
-            {
-                CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
-                if (chk.Checked)
-                {
-                    
-                    Count++;
-                    string ItemFound = Items.Cells[1].Text;
-                    string ItemFound1 = Items.Cells[8].Text;
-                    ItemArr = ItemArr += ItemFound + "+" + ItemFound1 + ",";
-                    //add to uploaded arraylist
-                    //up.Add(Count);
-                }
-            }
-            return ItemArr;
-        }
-        protected void chkSelect_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                SelectAllItems();
-                if (chkSelect.Checked == true)
-                {
-                    chkSelect.Checked = true;
-                }
-                else
-                {
-                    chkSelect.Checked = false;
-                }
-            }
-            catch (Exception ex)
-            {
-                DisplayMessage(ex.Message,true);
-            }
-        }
-        private void SelectAllItems()
-        {
-            foreach (GridViewRow Items in gv_approvalview.Rows)
-            {
-                CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
-                if (chk.Checked)
-                {
-                    chk.Checked = false;
-                }
-                else
-                {
-                    chk.Checked = true;
-                }
-            }
-        }
+         }
+
+         protected void btnprintapproval_Click(object sender, EventArgs e)
+         {
+
+         }
+         protected void gv_approvalview_RowDataBound(object sender, GridViewRowEventArgs e)
+         {
+             if (e.Row.RowType == DataControlRowType.DataRow)
+             {
+                 //
+                 // dispatchdisplay.Visible = true;
+                 TableCell link = (TableCell)e.Row.Cells[2];
+                 string type = e.Row.Cells[6].Text;
+                 // e.Row.BackColor = Color.Blue;
+                 //e.Row.ForeColor = Color.Green;
+
+             }
+         }
+         protected void gv_approvalview_SelectedIndexChanged(object sender, EventArgs e)
+         {
+
+         }
+         protected void gv_approvalview_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
+         {
+             int index = e.NewSelectedIndex;
+             if (index >= 0)
+             {
+                 //string refnumber = GridViewIssue.Rows[index].Cells[0].Text;
+                 string usercode = gv_approvalview.Rows[index].Cells[1].Text;
 
 
-        private void PostAdjustmentTransactions(string str, string status, string comment)
-        {
-            try
-            {
-                ////ThirdPartyTransactions tran;
+             }
+         }
+         protected void gv_approvalview_RowCommand(object sender, GridViewCommandEventArgs e)
+         {
+             DataTable dt = (DataTable)Session["dtAdjustmentsApp"];
+             string custref = "";
+             string flag = "";
+             int row = 0;
+             //if (e.CommandName == "RowRemove")
+             //{
+             //    custref = Convert.ToString(e.CommandArgument.ToString());
 
-                ////dh = new DatabaseHandler();
-                //string user = Session["UserID"].ToString();
-                string confirmedBy = Session["UserID"].ToString();
-                string[] arr = str.Split(',');
-                int RecordId = 0;
-                TransactionObj trans = new TransactionObj();
-                foreach (string s in arr)
-                {
-                    string[] separators = { "+" };
-                    string[] param = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-                    RecordId = Convert.ToInt32(param[0].ToString());
-                    string custref = param[1].ToString();
-                    if (RecordId != 0)
-                    {
-                        trans = new TransactionObj();
-                        // tran = new ThirdPartyTransactions();
-                        trans = bll.GetInternalTranObj(RecordId, custref);
-                        if (status.Equals("A"))
-                        {
-                            ApproveTransaction(trans, status, confirmedBy, comment, RecordId);
-                        }
-                        else
-                        {
-                            RejectTransaction(trans, status, confirmedBy, comment, RecordId);
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+             //}
 
-        private void RejectTransaction(TransactionObj trans, string status, string confirmedby, string comment, int recordid)
-        {
-            try
-            {
-                string str = "Adustment transaction rejected with reason " + comment;
-                DisplayMessage(str,true);
-                //log manager reason
-                bool isapproved = false;
-                status = "rejected";
-                DateTime confirmdate = DateTime.Now;
-                bll.LogAdjustmentStatus(recordid, trans.CustRef, status, comment, confirmedby, isapproved, confirmdate);
-                ClearControls();
-                LoadAdjustments();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
 
-        private void ApproveTransaction(TransactionObj trans, string status, string confirmedby, string comment, int recordid)
-        {
-            try
-            {
-                string returned = "";
-                returned = bll.SaveAdjustment(trans);
-                if (returned.Contains("successfully"))
-                {
-                    DisplayMessage(returned,true);
-                    //log manager reason
-                    //log manager reason
-                    bool isapproved = true;
-                    status = "accepted";
-                    DateTime confirmdate = DateTime.Now;
-                    //dal.LogAdjustmentStatus(recordid, trans.CustRef, status, comment, confirmedby, isapproved, confirmdate);
-                    ClearControls();
-                    LoadAdjustments();
+         }
+         private void ProcessRecords(string status, string comment)
+         {
 
-                }
-                else
-                {
-                    DisplayMessage(returned,true);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+             // string arr = GetRecordsToProcess();
+             string arr = GetRecordsToDump();
+             arr = arr.TrimEnd(',');
 
-        private void LoadAdjustments()
-        {
-            string AreaID = area_list.SelectedValue.ToString();
-            string BranchID = "0";
-            string period = bll.GetBillingPeriod(AreaID);
-            DataTable dataTable = bll.GetInceptionAdjustments(AreaID, BranchID, "", period);
-            Session["AdjustmentsApp"] = dataTable;
-            if (dataTable.Rows.Count > 0)
-            {
-                DisplayMessage(".",true);
-                gv_approvalview.DataSource = dataTable;
-                gv_approvalview.DataBind();
-                approvaldisplay.Visible = true;
-            }
-            else
-            {
-                DisplayMessage("No record(s) found.",true);
-                approvaldisplay.Visible = false;
-            }
-        }
+             if (arr.Equals(""))
+             {
+                 DisplayMessage("SELECT TRANSACTION(S) TO PROCESS",true);
+             }
+             else
+             {
+                 PostAdjustmentTransactions(arr, status, comment);
+             }
 
-        private void ClearControls()
-        {
-            txtcomment.Text = "";
-            rbAction.ClearSelection();
-           // chkselect.Checked = false;
-        }*/
+
+         }
+
+
+         private string GetRecordsToDump()
+         {
+             int Count = 0;
+             string ItemArr = "";
+             //up = new ArrayList();
+
+             foreach (GridViewRow Items in gv_approvalview.Rows)
+             {
+                 CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
+                 if (chk.Checked)
+                 {
+
+                     Count++;
+                     string ItemFound = Items.Cells[1].Text;
+                     string ItemFound1 = Items.Cells[8].Text;
+                     ItemArr = ItemArr += ItemFound + "+" + ItemFound1 + ",";
+                     //add to uploaded arraylist
+                     //up.Add(Count);
+                 }
+             }
+             return ItemArr;
+         }
+         protected void chkSelect_CheckedChanged(object sender, EventArgs e)
+         {
+             try
+             {
+                 SelectAllItems();
+                 if (chkSelect.Checked == true)
+                 {
+                     chkSelect.Checked = true;
+                 }
+                 else
+                 {
+                     chkSelect.Checked = false;
+                 }
+             }
+             catch (Exception ex)
+             {
+                 DisplayMessage(ex.Message,true);
+             }
+         }
+         private void SelectAllItems()
+         {
+             foreach (GridViewRow Items in gv_approvalview.Rows)
+             {
+                 CheckBox chk = ((CheckBox)(Items.FindControl("CheckBox1")));
+                 if (chk.Checked)
+                 {
+                     chk.Checked = false;
+                 }
+                 else
+                 {
+                     chk.Checked = true;
+                 }
+             }
+         }
+
+
+         private void PostAdjustmentTransactions(string str, string status, string comment)
+         {
+             try
+             {
+                 ////ThirdPartyTransactions tran;
+
+                 ////dh = new DatabaseHandler();
+                 //string user = Session["UserID"].ToString();
+                 string confirmedBy = Session["UserID"].ToString();
+                 string[] arr = str.Split(',');
+                 int RecordId = 0;
+                 TransactionObj trans = new TransactionObj();
+                 foreach (string s in arr)
+                 {
+                     string[] separators = { "+" };
+                     string[] param = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+                     RecordId = Convert.ToInt32(param[0].ToString());
+                     string custref = param[1].ToString();
+                     if (RecordId != 0)
+                     {
+                         trans = new TransactionObj();
+                         // tran = new ThirdPartyTransactions();
+                         trans = bll.GetInternalTranObj(RecordId, custref);
+                         if (status.Equals("A"))
+                         {
+                             ApproveTransaction(trans, status, confirmedBy, comment, RecordId);
+                         }
+                         else
+                         {
+                             RejectTransaction(trans, status, confirmedBy, comment, RecordId);
+                         }
+                     }
+                 }
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+         }
+
+         private void RejectTransaction(TransactionObj trans, string status, string confirmedby, string comment, int recordid)
+         {
+             try
+             {
+                 string str = "Adustment transaction rejected with reason " + comment;
+                 DisplayMessage(str,true);
+                 //log manager reason
+                 bool isapproved = false;
+                 status = "rejected";
+                 DateTime confirmdate = DateTime.Now;
+                 bll.LogAdjustmentStatus(recordid, trans.CustRef, status, comment, confirmedby, isapproved, confirmdate);
+                 ClearControls();
+                 LoadAdjustments();
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+         }
+
+         private void ApproveTransaction(TransactionObj trans, string status, string confirmedby, string comment, int recordid)
+         {
+             try
+             {
+                 string returned = "";
+                 returned = bll.SaveAdjustment(trans);
+                 if (returned.Contains("successfully"))
+                 {
+                     DisplayMessage(returned,true);
+                     //log manager reason
+                     //log manager reason
+                     bool isapproved = true;
+                     status = "accepted";
+                     DateTime confirmdate = DateTime.Now;
+                     //dal.LogAdjustmentStatus(recordid, trans.CustRef, status, comment, confirmedby, isapproved, confirmdate);
+                     ClearControls();
+                     LoadAdjustments();
+
+                 }
+                 else
+                 {
+                     DisplayMessage(returned,true);
+                 }
+             }
+             catch (Exception ex)
+             {
+                 throw ex;
+             }
+         }
+
+         private void LoadAdjustments()
+         {
+             string AreaID = area_list.SelectedValue.ToString();
+             string BranchID = "0";
+             string period = bll.GetBillingPeriod(AreaID);
+             DataTable dataTable = bll.GetInceptionAdjustments(AreaID, BranchID, "", period);
+             Session["AdjustmentsApp"] = dataTable;
+             if (dataTable.Rows.Count > 0)
+             {
+                 DisplayMessage(".",true);
+                 gv_approvalview.DataSource = dataTable;
+                 gv_approvalview.DataBind();
+                 approvaldisplay.Visible = true;
+             }
+             else
+             {
+                 DisplayMessage("No record(s) found.",true);
+                 approvaldisplay.Visible = false;
+             }
+         }
+
+         private void ClearControls()
+         {
+             txtcomment.Text = "";
+             rbAction.ClearSelection();
+            // chkselect.Checked = false;
+         }*/
 
     }
 }

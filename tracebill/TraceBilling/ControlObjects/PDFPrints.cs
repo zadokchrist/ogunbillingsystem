@@ -61,7 +61,8 @@ namespace TraceBilling.ControlObjects
                 String path = AppDomain.CurrentDomain.BaseDirectory;
                 //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);                        
                 //string logo = Path.Combine(path, @"icons/logoimg2.png");//tracebilllogo
-                string logo = Path.Combine(path, @"icons/tracebilllogo.png");
+                //string logo = Path.Combine(path, @"icons/tracebilllogo.png");
+                string logo = Path.Combine(path, @"icons/ogunwater.png");
                 iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(logo);
                 image.ScaleAbsolute(80f, 60f);
                 image.Alignment = iTextSharp.text.Image.ALIGN_JUSTIFIED_ALL;
@@ -533,7 +534,7 @@ namespace TraceBilling.ControlObjects
         private string GetConsent()
         {
             string output = "";
-            output = @"Declaration: I/We hereby give notice to the above Utility that I/We wish to have and agree that water supply and/or sewer service be connected to the above premises and further agree to be bound by general conditions attached and to pay for all water and sewerage services in accordance with the tariff in force from time to time.";
+            output = @"Declaration: I/We hereby give notice to the above Utility that I/We wish to have and agree that water supply and/or sewer service be connected to the above premises and further agree to be bound by general conditions attached and to pay for all water services in accordance with the tariff in force from time to time.";
             return output;
         }
 
@@ -559,9 +560,9 @@ A customer who has defaulted and is disconnected from supply, is liable for a fi
 8.TEMPORARY INTERRUPTION OF WATER SUPPLY
 The Corporation may temporarily disconnect supply of water for purposes of maintenance and other works connected with the distribution network.
 9.ACCESS TO CONSUMER’S PREMISES
-Authorized staff with Corporation Identity Cards are entitled at all reasonable times to enter the premises for the purposes of inspection, meter reading, bill distribution and any other issues related to water and sewerage supply.If permission to enter is not granted, NWSC may apply to courts of law for a warrant.
+Authorized staff with Corporation Identity Cards are entitled at all reasonable times to enter the premises for the purposes of inspection, meter reading, bill distribution and any other issues related to water supply.If permission to enter is not granted, OGUN State may apply to courts of law for a warrant.
 10.DEPOSITS
-NWSC may require the customer to make deposits equivalent to six months estimated consumption.Notwithstanding any such deposits, payment for water and sewerage services are due on demand.
+OGUN state water may require the customer to make deposits equivalent to six months estimated consumption.Notwithstanding any such deposits, payment for water  services are due on demand.
 11.DISCONNECTION
 In the event of non-payment of charges, the Corporation shall be entitled to disconnect supply upon giving appropriate notice.Legal Action will then follow if payment is not effected two weeks after disconnection.";
             return output;
@@ -977,20 +978,20 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                                     //
                                     //
 
-                                    if ((sewerpercentage.Equals("")) && (CustClass == 2))
-                                    {
+                                    //if ((sewerpercentage.Equals("")) && (CustClass == 2))
+                                    //{
 
-                                        sewerpercentage = "75%";
-                                    }
+                                    //    sewerpercentage = "75%";
+                                    //}
 
-                                    else if ((sewerpercentage.Equals("")) && (CustClass != 2))
-                                    {
+                                    //else if ((sewerpercentage.Equals("")) && (CustClass != 2))
+                                    //{
 
-                                        sewerpercentage = "100%";
-                                    }
+                                    //    sewerpercentage = "100%";
+                                    //}
 
-                                    chargetable.AddCell(new PdfPCell(new Phrase("SEWERAGE at " + sewerpercentage + " of WATER CHARGES", textcolor)));
-                                    chargetable.AddCell(new PdfPCell(new Phrase(sewer_charge1, textcolor)));
+                                   // chargetable.AddCell(new PdfPCell(new Phrase("SEWERAGE at " + sewerpercentage + " of WATER CHARGES", textcolor)));
+                                   // chargetable.AddCell(new PdfPCell(new Phrase(sewer_charge1, textcolor)));
 
 
 
@@ -1071,7 +1072,7 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                                     Paragraph header = new Paragraph(new Phrase(companyname, bigtext));
                                     Paragraph add = new Paragraph(new Phrase(combinedaddress, textcolor));
                                     Paragraph contact = new Paragraph(new Phrase(combinedcontact, textcolor));
-                                    Paragraph invoicedetails = new Paragraph(new Phrase("TAX INVOICE FOR WATER & SEWERAGE SERVICES", textcolor));
+                                    Paragraph invoicedetails = new Paragraph(new Phrase("BILL INVOICE FOR WATER SERVICES", textcolor));
 
                                     header.Alignment = Element.ALIGN_CENTER;
 
@@ -1165,8 +1166,8 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                                     /////
                                     //  String path=Path.Combine(Environment.CurrentDirectory, @"icons\nwsc.png");
 
-                                    String logo = Path.Combine(path, @"icons\tracebilllogo.png");
-
+                                    //String logo = Path.Combine(path, @"icons\tracebilllogo.png");
+                                    String logo = Path.Combine(path, @"icons\ogunwater.png");
                                     // String logo = path;
                                     iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(logo);
                                     image.ScaleToFit(300, 300);
@@ -1352,7 +1353,8 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                 String path = AppDomain.CurrentDomain.BaseDirectory;
                 //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory);                        
                 //string logo = Path.Combine(path, @"icons/logoimg2.png");//tracebilllogo
-                string logo = Path.Combine(path, @"icons/tracebilllogo.png");
+                //string logo = Path.Combine(path, @"icons/tracebilllogo.png");
+                string logo = Path.Combine(path, @"icons/ogunwater.png");
                 iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(logo);
                 image.ScaleAbsolute(80f, 60f);
                 image.Alignment = iTextSharp.text.Image.ALIGN_JUSTIFIED_ALL;
@@ -2090,8 +2092,8 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                     /////
                     //  String path=Path.Combine(Environment.CurrentDirectory, @"icons\nwsc.png");
 
-                    String logo = Path.Combine(path, @"icons\tracebilllogo.png");
-
+                    //String logo = Path.Combine(path, @"icons\tracebilllogo.png");
+                    String logo = Path.Combine(path, @"icons\ogunwater.png");
                     // String logo = path;
                     iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(logo);
                     image.ScaleToFit(300, 300);
