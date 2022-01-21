@@ -424,7 +424,7 @@ namespace TraceBilling
                     int total = 0;
                     string Msg = "";
                     //sas 10/12
-
+                    string returned = "";
                     foreach (DataRow dr in datatable.Rows)
                     {
                         string CustRef = dr["customerRef"].ToString();
@@ -436,7 +436,7 @@ namespace TraceBilling
                         int AreaID = Convert.ToInt16(dr["areaId"].ToString());
                         int BranchID = Convert.ToInt16(dr["branchId"].ToString());
                         string createdby = Session["UserID"].ToString();
-                        string returned = BillAccount(CustRef, MeterRef, MeterSize, PropRef, CustTarrif, CustClass, AreaID, BranchID, createdby, period);
+                         returned = BillAccount(CustRef, MeterRef, MeterSize, PropRef, CustTarrif, CustClass, AreaID, BranchID, createdby, period);
 
                         if (returned == "SUCCESS")
                         {
@@ -459,7 +459,14 @@ namespace TraceBilling
                     }
                     else
                     {
-                        Msg = "Your Bill Request of " + total + " accounts has failed";
+                        if(failed==1)
+                        {
+                            Msg = "Your Bill Request of " + total + " accounts has failed with reason ("+ returned + ")";
+                        }
+                        else
+                        {
+                            Msg = "Your Bill Request of " + total + " accounts has failed";
+                        }
                     }
 
                     return Msg;
