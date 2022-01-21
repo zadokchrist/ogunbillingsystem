@@ -458,7 +458,7 @@ namespace TraceBilling
                 else if (!bll.IsValidReadingDate(readingdate))
                 {
                     string Todate = DateTime.Now.ToString("dd/MM/yyyy");
-                    DisplayMessage("Invalid Reading Date, It cannot be greater than Today ( " + Todate + " )", true);
+                    DisplayMessage("Invalid Reading Date "+ readingdate + ", It cannot be greater than Today ( " + Todate + " )", true);
                 }
                 else if (!bll.IsValidDateComparison(prereadingdt, readingdt))
                 {
