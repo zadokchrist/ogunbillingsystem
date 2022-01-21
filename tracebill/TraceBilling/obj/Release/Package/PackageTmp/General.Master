@@ -246,7 +246,7 @@
 <%--            <li><a href="#"><i class="fa fa-circle-o"></i> Inventory</a></li>--%>
             <li><a href="ReadingCycle.aspx"><i class="fa fa-circle-o"></i> Reading Cycle</a></li>
                 <li><a href="FieldBilling.aspx"><i class="fa fa-circle-o"></i> Onspot Billing</a></li>
-               <li><a href="MeterManagement.aspx"><i class="fa fa-circle-o"></i> Meter Handling</a></li>
+               <li><a href="MeterManagement.aspx"><i class="fa fa-circle-o"></i> Meter Activity</a></li>
 <%--            <li><a href="#"><i class="fa fa-circle-o"></i> Route Definition</a></li>--%>
             <%--<li><a href="#"><i class="fa fa-circle-o"></i> Exceptions & Variance</a></li>--%>
 <%--            <li><a href="#"><i class="fa fa-circle-o"></i> Meter repairs & Replacement</a></li>--%>

@@ -8,30 +8,20 @@
     
           <center>
                 <asp:Label runat="server" ID="lblmsg" Visible="false" ></asp:Label>
-               <div>
+          </center>
+          
+
+             <%--  <div>
                  
                    <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
-        <%--<th class="modal-sm" style="width: 236px">Country</th>--%>
+  
          <th class="datepicker-inline" style="width: 226px">Operation Area</th>
         <th class="modal-sm" style="width: 236px">CustRef</th>
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
-          
-                        <%--  <td class="modal-sm" style="width: 236px" >
-                      
-            <asp:DropDownList ID="country_list" CssClass="form-control" runat="server"  OnDataBound="country_list_DataBound" Visible="true" AutoPostBack="True"
-                 OnSelectedIndexChanged="country_list_SelectedIndexChanged" Width="235px">
-                </asp:DropDownList>
-                    </td>--%>
+
              
                            
              <td class="datepicker-inline" style="width: 226px" >
@@ -53,8 +43,35 @@
                                                  
                           </tr>
                           </table>
+          </div>--%>
+            <div class="col-sm-3">Operation Area
+               <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea_DataBound" Visible="true"
+                             >
+                        </asp:DropDownList>
           </div>
-            </center>
+              <div class="col-sm-3">Customer Type
+               <asp:DropDownList ID="ddlcusttype" 
+                                    DataTextField="typeName"
+                                     DataValueField="custTypeId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlcusttype_DataBound" Visible="true">
+                        </asp:DropDownList>
+          </div>
+           <div class="col-sm-3">
+           Customer Reference
+              <asp:TextBox ID="txtsearch" 
+                               runat="server" CssClass="form-control" ></asp:TextBox>
+         </div>
+                <div class="col-sm-3">  
+        
+                          <asp:Button ID="Button3" Width="150" Height="40" CssClass="btn-primary round_btn form-control"
+                                    runat="server" Text="Search" onclick="Button3_Click"  />
+                           
+           </div>
 
         <br />
          
@@ -97,7 +114,10 @@
                              <asp:GridView ID="gv_customerview" runat="server" 
                        CssClass="grid-text" CellPadding="10" 
                               ForeColor="#333333" GridLines="None" Width="100%"
-                                  AutoGenerateColumns="False" 
+                                  AutoGenerateColumns="False" AllowPaging="True"
+                                 PageSize="100"
+                                  OnPageIndexChanged="gv_customerview_PageIndexChanged"
+                                 OnPageIndexChanging="gv_customerview_PageIndexChanging"
                                  OnRowCommand="gv_customerview_RowCommand"
                                   OnRowDataBound="gv_customerview_RowDataBound"   
                                  onselectedindexchanging="gv_customerview_SelectedIndexChanging"
@@ -110,11 +130,11 @@
                <asp:BoundField DataField="applicationId" HeaderText="Application#" NullDisplayText="-"/> 
 
              <asp:BoundField DataField="name" HeaderText="CustName" NullDisplayText="-" /> 
-<%--              <asp:BoundField DataField="country" HeaderText="Country" NullDisplayText="-" /> --%>
+<%--              <asp:BoundField DataField="country" HeaderText="Country" NullDisplayText="-" /> 
                   <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" /> 
             
        
-                 <asp:BoundField DataField="branch" HeaderText="Branch" NullDisplayText="-" /> 
+                 <asp:BoundField DataField="branch" HeaderText="Branch" NullDisplayText="-" /> --%>
              <asp:BoundField DataField="propertyref" HeaderText="PropertyRef" NullDisplayText="-"/>              
                 
    <asp:BoundField DataField="balance" HeaderText="Outstanding Bal." NullDisplayText="-" /> 
@@ -209,7 +229,7 @@
                                                                                     
                                                                                 </td>
                                                                             </tr>
-             <tr>
+             <%--<tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                     Meter Ref</td>
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
@@ -219,7 +239,7 @@
                                                                                         ReadOnly="True" Width="80%" Font-Bold="True" Font-Size="Medium" ForeColor="Maroon"></asp:TextBox><br />
                                                                                     
                                                                                 </td>
-                                                                            </tr>
+                                                                            </tr>--%>
              <tr>
                                                                             <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                 Customer Name</td>
@@ -431,7 +451,7 @@
                                                                                     <asp:CheckBox ID="chkactive" runat="server"  Text="Is Suppressed/Inactive?" Enabled="False" Font-Bold="True"/>
                                                                                 </td>
                                                                             </tr>
-            <tr>
+<%--            <tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                     </td>
                                                                                 <td class="InterFaceTableMiddleRow" style="height: 10px">
@@ -440,7 +460,7 @@
                                                                                  
                                                                                     <asp:CheckBox ID="chksewer" runat="server"   Text="Has Sewer" Enabled="False" Font-Bold="True"/>
                                                                                 </td>
-                                                                            </tr>
+                                                                            </tr>--%>
              <tr>
                                                                                 <td class="InterFaceTableLeftRow" style="height: 10px">
                                                                                     </td>

@@ -90,10 +90,15 @@
                    <tr>
                     <td style="width: 400px">
                         <label>Area</label>
-            <asp:DropDownList ID="area_list3" CssClass="form-control" runat="server"  OnDataBound="area_list3_DataBound" Visible="true"
-                OnSelectedIndexChanged="area_list3_SelectedIndexChanged" AutoPostBack="true" >
-                
-                </asp:DropDownList>
+          <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea_DataBound" Visible="true"
+                    AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged"
+                             >
+                        </asp:DropDownList>
                     </td>
                 </tr>
                                      <tr>
@@ -125,7 +130,7 @@
                 </tr>
                    <tr>
                     <td style="width: 400px">
-                        <label>Branch/Zone</label>
+                        <label>Branch</label>
             <asp:DropDownList ID="branch_list1" CssClass="form-control" runat="server"  OnDataBound="branch_list1_DataBound" Visible="true" >
                 
                 </asp:DropDownList>

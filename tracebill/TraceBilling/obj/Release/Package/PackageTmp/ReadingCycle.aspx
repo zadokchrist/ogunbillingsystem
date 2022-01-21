@@ -1,8 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="ReadingCycle.aspx.cs" Inherits="TraceBilling.ReadingCycle" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
+                    <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
           <br />
           <div><h3>READING CYCLE MANAGEMENT</h3></div>
     
@@ -323,7 +327,7 @@
                                                    
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
-                                                            Prop Ref</td>
+                                                            Property Ref</td>
                                                         <td class="InterFaceTableMiddleRow" style="height: 10px; width: 6px;">
                                                             &nbsp;</td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
@@ -332,7 +336,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
-                                                            Pre Reading</td>
+                                                            Previous Reading</td>
                                                         <td class="InterFaceTableMiddleRow" style="height: 10px; width: 6px;">
                                                         </td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
@@ -341,7 +345,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 82px;">
-                                                            Pre Read Date</td>
+                                                            Previous Read Date</td>
                                                         <td class="InterFaceTableMiddleRow" style="height: 10px; width: 6px;">
                                                         </td>
                                                         <td class="InterFaceTableRightRow" style="height: 10px; width: 85px;">
@@ -387,7 +391,7 @@
         <table  style="width: 50%; ">
                                                     <tr>
                                                         <td class="InterFaceTableLeftRowUp" style="height: 10px; width: 156px;">
-                                                            Type</td>
+                                                            Reading Type</td>
                                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
@@ -405,7 +409,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRowUp" style="height: 10px; width: 156px;">
-                                                            Reading</td>
+                                                            Current Reading</td>
                                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
@@ -416,12 +420,15 @@
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRowUp" style="height: 10px; width: 156px;">
-                                                            Read Date</td>
+                                                            Current Read Date</td>
                                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                            <asp:TextBox ID="txtReadDate" runat="server" BackColor="lightBlue" CssClass="readdate"
-                                                                Font-Bold="True" ForeColor="Maroon" Width="80%"></asp:TextBox></td>
+                                                            <%--<asp:TextBox ID="txtReadDate" runat="server" BackColor="lightBlue" CssClass="readdate"
+                                                                Font-Bold="True" ForeColor="Maroon" Width="80%"></asp:TextBox>--%>
+                                                             <asp:TextBox ID="txtReadDate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px; width:80%;height:10px"></asp:TextBox>
+                                              <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtReadDate" Format="dd/MM/yyyy" />
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td class="InterFaceTableLeftRow" style="height: 10px; width: 156px;">
