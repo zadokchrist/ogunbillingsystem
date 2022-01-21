@@ -173,9 +173,9 @@
           
               <li class="treeview">
             
-                <% if (Session["roleId"].ToString() == "6")
+                <% if (Session["roleId"].ToString() == "6" || Session["roleId"].ToString() == "13" || Session["roleId"].ToString() == "14")
     {%>  
-             
+                    <li><a href="SurveyJobs.aspx"><i class="fa fa-circle-o"></i> Generate Survey JobCard (S2)</a></li>
                    <li><a href="ApproveSurvey.aspx"><i class="fa fa-circle-o"></i> Approve Survey Report (S3)</a></li>
           <li><a href="GenerateConnectionInvoice.aspx"><i class="fa fa-circle-o"></i> Generate Invoice BOQ (S4)</a></li>
               <%} %> 
@@ -186,12 +186,16 @@
               <%} %> 
                <% if (Session["roleId"].ToString() == "3")
     {%>  
-              <li><a href="AuthorizeConnection.aspx"><i class="fa fa-circle-o"></i> Authorize Connection (S5)</a></li>
-              <%} %> 
+              <li><a href="AuthorizeConnection.aspx"><i class="fa fa-circle-o"></i> Authorize Connection (S5_a)</a></li>
+              <li><a href="RestoreConnection.aspx"><i class="fa fa-circle-o"></i> Restore Connection (S5_b)</a></li>
+
+                   <%} %> 
 
                 <% if (Session["roleId"].ToString() == "2" || Session["roleId"].ToString() == "10")
                                                   {%>  
               <li><a href="PaymentInvoice.aspx"><i class="fa fa-circle-o"></i> Payment Invoicing (S6)</a></li>
+             <li><a href="AddTransaction.aspx"><i class="fa fa-circle-o"></i> Add New Payment (S7)</a></li>
+
               <%} %> 
                <% if (Session["roleId"].ToString() == "6")
                                                   {%>
@@ -334,10 +338,10 @@
 
           <ul class="treeview-menu">
             
-               <% if (Session["roleId"].ToString() == "10")
+              <%-- <% if (Session["roleId"].ToString() == "10")
                                                   {%>  
-               <li><a href="AddTransaction.aspx"><i class="fa fa-circle-o"></i> Add New Payment (S7)</a></li>
-              <%} %>
+               <li><a href="AddTransaction.aspx"><i class="fa fa-circle-o"></i> Add New Payment</a></li>
+              <%} %>--%>
                <% if (Session["roleId"].ToString() == "8")
                                                   {%>  
             <li><a href="ReconcileTransactions.aspx"><i class="fa fa-circle-o"></i> Reconciliations (S8)</a></li>
@@ -424,13 +428,13 @@
              <% if (Session["roleId"].ToString() == "1")
                                                   {%> 
 <%--            <li><a href="SystemSettings.aspx"><i class="fa fa-circle-o"></i> Country Customization</a></li>--%>
-           <li><a href="ManageAreas.aspx"><i class="fa fa-circle-o"></i> Manage Areas</a></li>
-           <li><a href="ManageBranches.aspx"><i class="fa fa-circle-o"></i> Manage Branches</a></li>
-           <li><a href="ManageTerritory.aspx"><i class="fa fa-circle-o"></i> Manage Territory</a></li>
-           <li><a href="ManageSubTerritory.aspx"><i class="fa fa-circle-o"></i> Manage Sub-Territory</a></li>
+           <li><a href="ManageAreas.aspx"><i class="fa fa-circle-o"></i>  Areas</a></li>
+           <li><a href="ManageBranches.aspx"><i class="fa fa-circle-o"></i>  Branches</a></li>
+           <li><a href="ManageTerritory.aspx"><i class="fa fa-circle-o"></i>  Territory</a></li>
+           <li><a href="ManageSubTerritory.aspx"><i class="fa fa-circle-o"></i>  Sub-Territory</a></li>
 
                  <%} %>
-              <li><a href="BlockSetting.aspx"><i class="fa fa-circle-o"></i> Block Setting</a></li>
+              <li><a href="BlockSetting.aspx"><i class="fa fa-circle-o"></i> Blocks</a></li>
              
             
             

@@ -243,6 +243,5 @@ namespace TraceBilling
         {
             ddloperationarea.Items.Insert(0, new ListItem("--select--", "0"));
         }
-
     }
 }

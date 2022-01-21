@@ -1,8 +1,12 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="ViewTransactions.aspx.cs" Inherits="TraceBilling.ViewTransactions" %>
+﻿<%@ Page Title="View Payment Transactions" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="ViewTransactions.aspx.cs" Inherits="TraceBilling.ViewTransactions" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
+                     <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
           <br />
           <div><h3>VIEW PAYMENT TRANSACTIONS</h3></div>
     
@@ -11,12 +15,10 @@
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+       <%-- <div class="form-group col-sm-12">
+        
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
           
         <th class="modal-sm" style="width: 236px">Country</th>
          <th class="modal-sm" style="width: 226px">Operation Area</th>
@@ -25,12 +27,7 @@
         <th></th>
         </tr>
         <tr>
-      <%--  <td>
-        
-        <asp:ImageButton ID="ImageButtonedit"  ImageAlign="AbsMiddle"
-         AlternateText="search" runat="server" ImageUrl="assets/dist/img/add.png" 
-         CssClass="btn-default inline" Width="50" Height="40" OnClick="ImageButton1_Click" />
-        </td>--%>
+    
            
                           <td class="modal-sm" style="width: 236px" >
                       
@@ -65,8 +62,47 @@
                                                  
                           </tr>
                           </table>
-                          </div>
-          <hr />
+                          </div>--%>
+         <div class="col-sm-3">
+             Search (paymentref, custref)
+              <asp:TextBox ID="txtsearch" 
+                               runat="server" CssClass="form-control" ></asp:TextBox>
+         </div>
+          <div class="col-sm-3">Operation Area
+               <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea_DataBound" Visible="true"
+                             >
+                        </asp:DropDownList>
+          </div>
+              <div class="col-sm-3">Branch
+               <asp:DropDownList ID="ddlbranch" 
+                                    DataTextField="BranchName"
+                                     DataValueField="BranchId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlbranch_DataBound" Visible="true">
+                        </asp:DropDownList>
+          </div>
+            <div class="col-sm-3">From Date
+                  <asp:TextBox ID="txtfromdatesrc" runat="server" CssClass="form-control"></asp:TextBox>
+                    <ajaxToolkit:CalendarExtender ID="txtfromdatesrc_CalendarExtender" runat="server" TargetControlID="txtfromdatesrc" Format="yyyy-MM-dd"/>
+                      
+
+            </div>
+         <div class="col-sm-3">To Date
+               <asp:TextBox ID="txttodatesrc" runat="server" CssClass="form-control"></asp:TextBox>
+                     <ajaxToolkit:CalendarExtender ID="txttodatesrc_CalendarExtender" runat="server" TargetControlID="txttodatesrc" Format="yyyy-MM-dd"/>
+                         
+         </div>
+         
+        <div class="col-sm-3">  
+        
+                          <asp:Button ID="Button3" Width="150" Height="40" CssClass="btn-primary round_btn form-control"
+                                    runat="server" Text="Search" onclick="Button3_Click"  />
+                           
+           </div>
         <%--  <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="202px" Height="40px" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to transaction list" onclick="btnReturn_Click" />

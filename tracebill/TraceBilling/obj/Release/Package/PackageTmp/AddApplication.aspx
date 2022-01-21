@@ -190,7 +190,7 @@
                 </asp:DropDownList>
                     </td>
                 </tr>--%>
-                 <tr>
+                <%-- <tr>
                     <td style="width: 50%">
                         <label for="country">Administrative Area</label>
                                  <asp:Label ID="l8" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
@@ -202,7 +202,7 @@
                 </asp:DropDownList>
                           
                      </td>
-                </tr>
+                </tr>--%>
                  <tr><td style="width: 50%">
                          <asp:Label runat="server" Text="Operation Area" ID="Label1" Visible="true" Font-Bold="true"></asp:Label>
                   <asp:Label ID="l9x" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
@@ -220,7 +220,7 @@
                     </tr>
                 <tr><td style="width: 50%">
                          <asp:Label runat="server" Text="Branch" ID="txtbranch" Visible="true" Font-Bold="true"></asp:Label>
-                  <asp:Label ID="l9" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+<%--                  <asp:Label ID="l9" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>--%>
 
                  </td>
                      <td style="width: 50%">
@@ -232,11 +232,10 @@
                     </tr>
                                <tr>
                     <td style="width: 50%">
-                        <label for="division">Territory</label>
+                        <label for="territory">Territory</label>
            
                     </td>
                  <td style="width: 50%">
-                      <%--<asp:TextBox runat="server" CssClass="form-control" ID="txtdivision" placeholder="Enter territory"/>--%>
                      <asp:DropDownList ID="ddlterritory" 
                                     DataTextField="territory"
                                      DataValueField="territoryId" 
@@ -299,11 +298,16 @@
 
                     </td>
                      <td style="width: 50%">
-                         <asp:RadioButtonList ID="rtncategory" runat="server" RepeatDirection="Vertical" Width="65%"  AutoPostBack="false" OnSelectedIndexChanged="rtnTariff_SelectedIndexChanged">
+                       <%--  <asp:RadioButtonList ID="rtncategory" runat="server" RepeatDirection="Vertical" Width="65%"  AutoPostBack="false" OnSelectedIndexChanged="rtnTariff_SelectedIndexChanged">
                         <asp:ListItem Value="1">Domestic</asp:ListItem>
                         <asp:ListItem Value="2">Commercial</asp:ListItem>
                         <asp:ListItem Value="3">Institutional/Government</asp:ListItem>
                          <asp:ListItem Value="2">Community Stand</asp:ListItem>
+                   </asp:RadioButtonList>--%>
+                           <asp:RadioButtonList ID="rtncategory" runat="server"
+                               DataTextField="className"
+                                     DataValueField="classID" 
+                                RepeatDirection="Vertical" Width="80%"  AutoPostBack="false">                       
                    </asp:RadioButtonList>
                      </td>
                 </tr>

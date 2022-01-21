@@ -347,7 +347,8 @@
                                                                                     <%--<asp:TextBox ID="txtcusttype" runat="server" CssClass="InterfaceTextboxLongReadOnly"
                                                                                         Width="80%" ForeColor="Maroon" ReadOnly="True" BackColor="LightGray" ></asp:TextBox>--%>
                                                                                    <asp:DropDownList ID="customertype_list" runat="server" OnDataBound="customertype_list_DataBound"  
-                                                                                    Width="80%">
+                                                                                    Width="80%" AutoPostBack="true"
+                                                                          OnSelectedIndexChanged="customertype_list_SelectedIndexChanged">
                                                                                 </asp:DropDownList>
                                                                                 </td>
                                                                             </tr>

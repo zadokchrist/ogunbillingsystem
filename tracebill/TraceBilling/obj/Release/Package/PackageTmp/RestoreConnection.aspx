@@ -1,10 +1,10 @@
-﻿<%@ Page Title="Authorize Connection" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="AuthorizeConnection.aspx.cs" Inherits="TraceBilling.AuthorizeConnection" %>
+﻿<%@ Page Title="Restore Connection" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="RestoreConnection.aspx.cs" Inherits="TraceBilling.RestoreConnection" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
           <br />
-          <div><h3>CONNECTION AUTHORIZATION</h3></div>
+          <div><h3>RESTORE CONNECTION</h3></div>
     
           <center>
                 <asp:Label runat="server" ID="lblmsg" Visible="false" ></asp:Label>
@@ -257,8 +257,8 @@
               &nbsp;&nbsp;&nbsp;&nbsp;--%>
                             <div class="col-sm-3">
                           <asp:RadioButtonList ID="rtnAction" runat="server" RepeatDirection="Horizontal" Width="80%"  AutoPostBack="true" OnSelectedIndexChanged="rtnAction_SelectedIndexChanged">
-                        <asp:ListItem Value="1">Approve</asp:ListItem>
-                        <asp:ListItem Value="2">Put on hold</asp:ListItem>
+                        <asp:ListItem Value="1">Restore</asp:ListItem>
+<%--                        <asp:ListItem Value="2">Put on hold</asp:ListItem>--%>
                    </asp:RadioButtonList>
                       </div>
                   </center>
