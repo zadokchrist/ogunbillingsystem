@@ -38,6 +38,7 @@ namespace TraceBilling
                     {
                         
                         loadFilters();
+                        LoadAreaControls();
                         //LoadDisplay();
                     }
 
@@ -58,6 +59,13 @@ namespace TraceBilling
             ddloperationarea.DataSource = bll.GetOperationAreaList(10);
             ddloperationarea.DataBind();
 
+
+        }
+        private void LoadAreaControls()
+        {
+            ddloperationarea.SelectedIndex = ddloperationarea.Items.IndexOf(new ListItem(Session["operationAreaName"].ToString(), Session["operationId"].ToString()));
+            ddloperationarea.Enabled = true;
+           
 
         }
         private void LoadDisplay()
@@ -143,7 +151,7 @@ namespace TraceBilling
                 TableCell link = (TableCell)e.Row.Cells[2];
                 string type = e.Row.Cells[6].Text;
                 // e.Row.BackColor = Color.Blue;
-                e.Row.ForeColor = Color.Green;
+               // e.Row.ForeColor = Color.Green;
 
             }
         }
@@ -476,7 +484,7 @@ namespace TraceBilling
         {
             ddlcusttype.Items.Insert(0, new ListItem("--all--", "0"));
         }
-        protected void GridViewIssue_PageIndexChanged(object sender, EventArgs e)
+        protected void gv_customerview_PageIndexChanged(object sender, EventArgs e)
         {
 
         }

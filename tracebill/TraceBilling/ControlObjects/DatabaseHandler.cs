@@ -36,6 +36,7 @@ namespace TraceBilling.ControlObjects
             try
             {
                 command = DatabaseConnector.GetStoredProcCommand(procedure, data);
+                command.CommandTimeout = 0;
                 DatabaseConnector.ExecuteNonQuery(command);
             }
             catch (Exception ex)
@@ -52,6 +53,7 @@ namespace TraceBilling.ControlObjects
             {
                 dt = new DataTable();
                 command = DatabaseConnector.GetStoredProcCommand(procedure, data);
+                command.CommandTimeout = 0;
                 dt = DatabaseConnector.ExecuteDataSet(command).Tables[0];
             }
             catch (Exception ex)
