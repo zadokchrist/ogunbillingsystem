@@ -24,20 +24,31 @@
                 <tr>
                     <td style="width: 50%">
                         <label>Area</label>
-            <asp:DropDownList ID="area_list" CssClass="form-control" runat="server"  OnDataBound="area_list_DataBound" Visible="true" >
-                
-                </asp:DropDownList>
+           <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea_DataBound" Visible="true"
+                   
+                             >
+                        </asp:DropDownList>
                     </td>
                 </tr>
                 
                    <tr>
                     <td style="width: 50%">
-                        <label>Start Period</label>
+                        <label>Start Date</label>
             <asp:TextBox ID="txttartdate" runat="server" BackColor="LightGreen" CssClass="startdate"
                                                                 Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox>
                     </td>
                 </tr>
-                 
+                  <tr>
+                    <td style="width: 50%">
+                        <label>End Date</label>
+            <asp:TextBox ID="txtenddate" runat="server" BackColor="LightGreen" CssClass="startdate"
+                                                                Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox>
+                    </td>
+                </tr>
                
                 <tr>
                     <td style="width: 50%">
@@ -95,7 +106,9 @@
  
            <asp:BoundField DataField="No" HeaderText="No" NullDisplayText="-"/> 
                  <asp:BoundField DataField="code" HeaderText="Code"  NullDisplayText="-"/>
-                 <asp:BoundField DataField="period" HeaderText="Period" NullDisplayText="-" /> 
+                 <asp:BoundField DataField="period" HeaderText="Period" NullDisplayText="-" />
+              <asp:BoundField DataField="cycle" HeaderText="Cycle" NullDisplayText="-" /> 
+ 
              <asp:BoundField DataField="startDate" HeaderText="Start Date" NullDisplayText="-" /> 
                  <asp:BoundField DataField="endDate" HeaderText="End Date" NullDisplayText="-" /> 
              <asp:BoundField DataField="openDate" HeaderText="Open Date" NullDisplayText="-"/> 

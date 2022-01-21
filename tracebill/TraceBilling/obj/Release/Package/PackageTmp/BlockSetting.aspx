@@ -77,7 +77,7 @@
                  </td>
                     <td style="width: 50%">
            <asp:RadioButtonList ID="rtnblockstatus" runat="server" RepeatDirection="Horizontal" Width="80%"   >
-                        <asp:ListItem Value="1">Permanent</asp:ListItem>
+                        <asp:ListItem Value="1">GIS Assigned</asp:ListItem>
                         <asp:ListItem Value="2">Provisional</asp:ListItem>                        
                    </asp:RadioButtonList>
                     </td>

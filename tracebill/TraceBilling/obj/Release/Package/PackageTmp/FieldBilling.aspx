@@ -100,7 +100,7 @@
     <%--<th>New</th>--%>
 <%--        <th class="modal-sm" style="width: 207px">Country</th>--%>
          <th class="modal-sm" style="width: 226px">Operation Area</th>
-        <th class="modal-sm" style="width: 226px">Branch/Zone</th>
+        <th class="modal-sm" style="width: 226px">Branch</th>
         <th class="modal-sm" style="width: 226px">Book</th>
         <th class="modal-sm" style="width: 226px">Walk</th>
         <th></th>
@@ -118,9 +118,19 @@
                            
              <td class="modal-sm" style="width: 226px" >
                       
-            <asp:DropDownList ID="area_list2" CssClass="form-control" runat="server"  OnDataBound="area_list2_DataBound" Visible="true" >
+          <%--  <asp:DropDownList ID="area_list2" CssClass="form-control" runat="server"  OnDataBound="area_list2_DataBound" Visible="true" >
                 
-                </asp:DropDownList>
+                </asp:DropDownList>--%>
+               <asp:DropDownList ID="ddloperationarea" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea_DataBound" Visible="true"
+                    AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged"
+                             >
+                        </asp:DropDownList>
+         
                     </td>
                 <td class="modal-sm" style="width: 226px" >
                       
@@ -211,10 +221,17 @@
                                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                            <asp:DropDownList ID="area_list3" CssClass="form-control" runat="server"  OnDataBound="area_list3_DataBound" Visible="true"
-                OnSelectedIndexChanged="area_list3_SelectedIndexChanged" AutoPostBack="true" >
-                
-                </asp:DropDownList></td>
+                                                            <asp:DropDownList ID="ddloperationarea2" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea2_DataBound" Visible="true"
+                    AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea2_SelectedIndexChanged"
+                             >
+                        </asp:DropDownList>
+
+                                                        </td>
                                                     </tr>
                                                   
                                                     <tr>
@@ -346,9 +363,19 @@
                                     <td class="InterFaceTableMiddleRow" style="height: 10px">
                                     </td>
                                     <td class="InterFaceTableRightRow" style="height: 10px">
-                                        <asp:DropDownList ID="cboAreasCredentials" runat="server" AutoPostBack="True" CssClass="InterfaceDropdownList"
+                                        <%--<asp:DropDownList ID="cboAreasCredentials" runat="server" AutoPostBack="True" CssClass="InterfaceDropdownList"
                                            OnDataBound="cboAreasCredentials_DataBound" Width="90%" OnSelectedIndexChanged="cboAreasCredentials_SelectedIndexChanged">
-                                        </asp:DropDownList></td>
+                                        </asp:DropDownList>--%>
+                                        <asp:DropDownList ID="ddloperationarea3" 
+                                    DataTextField="operationAreaName"
+                                     DataValueField="operationId" 
+                                    CssClass="form-control" runat="server"
+                                    OnDataBound="ddloperationarea3_DataBound" Visible="true"
+                    AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea3_SelectedIndexChanged"
+                             >
+                        </asp:DropDownList>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td class="InterFaceTableLeftRow" style="height: 10px">
