@@ -108,7 +108,7 @@
                <asp:BoundField DataField="applicationId" HeaderText="Application#" NullDisplayText="-"/> 
 
              <asp:BoundField DataField="name" HeaderText="CustName" NullDisplayText="-" /> 
-              <asp:BoundField DataField="country" HeaderText="Country" NullDisplayText="-" /> 
+<%--              <asp:BoundField DataField="country" HeaderText="Country" NullDisplayText="-" /> --%>
                   <asp:BoundField DataField="area" HeaderText="Area" NullDisplayText="-" /> 
             
        
