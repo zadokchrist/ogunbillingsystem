@@ -2480,11 +2480,22 @@ namespace TraceBilling.ControlObjects
             if (dtTariff.Rows.Count > 0)
             {
                 string Amount = dtTariff.Rows[0]["amount"].ToString();
-                bool IsActive = Convert.ToBoolean(dtTariff.Rows[0]["active"].ToString());
+                if(Amount.Equals(""))
+                {
+                    Amount = "0";
+                }
+                string active = dtTariff.Rows[0]["active"].ToString();
+                bool IsActive = false;
+                if (active.Equals("1") || active.Equals("True"))
+                {
+                    IsActive = true;
+                }
+               
                 if (IsActive)
                 {
-                    double transAmount = Convert.ToDouble(Amount);
-                    output = transAmount.ToString();
+                    //double transAmount = Convert.ToDouble(Amount);
+                    //output = transAmount.ToString();
+                    output = Amount;
                 }
                 else
                 {

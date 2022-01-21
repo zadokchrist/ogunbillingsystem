@@ -239,7 +239,7 @@ namespace TraceBilling
                 string branch = branch_list1.SelectedValue.ToString();
                 string block = block_list.SelectedValue.ToString();
                 string custref = txtcustref.Text.Trim();
-                lblarea.Text = "Ogun";
+                lblarea.Text = ddloperationarea.SelectedItem.ToString();
                 lblbranch.Text = branch_list1.SelectedItem.ToString();
                 lblblock.Text = block_list.SelectedItem.ToString();
                 lblperiod.Text = txtcurrentperiod.Text.Trim();
@@ -358,7 +358,7 @@ namespace TraceBilling
                 }
                 //check flatrated
                 string result = "";
-                if (CustRef.Equals(""))//execute
+                if (!CustRef.Equals(""))//execute
                 {
                     result = BillRequest(Area, Branch, block, CustRef, BillNow, ScheduleDate, period);
                 }
@@ -387,7 +387,15 @@ namespace TraceBilling
 
                 //DisplayBillResult(result);
                 ClearControls();
-                DisplayMessage(result, true);
+                if(result.Contains("success"))
+                {
+                    DisplayMessage(result, false);
+                }
+                else
+                {
+                    DisplayMessage(result, true);
+                }
+               
             }
             catch (Exception ex)
             {
@@ -447,7 +455,7 @@ namespace TraceBilling
                     }
                     else if (failed == 0)
                     {
-                        Msg = "Your Bill Request of " + total + " accounts has been Processed Successfully";
+                        Msg = "Your Bill Request of " + total + " accounts has been Processed successfully";
                     }
                     else
                     {
