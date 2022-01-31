@@ -263,7 +263,7 @@ namespace TraceBilling.ControlObjects
             return message;
         }
 
-       
+      
 
         internal ResponseMessage SaveApplication(ApplicationObj app)
         {
@@ -3273,11 +3273,11 @@ namespace TraceBilling.ControlObjects
         {
             DateTime output;
             
-            output = GetBillPeriodStartDate(recordcode);
+            output = dh.GetBillPeriodStartDate(recordcode);
             return output;
 
         }
-        public string SaveBillingPeriod(string recordCode, string area_code, DateTime startDate)
+        public string SaveBillingPeriod(string recordCode, string area_code, DateTime startDate,DateTime enddate,string opid)
         {
             string output = "";
             int RecordID = Convert.ToInt32(recordCode);
@@ -3285,6 +3285,7 @@ namespace TraceBilling.ControlObjects
             string Period = startDate.ToString("yyyyMM");
             string areacode = HttpContext.Current.Session["areaCode"].ToString();
             string PeriodCode = areacode + "" + Period;
+            //string PeriodCode = areacode + "" + Period + opid;
             int AreaID = Convert.ToInt16(area_code);
             int CreatedBy = Convert.ToInt32(HttpContext.Current.Session["UserID"].ToString());
             if (PeriodExists(Period, AreaID) && recordCode == "0")
@@ -3293,7 +3294,7 @@ namespace TraceBilling.ControlObjects
             }
             else
             {
-                dh.SaveBillingPeriod(RecordID, PeriodCode, Period, startDate, AreaID, CreatedBy);
+                dh.SaveBillingPeriod(RecordID, PeriodCode, Period, startDate, AreaID, CreatedBy, enddate,opid);
                 if (recordCode == "0")
                 {
                     output = "Billing Period ( " + Period + " ) Details have been Created Successfully";
@@ -4028,6 +4029,21 @@ namespace TraceBilling.ControlObjects
             catch (Exception ex)
             {
                 Log("LoadCustomerDisplay", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetUnBilledCustomers(string areaID, string period)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetUnBilledCustomers(areaID,period);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetUnBilledCustomers", "101 " + ex.Message);
             }
             return dt;
         }

@@ -13,6 +13,15 @@ namespace TraceBilling {
     public partial class BillingPeriods {
         
         /// <summary>
+        /// toolScriptManageer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager toolScriptManageer1;
+        
+        /// <summary>
         /// lblmsg control.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txttartdate;
         
         /// <summary>
+        /// txttartdate_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txttartdate_CalendarExtender;
+        
+        /// <summary>
         /// txtenddate control.
         /// </summary>
         /// <remarks>
@@ -56,6 +74,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtenddate;
+        
+        /// <summary>
+        /// txtenddate_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtenddate_CalendarExtender;
         
         /// <summary>
         /// btnSave control.
@@ -137,5 +164,14 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCode;
+        
+        /// <summary>
+        /// lblopid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblopid;
     }
 }

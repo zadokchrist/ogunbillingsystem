@@ -1902,11 +1902,11 @@ namespace TraceBilling.ControlObjects
             return startDate;
         }
 
-        internal void SaveBillingPeriod(int recordID, string periodCode, string period, DateTime startDate, int areaID, int createdBy)
+        internal void SaveBillingPeriod(int recordID, string periodCode, string period, DateTime startDate, int areaID, int createdBy, DateTime enddate,string opid)
         {
             try
             {
-                ExecuteCommand("Sp_SaveBillingPeriod", recordID, periodCode, period, startDate, areaID, createdBy);
+                ExecuteCommand("Sp_SaveBillingPeriod", recordID, periodCode, period, startDate, areaID, createdBy,enddate,int.Parse(opid));
 
             }
             catch (Exception ex)
@@ -2280,6 +2280,20 @@ namespace TraceBilling.ControlObjects
             try
             {
                 dt = ExecuteDataSet("Sp_GetCustomerDetailsByID_filtered", countryid, areaid, custref, flag,opid,custtype);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetUnBilledCustomers(string areaID, string period)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetUnBilledCustomers", areaID,period);
             }
             catch (Exception ex)
             {
