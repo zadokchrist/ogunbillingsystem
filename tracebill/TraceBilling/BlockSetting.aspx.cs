@@ -136,11 +136,17 @@ namespace TraceBilling
                 string createdby = Session["UserID"].ToString();
                 string status = rtnblockstatus.SelectedValue.ToString();
                 string code = lblblockcode.Text;
+                int len = block.Length;
                 if (block == "")
                 {
                     DisplayMessage("Please Enter block", true);
 
-                }               
+                }
+                else if (len != 6)
+                {
+                    DisplayMessage("Please Enter block number with 6 digits", true);
+
+                }
                 else if (connection == "")
                 {
                     DisplayMessage("Please enter connection Number", true);
