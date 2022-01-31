@@ -9,6 +9,8 @@ using System.Data;
 using TraceBilling.ControlObjects;
 using TraceBilling.EntityObjects;
 using System.IO;
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace TraceBilling
 {
@@ -18,6 +20,7 @@ namespace TraceBilling
         BusinessLogic bll = new BusinessLogic();
         ApplicationObj app = new ApplicationObj();        
        ResponseMessage resp = new ResponseMessage();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -30,8 +33,7 @@ namespace TraceBilling
                     }
                     LoadRequirementList();
                     LoadCustomerTypeList();
-                   // LoadCountryList();
-
+                    // LoadCountryList();
                     LoadBranchList(0,0);
                     LoadIDList();
                     LoadFilters(10);
@@ -583,5 +585,6 @@ namespace TraceBilling
             ClientScriptManager cs = pg.ClientScript;
             cs.RegisterClientScriptBlock(cstype, s, s.ToString());
         }
+        
     }
 }
