@@ -140,6 +140,7 @@ namespace TraceBilling
 
         protected void Button3_Click(object sender, EventArgs e)
         {
+            ResetDisplay();
             LoadDisplay();
         }
         protected void gv_customerview_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -286,9 +287,9 @@ namespace TraceBilling
                 txtemail.Text = dataTable.Rows[0]["custEmail"].ToString();
                 txtlatitude.Text = dataTable.Rows[0]["latitude"].ToString();
                 txtlongitude.Text = dataTable.Rows[0]["longitude"].ToString();
-                //txtmetermake.Text = dataTable.Rows[0]["meterName"].ToString();
-                //txtmeterNumber.Text = dataTable.Rows[0]["meterNumber"].ToString();
-                //txtmetersize.Text = dataTable.Rows[0]["diameter"].ToString();
+                txtmetermake.Text = dataTable.Rows[0]["meterName"].ToString();
+                txtmeterNumber.Text = dataTable.Rows[0]["meterNumber"].ToString();
+                txtmetersize.Text = dataTable.Rows[0]["diameter"].ToString();
                 txtproperty.Text = dataTable.Rows[0]["propertyRef"].ToString();
                 txttariff.Text = dataTable.Rows[0]["tarrifName"].ToString();
                 txtterritory.Text = dataTable.Rows[0]["territory"].ToString();
@@ -321,6 +322,15 @@ namespace TraceBilling
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = false;
             lblcustref.Text = "0";
+        }
+        private void ResetDisplay()
+        {
+            btnlinks.Visible = false;
+            custdisplay.Visible = false;
+            readingdisplay.Visible = false;
+            billdisplay.Visible = false;
+            transactiondisplay.Visible = false;
+            paymentdisplay.Visible = false;
         }
         private void LoadCustomerDisplayLogs(string custref, int flag)
         {

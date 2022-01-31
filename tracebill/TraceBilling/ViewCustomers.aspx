@@ -384,6 +384,7 @@
                                                                                 </td>
                                                                                 <td class="InterFaceTableRightRowUp" style="height: 10px">
                                                                                     <asp:TextBox ID="txtmeterNumber" runat="server" CssClass="InterfaceTextboxLongReadOnly"
+                                                                                        ReadOnly="true"
                                                                                         Width="80%"></asp:TextBox>
                                                                                 </td>
                                                                             </tr>
