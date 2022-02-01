@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="Billing Periods" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="BillingPeriods.aspx.cs" Inherits="TraceBilling.BillingPeriods" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
+          <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
 
           <br />
           <div><h3>BILLING PERIOD SETUP</h3></div>
@@ -38,17 +41,21 @@
                    <tr>
                     <td style="width: 50%">
                         <label>Start Date</label>
-            <asp:TextBox ID="txttartdate" runat="server" BackColor="LightGreen" CssClass="startdate"
-                                                                Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox>
+           
+                         <asp:TextBox ID="txttartdate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px" ForeColor="Maroon" Width="80%"></asp:TextBox>
+                                              <ajaxToolkit:CalendarExtender ID="txttartdate_CalendarExtender" runat="server" 
+                                                  TargetControlID="txttartdate" Format="dd/MM/yyyy" PopupPosition="TopLeft"/>
                     </td>
-                </tr>
-                  <tr>
-                    <td style="width: 50%">
+                      <td style="width: 50%">
                         <label>End Date</label>
-            <asp:TextBox ID="txtenddate" runat="server" BackColor="LightGreen" CssClass="startdate"
-                                                                Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox>
+            <%--<asp:TextBox ID="txtenddate" runat="server" BackColor="LightGreen" CssClass="startdate"
+                                                                Font-Bold="True" ForeColor="Maroon" Width="50%"></asp:TextBox>--%>
+                         <asp:TextBox ID="txtenddate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px" ForeColor="Maroon" Width="80%"></asp:TextBox>
+                                              <ajaxToolkit:CalendarExtender ID="txtenddate_CalendarExtender" runat="server" 
+                                                  TargetControlID="txtenddate" Format="dd/MM/yyyy" PopupPosition="TopLeft"/>
                     </td>
                 </tr>
+               
                
                 <tr>
                     <td style="width: 50%">
@@ -106,16 +113,18 @@
  
            <asp:BoundField DataField="No" HeaderText="No" NullDisplayText="-"/> 
                  <asp:BoundField DataField="code" HeaderText="Code"  NullDisplayText="-"/>
+          <asp:BoundField DataField="operationAreaName" HeaderText="Area" NullDisplayText="-" Visible="false"/>    
+
                  <asp:BoundField DataField="period" HeaderText="Period" NullDisplayText="-" />
               <asp:BoundField DataField="cycle" HeaderText="Cycle" NullDisplayText="-" /> 
  
              <asp:BoundField DataField="startDate" HeaderText="Start Date" NullDisplayText="-" /> 
                  <asp:BoundField DataField="endDate" HeaderText="End Date" NullDisplayText="-" /> 
-             <asp:BoundField DataField="openDate" HeaderText="Open Date" NullDisplayText="-"/> 
+             <asp:BoundField DataField="openDate" HeaderText="Creation Date" NullDisplayText="-"/> 
               <asp:BoundField DataField="closeDate" HeaderText="Close Date" NullDisplayText="-"/> 
                  <asp:BoundField DataField="closed" HeaderText="Is Closed" NullDisplayText="-"/> 
               <asp:BoundField DataField="closedby" HeaderText="Closed By" NullDisplayText="-"/>                      
-                        
+                     <asp:BoundField DataField="operationId" HeaderText="operationId" NullDisplayText="-" Visible="false"/> 
             
 
                  <asp:TemplateField ShowHeader="True">
@@ -126,7 +135,7 @@
                 <asp:LinkButton ID="EditButton"
                                 runat="server"
                                 CommandName="RowEdit" 
-                    CommandArgument='<%#Eval("code") %>'
+                    CommandArgument='<%#Eval("code") + ";" +Eval("closed") + ";" +Eval("period") + ";" +Eval("operationId") %>'
                                
                                 Text="Close" />
                  
@@ -157,7 +166,8 @@
             </div>
           <br />
                  <asp:Label ID="lblCode" runat="server" Text="0" Visible="False"></asp:Label>   
-        
+                <asp:Label ID="lblopid" runat="server" Text="0" Visible="False"></asp:Label>   
+
         
     </form>
 
