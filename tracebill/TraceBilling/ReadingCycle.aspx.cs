@@ -372,21 +372,33 @@ namespace TraceBilling
             //{
             //    DisplayMessage("Please Select a Country", true);
             //}
-            // if (area_list3.SelectedValue.ToString() == "0")
-            //{
-            //    DisplayMessage("Please Select an Area", true);
-            //}
-            //else
-            //{
-                string custref = txtInquireCustRef.Text.Trim();
-                string propertyref = txtInquirePropRef.Text;
+            string custref = txtInquireCustRef.Text.Trim();
+            string propertyref = txtInquirePropRef.Text;
+            string searchstr = "";
+            if(!custref.Equals(""))
+            {
+                searchstr = custref;
+            }
+            else
+            {
+                searchstr = propertyref;
+            }
+            string str = "";
+            if (bll.IsFlatRated(searchstr))//check flatrate
+            {
+                str = "Customer-" + searchstr + " is Flat Rate and does not require consumption.";
+                DisplayMessage(str, true);
+            }
+            else
+            {
+                
                 string period = txtcurrentperiod.Text;
                 string areaid = "10";
                 string branchid = branch_list1.SelectedValue.ToString();
                 resp = bll.ValidateReadingInquiry(custref, propertyref,areaid);
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
-                    DataTable dTable = bll.GetLatestBilledReading(custref, areaid, branchid);
+                    DataTable dTable = bll.GetLatestBilledReading(searchstr, areaid, branchid);
                     if (dTable.Rows.Count > 0)
                     {
                         txtPreReading.Text = dTable.Rows[0]["CurReading"].ToString();
@@ -424,7 +436,7 @@ namespace TraceBilling
                 {
                     DisplayMessage(resp.Response_Message, true);
                 }
-           // }
+            }
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
