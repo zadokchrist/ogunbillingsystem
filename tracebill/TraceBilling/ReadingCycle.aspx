@@ -426,7 +426,7 @@
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
                                                             <%--<asp:TextBox ID="txtReadDate" runat="server" BackColor="lightBlue" CssClass="readdate"
                                                                 Font-Bold="True" ForeColor="Maroon" Width="80%"></asp:TextBox>--%>
-                                                             <asp:TextBox ID="txtReadDate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px; width:80%;height:10px"></asp:TextBox>
+                                                             <asp:TextBox ID="txtReadDate" CssClass="form-control"  runat="server" style="left: 0px; top: 0px; width:80%;height:20px"></asp:TextBox>
                                               <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtReadDate" Format="dd/MM/yyyy" />
                                                         </td>
                                                     </tr>
