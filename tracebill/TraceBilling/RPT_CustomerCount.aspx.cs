@@ -53,11 +53,29 @@ namespace TraceBilling
             try
             {
                 string branch = ddlbranch.SelectedValue.ToString();
-            
-                string period = txtperiod.Text.Trim();
-             
-               
-                DataTable dataTable = bll.GetCustomerCount(branch, period);
+                string area = ddloperationarea.SelectedValue.ToString();
+                //string period = txtperiod.Text.Trim();
+                DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+                DateTime end = DateTime.Now;
+
+
+
+                String fromdate = txtstartdate.Text.Trim();
+                String todate = txtenddate.Text.Trim();
+
+                if (!fromdate.Equals(""))
+                {
+                    start = DateTime.Parse(fromdate);
+                }
+                if (!todate.Equals(""))
+                {
+                    end = DateTime.Parse(todate);
+                }
+                DateTime startdate = bll.GetDate(fromdate);//european style dd/mm/yyyy
+                DateTime enddate = bll.GetDate(todate);//european style dd/mm/yyyy
+
+                //DataTable dataTable = bll.GetCustomerCount(branch, period);
+                DataTable dataTable = bll.GetCustomerCountFiltered(area, branch, startdate, enddate);
                 Session["dtall"] = dataTable;
                 if (dataTable.Rows.Count > 0)
                 {
@@ -169,7 +187,18 @@ namespace TraceBilling
 
         protected void Imageexcel_Click(object sender, ImageClickEventArgs e)
         {
-            ex(Session["dtall"] as DataTable);
+            //ex(Session["dtall"] as DataTable);
+            DataTable dt = (DataTable)Session["dtall"];
+            if (dt.Rows.Count > 0)
+            {
+                ex(dt);
+            }
+            else
+            {
+                string error = "100: " + "No records found to export";
+                bll.Log("No export", error);
+                DisplayMessage(error, true);
+            }
         }
         protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
         {

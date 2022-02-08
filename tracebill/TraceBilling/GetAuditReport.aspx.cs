@@ -51,8 +51,26 @@ namespace TraceBilling
             try
             {
                 string uname = username.Text;
-                string startdate = txtstartdate.Text;
-                string enddate = txtenddate.Text;
+                //string startdate = txtstartdate.Text;
+                //string enddate = txtenddate.Text;
+                DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+                DateTime end = DateTime.Now;
+
+
+
+                String fromdate = txtstartdate.Text.Trim();
+                String todate = txtenddate.Text.Trim();
+
+                if (!fromdate.Equals(""))
+                {
+                    start = DateTime.Parse(fromdate);
+                }
+                if (!todate.Equals(""))
+                {
+                    end = DateTime.Parse(todate);
+                }
+                DateTime startdate = bll.GetDate(fromdate);//european style dd/mm/yyyy
+                DateTime enddate = bll.GetDate(todate);//european style dd/mm/yyyy
                 DataTable dt= bll.GetAuditReport(uname, startdate, enddate);
                 if (dt.Rows.Count > 0)
                 {

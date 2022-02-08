@@ -58,6 +58,8 @@ namespace TraceBilling
             ddlcusttype.DataBind();
             ddloperationarea.DataSource = bll.GetOperationAreaList(10);
             ddloperationarea.DataBind();
+            ddlbranch.DataSource = bll.GetBranchList(10, 0);
+            ddlbranch.DataBind();
 
 
         }
@@ -75,8 +77,9 @@ namespace TraceBilling
             int opid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
             int custtype = Convert.ToInt16(ddlcusttype.SelectedValue.ToString());
             string custref = txtsearch.Text.Trim();
-
-            DataTable dataTable = bll.LoadCustomerDisplayFiltered(countryid, areaid, custref, 1,opid,custtype);
+            int branch = Convert.ToInt16(ddlbranch.SelectedValue.ToString());
+            string propref = txtpropertyref.Text.Trim();
+            DataTable dataTable = bll.LoadCustomerDisplayFiltered(countryid, areaid, custref, 1,opid,custtype,branch,propref);
             Session["dtviewinc"] = dataTable;
 
             if (dataTable.Rows.Count > 0)
@@ -218,13 +221,22 @@ namespace TraceBilling
         {
             btnlinks.Visible = true;
             custdisplay.Visible = false;
-            readingdisplay.Visible = true;
             billdisplay.Visible = false;
             transactiondisplay.Visible = false;
             paymentdisplay.Visible = false;
             customerdisplay.Visible = false;
             string custref = lblcustref.Text;
-            LoadCustomerDisplayLogs(custref, 3);
+            string custtype = lblcusttype.Text;
+            if(custtype.Contains("Flat"))
+            {
+                readingdisplay.Visible = false;
+            }
+            else
+            {
+                readingdisplay.Visible = true;
+                LoadCustomerDisplayLogs(custref, 3);
+
+            }
         }
 
         protected void btnbilldetails_Click(object sender, EventArgs e)
@@ -302,6 +314,7 @@ namespace TraceBilling
                     chkactive.Checked = true;
                 }
                 lblapplicant.Text = txtcustname.Text + "-->" + txtcustomer.Text;
+                lblcusttype.Text = txtcusttype.Text;
             }
             else
             {
@@ -498,12 +511,33 @@ namespace TraceBilling
         {
 
         }
+        protected void ddlbranch_DataBound(object sender, EventArgs e)
+        {
+            ddlbranch.Items.Insert(0, new ListItem("--all--", "0"));
+        }
 
         protected void gv_customerview_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             gv_customerview.PageIndex = e.NewPageIndex;
             gv_customerview.DataSource = Session["dtviewinc"] as DataTable;
             gv_customerview.DataBind();
+        }
+        protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(ddlbranch.SelectedValue.ToString());
+
+                ddlbranch.DataSource = bll.GetBranchList(10, operationid);
+                ddlbranch.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

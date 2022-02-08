@@ -37,6 +37,8 @@ namespace TraceBilling
                     {
                         ddloperationarea.DataSource = bll.GetOperationAreaList(10);
                         ddloperationarea.DataBind();
+                        ddlbranch.DataSource = bll.GetBranchList(10, 0);
+                        ddlbranch.DataBind();
                         string roleid = Session["roleId"].ToString();
                         //if (roleid.Equals("9"))//BO
                         //{
@@ -71,8 +73,14 @@ namespace TraceBilling
             int countryid = 2;
             int areaid = 10;
             string custref = txtsearch.Text.Trim();
+            string propref = txtpropref.Text.Trim();
+            int opid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+            int branch = Convert.ToInt16(ddlbranch.SelectedValue.ToString());
 
-            DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 1);
+
+            //DataTable dataTable = bll.LoadCustomerDisplay(countryid, areaid, custref, 1);
+            DataTable dataTable = bll.LoadCustomerDisplayFiltered(countryid, areaid, custref, 1, opid, 0, branch, propref);
+
             if (dataTable.Rows.Count > 0)
             {
                 gv_customerview.DataSource = dataTable;
@@ -1113,6 +1121,27 @@ namespace TraceBilling
         protected void ddloperationarea_DataBound(object sender, EventArgs e)
         {
             ddloperationarea.Items.Insert(0, new ListItem("--all--", "0"));
+        }
+        protected void ddlbranch_DataBound(object sender, EventArgs e)
+        {
+            ddlbranch.Items.Insert(0, new ListItem("--all--", "0"));
+        }
+        protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(ddlbranch.SelectedValue.ToString());
+
+                ddlbranch.DataSource = bll.GetBranchList(10, operationid);
+                ddlbranch.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

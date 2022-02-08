@@ -49,15 +49,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Button btnreadingupload;
         
         /// <summary>
-        /// btnreconciliation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnreconciliation;
-        
-        /// <summary>
         /// btnonspotsettings control.
         /// </summary>
         /// <remarks>
@@ -74,24 +65,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblapplicant;
-        
-        /// <summary>
-        /// reconcileschedule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl reconcileschedule;
-        
-        /// <summary>
-        /// scheduledisplay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl scheduledisplay;
         
         /// <summary>
         /// downloadroute control.
@@ -220,13 +193,13 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
         
         /// <summary>
-        /// branch_list1 control.
+        /// ddlbranch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList branch_list1;
+        protected global::System.Web.UI.WebControls.DropDownList ddlbranch;
         
         /// <summary>
         /// cboReader1 control.

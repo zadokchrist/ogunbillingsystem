@@ -428,7 +428,8 @@
              <% if (Session["roleId"].ToString() == "1")
                                                   {%> 
 <%--            <li><a href="SystemSettings.aspx"><i class="fa fa-circle-o"></i> Country Customization</a></li>--%>
-           <li><a href="ManageAreas.aspx"><i class="fa fa-circle-o"></i>  Areas</a></li>
+             <li><a href="ManageProfile.aspx"><i class="fa fa-circle-o"></i>  Company Profile</a></li>
+              <li><a href="ManageAreas.aspx"><i class="fa fa-circle-o"></i>  Areas</a></li>
            <li><a href="ManageBranches.aspx"><i class="fa fa-circle-o"></i>  Branches</a></li>
            <li><a href="ManageTerritory.aspx"><i class="fa fa-circle-o"></i>  Territory</a></li>
            <li><a href="ManageSubTerritory.aspx"><i class="fa fa-circle-o"></i>  Sub-Territory</a></li>

@@ -7382,6 +7382,7 @@
     <Content Include="dist\css\adminlte.min.css.map" />
     <Content Include="ManageAreas.aspx" />
     <Content Include="ManageBranches.aspx" />
+    <Content Include="ManageProfile.aspx" />
     <Content Include="ManageSubTerritory.aspx" />
     <Content Include="ManageTerritory.aspx" />
     <Content Include="MeterManagement.aspx" />
@@ -7549,8 +7550,8 @@
     <Content Include="plugins\timepicker\bootstrap-timepicker.min.css" />
     <Content Include="plugins\timepicker\bootstrap-timepicker.min.js" />
     <Content Include="ReadingCycle.aspx" />
+    <Content Include="ReadingExceptions.aspx" />
     <Content Include="ReconcileTransactions.aspx" />
-    <Content Include="Reports.aspx" />
     <Content Include="RestoreConnection.aspx" />
     <Content Include="RPT_BalanceOutstanding.aspx" />
     <Content Include="RPT_CustomerCount.aspx" />
@@ -7817,6 +7818,13 @@
     <Compile Include="ManageBranches.aspx.designer.cs">
       <DependentUpon>ManageBranches.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ManageProfile.aspx.cs">
+      <DependentUpon>ManageProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageProfile.aspx.designer.cs">
+      <DependentUpon>ManageProfile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ManageSubTerritory.aspx.cs">
       <DependentUpon>ManageSubTerritory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -7854,19 +7862,19 @@
     <Compile Include="ReadingCycle.aspx.designer.cs">
       <DependentUpon>ReadingCycle.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ReadingExceptions.aspx.cs">
+      <DependentUpon>ReadingExceptions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReadingExceptions.aspx.designer.cs">
+      <DependentUpon>ReadingExceptions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ReconcileTransactions.aspx.cs">
       <DependentUpon>ReconcileTransactions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ReconcileTransactions.aspx.designer.cs">
       <DependentUpon>ReconcileTransactions.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reports.aspx.cs">
-      <DependentUpon>Reports.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reports.aspx.designer.cs">
-      <DependentUpon>Reports.aspx</DependentUpon>
     </Compile>
     <Compile Include="RestoreConnection.aspx.cs">
       <DependentUpon>RestoreConnection.aspx</DependentUpon>

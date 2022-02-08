@@ -10,16 +10,7 @@
 namespace TraceBilling {
     
     
-    public partial class RPT_BalanceOutstanding {
-        
-        /// <summary>
-        /// toolScriptManageer1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ToolkitScriptManager toolScriptManageer1;
+    public partial class ManageProfile {
         
         /// <summary>
         /// lblmsg control.
@@ -31,103 +22,85 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// ddloperationarea control.
+        /// areadisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl areadisplay;
         
         /// <summary>
-        /// ddlbranch control.
+        /// txtarea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlbranch;
+        protected global::System.Web.UI.WebControls.TextBox txtarea;
         
         /// <summary>
-        /// txtfromdatesrc control.
+        /// txtaddress control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtfromdatesrc;
+        protected global::System.Web.UI.WebControls.TextBox txtaddress;
         
         /// <summary>
-        /// CalendarExtender1 control.
+        /// txttollfree control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+        protected global::System.Web.UI.WebControls.TextBox txttollfree;
         
         /// <summary>
-        /// txttodatesrc control.
+        /// txtcontact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txttodatesrc;
+        protected global::System.Web.UI.WebControls.TextBox txtcontact;
         
         /// <summary>
-        /// CalendarExtender2 control.
+        /// txtmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
+        protected global::System.Web.UI.WebControls.TextBox txtmail;
         
         /// <summary>
-        /// txtamount control.
+        /// txtweb control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtamount;
+        protected global::System.Web.UI.WebControls.TextBox txtweb;
         
         /// <summary>
-        /// Button1 control.
+        /// btnupdate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button btnupdate;
         
         /// <summary>
-        /// maindisplay control.
+        /// P4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl maindisplay;
-        
-        /// <summary>
-        /// Imageexcel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imageexcel;
-        
-        /// <summary>
-        /// baltxt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl baltxt;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl P4;
         
         /// <summary>
         /// GridViewIssue control.
@@ -137,5 +110,14 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewIssue;
+        
+        /// <summary>
+        /// lblarea control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblarea;
     }
 }

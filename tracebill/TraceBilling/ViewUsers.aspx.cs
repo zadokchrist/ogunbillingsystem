@@ -241,7 +241,25 @@ namespace TraceBilling
         }
         protected void ddloperationarea_DataBound(object sender, EventArgs e)
         {
-            ddloperationarea.Items.Insert(0, new ListItem("--select--", "0"));
+            ddloperationarea.Items.Insert(0, new ListItem("--all--", "0"));
+        }
+        
+        protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int operationid = Convert.ToInt16(ddloperationarea.SelectedValue.ToString());
+                int branchid = Convert.ToInt16(ddlbranch.SelectedValue.ToString());
+
+                ddlbranch.DataSource = bll.GetBranchList(10, operationid);
+                ddlbranch.DataBind();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

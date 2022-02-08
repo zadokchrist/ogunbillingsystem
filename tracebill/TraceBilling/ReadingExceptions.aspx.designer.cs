@@ -10,7 +10,16 @@
 namespace TraceBilling {
     
     
-    public partial class Reports {
+    public partial class ReadingExceptions {
+        
+        /// <summary>
+        /// toolScriptManageer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager toolScriptManageer1;
         
         /// <summary>
         /// lblmsg control.
@@ -22,219 +31,147 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Label lblmsg;
         
         /// <summary>
-        /// Imagebalance control.
+        /// ddloperationarea control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imagebalance;
+        protected global::System.Web.UI.WebControls.DropDownList ddloperationarea;
         
         /// <summary>
-        /// Imagereadingaudit control.
+        /// ddlbranch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imagereadingaudit;
+        protected global::System.Web.UI.WebControls.DropDownList ddlbranch;
         
         /// <summary>
-        /// Imagetransaudit control.
+        /// ddlblock control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imagetransaudit;
+        protected global::System.Web.UI.WebControls.DropDownList ddlblock;
         
         /// <summary>
-        /// Imagecount control.
+        /// txtsearch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imagecount;
+        protected global::System.Web.UI.WebControls.TextBox txtsearch;
         
         /// <summary>
-        /// Imagestatement control.
+        /// exception_list control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imagestatement;
+        protected global::System.Web.UI.WebControls.RadioButtonList exception_list;
         
         /// <summary>
-        /// Imagesales control.
+        /// Button3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imagesales;
+        protected global::System.Web.UI.WebControls.Button Button3;
         
         /// <summary>
-        /// Imageconnection control.
+        /// maindisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imageconnection;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl maindisplay;
         
         /// <summary>
-        /// Imagebilling control.
+        /// zerodisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imagebilling;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl zerodisplay;
         
         /// <summary>
-        /// Imageexcel control.
+        /// lowdisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton Imageexcel;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lowdisplay;
         
         /// <summary>
-        /// displaybaloutstanding control.
+        /// highdisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl displaybaloutstanding;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl highdisplay;
         
         /// <summary>
-        /// branchid control.
+        /// negativedisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label branchid;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl negativedisplay;
         
         /// <summary>
-        /// branch_list control.
+        /// unreaddisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList branch_list;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl unreaddisplay;
         
         /// <summary>
-        /// txtterritory control.
+        /// estimatedisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label txtterritory;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl estimatedisplay;
         
         /// <summary>
-        /// territory_list control.
+        /// suppressedisplay control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList territory_list;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl suppressedisplay;
         
         /// <summary>
-        /// lblstartdate control.
+        /// lblApplicationCode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblstartdate;
+        protected global::System.Web.UI.WebControls.Label lblApplicationCode;
         
         /// <summary>
-        /// txtfromdatesrc control.
+        /// lblApplicationId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtfromdatesrc;
-        
-        /// <summary>
-        /// lblenddate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblenddate;
-        
-        /// <summary>
-        /// txttodatesrc control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txttodatesrc;
-        
-        /// <summary>
-        /// balance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button balance;
-        
-        /// <summary>
-        /// balanceviewdisplay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl balanceviewdisplay;
-        
-        /// <summary>
-        /// P1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl P1;
-        
-        /// <summary>
-        /// gvbalance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvbalance;
-        
-        /// <summary>
-        /// lblreport control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblreport;
-        
-        /// <summary>
-        /// lblstatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblstatus;
+        protected global::System.Web.UI.WebControls.Label lblApplicationId;
     }
 }

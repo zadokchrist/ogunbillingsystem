@@ -939,7 +939,7 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
 
                                     ////building readings table
                                     PdfPCell chargedetail = new PdfPCell(new Phrase("CHARGING DETAILS", headertextcolor));
-                                    PdfPCell chargeamount = new PdfPCell(new Phrase("AMOUNT USHS", headertextcolor));
+                                    PdfPCell chargeamount = new PdfPCell(new Phrase("AMOUNT (Naira)", headertextcolor));
 
                                     //setting color to header of reading table
                                     chargedetail.BackgroundColor = headercolor;
@@ -1126,7 +1126,7 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                                     // str = "Test FDN";
                                     str = invoicecombination;
                                     //Paragraph fiscal = new Paragraph(str);
-                                    PdfPCell tinbox = new PdfPCell(new Phrase("eTAX TIN: 1000023440 ", bluetext));
+                                    PdfPCell tinbox = new PdfPCell(new Phrase("ZERO VAT CHARGED ", bluetext));
                                     tinbox.Border = Rectangle.NO_BORDER;
                                     //PdfPCell fiscalbox = new PdfPCell(new Phrase(str, bluetext));
                                     //fiscalbox.Border = Rectangle.NO_BORDER;
@@ -1167,7 +1167,7 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                                     //  String path=Path.Combine(Environment.CurrentDirectory, @"icons\nwsc.png");
 
                                     //String logo = Path.Combine(path, @"icons\tracebilllogo.png");
-                                    String logo = Path.Combine(path, @"icons\ogunwater.png");
+                                    String logo = Path.Combine(path, @"icons\ogunwater_bw.png");
                                     // String logo = path;
                                     iTextSharp.text.Image image = iTextSharp.text.Image.GetInstance(logo);
                                     image.ScaleToFit(300, 300);
@@ -1374,7 +1374,8 @@ In the event of non-payment of charges, the Corporation shall be entitled to dis
                     website = dtprofile.Rows[0]["webAddress"].ToString();
                     tollcontact = dtprofile.Rows[0]["tollContact"].ToString();
                     othercontact = dtprofile.Rows[0]["otherContact"].ToString();
-                    combinedaddress = "Email:" + email + " " + "website:" + website;
+                    //combinedaddress = "Email:" + email + " " + "website:" + website;
+                    combinedaddress = "Website:" + website + " " + "Email:" + email;
                     combinedcontact = "TollFree:" + tollcontact + " " + "other contact:" + othercontact;
                 }
                 ///format header text

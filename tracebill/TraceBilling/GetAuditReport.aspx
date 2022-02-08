@@ -1,8 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="GetAuditReport.aspx.cs" Inherits="TraceBilling.GetAuditReport" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
+                      <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
           <br />
           <div><h3>VIEW AUDIT REPORT</h3></div>
     
@@ -11,12 +15,10 @@
             </center>
 
         <br />
-        <div class="form-group col-sm-12">
-          <%--  <asp:MultiView ID="MultiView1" runat="server">
-        <asp:View ID="View1" runat="server">--%>
+<%--        <div class="form-group col-sm-12">
+        
                           <table width="100%">
     <tr>
-    <%--<th>New</th>--%>
          <th class="modal-sm" style="width: 226px">User Name</th>
          <th class="datepicker-inline" style="width: 226px">Start Date</th>
          <th class="datepicker-inline" style="width: 226px">End Date</th>
@@ -48,7 +50,38 @@
                                                  
                           </tr>
                           </table>
-                          </div>
+                          </div>--%>
+          <div class="col-sm-3"> search by username
+
+               <asp:TextBox ID="username" runat="server" CssClass="form-control"
+                              ></asp:TextBox>
+          </div>
+       
+            <div class="col-sm-3">From Date
+                 <%-- <asp:TextBox ID="txtstartdate" runat="server" CssClass="mydate"
+                               ></asp:TextBox> --%> 
+    <asp:TextBox ID="txtstartdate" CssClass="form-control"  runat="server" ></asp:TextBox>
+
+   <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" 
+       TargetControlID="txtstartdate" Format="dd/MM/yyyy" PopupPosition="BottomLeft"  />
+                   
+
+            </div>
+         <div class="col-sm-3">To Date
+                  <%--<asp:TextBox ID="txtenddate" runat="server" CssClass="mydate"
+                               ></asp:TextBox> --%>    
+     <asp:TextBox ID="txtenddate" CssClass="form-control"  runat="server" ></asp:TextBox>
+                
+ <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtenddate" 
+     Format="dd/MM/yyyy" PopupPosition="BottomLeft"/>
+
+            </div>
+             
+        <div class="col-sm-3">  
+                          <asp:Button ID="Button1" Width="150" Height="40" CssClass="btn-primary round_btn form-control"
+                                    runat="server" Text="Search" onclick="Button3_Click"  />
+                           
+           </div>
           <hr />
         <%--  <div id="returnbtn" runat="server">
               <asp:Button ID="btnreturn" Width="202px" Height="40px" CssClass="btn-primary" Visible="false"

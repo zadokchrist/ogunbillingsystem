@@ -59,6 +59,8 @@
                                      DataValueField="operationId" 
                                     CssClass="form-control" runat="server"
                                     OnDataBound="ddloperationarea_DataBound" Visible="true"
+                   AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged"
                              >
                         </asp:DropDownList>
           </div>
@@ -117,9 +119,10 @@
              
                  
              <asp:BoundField DataField="areaName" HeaderText="Area" NullDisplayText="-" /> 
-       
+                    <asp:BoundField DataField="status" HeaderText="Status" NullDisplayText="-" /> 
+
            
-              <asp:BoundField DataField="AccStatus" HeaderText="Active" NullDisplayText="-"/>
+              <asp:BoundField DataField="AccStatus" HeaderText="Active" NullDisplayText="-" Visible="false"/>
               
                  <asp:TemplateField ShowHeader="True">
                       <HeaderTemplate>

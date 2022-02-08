@@ -61,8 +61,22 @@ namespace TraceBilling
                 {
                     amount = "0";
                 }
-                DateTime startdate = Convert.ToDateTime(bll.ReturnDate(fromdate, 1));
-                DateTime enddate = Convert.ToDateTime(bll.ReturnDate(todate, 2));
+                //DateTime startdate = Convert.ToDateTime(bll.ReturnDate(fromdate, 1));
+                //DateTime enddate = Convert.ToDateTime(bll.ReturnDate(todate, 2));
+                DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+                DateTime end = DateTime.Now;
+
+
+                if (!fromdate.Equals(""))
+                {
+                    start = DateTime.Parse(fromdate);
+                }
+                if (!todate.Equals(""))
+                {
+                    end = DateTime.Parse(todate);
+                }
+                DateTime startdate = bll.GetDate(fromdate);//european style dd/mm/yyyy
+                DateTime enddate = bll.GetDate(todate);//european style dd/mm/yyyy
                 DataTable dataTable = bll.GetBalanceOutstanding(branch, startdate, enddate, amount);
                 Session["dtall"] = dataTable;
                 if (dataTable.Rows.Count > 0)
@@ -175,7 +189,18 @@ namespace TraceBilling
 
         protected void Imageexcel_Click(object sender, ImageClickEventArgs e)
         {
-            ex(Session["dtall"] as DataTable);
+            // ex(Session["dtall"] as DataTable);
+            DataTable dt = (DataTable)Session["dtall"];
+            if (dt.Rows.Count > 0)
+            {
+                ex(dt);
+            }
+            else
+            {
+                string error = "100: " + "No records found to export";
+                bll.Log("No export", error);
+                DisplayMessage(error, true);
+            }
         }
         protected void ddloperationarea_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -197,7 +222,7 @@ namespace TraceBilling
         }
         protected void ddloperationarea_DataBound(object sender, EventArgs e)
         {
-            ddloperationarea.Items.Insert(0, new ListItem("select area", "0"));
+            ddloperationarea.Items.Insert(0, new ListItem("--all--", "0"));
         }
     }
 }
