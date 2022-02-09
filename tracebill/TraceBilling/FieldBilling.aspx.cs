@@ -148,24 +148,24 @@ namespace TraceBilling
         }
         
 
-        private void LoadBranchList1(int areaid, int opid)
-        {
-            DataTable dt = new DataTable();
-            try
-            {
-                dt = bll.GetBranchList(areaid,opid);
-                branch_list1.DataSource = dt;
-                branch_list1.DataTextField = "branchName";
-                branch_list1.DataValueField = "branchId";
-                branch_list1.DataBind();
-            }
-            catch (Exception ex)
-            {
-                string error = "100: " + ex.Message;
-                bll.Log("DisplayBranchList", error);
-                DisplayMessage(error, true);
-            }
-        }
+        //private void LoadBranchList1(int areaid, int opid)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = bll.GetBranchList(areaid,opid);
+        //        branch_list1.DataSource = dt;
+        //        branch_list1.DataTextField = "branchName";
+        //        branch_list1.DataValueField = "branchId";
+        //        branch_list1.DataBind();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        string error = "100: " + ex.Message;
+        //        bll.Log("DisplayBranchList", error);
+        //        DisplayMessage(error, true);
+        //    }
+        //}
 
 
         private void DisplayMessage(string message, Boolean isError)
@@ -204,10 +204,10 @@ namespace TraceBilling
         {
             cboReader1.Items.Insert(0, new ListItem("- - None - -", "0"));
         }
-        protected void branch_list1_DataBound(object sender, EventArgs e)
-        {
-            branch_list1.Items.Insert(0, new ListItem("- - None - -", "0"));
-        }
+        //protected void branch_list1_DataBound(object sender, EventArgs e)
+        //{
+        //    branch_list1.Items.Insert(0, new ListItem("- - None - -", "0"));
+        //}
 
         //protected void country_list_SelectedIndexChanged(object sender, EventArgs e)
         //{
@@ -248,7 +248,7 @@ namespace TraceBilling
             downloadroute.Visible = true;
             uploadroutes.Visible = false;
             downloadgrid.Visible = false;
-            reconcileschedule.Visible = false;
+           // reconcileschedule.Visible = false;
             //LoadCountryList2();
             //int countryid = Convert.ToInt16(country_list2.SelectedValue.ToString());
             //LoadAreaList2(countryid);
@@ -265,7 +265,7 @@ namespace TraceBilling
             downloadroute.Visible = true;
             uploadroutes.Visible = false;
             downloadgrid.Visible = false;
-            reconcileschedule.Visible = false;
+            //reconcileschedule.Visible = false;
             settingsdisplay.Visible = false;
             int areaid = 10;
             //LoadCountryList2();
@@ -279,12 +279,14 @@ namespace TraceBilling
            
             downloadroute.Visible = false;
             uploadroutes.Visible = true;
-            reconcileschedule.Visible = false;
+           // reconcileschedule.Visible = false;
             settingsdisplay.Visible = false;
             //int countryid = Convert.ToInt16(country_list.SelectedValue.ToString());
             //LoadAreaList3(countryid);
             int areaid = 10;
-            LoadBranchList1(areaid,0);
+            //LoadBranchList1(areaid,0);
+            ddlbranch.DataSource = bll.GetBranchList(10, 0);
+            ddlbranch.DataBind();
         }
 
 
@@ -514,9 +516,9 @@ namespace TraceBilling
                 string ReaderI = cboReader1.SelectedValue.ToString();
                 string ReadingDateI = txtReadingDate1.Text.Trim();
                 string AreaI = "10";
-                string BranchI = branch_list1.SelectedValue.ToString();
+                string BranchI = ddlbranch.SelectedValue.ToString();
                 string area = "Ogun";
-                string branch = branch_list1.SelectedItem.ToString();
+                string branch = ddlbranch.SelectedItem.ToString();
                 if (branch.Contains("None"))
                 {
                     branch = "";
@@ -599,13 +601,13 @@ namespace TraceBilling
         }
 
 
-        protected void btnreconciliation_Click(object sender, EventArgs e)
-        {
-            downloadroute.Visible = false;
-            uploadroutes.Visible = false;
-            reconcileschedule.Visible = true;
-            settingsdisplay.Visible = false;
-        }
+        //protected void btnreconciliation_Click(object sender, EventArgs e)
+        //{
+        //    downloadroute.Visible = false;
+        //    uploadroutes.Visible = false;
+        //    //reconcileschedule.Visible = true;
+        //    settingsdisplay.Visible = false;
+        //}
         //protected void area_list3_SelectedIndexChanged(object sender, EventArgs e)
         //{
         //    try
@@ -627,7 +629,7 @@ namespace TraceBilling
         {
             downloadroute.Visible = false;
             uploadroutes.Visible = false;
-            reconcileschedule.Visible = false;
+            //reconcileschedule.Visible = false;
             settingsdisplay.Visible = true;
             int countryid = 2;
             int areaid = 10;
@@ -758,8 +760,11 @@ namespace TraceBilling
                 int areaid = 10;
                 int operationid = Convert.ToInt16(ddloperationarea2.SelectedValue.ToString());
 
-                LoadBranchList1(areaid, operationid);
-                
+                // LoadBranchList1(areaid, operationid);
+                ddlbranch.DataSource = bll.GetBranchList(10, operationid);
+                ddlbranch.DataBind();
+                downloadroute.Visible = false;
+
             }
             catch (Exception ex)
             {
@@ -775,13 +780,17 @@ namespace TraceBilling
                 int operationid = Convert.ToInt16(ddloperationarea3.SelectedValue.ToString());
 
                 LoadBranchCredentials(areaid, operationid);
-                
+                downloadroute.Visible = false;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
+        }
+        protected void ddlbranch_DataBound(object sender, EventArgs e)
+        {
+            ddlbranch.Items.Insert(0, new ListItem("All", "0"));
         }
 
     }

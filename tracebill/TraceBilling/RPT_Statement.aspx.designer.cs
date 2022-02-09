@@ -13,6 +13,15 @@ namespace TraceBilling {
     public partial class RPT_Statement {
         
         /// <summary>
+        /// toolScriptManageer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager toolScriptManageer1;
+        
+        /// <summary>
         /// lblmsg control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtstartdate;
         
         /// <summary>
+        /// CalendarExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+        
+        /// <summary>
         /// txtenddate control.
         /// </summary>
         /// <remarks>
@@ -49,6 +67,15 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.TextBox txtenddate;
         
         /// <summary>
+        /// CalendarExtender2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
+        
+        /// <summary>
         /// Button1 control.
         /// </summary>
         /// <remarks>
@@ -56,15 +83,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button1;
-        
-        /// <summary>
-        /// maindisplay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl maindisplay;
         
         /// <summary>
         /// Imageexcel control.
@@ -83,6 +101,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ImageButton Imagepdf;
+        
+        /// <summary>
+        /// maindisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl maindisplay;
         
         /// <summary>
         /// baltxt control.

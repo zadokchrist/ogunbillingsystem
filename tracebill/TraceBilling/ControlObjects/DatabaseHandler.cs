@@ -1109,7 +1109,7 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-        internal DataTable GetAuditReport(string username, string startdate,string enddate)
+        internal DataTable GetAuditReport(string username, DateTime startdate,DateTime enddate)
         {
             DataTable dt = new DataTable();
             try
@@ -2274,12 +2274,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable GetCustomerDisplayFiltered(int countryid, int areaid, string custref, int flag,int opid,int custtype)
+        internal DataTable GetCustomerDisplayFiltered(int countryid, int areaid, string custref, int flag,int opid,
+            int custtype,int branch,string propref)
         {
             DataTable dt = new DataTable();
             try
             {
-                dt = ExecuteDataSet("Sp_GetCustomerDetailsByID_filtered", countryid, areaid, custref, flag,opid,custtype);
+                dt = ExecuteDataSet("Sp_GetCustomerDetailsByID_filtered", countryid, areaid, custref, flag,opid,custtype,branch,propref);
             }
             catch (Exception ex)
             {
@@ -2294,6 +2295,88 @@ namespace TraceBilling.ControlObjects
             try
             {
                 dt = ExecuteDataSet("Sp_GetUnBilledCustomers", areaID,period);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetReadingExceptions()
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetReadingExceptions");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal DataTable GetExceptionsData(string area, string branch, string period, string block, string option)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetExceptionsData",area,branch,period,block,option);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetMeterAuditFiltered(string area,string branch, DateTime startdate, DateTime enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetMeterAuditFiltered", area, int.Parse(branch), startdate,enddate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetCustomerCountFiltered(string area, string branch, DateTime startdate, DateTime enddate)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetCustomerCountFiltered", area, int.Parse(branch), startdate, enddate);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable GetTransactionAuditFiltered(string area, string branch, DateTime startdate, DateTime enddate,string code)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("RPT_GetTransactionAuditFiltered", area, int.Parse(branch), startdate, enddate,code);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable SaveProfile(string areaid, string areaname, string address, string email,
+            string contact, string tollfree, string web)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = ExecuteDataSet("Sp_SaveProfile", areaid, areaname, address, email, contact, tollfree, web);
+
             }
             catch (Exception ex)
             {

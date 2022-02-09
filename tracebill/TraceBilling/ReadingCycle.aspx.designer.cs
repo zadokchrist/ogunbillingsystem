@@ -49,15 +49,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.WebControls.Button btnreadingcapture;
         
         /// <summary>
-        /// btnrexceptions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnrexceptions;
-        
-        /// <summary>
         /// lblapplicant control.
         /// </summary>
         /// <remarks>
@@ -479,23 +470,5 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnOK;
-        
-        /// <summary>
-        /// handleexeptions control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl handleexeptions;
-        
-        /// <summary>
-        /// exceptiondisplay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl exceptiondisplay;
     }
 }

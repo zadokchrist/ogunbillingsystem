@@ -59,11 +59,11 @@
                                     <asp:Button ID="btnreadingupload" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnreadingupload_Click" Text="ONSPOT UPLOAD" cssclass ="btn-primary"
                                         Width="160px" />&nbsp;&nbsp;&nbsp;&nbsp; 
-                  <asp:Button ID="btnreconciliation" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
+                 <%-- <asp:Button ID="btnreconciliation" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnreconciliation_Click" Text="INVOICE RECONCILIATION" cssclass ="btn-primary"
-                                        Width="187px" />&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Width="187px" />&nbsp;&nbsp;&nbsp;&nbsp;--%>
                    <asp:Button ID="btnonspotsettings" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
-                                        Font-Underline="False" OnClick="btnonspotsettings_Click" Text="ONSPOT SETTINGS" cssclass ="btn-primary"
+                                        Font-Underline="False" OnClick="btnonspotsettings_Click" Text="FIELD READER SETTINGS" cssclass ="btn-primary"
                                         Width="160px" />
                   <br /><br />
                 <asp:Label ID="lblapplicant" runat="server" Text="." ForeColor="Maroon" Font-Bold="true"></asp:Label>
@@ -72,7 +72,7 @@
               </div>
           </div>
           <br />
-       <div id="reconcileschedule" runat="server" visible="false">
+      <%-- <div id="reconcileschedule" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
                <fieldset class="panel panel-primary" runat="server">
     <legend class="w-auto">&nbsp;Bill Reconciliation</legend>
@@ -86,7 +86,7 @@
               
             </div>
                  
-       </div>
+       </div>--%>
                <div id="downloadroute" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
                <fieldset class="panel panel-primary" runat="server">
@@ -277,9 +277,17 @@
                                                         <td class="InterFaceTableMiddleRowUp" style="height: 10px">
                                                         </td>
                                                         <td class="InterFaceTableRightRowUp" style="height: 10px">
-                                                             <asp:DropDownList ID="branch_list1" CssClass="form-control" runat="server"  OnDataBound="branch_list1_DataBound" Visible="true" >
+                                                           <%--  <asp:DropDownList ID="branch_list1" CssClass="form-control" runat="server"  OnDataBound="branch_list1_DataBound" Visible="true" >
                 
-                </asp:DropDownList></td>
+                </asp:DropDownList>--%>
+                                                            <asp:DropDownList ID="ddlbranch" 
+                                    DataTextField="branchName"
+                                     DataValueField="branchId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlbranch_DataBound" Visible="true">
+                        </asp:DropDownList>
+
+                                                        </td>
                                                     </tr>
                                     <tr>
                                         <td colspan="3" style="height: 1px">

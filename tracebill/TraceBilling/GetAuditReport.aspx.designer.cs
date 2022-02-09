@@ -7,13 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TraceBilling
-{
-
-
-    public partial class GetAuditReport
-    {
-
+namespace TraceBilling {
+    
+    
+    public partial class GetAuditReport {
+        
+        /// <summary>
+        /// toolScriptManageer1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ToolkitScriptManager toolScriptManageer1;
+        
         /// <summary>
         /// lblmsg control.
         /// </summary>
@@ -22,7 +29,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmsg;
-
+        
         /// <summary>
         /// username control.
         /// </summary>
@@ -31,7 +38,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox username;
-
+        
         /// <summary>
         /// txtstartdate control.
         /// </summary>
@@ -40,7 +47,16 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtstartdate;
-
+        
+        /// <summary>
+        /// CalendarExtender1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
+        
         /// <summary>
         /// txtenddate control.
         /// </summary>
@@ -49,16 +65,25 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtenddate;
-
+        
         /// <summary>
-        /// Button3 control.
+        /// CalendarExtender2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
-
+        protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
+        
         /// <summary>
         /// maindisplay control.
         /// </summary>
@@ -67,7 +92,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl maindisplay;
-
+        
         /// <summary>
         /// baltxt control.
         /// </summary>
@@ -76,7 +101,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl baltxt;
-
+        
         /// <summary>
         /// DataGrid1 control.
         /// </summary>
@@ -85,7 +110,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid DataGrid1;
-
+        
         /// <summary>
         /// btnreconexport control.
         /// </summary>
@@ -94,7 +119,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnreconexport;
-
+        
         /// <summary>
         /// lblApplicationCode control.
         /// </summary>
@@ -103,7 +128,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblApplicationCode;
-
+        
         /// <summary>
         /// lblconnectionId control.
         /// </summary>
@@ -112,7 +137,7 @@ namespace TraceBilling
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblconnectionId;
-
+        
         /// <summary>
         /// lblarea control.
         /// </summary>

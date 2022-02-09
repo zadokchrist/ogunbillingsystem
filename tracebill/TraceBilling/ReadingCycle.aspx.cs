@@ -286,7 +286,7 @@ namespace TraceBilling
             generateschedule.Visible = true;
             capturereading.Visible = false;
            
-            handleexeptions.Visible = false;
+           // handleexeptions.Visible = false;
             int countryid = 2;
             int area = 10;
            
@@ -302,7 +302,7 @@ namespace TraceBilling
             generateschedule.Visible = false;
             capturereading.Visible = true;
            
-            handleexeptions.Visible = false;
+           // handleexeptions.Visible = false;
             LoadDisplay();
         }
 
@@ -311,7 +311,7 @@ namespace TraceBilling
             generateschedule.Visible = false;
             capturereading.Visible = false;
             
-            handleexeptions.Visible = false;
+            //handleexeptions.Visible = false;
            
         }
 
@@ -320,7 +320,7 @@ namespace TraceBilling
             generateschedule.Visible = false;
             capturereading.Visible = false;
             
-            handleexeptions.Visible = false;
+            //handleexeptions.Visible = false;
         }
 
         protected void btnrexceptions_Click(object sender, EventArgs e)
@@ -328,7 +328,7 @@ namespace TraceBilling
             generateschedule.Visible = false;
             capturereading.Visible = false;
            
-            handleexeptions.Visible = true;
+          //  handleexeptions.Visible = true;
         }
 
 

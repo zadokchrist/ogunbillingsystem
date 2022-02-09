@@ -52,8 +52,24 @@ namespace TraceBilling
             {
                              
                 string custref = txtcustref.Text.Trim();
-                string fromdate = txtstartdate.Text.Trim();
-                string todate = txtenddate.Text.Trim();
+                //string fromdate = txtstartdate.Text.Trim();
+                //string todate = txtenddate.Text.Trim();
+                DateTime start = DateTime.Parse(DateTime.Now.ToShortDateString());
+                DateTime end = DateTime.Now;
+
+
+
+                String fromdate = txtstartdate.Text.Trim();
+                String todate = txtenddate.Text.Trim();
+
+                if (!fromdate.Equals(""))
+                {
+                    start = DateTime.Parse(fromdate);
+                }
+                if (!todate.Equals(""))
+                {
+                    end = DateTime.Parse(todate);
+                }
                 if (custref.Equals(""))
                 {
                     DisplayMessage("Please enter valid custref", true);
@@ -68,8 +84,10 @@ namespace TraceBilling
 
                     //DateTime startdate = Convert.ToDateTime(bll.ReturnDate(fromdate, 1));
                     //DateTime enddate = Convert.ToDateTime(bll.ReturnDate(todate, 2));
-                    DateTime startdate = bll.GetValidDate(fromdate);
-                    DateTime enddate = bll.GetValidDate(todate);
+                    //DateTime startdate = bll.GetValidDate(fromdate);
+                   // DateTime enddate = bll.GetValidDate(todate);
+                    DateTime startdate = bll.GetDate(fromdate);//european style dd/mm/yyyy
+                    DateTime enddate = bll.GetDate(todate);//european style dd/mm/yyyy
                     DataTable dataTable = bll.GetStatement(custref, startdate,enddate);
                     lblcustref.Text = custref;
                     Session["dtall"] = dataTable;
@@ -192,7 +210,18 @@ namespace TraceBilling
 
         protected void Imageexcel_Click(object sender, ImageClickEventArgs e)
         {
-            ex(Session["dtall"] as DataTable);
+            //ex(Session["dtall"] as DataTable);
+            DataTable dt = (DataTable)Session["dtall"];
+            if (dt.Rows.Count > 0)
+            {
+                ex(dt);
+            }
+            else
+            {
+                string error = "100: " + "No records found to export";
+                bll.Log("No export", error);
+                DisplayMessage(error, true);
+            }
         }
         protected void Imagepdf_Click(object sender, ImageClickEventArgs e)
         {

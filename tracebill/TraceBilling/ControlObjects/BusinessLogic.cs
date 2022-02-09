@@ -168,6 +168,8 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
+       
+
         internal DataTable GetUserList(int countryid, int roleid)
         {
             dt = new DataTable();
@@ -1891,7 +1893,7 @@ namespace TraceBilling.ControlObjects
             return dt;
         }
 
-        internal DataTable GetAuditReport(string username, string startdate, string enddate) 
+        internal DataTable GetAuditReport(string username, DateTime startdate, DateTime enddate) 
         {
             try
             {
@@ -3282,7 +3284,8 @@ namespace TraceBilling.ControlObjects
             string output = "";
             int RecordID = Convert.ToInt32(recordCode);
             
-            string Period = startDate.ToString("yyyyMM");
+           // string Period = startDate.ToString("yyyyMM");
+            string Period = startDate.ToString("MMyyyy");
             string areacode = HttpContext.Current.Session["areaCode"].ToString();
             string PeriodCode = areacode + "" + Period;
             //string PeriodCode = areacode + "" + Period + opid;
@@ -4017,13 +4020,13 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
-        internal DataTable LoadCustomerDisplayFiltered(int countryid, int areaid, string custref, int flag,int opid,int custtype)
+        internal DataTable LoadCustomerDisplayFiltered(int countryid, int areaid, string custref, int flag,int opid,int custtype,int branchid,string propref)
         {
             dt = new DataTable();
             try
             {
 
-                dt = dh.GetCustomerDisplayFiltered(countryid, areaid, custref, flag,opid,custtype);
+                dt = dh.GetCustomerDisplayFiltered(countryid, areaid, custref, flag,opid,custtype,branchid,propref);
 
             }
             catch (Exception ex)
@@ -4046,6 +4049,100 @@ namespace TraceBilling.ControlObjects
                 Log("GetUnBilledCustomers", "101 " + ex.Message);
             }
             return dt;
+        }
+        internal DataTable GetReadingExceptions()
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetReadingExceptions();
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetReadingExceptions", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetExceptionsData(string area, string branch, string period, string block, string option)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetExceptionsData(area,branch,period,block,option);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetExceptionsData", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetMeterAuditFiltered(string area,string branch, DateTime startdate,DateTime enddate)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetMeterAuditFiltered(area,branch, startdate,enddate);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetMeterAudit", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetCustomerCountFiltered(string area, string branch, DateTime startdate, DateTime enddate)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetCustomerCountFiltered(area, branch, startdate, enddate);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetCustomerCountFiltered", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        internal DataTable GetTransactionAuditFiltered(string area,string branch, DateTime startdate,DateTime enddate, string code)
+        {
+            dt = new DataTable();
+            try
+            {
+
+                dt = dh.GetTransactionAuditFiltered(area,branch, startdate,enddate, code);
+
+            }
+            catch (Exception ex)
+            {
+                Log("GetTransactionAuditFiltered", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public ResponseMessage SaveProfile(string areaid, string areaname, string address,string email, 
+            string contact, string tollfree,string  web)
+        {
+            try
+            {
+                DataTable dt = new DataTable();
+                dt = dh.SaveProfile(areaid, areaname, address, email, contact, tollfree, web);
+                resp.Response_Code = dt.Rows[0]["Response_Code"].ToString();
+                resp.Response_Message = dt.Rows[0]["Response_Desc"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("SaveProfile", resp.Response_Code + " " + resp.Response_Message);
+            }
+            return resp;
         }
     }
 }

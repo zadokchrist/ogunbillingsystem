@@ -2,7 +2,10 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+<<<<<<< HEAD
     <NameOfLastUsedPublishProfile>D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\Properties\PublishProfiles\IISProfile.pubxml</NameOfLastUsedPublishProfile>
+=======
+>>>>>>> eefe8fc49e2d1c5befc6768acb1b13abbc5114b5
   </PropertyGroup>
   <ProjectExtensions>
     <VisualStudio>
@@ -24,7 +27,7 @@
           <StartWorkingDirectory>
           </StartWorkingDirectory>
           <EnableENC>True</EnableENC>
-          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+          <AlwaysStartWebServerOnDebug>True</AlwaysStartWebServerOnDebug>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
