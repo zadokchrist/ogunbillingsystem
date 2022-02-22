@@ -147,7 +147,8 @@
                       <tr>
                     <td style="width: 50%">
                          <asp:Label runat="server" Text="Operation Branch" ID="txtbranch" Visible="true" Font-Bold="true"></asp:Label>
-                 
+                   <asp:Label ID="lbx" runat="server" Text="**" Visible="true" Font-Bold="true" ForeColor="Red"></asp:Label>
+
                     </td>
                           <td style="width: 50%">
  <asp:DropDownList ID="branch_list" CssClass="form-control" runat="server"  OnDataBound="branch_list_DataBound" Visible="true"

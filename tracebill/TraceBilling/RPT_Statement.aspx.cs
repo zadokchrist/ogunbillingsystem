@@ -62,14 +62,14 @@ namespace TraceBilling
                 String fromdate = txtstartdate.Text.Trim();
                 String todate = txtenddate.Text.Trim();
 
-                if (!fromdate.Equals(""))
-                {
-                    start = DateTime.Parse(fromdate);
-                }
-                if (!todate.Equals(""))
-                {
-                    end = DateTime.Parse(todate);
-                }
+                //if (!fromdate.Equals(""))
+                //{
+                //    start = DateTime.Parse(fromdate);
+                //}
+                //if (!todate.Equals(""))
+                //{
+                //    end = DateTime.Parse(todate);
+                //}
                 if (custref.Equals(""))
                 {
                     DisplayMessage("Please enter valid custref", true);

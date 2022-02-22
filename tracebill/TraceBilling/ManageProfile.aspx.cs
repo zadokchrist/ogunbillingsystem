@@ -169,9 +169,9 @@ namespace TraceBilling
                 {
                     DisplayMessage("Please enter official email", true);
                 }
-                else if (contact == "")
+                else if (tollfree == "")
                 {
-                    DisplayMessage("Please enter official contact", true);
+                    DisplayMessage("Please enter official toll free line", true);
                 }
                 else
                 {

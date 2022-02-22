@@ -215,6 +215,9 @@ namespace TraceBilling
                 string str = "";
                 if (isassigned)
                 {
+                    //log job card
+                    bll.LogApplicationTransactions(int.Parse(appid), 3, CreatedBy);
+                    //approve survey
                     bll.LogApplicationTransactions(int.Parse(appid), status, CreatedBy);
                     str = "Jobcard submitted to Surveyor for further action.";
                     DisplayMessage(str, false);

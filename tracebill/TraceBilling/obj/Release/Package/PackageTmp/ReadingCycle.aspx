@@ -5,7 +5,7 @@
     <div class="container">
 	<div class="row">
 	  <form role="form" runat="server">
-                    <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+ <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
 
           <br />
           <div><h3>READING CYCLE MANAGEMENT</h3></div>
@@ -70,9 +70,9 @@
                                         Font-Underline="False" OnClick="btnreadingcapture_Click" Text="CAPTURE READINGS" cssclass ="btn-primary"
                                         Width="144px" />&nbsp;&nbsp;&nbsp;&nbsp;
                   
-                  <asp:Button ID="btnrexceptions" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
+               <%--   <asp:Button ID="btnrexceptions" runat="server" BorderStyle="Inset" Font-Bold="True" Font-Names="Cambria"
                                         Font-Underline="False" OnClick="btnrexceptions_Click" Text="HANDLE EXCEPTIONS" cssclass ="btn-primary"
-                                        Width="149px" />&nbsp;
+                                        Width="149px" />&nbsp;--%>
                   <br /><br />
                 <asp:Label ID="lblapplicant" runat="server" Text="." ForeColor="Maroon" Font-Bold="true"></asp:Label>
               </center>
@@ -634,7 +634,7 @@
                  
        </div>
                
-               <div id="handleexeptions" runat="server" visible="false">
+<%--               <div id="handleexeptions" runat="server" visible="false">
            <div class="form-group col-sm-12 col-md-12 col-lg-12">
                <fieldset class="panel panel-primary" runat="server">
     <legend class="w-auto">&nbsp;Field Exceptions/Anormalies</legend>
@@ -648,7 +648,7 @@
               
             </div>
                  
-       </div>
+       </div>--%>
 
          
         

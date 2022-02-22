@@ -100,17 +100,17 @@ namespace TraceBilling
 
 
 
-                String from = txtfromdatesrc.Text.Trim();
-                String to = txttodatesrc.Text.Trim();
+                String fromdate = txtfromdatesrc.Text.Trim();
+                String todate = txttodatesrc.Text.Trim();
 
-                if (!from.Equals(""))
-                {
-                    start = DateTime.Parse(from);
-                }
-                if (!to.Equals(""))
-                {
-                    end = DateTime.Parse(to);
-                }
+                //if (!from.Equals(""))
+                //{
+                //    start = DateTime.Parse(from);
+                //}
+                //if (!to.Equals(""))
+                //{
+                //    end = DateTime.Parse(to);
+                //}
 
                 if (ddloperationarea.SelectedValue.Equals("0") || ddlbranch.SelectedValue.Equals("0"))
                 {
@@ -124,7 +124,9 @@ namespace TraceBilling
                 string status = "0";
                 string search = txtsearch.Text.Trim();
                 string branch = ddlbranch.SelectedValue.ToString();
-                DataTable dt = bll.GetAllTransactionsByDate(int.Parse(countryid), int.Parse(areaid), start,end);
+                DateTime startdate = bll.GetDate(fromdate);//european style dd/mm/yyyy
+                DateTime enddate = bll.GetDate(todate);//european style dd/mm/yyyy
+                DataTable dt = bll.GetAllTransactionsByDate(int.Parse(countryid), int.Parse(areaid), startdate, enddate);
                 if (dt.Rows.Count > 0)
                 {
                     DataGrid1.DataSource = dt;
