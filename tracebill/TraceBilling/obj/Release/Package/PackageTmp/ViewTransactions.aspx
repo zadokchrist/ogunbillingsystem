@@ -87,13 +87,13 @@
           </div>
             <div class="col-sm-3">From Date
                   <asp:TextBox ID="txtfromdatesrc" runat="server" CssClass="form-control"></asp:TextBox>
-                    <ajaxToolkit:CalendarExtender ID="txtfromdatesrc_CalendarExtender" runat="server" TargetControlID="txtfromdatesrc" Format="yyyy-MM-dd"/>
+                    <ajaxToolkit:CalendarExtender ID="txtfromdatesrc_CalendarExtender" runat="server" TargetControlID="txtfromdatesrc" Format="dd/MM/yyyy" PopupPosition="BottomLeft"/>
                       
 
             </div>
          <div class="col-sm-3">To Date
                <asp:TextBox ID="txttodatesrc" runat="server" CssClass="form-control"></asp:TextBox>
-                     <ajaxToolkit:CalendarExtender ID="txttodatesrc_CalendarExtender" runat="server" TargetControlID="txttodatesrc" Format="yyyy-MM-dd"/>
+                     <ajaxToolkit:CalendarExtender ID="txttodatesrc_CalendarExtender" runat="server" TargetControlID="txttodatesrc" Format="dd/MM/yyyy" PopupPosition="BottomLeft"/>
                          
          </div>
          
@@ -107,6 +107,8 @@
               <asp:Button ID="btnreturn" Width="202px" Height="40px" CssClass="btn-primary" Visible="false"
                                     runat="server" Text="Return to transaction list" onclick="btnReturn_Click" />
           </div>--%>
+                                          <br /><br />
+
             <div class="col-sm-12 home card" id="maindisplay" runat="server" >
 
                    <h5 class="inline">View payment transaction Logs</h5>

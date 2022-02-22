@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="Statement of Account" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="RPT_Statement.aspx.cs" Inherits="TraceBilling.RPT_Statement" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
      <form role="form" runat="server"> 
-    
+    <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
     <div class="container">
           <div class="row filters_div white_bg left_text">
       
@@ -21,13 +24,22 @@
           </div>
        
             <div class="col-sm-3">From Date
-                  <asp:TextBox ID="txtstartdate" runat="server" CssClass="mydate"
-                               ></asp:TextBox>                     
+                 <%-- <asp:TextBox ID="txtstartdate" runat="server" CssClass="mydate"
+                               ></asp:TextBox> --%> 
+    <asp:TextBox ID="txtstartdate" CssClass="form-control"  runat="server" ></asp:TextBox>
+
+   <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" 
+       TargetControlID="txtstartdate" Format="dd/MM/yyyy" PopupPosition="BottomLeft"  />
+                   
 
             </div>
-         <div class="col-sm-3">End Date
-                  <asp:TextBox ID="txtenddate" runat="server" CssClass="mydate"
-                               ></asp:TextBox>                     
+         <div class="col-sm-3">To Date
+                  <%--<asp:TextBox ID="txtenddate" runat="server" CssClass="mydate"
+                               ></asp:TextBox> --%>    
+     <asp:TextBox ID="txtenddate" CssClass="form-control"  runat="server" ></asp:TextBox>
+                
+ <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtenddate" 
+     Format="dd/MM/yyyy" PopupPosition="BottomLeft"/>
 
             </div>
              
@@ -37,14 +49,8 @@
                                     runat="server" Text="Search" onclick="Button3_Click"  />
                            
            </div>
-             
-        </div>
-        </div>
-
-        <div class="row">
-	      <div class="col-sm-12 white_bg card_border" id="maindisplay" runat="server">
-                 <div id ="exportexcel" align="left">
-                 <asp:ImageButton ID="Imageexcel"  ImageAlign="AbsMiddle"
+              <div class="col-sm-3"> 
+                   <asp:ImageButton ID="Imageexcel"  ImageAlign="AbsMiddle"
          AlternateText="search" runat="server" ImageUrl="images/excel.png" 
          CssClass="btn-default inline" Width="50" Height="40" OnClick="Imageexcel_Click" />
                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -53,7 +59,15 @@
          CssClass="btn-default inline" Width="50" Height="40" OnClick="Imagepdf_Click" />      
                      <br />
                  <b> Export</b>
-            </div>
+                  </div>
+        </div>
+        </div>
+        <br /><br />
+        <div class="row">
+	      <div class="col-sm-12 white_bg card_border" id="maindisplay" runat="server">
+                <%-- <div id ="exportexcel" align="left">
+                 
+            </div>--%>
                    <h5 class="inline">Customer Statement</h5>
                 <hr />
                    <p id='baltxt' class="inline" style="color:Green; font-size:14px;" runat="server"></p>

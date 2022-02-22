@@ -94,8 +94,8 @@ D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\roslyn\
 D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll.config
 D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.dll
 D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\bin\TraceBilling.pdb
-D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.AssemblyReference.cache
 D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CoreCompileInputs.cache
 D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.CopyComplete
 D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.dll
 D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.pdb
+D:\working directory\tracebilldashboardlatest\tracebill\TraceBilling\obj\Debug\TraceBilling.csproj.AssemblyReference.cache

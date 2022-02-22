@@ -1,8 +1,11 @@
 ﻿<%@ Page Title="Transaction Audit Report" Language="C#" MasterPageFile="~/General.Master" AutoEventWireup="true" CodeBehind="RPT_TransactionAudit.aspx.cs" Inherits="TraceBilling.RPT_TransactionAudit" %>
+ <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>  
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
      <form role="form" runat="server"> 
-    
+            <ajaxToolkit:ToolkitScriptManager ID="toolScriptManageer1" runat="server"></ajaxToolkit:ToolkitScriptManager>          
+
     <div class="container">
           <div class="row filters_div white_bg left_text">
   
@@ -31,13 +34,27 @@
                                      OnDataBound="ddlbranch_DataBound" Visible="true">
                         </asp:DropDownList>
           </div>
-        
-          <div class="col-sm-3">Period
+               
+             <div class="col-sm-3">From Date
+                 <%-- <asp:TextBox ID="txtstartdate" runat="server" CssClass="mydate"
+                               ></asp:TextBox> --%> 
+    <asp:TextBox ID="txtstartdate" CssClass="form-control"  runat="server" ></asp:TextBox>
 
-               <asp:TextBox ID="txtperiod" runat="server" CssClass="form-control"
-                              ></asp:TextBox>
-          </div>
-              <div class="col-sm-3">Transaction Code
+   <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" 
+       TargetControlID="txtstartdate" Format="dd/MM/yyyy" PopupPosition="BottomLeft"  />
+                   
+
+            </div>
+         <div class="col-sm-3">To Date
+                  <%--<asp:TextBox ID="txtenddate" runat="server" CssClass="mydate"
+                               ></asp:TextBox> --%>    
+     <asp:TextBox ID="txtenddate" CssClass="form-control"  runat="server" ></asp:TextBox>
+                
+ <ajaxToolkit:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtenddate" 
+     Format="dd/MM/yyyy" PopupPosition="BottomLeft"/>
+
+            </div>
+        <div class="col-sm-3">Transaction Code
                <asp:DropDownList ID="ddtranscode" 
                                     DataTextField="transName"
                                      DataValueField="transCode" 
@@ -45,26 +62,39 @@
                                      OnDataBound="ddtranscode_DataBound" Visible="true">
                         </asp:DropDownList>
           </div>  
+         <%-- <div class="col-sm-3">Period
+
+               <asp:TextBox ID="txtperiod" runat="server" CssClass="form-control"
+                              ></asp:TextBox>
+          </div>--%>
+            
         <div class="col-sm-3">  
-        Search 
+         
                           <asp:Button ID="Button1" Width="150" Height="40" CssClass="btn-primary round_btn form-control"
                                     runat="server" Text="Search" onclick="Button3_Click"  />
                            
            </div>
-             
+            
         </div>
         </div>
+                                <br /><br />
 
         <div class="row">
 	      <div class="col-sm-12 white_bg card_border" id="maindisplay" runat="server">
-                 <div id ="exportexcel" align="left">
+                <%-- <div id ="exportexcel" align="left">
                  <asp:ImageButton ID="Imageexcel"  ImageAlign="AbsMiddle"
          AlternateText="search" runat="server" ImageUrl="images/excel.png" 
          CssClass="btn-default inline" Width="50" Height="40" OnClick="Imageexcel_Click" /><br />
                  <b> Export</b>
-            </div>
+            </div>--%>
                    <h5 class="inline">Transaction Audit report</h5>
                 <hr />
+               <div class="col-sm-3">  
+                    <asp:ImageButton ID="Imageexcel"  ImageAlign="AbsMiddle"
+         AlternateText="search" runat="server" ImageUrl="images/excel.png" 
+         CssClass="btn-default inline" Width="50" Height="40" OnClick="Imageexcel_Click" /><br />
+                 <b> Export</b>
+                  </div> 
                    <p id='baltxt' class="inline" style="color:Green; font-size:14px;" runat="server"></p>
                              <asp:GridView ID="GridViewIssue" runat="server" 
                        CssClass="grid-text" CellPadding="10" 

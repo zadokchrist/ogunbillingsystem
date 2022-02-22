@@ -50,7 +50,17 @@
                                      DataValueField="operationId" 
                                     CssClass="form-control" runat="server"
                                     OnDataBound="ddloperationarea_DataBound" Visible="true"
+                   AutoPostBack="true"
+                              OnSelectedIndexChanged="ddloperationarea_SelectedIndexChanged"
                              >
+                        </asp:DropDownList>
+          </div>
+           <div class="col-sm-3">Branch
+               <asp:DropDownList ID="ddlbranch" 
+                                    DataTextField="BranchName"
+                                     DataValueField="BranchId" 
+                                    CssClass="form-control" runat="server"
+                                     OnDataBound="ddlbranch_DataBound" Visible="true">
                         </asp:DropDownList>
           </div>
               <div class="col-sm-3">Customer Type
@@ -64,6 +74,11 @@
            <div class="col-sm-3">
            Customer Reference
               <asp:TextBox ID="txtsearch" 
+                               runat="server" CssClass="form-control" ></asp:TextBox>
+         </div>
+           <div class="col-sm-3">
+           Property Reference
+              <asp:TextBox ID="txtpropertyref" 
                                runat="server" CssClass="form-control" ></asp:TextBox>
          </div>
                 <div class="col-sm-3">  
@@ -721,6 +736,7 @@
             
        </div>
         <asp:Label ID="lblcustref" runat="server" Text="0" Visible="False"></asp:Label>
+        <asp:Label ID="lblcusttype" runat="server" Text="0" Visible="False"></asp:Label>
 
         
     </form>
