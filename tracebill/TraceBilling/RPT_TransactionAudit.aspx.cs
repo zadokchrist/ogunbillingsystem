@@ -67,14 +67,14 @@ namespace TraceBilling
                 String fromdate = txtstartdate.Text.Trim();
                 String todate = txtenddate.Text.Trim();
 
-                if (!fromdate.Equals(""))
-                {
-                    start = DateTime.Parse(fromdate);
-                }
-                if (!todate.Equals(""))
-                {
-                    end = DateTime.Parse(todate);
-                }
+                //if (!fromdate.Equals(""))
+                //{
+                //    start = DateTime.Parse(fromdate);
+                //}
+                //if (!todate.Equals(""))
+                //{
+                //    end = DateTime.Parse(todate);
+                //}
                 DateTime startdate = bll.GetDate(fromdate);//european style dd/mm/yyyy
                 DateTime enddate = bll.GetDate(todate);//european style dd/mm/yyyy
                 //DataTable dataTable = bll.GetTransactionAudit(branch, period,transcode);

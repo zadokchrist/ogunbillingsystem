@@ -241,6 +241,7 @@
     <Content Include="bin\AjaxControlToolkit.dll" />
     <Content Include="bin\itextsharp.dll" />
     <Content Include="BlockSetting.aspx" />
+    <Content Include="ChangePassword.aspx" />
     <Content Include="CloseAccount.aspx" />
     <Content Include="CustomerCreation.aspx" />
     <Content Include="dist\css\refs.css" />
@@ -7717,6 +7718,13 @@
     </Compile>
     <Compile Include="BlockSetting.aspx.designer.cs">
       <DependentUpon>BlockSetting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="CloseAccount.aspx.cs">
       <DependentUpon>CloseAccount.aspx</DependentUpon>

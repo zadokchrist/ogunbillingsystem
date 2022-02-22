@@ -4144,5 +4144,246 @@ namespace TraceBilling.ControlObjects
             }
             return resp;
         }
+        //password manager added 22/2/2022
+        public string ChangeUserPassword(string UserCode, string NewPassword, string Confirm, bool Reset)
+        {
+            string ouput = "";
+            if (NewPassword == "")
+            {
+                ouput = "Please Enter New Password";
+            }
+            else if (Confirm == "")
+            {
+                ouput = "Please Confirm Password";
+            }
+            else if (NewPassword != Confirm)
+            {
+                ouput = "Passwords do not match";
+            }
+            else if (!IsPasswordStrengthOk(NewPassword))
+            {
+                ouput = "Your Password Strength is not ok(Password should be alpha-numeric and length of 8)";
+            }
+            else
+            {
+                string EncryptedPassword = EncryptString(NewPassword);
+                int UserID = Convert.ToInt32(UserCode);
+                dh.UpdatePassword(UserID, EncryptedPassword, Reset);
+                ouput = "System User Password has been Changed Successfully";
+            }
+            return ouput;
+        }
+
+        private bool IsPasswordStrengthOk(string Password)
+        {
+            if (Password.Length >= 8)
+            {
+                if (passwordContainsIntegers(Password))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private bool passwordContainsIntegers(string password)
+        {
+            bool ok = false;
+            char[] chPassword = password.Trim().ToCharArray();
+            ArrayList chArray = new ArrayList();
+            chArray.Add('0');
+            chArray.Add('1');
+            chArray.Add('2');
+            chArray.Add('3');
+            chArray.Add('4');
+            chArray.Add('5');
+            chArray.Add('6');
+            chArray.Add('7');
+            chArray.Add('8');
+            chArray.Add('9');
+            foreach (char c in chPassword)
+            {
+                if (chArray.Contains(c))
+                {
+                    ok = true;
+                    break;
+                }
+            }
+            return ok;
+        }
+        public int GetCurrentUserID(string userName)
+        {
+            int output = 0;
+
+            DataTable dt = dh.GetCurrentUserID(userName);
+            if (dt.Rows.Count > 0)
+            {
+                output = int.Parse(dt.Rows[0]["UserID"].ToString());
+            }
+            return output;
+        }
+        public bool CheckUserLogin(string username, string password)
+        {
+            bool output = false;
+            if (username.Equals(password))
+            {
+                output = true;
+            }
+
+            return output;
+        }
+        public void LogActivity(string userCode, string action)
+        {
+            try
+            {
+                dh.LogUserActivity(userCode, action);
+            }
+            catch (Exception ex)
+            {
+
+                //throw ex;
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("LogActivity", resp.Response_Code + " " + resp.Response_Message);
+            }
+        }
+        public DataTable CheckUserDetails(string username)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+
+                dt = dh.CheckUserDetails(username);
+
+            }
+            catch (Exception ex)
+            {
+                Log("CheckUserDetails", "101 " + ex.Message);
+            }
+            return dt;
+        }
+        public string GenerateRandomPassword()
+        {
+            string randpwd = "";
+            try
+            {
+                //randpwd = CreatePassword(10);
+                randpwd = GeneratePassword(3, 3, 4);
+                // Console.WriteLine(randpwd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return randpwd;
+        }
+        public string GeneratePassword(int lowercase, int uppercase, int numerics)
+        {
+            string lowers = "abcdefghijklmnopqrstuvwxyz";
+            string uppers = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string number = "123456789";
+
+            Random random = new Random();
+
+            string generated = "!";
+            for (int i = 1; i <= lowercase; i++)
+                generated = generated.Insert(
+                    random.Next(generated.Length),
+                    lowers[random.Next(lowers.Length - 1)].ToString()
+                );
+
+            for (int i = 1; i <= uppercase; i++)
+                generated = generated.Insert(
+                    random.Next(generated.Length),
+                    uppers[random.Next(uppers.Length - 1)].ToString()
+                );
+
+            for (int i = 1; i <= numerics; i++)
+                generated = generated.Insert(
+                    random.Next(generated.Length),
+                    number[random.Next(number.Length - 1)].ToString()
+                );
+
+            return generated.Replace("!", string.Empty);
+
+        }
+        public string CheckPasswordUsage(int userID, string Password)
+        {
+            string output = "";
+            /*DataTable dt = dh.CheckUserPasswords(userID);
+            ArrayList a = new ArrayList();
+            foreach (DataRow dr in dt.Rows)
+            {
+                a.Add(dr[1].ToString());
+            }
+            if (a.Contains(Password))
+                output = "Password cannot be reused";
+            else
+                output = "Success";
+*/
+            output = "Success";
+            return output;
+
+        }
+        //public DataTable GetSystemUserByRole(string role)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+
+        //        dt = dh.GetSystemUserByRole(role);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Log("GetSystemUserByRole", "101 " + ex.Message);
+        //    }
+        //    return dt;
+        //}
+        public void LogRandomDetails(string username, string randompwd, string action, string changedby, string userid)
+        {
+            try
+            {
+                dh.LogRandomDetails(username, randompwd, action, changedby, userid);
+            }
+            catch (Exception ex)
+            {
+
+                //throw ex;
+                resp.Response_Code = "101";
+                resp.Response_Message = ex.Message;
+                Log("LogRandomDetails", resp.Response_Code + " " + resp.Response_Message);
+            }
+        }
+        public string PasswordResponse(string fullName, string email, string msg,string username)
+        {
+            ResponseMessage resp = new ResponseMessage();
+            string output = "";
+            string application_link = dh.GetSystemParameter("1");
+            string message = "  Hello " + fullName;
+            string message1 = " " + msg;
+            string message2 = " Kindly take note of this request for your input";
+            string Actuallink = "<a href= " + application_link + " > Click To Access </a>";
+            string message3 = "LINK: " + Actuallink;
+
+            string body = string.Format("<html>" + message + ",<BR>" +
+            message1 + ",<BR>" + message2 + ",<BR>" + message3 + "</body>");
+            string subject = "OGUN_BILLING - PASSWORD REQUEST";
+            if (!email.Equals(""))
+            {
+                resp = SendEmail(email, subject, message1);
+                if (resp.Response_Code.ToString().Equals("1"))
+                {
+                    output = "System User-"+ username+ " Password has been Changed Successfully";
+                }
+            }
+            return output;
+        }
     }
 }

@@ -36,9 +36,6 @@
 <%-- <body class="hold-transition register-page" style="background:url('assets/dist/img/background1.jpg') no-repeat center center fixed;">--%>
 
 
-    <p>
-        <br />
-    </p>
 
 <form id="Form1" runat="server">
     <div class="register-box">
@@ -58,8 +55,7 @@
       </div>
       <h6><b><font color="black"><center>OGUN WATER BILLING SYSTEM</center></b></h6>
     
-   
-      <div>
+   <div id="logindisplay" runat="server" visible="true">
       <div class="form-group has-feedback">
           <asp:Label ID="lblmsg" runat="server" Text="" ForeColor="red"></asp:Label>
     
@@ -76,7 +72,6 @@
         
        
       </div>
-      </div>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4">
@@ -90,15 +85,136 @@
         
         <!-- /.col -->
       </div>
-      <div class="form-group has-feedback">
+      <div class="row">
             
-               <a href="#" class="btn btn-default btn-flat">Forgot password?</a>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+               <%--<a href="#" class="btn btn-default btn-flat">Forgot password?</a>
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>--%>
+            <asp:LinkButton ID="linkGoSomewhere" runat="server" 
+         Click="linkGoSomewhere_Click" onclick="linkGoSomewhere_Click">Forgot Password??...click here!!!</asp:LinkButton>
       </div>
-                        
+         </div>  
+      <div id="changedisplay"  runat="server" visible="false">
+         <table align="center" cellpadding="0" cellspacing="0" style="width: 100%">
+                                                       
+                                         <asp:Label runat="server" Text="CHANGE YOUR SYSTEM PASSWORD" id="Label1" Font-Bold="true" ForeColor="Blue"></asp:Label>
+
+<%--              <tr>
+                                                            <td class="InterFaceTableLeftRow">
+                                                                Current Password</td>
+                                                            <td class="InterFaceTableMiddleRow">
+                                                            </td>
+                                                            <td class="InterFaceTableRightRow">
+                                                                <asp:TextBox ID="txtcurrentpwd" runat="server" CssClass="form-control"
+                                                                    TextMode="Password" Width="60%"  onKeyDown="return DisableControlKey(event)" onMouseDown="return DisableControlKey(event)"></asp:TextBox>
+                                                                    <input type="checkbox" id="cpwd" onclick="showpass2(this);" />Show Password</td>
+                                                        </tr>--%>
+                                                        <tr>
+                                                            <td class="auto-style3">
+                                                                New Password</td>
+                                                            
+                                                            <td class="auto-style2">
+                                                                <asp:TextBox ID="txtNewPassword" runat="server" CssClass="form-control"
+                                                                    TextMode="Password" Width="80%"  onKeyDown="return DisableControlKey(event)" onMouseDown="return DisableControlKey(event)"></asp:TextBox>
+                                                                    <input type="checkbox" id="pass2" onclick="showpass2(this);" />Show</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="auto-style3">
+                                                                Confirm New Password</td>
+                                                            
+                                                            <td class="auto-style2">
+                                                                <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control"
+                                                                    TextMode="Password" Width="80%"   onKeyDown="return DisableControlKey(event)" onMouseDown="return DisableControlKey(event)"></asp:TextBox>
+                                                                    <input type="checkbox" id="pass3" onclick="showpass3(this);" />Show</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3" style="height: 21px">
+
+                                                            </td>
+                                                        </tr>
+              <tr>
+                                                            <td colspan="3" style="height: 21px">
+ <asp:Button ID="BtnSave" runat="server" Font-Bold="True" Font-Size="9pt" Height="23px"
+                                                                    OnClick="BtnSave_Click" Text="Save" Width="99px" />&nbsp;&nbsp;&nbsp;
+                                                                <asp:Button ID="btnCancel" runat="server" Font-Bold="True" Font-Size="9pt" Height="23px"
+                                                                    OnClick="btnCancel_Click" Text="Cancel" Width="90px" />
+                                                            </td>
+                                                        </tr>
+             </table>
+      </div>      
+      <div id="forgotpwddisplay" runat="server" visible="false">
+                                                          <table align="center" cellpadding="0" cellspacing="0" style="width: 45%">
+                                                       
+                                                              <asp:Label runat="server" Text="FORGOT SYSTEM PASSWORD" id="lblf" Font-Bold="true" ForeColor="Blue"></asp:Label>
+                                                       
+                                                        <tr>
+                                                            <td class="auto-style2">
+                                                                System Username</td>
+                                                           
+                                                            <td class="auto-style2">
+                                                                <asp:TextBox ID="txtforgetusername" runat="server" CssClass="InterfaceTextboxLongReadOnly" AutoPostBack="true" OnTextChanged="txtforgetusername_TextChanged" 
+                                                                
+                                                                     Width="94%"></asp:TextBox>
+                                                                     </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="auto-style2">
+                                                                Full Name</td>
+                                                            
+                                                            <td class="auto-style2">
+                                                                <asp:TextBox ID="txtFullName" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true" BackColor="WhiteSmoke"
+                                                                     Width="94%"></asp:TextBox>
+                                                                     </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="auto-style2">
+                                                                Email</td>
+                                                           
+                                                            <td class="auto-style2">
+                                                                <asp:TextBox ID="txtEmail" runat="server" CssClass="InterfaceTextboxLongReadOnly" ReadOnly="true" BackColor="WhiteSmoke"
+                                                                     Width="94%"></asp:TextBox>
+                                                                     </td>
+                                                        </tr>
+                                                      
+                                                         <tr>
+                                                            <td class="auto-style2">
+                                                                Action</td>
+                                                            
+                                                            <td class="InterfaceInforFonts" style="vertical-align: top; text-align: center">
+                                <asp:RadioButtonList ID="rbnAction" runat="server" BackColor="LemonChiffon" AutoPostBack="true"
+                                    Font-Bold="True" OnSelectedIndexChanged="rbnAction_SelectedIndexChanged" RepeatDirection="Horizontal"
+                                    Style="border-top-style: ridge; border-right-style: ridge; border-left-style: ridge;
+                                    border-bottom-style: ridge" Width="92%">
+                                    <asp:ListItem Value="0">Enable Account</asp:ListItem>
+                                    <asp:ListItem Value="1">Reset password</asp:ListItem>                                    
+                                    </asp:RadioButtonList></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="3" style="height: 21px">
+                                                            </td>
+                                                        </tr>
+                                                      
+                                                                            <tr>
+                                                                                <td class="auto-style2">
+<asp:Button ID="Button3" runat="server" Font-Bold="True" Font-Size="9pt" Height="23px"
+                                                                    OnClick="BtnForgotSubmit_Click" Text="Submit" Width="99px" />
+                                                                                </td>
+                                                            <td class="auto-style2">
+                                                            &nbsp;&nbsp;&nbsp;
+                                                                    <asp:Button ID="Button4" runat="server" Font-Bold="True" Font-Size="9pt" Height="23px"
+                                                                    OnClick="btnCancelSubmit_Click" Text="Cancel" Width="90px" />
+                                                            </td>
+                                                        </tr>
+                                                   
+                                                    </table>
+
+      </div>               
   </div>
   <!-- /.form-box -->
 </div>
+      <asp:Label runat="server" Text="0" id="lbluserid" Visible="false"></asp:Label>
+    <asp:Label runat="server" Text="." id="lblusername" Visible="false"></asp:Label>
+    <asp:Label runat="server" Text="." id="lbloldpwd" Visible="false"></asp:Label>
+    <asp:Label runat="server" Text="." id="lblmewpwd" Visible="false"></asp:Label>
 </form>
 
 

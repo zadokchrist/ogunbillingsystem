@@ -2384,5 +2384,98 @@ namespace TraceBilling.ControlObjects
             }
             return dt;
         }
+        //password changes added 22/2/2022
+        internal void LogRandomDetails(string username, string randompwd, string action, string changedby, string userid)
+        {
+            try
+            {
+                ExecuteCommand("Sp_LogRandomDetails", username, randompwd, action, changedby, userid);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable GetCurrentUserID(string userName)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetSystemUserByUserName", userName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+        internal DataTable CheckUserPasswords(int userID)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_CheckUserPasswords", userID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+        }
+
+        internal void UpdatePassword(int userID, string encryptedPassword, bool reset)
+        {
+            try
+            {
+                ExecuteCommand("Sp_UpdateUserPassword", userID, encryptedPassword, reset);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        internal void LogUserActivity(string userCode, string action)
+        {
+            try
+            {
+                ExecuteCommand("Sp_LogUserActivity", userCode, action);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        internal DataTable CheckUserDetails(string username)
+        {
+            DataTable dt = new DataTable();
+            try
+            {
+                dt = ExecuteDataSet("Sp_GetSystemUserByUserName", username);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return dt;
+
+        }
+        //internal DataTable GetSystemUserByRole(string role)
+        //{
+        //    DataTable dt = new DataTable();
+        //    try
+        //    {
+        //        dt = ExecuteDataSet("Sp_GetSystemUserByRole", int.Parse(role));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+        //    return dt;
+        //}
+
     }
 }

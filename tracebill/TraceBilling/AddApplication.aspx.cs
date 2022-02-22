@@ -264,6 +264,8 @@ namespace TraceBilling
                 app.Branch = branch_list.SelectedValue.ToString();
                 app.Territory = ddlterritory.SelectedValue.ToString();
                 app.SubTerritory = ddlsubterritory.SelectedValue.ToString();
+
+                app.CapturedBy = userid;
                 //end default
                 //validate input
                 resp = bll.ValidateApplication(app.FirstName, app.LastName, app.Telephone, app.Address, app.IdNumber);
