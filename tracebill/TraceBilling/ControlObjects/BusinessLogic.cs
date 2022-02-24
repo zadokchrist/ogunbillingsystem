@@ -4162,7 +4162,7 @@ namespace TraceBilling.ControlObjects
             }
             else if (!IsPasswordStrengthOk(NewPassword))
             {
-                ouput = "Your Password Strength is not ok(Password should be alpha-numeric and length of 8)";
+                ouput = "Your Password Strength is not ok(Password should be alpha-numeric and length of 8 or more)";
             }
             else
             {
@@ -4381,6 +4381,11 @@ namespace TraceBilling.ControlObjects
                 if (resp.Response_Code.ToString().Equals("1"))
                 {
                     output = "System User-"+ username+ " Password has been Changed Successfully";
+                }
+                else
+                {
+                    string err = resp.Response_Code + ":" + resp.Response_Message;
+                    output = err;
                 }
             }
             return output;

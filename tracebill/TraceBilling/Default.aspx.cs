@@ -27,7 +27,7 @@ namespace TraceBilling
         {
             try
             {
-                new Exception("Unable to connect the database");
+                //new Exception("Unable to connect the database");
                 this.GetuserAccess();
             }
             catch (Exception ex)
@@ -49,16 +49,60 @@ namespace TraceBilling
             {
                 string username = txtusername.Text.Trim();
                 string password = txtpassword.Text.Trim();
+                //username = txtusername.Text.Trim();
+                int UserID = bll.GetCurrentUserID(username);
+                lbluserid.Text = UserID.ToString();
+                lblusername.Text = username;
+                bool isuser = false;
                 string encrypted_password = bll.EncryptString(password);
                 resp = bll.ValidateLogin(username, encrypted_password);
                 if (resp.Response_Code.ToString().Equals("0"))
                 {
-                    dt = bll.GetSystemUser(username, encrypted_password);
-                    CreateSession(dt);
-                    //Response.Redirect("Inquiry.aspx", false);
-                    string StartPage = Session["StartPage"].ToString();
-                    bll.RecordAudittrail(Session["userName"].ToString(), "Logged Into the system");
-                    Redirection(StartPage);
+                    //check if username same as pwd at login
+                    isuser = bll.CheckUserLogin(username, password);
+                    if (isuser)
+                    {
+                        DisplayMessage("", false);
+                        lbloldpwd.Text = password;
+                        //change password
+                        ChangeUserPassword(lbloldpwd.Text);
+                    }
+                    else
+                    {
+                        dt = bll.GetSystemUser(username, encrypted_password);
+                        if (dt.Rows.Count > 0)
+                        {
+                            //get active status
+                            string isactive = dt.Rows[0]["IsActive"].ToString();
+                            if (isactive.Equals("YES"))
+                            {
+                                CreateSession(dt);
+                                error = "200:Access granted";
+                                //log detail
+                                CreateSession(dt);
+                                string StartPage = Session["StartPage"].ToString();
+                                bll.Log("GetUserAccess", error);
+                                bll.RecordAudittrail(Session["userName"].ToString(), "Logged Into the system");
+                                Redirection(StartPage);
+                            }
+                            else
+                            {
+                                error = "107:" + " " + "User account-(" + username + ") is disabled. Please contact IT/System Admin.";
+                                bll.Log("GetUserAccess", error);
+                                DisplayMessage(error, true);
+                            }
+
+
+                        }
+                        else
+                        {
+                            error = "106:" + " " + "wrong username or password for user-" + username;
+                            bll.Log("GetUserAccess", error);
+                            DisplayMessage(error, true);
+                        }
+                       
+                    }
+                    
                 }
                 else
                 {
@@ -76,6 +120,24 @@ namespace TraceBilling
 
             }
         }
+
+        private void ChangeUserPassword(string oldpwd)
+        {
+            try
+            {
+                //string newpwd = txtNewPassword.Text.Trim();
+                //string confirmpwd = txtConfirmPassword.Text.Trim();
+                changedisplay.Visible = true;
+                logindisplay.Visible = false;
+                forgotpwddisplay.Visible = false;
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         private void Redirection(string StartPage)
         {
             Response.Redirect(StartPage, true);
@@ -276,6 +338,7 @@ namespace TraceBilling
         {
             try
             {
+                DisplayMessage("", false);
                 changedisplay.Visible = false;
                 logindisplay.Visible = false;
                 forgotpwddisplay.Visible = true;

@@ -22,15 +22,6 @@ namespace TraceBilling {
         protected global::System.Web.UI.HtmlControls.HtmlForm Form1;
         
         /// <summary>
-        /// logindisplay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl logindisplay;
-        
-        /// <summary>
         /// lblmsg control.
         /// </summary>
         /// <remarks>
@@ -38,6 +29,15 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblmsg;
+        
+        /// <summary>
+        /// logindisplay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl logindisplay;
         
         /// <summary>
         /// txtusername control.
@@ -56,15 +56,6 @@ namespace TraceBilling {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtpassword;
-        
-        /// <summary>
-        /// ckremember control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ckremember;
         
         /// <summary>
         /// Button1 control.

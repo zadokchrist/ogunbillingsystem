@@ -53,13 +53,13 @@
           </table>--%>
 
       </div>
-      <h6><b><font color="black"><center>OGUN WATER BILLING SYSTEM</center></b></h6>
-    
+      <h6><b><font color="black"><center>OGUN WATER BILLING SYSTEM</center></b></h6><br />
+              <asp:Label ID="lblmsg" runat="server" Text="" ForeColor="red"></asp:Label><br />
+
    <div id="logindisplay" runat="server" visible="true">
       <div class="form-group has-feedback">
-          <asp:Label ID="lblmsg" runat="server" Text="" ForeColor="red"></asp:Label>
     
-        <asp:TextBox ID="txtusername" runat="server" CssClass="form-control" placeholder="Username or Email" ></asp:TextBox>
+        <asp:TextBox ID="txtusername" runat="server" CssClass="form-control" placeholder="Username" ></asp:TextBox>
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
@@ -67,11 +67,11 @@
        <input type="checkbox" id="pass1" onclick="showpass(this);" />Show
            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
-          <div class="form-group has-feedback">
+          <%--<div class="form-group has-feedback">
              <asp:checkbox runat="server" id="ckremember"></asp:checkbox><label for="rememberme">Remember me</label>
         
        
-      </div>
+      </div>--%>
       <div class="row">
         <!-- /.col -->
         <div class="col-xs-4">
@@ -96,7 +96,7 @@
       <div id="changedisplay"  runat="server" visible="false">
          <table align="center" cellpadding="0" cellspacing="0" style="width: 100%">
                                                        
-                                         <asp:Label runat="server" Text="CHANGE YOUR SYSTEM PASSWORD" id="Label1" Font-Bold="true" ForeColor="Blue"></asp:Label>
+                                         <asp:Label runat="server" Text="CHANGE YOUR SYSTEM PASSWORD" id="Label1" Font-Bold="true" ForeColor="Green"></asp:Label>
 
 <%--              <tr>
                                                             <td class="InterFaceTableLeftRow">
@@ -144,7 +144,7 @@
       <div id="forgotpwddisplay" runat="server" visible="false">
                                                           <table align="center" cellpadding="0" cellspacing="0" style="width: 45%">
                                                        
-                                                              <asp:Label runat="server" Text="FORGOT SYSTEM PASSWORD" id="lblf" Font-Bold="true" ForeColor="Blue"></asp:Label>
+                                                              <asp:Label runat="server" Text="FORGOT SYSTEM PASSWORD" id="lblf" Font-Bold="true" ForeColor="Green"></asp:Label>
                                                        
                                                         <tr>
                                                             <td class="auto-style2">
@@ -242,6 +242,30 @@
         else {
             spass.setAttribute("type", "password");
             
+        }
+    }
+    //new password
+    function showpass2(check_box) {
+        var spass = document.getElementById("txtNewPassword");
+        if (check_box.checked) {
+            spass.setAttribute("type", "text");
+
+        }
+        else {
+            spass.setAttribute("type", "password");
+
+        }
+    }
+    //confirm new password
+    function showpass3(check_box) {
+        var spass = document.getElementById("txtConfirmPassword");
+        if (check_box.checked) {
+            spass.setAttribute("type", "text");
+
+        }
+        else {
+            spass.setAttribute("type", "password");
+
         }
     }
         </script>
