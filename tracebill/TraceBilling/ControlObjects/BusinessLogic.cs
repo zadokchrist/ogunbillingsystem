@@ -4365,7 +4365,7 @@ namespace TraceBilling.ControlObjects
         {
             ResponseMessage resp = new ResponseMessage();
             string output = "";
-            string application_link = dh.GetSystemParameter("1");
+            string application_link = dh.GetSystemParameter("6");
             string message = "  Hello " + fullName;
             string message1 = " " + msg;
             string message2 = " Kindly take note of this request for your input";
